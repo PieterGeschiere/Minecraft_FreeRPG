@@ -20,7 +20,13 @@ public class MinecraftVersion {
    */
   public void initializeVersion() {
     minecraftVersion = Bukkit.getVersion();
-    if (minecraftVersion.contains("1.8")) {
+    // Year-based versions (26.1 and later, e.g. 26.3 -> 26.03) are checked first: the text of a
+    // version like 26.1.8 would otherwise match "1.8" below and make the plugin think it is 1.8.
+    // They are always above any 1.x gate.
+    double yearBased = parseYearBasedVersion(Bukkit.getBukkitVersion());
+    if (yearBased > 0) {
+      minecraftVersion_Double = yearBased;
+    } else if (minecraftVersion.contains("1.8")) {
       minecraftVersion_Double = 1.8;
     } else if (minecraftVersion.contains("1.9")) {
       minecraftVersion_Double = 1.9;
@@ -42,9 +48,6 @@ public class MinecraftVersion {
       minecraftVersion_Double = 1.17;
     } else if (minecraftVersion.contains("1.18")) {
       minecraftVersion_Double = 1.18;
-    } else if (parseYearBasedVersion(Bukkit.getBukkitVersion()) > 0) {
-      // Year-based versioning (26.1 and later), e.g. 26.3 -> 26.03. Always above any 1.x gate.
-      minecraftVersion_Double = parseYearBasedVersion(Bukkit.getBukkitVersion());
     } else {
       minecraftVersion_Double = 1.18;
       FreeRPG.log(Level.WARN,
@@ -55,7 +58,7 @@ public class MinecraftVersion {
   }
 
   /** Returns e.g. 26.03 for "26.3-R0.1-SNAPSHOT", or -1 if not a year-based version. */
-  private static double parseYearBasedVersion(String bukkitVersion) {
+  static double parseYearBasedVersion(String bukkitVersion) {
     java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(\\d{2})\\.(\\d+)")
         .matcher(bukkitVersion);
     if (!m.find()) {

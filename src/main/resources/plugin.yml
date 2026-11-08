@@ -11,7 +11,7 @@ commands:
     description: Main FreeRPG command, type /frpg help for more info
     aliases: [ rpgFree ]
   spite:
-    descriptions: Tells you what spite is good for.
+    description: Tells you what spite is good for.
 permissions:
   freeRPG.*:
     description: Gives access to all FreeRPG commands
@@ -29,7 +29,7 @@ permissions:
       freeRPG.GUI: true
       freeRPG.getEXP: true
       freeRPG.getSouls: true
-      freeRPG.useAbilites: true
+      freeRPG.useAbilities: true
       freeRPG.canRepair: true
       freeRPG.canSalvage: true
       freeRPG.fish: true

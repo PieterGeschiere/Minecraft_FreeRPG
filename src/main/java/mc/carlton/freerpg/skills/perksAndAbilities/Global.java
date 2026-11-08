@@ -63,7 +63,7 @@ public class Global extends Skill {
     }
     String[] gatherer0 = {"digging", "woodcutting", "mining", "farming", "fishing"};
     String[] scholar0 = {"repair", "agility", "alchemy", "smelting", "enchanting"};
-    String[] fighter0 = {"archery", "beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] fighter0 = {"beastMastery", "swordsmanship", "defense", "axeMastery"};
     List<String> gatherer = Arrays.asList(gatherer0);
     List<String> scholar = Arrays.asList(scholar0);
     List<String> fighter = Arrays.asList(fighter0);

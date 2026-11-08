@@ -153,6 +153,7 @@ digging:
     breakRooted_Dirt: 100
     breakMud: 22
     breakMuddy_Mangrove_Roots: 22
+    breakSuspicious_Block: 22 #Suspicious sand and suspicious gravel
 woodcutting:
   timberEXPMultiplier: 0.4 #EXP nerf when using the Timber skill
   timberMaxBreakInitial: 64 #Max number of logs that can be broken with the without Timber+
@@ -308,6 +309,15 @@ mining:
     breakResin: 25 #Resin block, resin bricks
     breakCinnabar: 25 #Cinnabar, polished, bricks and chiseled versions
     breakSulfur: 25 #Sulfur, polished, bricks, chiseled, sulfur spike and potent sulfur
+    breakMagma_Block: 25
+    breakGlowstone: 0
+    breakFlamePick_Cobblestone: 0 #Mining exp for smelting a block with Flame Pick (cobblestone -> stone)
+    breakFlamePick_Quartz_Block: 0
+    breakFlamePick_Stone_Bricks: 0
+    breakFlamePick_Wet_Sponge: 0
+    breakPrismarine: 30 #Prismarine, prismarine bricks, dark prismarine
+    breakBone_Block: 25
+    breakSculk: 30 #Sculk, catalyst, sensors, shrieker, vein
 farming:
   expDrops:
     enableEXPDrops: true
@@ -355,6 +365,9 @@ farming:
     breakPale_Moss_Carpet: 5
     breakNew_Plants: 25 #Cactus flower, firefly bush, bush, wildflowers, golden dandelion
     breakLeaf_Litter: 5
+    breakVines: 20 #Vines, twisting and weeping vines
+    breakSeagrass: 10 #Seagrass and tall seagrass
+    breakDried_Kelp_Block: 40
     breakCave_Vines: 85
     breakSmall_Dripleaf: 70
     breakGlow_Lichen: 70
@@ -677,6 +690,26 @@ beastMastery:
     killWitherSkeleton: 900
     killZoglin: 1000
     killZombie: 750
+    # Newer mobs: when a key is missing the exp is a part of a similar mob
+    killBogged: 750
+    killParched: 750
+    killBreeze: 900
+    killCreaking: 750
+    killCamel: 600
+    killCamel_Husk: 600
+    killNautilus: 700
+    killZombie_Nautilus: 1050
+    killHappy_Ghast: 650
+    killAllay: 450
+    killFrog: 400
+    killArmadillo: 400
+    killSniffer: 450
+    killSulfur_Cube: 500
+    killPiglin_Brute: 600
+    killTrader_Llama: 650
+    killWarden: 1500
+    killCopper_Golem: 750
+    killTadpole: 135
     killZombie_Villager: 750
     killEnder_Dragon: 50000
     killWither: 25000
@@ -761,6 +794,26 @@ swordsmanship:
     killWitherSkeleton: 95
     killZoglin: 85
     killZombie: 75
+    # Newer mobs: when a key is missing the exp is a part of a similar mob
+    killBogged: 80
+    killParched: 80
+    killBreeze: 85
+    killCreaking: 75
+    killCamel: 40
+    killCamel_Husk: 40
+    killNautilus: 70
+    killZombie_Nautilus: 90
+    killHappy_Ghast: 55
+    killAllay: 25
+    killFrog: 30
+    killArmadillo: 30
+    killSniffer: 30
+    killSulfur_Cube: 40
+    killPiglin_Brute: 75
+    killTrader_Llama: 55
+    killWarden: 150
+    killCopper_Golem: 63
+    killTadpole: 9
     killZombie_Villager: 75
     killEnder_Dragon: 20000
     killWither: 12500
@@ -848,6 +901,26 @@ defense:
     killWitherSkeleton: 95
     killZoglin: 85
     killZombie: 75
+    # Newer mobs: when a key is missing the exp is a part of a similar mob
+    killBogged: 80
+    killParched: 80
+    killBreeze: 85
+    killCreaking: 75
+    killCamel: 40
+    killCamel_Husk: 40
+    killNautilus: 70
+    killZombie_Nautilus: 90
+    killHappy_Ghast: 55
+    killAllay: 25
+    killFrog: 30
+    killArmadillo: 30
+    killSniffer: 30
+    killSulfur_Cube: 40
+    killPiglin_Brute: 75
+    killTrader_Llama: 55
+    killWarden: 150
+    killCopper_Golem: 63
+    killTadpole: 9
     killZombie_Villager: 75
     killEnder_Dragon: 20000
     killWither: 12500
@@ -932,6 +1005,26 @@ axeMastery:
     killWitherSkeleton: 95
     killZoglin: 85
     killZombie: 75
+    # Newer mobs: when a key is missing the exp is a part of a similar mob
+    killBogged: 80
+    killParched: 80
+    killBreeze: 85
+    killCreaking: 75
+    killCamel: 40
+    killCamel_Husk: 40
+    killNautilus: 70
+    killZombie_Nautilus: 90
+    killHappy_Ghast: 55
+    killAllay: 25
+    killFrog: 30
+    killArmadillo: 30
+    killSniffer: 30
+    killSulfur_Cube: 40
+    killPiglin_Brute: 75
+    killTrader_Llama: 55
+    killWarden: 150
+    killCopper_Golem: 63
+    killTadpole: 9
     killZombie_Villager: 75
     killEnder_Dragon: 20000
     killWither: 12500
@@ -950,7 +1043,6 @@ repair:
     # Material_baseEXP + (Material_EXPMultiplier*damagePointsRestored*x)
     # Where "x" is generally the number of items required to craft the repaired item
     enableEXPDrops: true
-    repairEnchantedItemSucessfully: 450
     wooden_baseEXP: 50
     wooden_EXPMultiplier: 6
     leather_baseEXP: 50

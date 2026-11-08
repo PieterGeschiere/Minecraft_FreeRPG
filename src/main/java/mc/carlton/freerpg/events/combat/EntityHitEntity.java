@@ -202,13 +202,13 @@ public class EntityHitEntity implements Listener {
     //Crossbow Strike
     else if (e.getDamager() instanceof Firework) {
       ConfigLoad configLoad = new ConfigLoad();
-      if (!configLoad.getAllowedSkillsMap().get("archery")) {
-        return;
-      }
       Entity firework = e.getDamager();
       FireworkShotByPlayerTracker fireworkTracker = new FireworkShotByPlayerTracker();
       Player p = fireworkTracker.getPlayer(firework);
-      fireworkTracker.removeFireWork(firework);
+      fireworkTracker.removeFireWork(firework); // always forget it, even if Archery is off
+      if (!configLoad.getAllowedSkillsMap().get("archery")) {
+        return;
+      }
       if (p != null) {
         Archery archeryClass = new Archery(p);
         PlayerStats pStatClass = new PlayerStats(p);

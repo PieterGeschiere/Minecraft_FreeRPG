@@ -46,7 +46,7 @@ public class FrpgTabCompleter implements TabCompleter {
     for (String toggle : new String[]{"toggleFlamePick", "toggleFlint", "toggleGrapple",
         "toggleHotRod", "toggleMegaDig", "togglePotion", "toggleSpeed", "toggleVeinMiner",
         "toggleLeafBlower", "toggleHolyAxe"}) {
-      SUBCOMMANDS.put(toggle, null);
+      SUBCOMMANDS.put(toggle, toggle); // the permission has the same name as the command
     }
     // Administration
     SUBCOMMANDS.put("saveStats", "saveStats");
@@ -86,10 +86,16 @@ public class FrpgTabCompleter implements TabCompleter {
     switch (sub) {
       // /frpg <command> [skill]
       case "skilltree":
+      case "skilltreegui":
       case "skillconfiggui":
+      case "skillconfig":
+      case "skillconfigurationgui":
       case "confirmationgui":
+      case "confirmgui":
         return args.length == 2 ? filter(SKILLS, last) : new ArrayList<>();
       case "top":
+      case "leaderboard":
+      case "statleaders":
         if (args.length == 2) {
           List<String> options = new ArrayList<>(SKILLS);
           options.add("global");
@@ -99,17 +105,24 @@ public class FrpgTabCompleter implements TabCompleter {
         }
         return new ArrayList<>();
       case "craftinggui":
+      case "recipegui":
         return args.length == 2 ? filter(recipeIds(), last) : new ArrayList<>();
       // /frpg <command> [player]
       case "stats":
+      case "statlookup":
+      case "lookupstats":
       case "setsouls":
+      case "soulsset":
       case "setmultiplier":
       case "addmultiplier":
         return args.length == 2 ? filter(playerNames(), last) : new ArrayList<>();
       // /frpg <command> [player] [skill]
       case "giveexp":
+      case "expgive":
       case "setlevel":
+      case "levelset":
       case "statreset":
+      case "resetstat":
       case "resetcooldown":
         if (args.length == 2) {
           return filter(playerNames(), last);
@@ -123,6 +136,7 @@ public class FrpgTabCompleter implements TabCompleter {
         return new ArrayList<>();
       // /frpg setTokens [player] global [amount] or [player] [skill] skill/passive [amount]
       case "settokens":
+      case "tokensset":
         if (args.length == 2) {
           return filter(playerNames(), last);
         }

@@ -153,15 +153,6 @@ public class PlayerCraft implements Listener {
                 + " (5/5)" + ChatColor.RESET + ChatColor.RED.toString() + " " + lang.getString(
                 "craftRequirement"));
       }
-    } else if (craftingMatch(tippedArrow, crafting)) {
-      if ((int) pStat.get("archery").get(11) < 1 || !configLoad.getAllowedSkillsMap()
-          .get("archery")) {
-        e.setCancelled(true);
-        p.sendMessage(
-            ChatColor.RED + ChatColor.BOLD.toString() + lang.getString("archeryPerkTitle4")
-                + ChatColor.RESET + ChatColor.RED.toString() + " " + lang.getString(
-                "craftRequirement"));
-      }
     } else if (craftingMatch(power, crafting) || craftingMatch(efficiency, crafting)) {
       int xpLevelCost = 0;
       if (craftingMatch(power, crafting)) {

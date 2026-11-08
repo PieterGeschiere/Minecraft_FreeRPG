@@ -163,6 +163,10 @@ public class CrossbowMastery implements Listener {
       return;
     }
     LivingEntity target = (LivingEntity) e.getEntity();
+    if (!(target instanceof org.bukkit.entity.Enemy) && !(target instanceof org.bukkit.entity.Animals)
+        && !(target instanceof Player)) {
+      return; // villagers, golems and other friendly mobs give no exp and get no effects
+    }
     if (!WeaponSkillRules.canHit(p, SKILL, target)) {
       return;
     }
@@ -210,7 +214,7 @@ public class CrossbowMastery implements Listener {
     world.spawnParticle(Particle.CRIT, center, 40, radius / 2, 0.4, radius / 2, 0.3);
     world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.2f, 1.3f);
 
-    int hit = 0;
+    double hit = 0; // counted with the farm multiplier of every mob
     inEffect = true;
     try {
       for (Entity entity : world.getNearbyEntities(center, radius, radius, radius)) {
@@ -237,7 +241,7 @@ public class CrossbowMastery implements Listener {
           }
           living.setVelocity(push.setY(0.7));
         }
-        hit++;
+        hit += WeaponSkillRules.farmMultiplier(living);
       }
     } finally {
       inEffect = false;

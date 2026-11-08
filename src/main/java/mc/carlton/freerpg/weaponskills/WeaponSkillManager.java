@@ -249,7 +249,7 @@ public final class WeaponSkillManager {
     ChangeStats changeStats = new ChangeStats(p);
     double multiplier = changeStats.getSkillMultiplier("swordsmanship")
         * WeaponSkillConfig.getDouble(key + ".EXP_Multiplier", 1.0);
-    int exp = (int) Math.ceil(rawExp * multiplier);
+    int exp = (int) Math.round(rawExp * multiplier);
     if (exp <= 0) {
       return;
     }

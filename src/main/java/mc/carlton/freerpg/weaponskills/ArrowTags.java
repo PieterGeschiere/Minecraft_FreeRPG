@@ -17,6 +17,7 @@ final class ArrowTags {
   static final String BOW_VOLLEY = "bow_volley";
   static final String CROSSBOW = "crossbow";
   static final String CROSSBOW_BLAST = "crossbow_blast";
+  static final String TRIDENT_MAELSTROM = "trident_maelstrom";
 
   private ArrowTags() {
   }
@@ -40,7 +41,8 @@ final class ArrowTags {
   /** The player who shot the arrow, or null. */
   static Player shooter(Entity entity) {
     if (entity instanceof AbstractArrow && ((AbstractArrow) entity).getShooter() instanceof Player) {
-      return (Player) ((AbstractArrow) entity).getShooter();
+      Player shooter = (Player) ((AbstractArrow) entity).getShooter();
+      return shooter.isOnline() ? shooter : null; // a player who left gets nothing (and no reload)
     }
     return null;
   }

@@ -80,10 +80,14 @@ class RepairProfileTest {
   }
 
   @Test
+  void turtleHelmetIsRepairedWithScutes() {
+    check(Material.TURTLE_HELMET, 0.8, 1, 5, 5, "leather_baseEXP", "leather_EXPMultiplier");
+  }
+
+  @Test
   void itemsThatCannotBeRepairedHaveNoProfile() {
     assertNull(Repair.getRepairProfile(Material.IRON_INGOT, LATEST));
     assertNull(Repair.getRepairProfile(Material.LEATHER_HORSE_ARMOR, LATEST));
-    assertNull(Repair.getRepairProfile(Material.TURTLE_HELMET, LATEST));
     assertNull(Repair.getRepairProfile(Material.STONE, LATEST));
     assertNull(Repair.getRepairProfile(Material.DIRT, LATEST));
   }

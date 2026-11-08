@@ -329,6 +329,11 @@ public class WeaponSkillTreeMenu implements Listener {
       p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNeedRefundPerk"));
       return;
     }
+    if (data.getTotalPassiveLevels() + data.getTotalSkillLevels() == 0) {
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNothingToRefund", "skill",
+          skill.getDisplayName()));
+      return;
+    }
     int cost = new ConfigLoad().getSoulsInfo().get(1);
     int souls = global.get(20).intValue();
     if (souls < cost) {

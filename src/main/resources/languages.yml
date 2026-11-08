@@ -103,6 +103,8 @@ lang:
     weaponNeedRefundPerk: You need to unlock the refund perk in the global skill tree first.
     weaponNeedSouls: You need {cost} souls to refund the skill tree.
     weaponRefunded: 'Your {skill} skill tree was refunded (-{cost} souls).'
+    weaponNothingToRefund: 'You have nothing to refund in {skill}.'
+    requiredSouls: 'souls are needed to refund this skill tree.'
     weaponBowSkill0: 'Extra Arrows'
     weaponBowSkillDesc0: 'Arrow Storm fires {v} more arrow(s) per shot per level.'
     weaponBowSkill1: 'Pinning Shot'
@@ -877,6 +879,8 @@ lang:
     weaponNeedRefundPerk: 'Először fel kell oldanod a visszatérítés előnyt a globális képességfában.'
     weaponNeedSouls: '{cost} lélekre van szükséged a képességfa visszatérítéséhez.'
     weaponRefunded: 'A(z) {skill} képességfád visszatérítve (-{cost} lélek).'
+    weaponNothingToRefund: 'Nincs mit visszatéríteni itt: {skill}.'
+    requiredSouls: 'lélekre van szükség a képességfa visszatérítéséhez.'
     weaponBowSkill0: 'Extra nyilak'
     weaponBowSkillDesc0: 'Az Arrow Storm lövésenként és szintenként {v} nyíllal többet lő.'
     weaponBowSkill1: 'Odaszegező lövés'
@@ -1620,6 +1624,8 @@ lang:
     weaponNeedRefundPerk: 'Il faut d''abord débloquer l''avantage de remboursement dans l''arbre de compétences global.'
     weaponNeedSouls: 'Il vous faut {cost} âmes pour rembourser l''arbre de compétences.'
     weaponRefunded: 'Votre arbre de compétences {skill} a été remboursé (-{cost} âmes).'
+    weaponNothingToRefund: 'Vous n''avez rien à rembourser dans {skill}.'
+    requiredSouls: 'âmes sont nécessaires pour rembourser cet arbre de compétences.'
     weaponBowSkill0: 'Flèches supplémentaires'
     weaponBowSkillDesc0: 'Arrow Storm tire {v} flèche(s) de plus par tir et par niveau.'
     weaponBowSkill1: 'Tir clouant'
@@ -2358,6 +2364,8 @@ lang:
     weaponNeedRefundPerk: 'Du musst zuerst den Rückerstattungs-Vorteil im globalen Fähigkeitsbaum freischalten.'
     weaponNeedSouls: 'Du brauchst {cost} Seelen, um den Fähigkeitsbaum zurückzuerstatten.'
     weaponRefunded: 'Dein Fähigkeitsbaum für {skill} wurde zurückerstattet (-{cost} Seelen).'
+    weaponNothingToRefund: 'Du hast in {skill} nichts zurückzuerstatten.'
+    requiredSouls: 'Seelen werden benötigt, um diesen Fähigkeitsbaum zurückzuerstatten.'
     weaponBowSkill0: 'Zusätzliche Pfeile'
     weaponBowSkillDesc0: 'Arrow Storm schießt pro Schuss und Level {v} Pfeil(e) mehr.'
     weaponBowSkill1: 'Festnagelnder Schuss'
@@ -3116,6 +3124,8 @@ lang:
     weaponNeedRefundPerk: 'Najpierw musisz odblokować zdolność zwrotu w globalnym drzewku umiejętności.'
     weaponNeedSouls: 'Potrzebujesz {cost} dusz, aby zwrócić drzewko umiejętności.'
     weaponRefunded: 'Drzewko umiejętności {skill} zostało zwrócone (-{cost} dusz).'
+    weaponNothingToRefund: 'Nie masz niczego do zwrotu w {skill}.'
+    requiredSouls: 'dusz jest potrzebnych, aby zwrócić to drzewko umiejętności.'
     weaponBowSkill0: 'Dodatkowe strzały'
     weaponBowSkillDesc0: 'Arrow Storm wypuszcza o {v} strzał więcej na strzał za każdy poziom.'
     weaponBowSkill1: 'Przygważdżający strzał'
@@ -3883,6 +3893,8 @@ lang:
     weaponNeedRefundPerk: 'Primero debes desbloquear la ventaja de reembolso en el árbol de habilidades global.'
     weaponNeedSouls: 'Necesitas {cost} almas para reembolsar el árbol de habilidades.'
     weaponRefunded: 'Tu árbol de habilidades de {skill} fue reembolsado (-{cost} almas).'
+    weaponNothingToRefund: 'No tienes nada que reembolsar en {skill}.'
+    requiredSouls: 'almas son necesarias para reembolsar este árbol de habilidades.'
     weaponBowSkill0: 'Flechas adicionales'
     weaponBowSkillDesc0: 'Arrow Storm dispara {v} flecha(s) más por disparo y por nivel.'
     weaponBowSkill1: 'Disparo de inmovilización'
@@ -4353,7 +4365,7 @@ lang:
     refundSkill: se requieren para reembolsar un árbol de habilidades
     refundSkill2: para reembolsar un árbol de habilidades
     needToUnlock: Necesitas desbloquear
-    PerkRequirement: Necesitas al menos 2 fichas de habilidad invertidas en las ventajas
+    perkRequirement: Necesitas al menos 2 fichas de habilidad invertidas en las ventajas
       anteriores para desbloquear esta ventaja
     perkRequirementM: necesitas al menos 10 fichas de habilidad en total invertidas
       en el árbol de habilidades para desbloquear esta ventaja de maestría
@@ -4375,7 +4387,7 @@ lang:
     readyToUse: está listo para usar de nuevo
     cooldown: enfriamiento
     rapidFire: Fuego rápido
-    bown: arco
+    bow: arco
     greatAxe: Gran hacha
     axe: hacha
     spurKick: Spur Kick
@@ -4386,7 +4398,7 @@ lang:
     shovel: pala
     naturalRegeneration: Regeneración natural
     hoe: Azada
-    superbait: superbait
+    superBait: superbait
     fishingRod: caña de pescar
     berserkPick: Pico del Berserker
     pickaxe: pico
@@ -4428,7 +4440,7 @@ lang:
     informationURL: URL de información (Google Docs)
     click: CLIC
     levelArgument: el argumento de nivel debe ser menor que 40
-    leadboard: tabla de clasificación
+    leaderboard: tabla de clasificación
     playerOffline: ese jugador no está en línea
     onlyIncrease: solo aumente exp con este comando; de lo contrario, use / frpg statReset
       y luego / frpg giveEXP
@@ -4566,7 +4578,7 @@ lang:
     potionBlindess: Poción de ceguera
     potionConduitPower: Poción de poder de conducto
     potionResistance: Poción de resistencia
-    pociónDolphinsGrace: Poción de Dolphins Grace
+    potionDolphinsGrace: Poción de Dolphins Grace
     potionHaste: Poción de prisa
     potionFireResistance: Poción de resistencia al fuego
     potionGlowing: Poción de resplandor
@@ -4591,8 +4603,8 @@ lang:
     potionWeakness: Poción de debilidad
     potionDecay: Poción de descomposición
     potionAwkward: Poción torpe
-    poción Uncraftable: Poción Inconvenible
-    poción Mundane: Poción Mundana
+    potionUncraftable: Poción Inconvenible
+    potionMundane: Poción Mundana
     potionTurtleMaster: Poción del maestro tortuga
     potionThick: Poción espesa
     potionWater: Botella de agua
@@ -4720,6 +4732,8 @@ lang:
     weaponNeedRefundPerk: 'Сначала нужно разблокировать преимущество возврата в глобальном дереве навыков.'
     weaponNeedSouls: 'Для возврата дерева навыков нужно {cost} душ.'
     weaponRefunded: 'Дерево навыков {skill} возвращено (-{cost} душ).'
+    weaponNothingToRefund: 'В {skill} нечего возвращать.'
+    requiredSouls: 'душ нужно для возврата этого дерева навыков.'
     weaponBowSkill0: 'Дополнительные стрелы'
     weaponBowSkillDesc0: 'Arrow Storm выпускает на {v} стрел(ы) больше за выстрел за уровень.'
     weaponBowSkill1: 'Пригвождающий выстрел'
@@ -5457,6 +5471,8 @@ lang:
     weaponNeedRefundPerk: 'Primeiro você precisa desbloquear o benefício de reembolso na árvore de habilidades global.'
     weaponNeedSouls: 'Você precisa de {cost} almas para reembolsar a árvore de habilidades.'
     weaponRefunded: 'Sua árvore de habilidades de {skill} foi reembolsada (-{cost} almas).'
+    weaponNothingToRefund: 'Você não tem nada para reembolsar em {skill}.'
+    requiredSouls: 'almas são necessárias para reembolsar esta árvore de habilidades.'
     weaponBowSkill0: 'Flechas extras'
     weaponBowSkillDesc0: 'Arrow Storm dispara {v} flecha(s) a mais por disparo e por nível.'
     weaponBowSkill1: 'Tiro de imobilização'
@@ -5982,7 +5998,7 @@ lang:
     refundSkillTree1: e não é reversível, você tem certeza que quer
     refundSkillTree2: devolver o
     skill: habilidade
-    VoltarToSkillTree: Leva você de volta para a árvore de habilidade
+    backToSkillTree: Leva você de volta para a árvore de habilidade
     miningPerkDesc0_1: 2 segundos de aceleração I após minerar qualquer minério
     miningPerkDesc0_2: 5 segundos de aceleração I após a mineração de qualquer minério
     miningPerkDesc0_3: 10 segundos de aceleração I após a mineração de qualquer minério
@@ -6231,6 +6247,8 @@ lang:
     weaponNeedRefundPerk: 'Nejprve musíš odemknout výhodu vrácení ve globálním stromu dovedností.'
     weaponNeedSouls: 'K vrácení stromu dovedností potřebuješ {cost} duší.'
     weaponRefunded: 'Tvůj strom dovedností {skill} byl vrácen (-{cost} duší).'
+    weaponNothingToRefund: 'V {skill} nemáš nic k vrácení.'
+    requiredSouls: 'duší je potřeba k vrácení tohoto stromu dovedností.'
     weaponBowSkill0: 'Další šípy'
     weaponBowSkillDesc0: 'Arrow Storm vystřelí o {v} šíp(y) více za výstřel a úroveň.'
     weaponBowSkill1: 'Připíchnutí šípem'
@@ -6968,6 +6986,8 @@ lang:
     weaponNeedRefundPerk: '먼저 글로벌 스킬 트리에서 환불 퍼크를 해금해야 합니다.'
     weaponNeedSouls: '스킬 트리를 환불하려면 영혼 {cost}개가 필요합니다.'
     weaponRefunded: '{skill} 스킬 트리가 환불되었습니다 (영혼 -{cost}개).'
+    weaponNothingToRefund: '{skill}에서 환불할 것이 없습니다.'
+    requiredSouls: '영혼이 스킬 트리를 환불하는 데 필요합니다.'
     weaponBowSkill0: '추가 화살'
     weaponBowSkillDesc0: '레벨당 Arrow Storm이 발사마다 화살을 {v}발 더 쏩니다.'
     weaponBowSkill1: '속박의 사격'

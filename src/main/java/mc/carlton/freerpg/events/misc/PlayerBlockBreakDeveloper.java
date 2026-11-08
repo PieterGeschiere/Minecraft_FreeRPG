@@ -231,6 +231,16 @@ public class PlayerBlockBreakDeveloper implements Listener {
       Farming farmingClass = new Farming(p);
       if (tallCrops.contains(blockType)) {
         farmingClass.tallCrops(block, world);
+      } else if (block_data instanceof org.bukkit.block.data.type.CaveVinesPlant) {
+        // Same as PlayerBlockBreak: only cave vine parts that carry glow berries give exp
+        if (((org.bukkit.block.data.type.CaveVinesPlant) block_data).isBerries()) {
+          increaseStats.changeEXP("farming", farmingEXP.get(blockType));
+          farmingClass.farmingDoubleDropCrop(block, world);
+        }
+      } else if (blockType == Material.TWISTING_VINES || blockType == Material.WEEPING_VINES) {
+        // The tip of these vines is also Ageable, but it gives exp at any age
+        increaseStats.changeEXP("farming", farmingEXP.get(blockType));
+        farmingClass.farmingDoubleDropCrop(block, world);
       } else if (block_data instanceof Ageable) {
         Ageable age = (Ageable) block_data;
         if (age.getAge() == age.getMaximumAge()) {

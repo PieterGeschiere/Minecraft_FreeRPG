@@ -222,7 +222,7 @@ public class SpearMastery implements Listener {
 
     LivingEntity last = null;
     double lastDistance = -1;
-    int hit = 0;
+    double hit = 0; // counted with the farm multiplier of every mob
     inEffect = true;
     try {
       for (Entity entity : world.getNearbyEntities(start, length + width, 3, length + width)) {
@@ -239,7 +239,7 @@ public class SpearMastery implements Listener {
         }
         LivingEntity living = (LivingEntity) entity;
         living.damage(damage, p);
-        hit++;
+        hit += WeaponSkillRules.farmMultiplier(living);
         if (along > lastDistance) {
           lastDistance = along;
           last = living;

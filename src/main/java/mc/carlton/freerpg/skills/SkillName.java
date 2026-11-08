@@ -33,7 +33,7 @@ public enum SkillName {
         .toUpperCase();
     try {
       return SkillName.valueOf(convertedSkillName);
-    } catch (NullPointerException exception) {
+    } catch (NullPointerException | IllegalArgumentException exception) {
       return null; //We don't want an exception if user input is messed up, and if we really did we can just throw one.
     }
   }

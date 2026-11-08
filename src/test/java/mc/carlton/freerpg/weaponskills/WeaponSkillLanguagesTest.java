@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.bukkit.configuration.ConfigurationSection;
@@ -59,7 +60,7 @@ class WeaponSkillLanguagesTest {
   @Test
   void englishHasTheWeaponTexts() {
     assertFalse(weaponKeys().isEmpty());
-    assertEquals(142, weaponKeys().size());
+    assertEquals(143, weaponKeys().size());
   }
 
   @Test
@@ -73,6 +74,26 @@ class WeaponSkillLanguagesTest {
         assertFalse(text.isBlank(), language + "." + key + " is empty");
       }
     }
+  }
+
+  @Test
+  void everyLanguageHasExactlyTheKeysOfEnglish() {
+    java.util.Set<String> english = lang.getConfigurationSection("enUs").getKeys(false);
+    for (String language : LANGUAGES) {
+      java.util.Set<String> keys = lang.getConfigurationSection(language).getKeys(false);
+      java.util.Set<String> missing = new TreeSet<>(english);
+      missing.removeAll(keys);
+      java.util.Set<String> extra = new TreeSet<>(keys);
+      extra.removeAll(english);
+      assertTrue(missing.isEmpty(), language + " is missing " + missing);
+      assertTrue(extra.isEmpty(), language + " has unknown keys (misspelled?) " + extra);
+    }
+  }
+
+  @Test
+  void textsUsedByTheCodeExist() {
+    // keys that the Java code asks for with a literal name and that were once missing
+    assertNotNull(lang.getString("enUs.requiredSouls"));
   }
 
   @Test

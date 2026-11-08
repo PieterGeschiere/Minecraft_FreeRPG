@@ -169,6 +169,17 @@ public class PlayerBlockBreak implements Listener {
       Farming farmingClass = new Farming(p);
       if (tallCrops.contains(blockType)) {
         farmingClass.tallCrops(block, world);
+      } else if (block_data instanceof org.bukkit.block.data.type.CaveVinesPlant) {
+        // Cave vines (the tip is also Ageable, so this must come before the Ageable branch): only
+        // the parts that carry glow berries give exp
+        if (((org.bukkit.block.data.type.CaveVinesPlant) block_data).isBerries()) {
+          increaseStats.changeEXP("farming", farmingEXP.get(blockType));
+          farmingClass.farmingDoubleDropCrop(block, world);
+        }
+      } else if (blockType == Material.TWISTING_VINES || blockType == Material.WEEPING_VINES) {
+        // The tip of these vines is also Ageable, but it gives exp at any age
+        increaseStats.changeEXP("farming", farmingEXP.get(blockType));
+        farmingClass.farmingDoubleDropCrop(block, world);
       } else if (block_data instanceof Ageable) {
         Ageable age = (Ageable) block_data;
         if (age.getAge() == age.getMaximumAge()) {
@@ -177,16 +188,6 @@ public class PlayerBlockBreak implements Listener {
             Map<String, Integer> expMap = configLoad.getExpMapForSkill("alchemy");
             increaseStats.changeEXP("alchemy", expMap.get("breakNetherWart"));
           }
-          farmingClass.farmingDoubleDropCrop(block, world);
-        }
-      } else if (block_data instanceof org.bukkit.block.data.type.CaveVines
-          || block_data instanceof org.bukkit.block.data.type.CaveVinesPlant) {
-        // Only the parts that carry glow berries give exp
-        boolean hasBerries = block_data instanceof org.bukkit.block.data.type.CaveVines
-            ? ((org.bukkit.block.data.type.CaveVines) block_data).isBerries()
-            : ((org.bukkit.block.data.type.CaveVinesPlant) block_data).isBerries();
-        if (hasBerries) {
-          increaseStats.changeEXP("farming", farmingEXP.get(blockType));
           farmingClass.farmingDoubleDropCrop(block, world);
         }
       } else if (block_data instanceof Cocoa) {

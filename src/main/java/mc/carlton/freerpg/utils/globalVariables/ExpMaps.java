@@ -99,12 +99,19 @@ public class ExpMaps {
     // Cinnabar and sulfur stone (only the names that are blocks on this version count)
     putBlockExp(miningEXP, mining, "breakCinnabar", 25, "CINNABAR", "POLISHED_CINNABAR",
         "CINNABAR_BRICKS", "CHISELED_CINNABAR");
+    putBlockExp(miningEXP, mining, "breakMagma_Block", 25, "MAGMA_BLOCK");
+    putBlockExp(miningEXP, mining, "breakPrismarine", 30, "PRISMARINE", "PRISMARINE_BRICKS",
+        "DARK_PRISMARINE");
+    putBlockExp(miningEXP, mining, "breakBone_Block", 25, "BONE_BLOCK");
+    putBlockExp(miningEXP, mining, "breakSculk", 30, "SCULK", "SCULK_CATALYST", "SCULK_SENSOR",
+        "CALIBRATED_SCULK_SENSOR", "SCULK_SHRIEKER", "SCULK_VEIN");
     putBlockExp(miningEXP, mining, "breakSulfur", 25, "SULFUR", "POLISHED_SULFUR",
         "SULFUR_BRICKS", "CHISELED_SULFUR", "SULFUR_SPIKE", "POTENT_SULFUR");
 
     Map<String, Integer> digging = configLoad.getExpMapForSkill("digging");
     putExp(diggingEXP, digging, "breakMud", 22, "MUD");
     putExp(diggingEXP, digging, "breakMuddy_Mangrove_Roots", 22, "MUDDY_MANGROVE_ROOTS");
+    putExp(diggingEXP, digging, "breakSuspicious_Block", 22, "SUSPICIOUS_SAND", "SUSPICIOUS_GRAVEL");
 
     Map<String, Integer> wood = configLoad.getExpMapForSkill("woodcutting");
     String[][] woodTypes = {{"breakMangrove_Log", "MANGROVE"}, {"breakCherry_Log", "CHERRY"},
@@ -125,8 +132,8 @@ public class ExpMaps {
     putExp(woodcuttingEXP, wood, "breakBamboo_Block", 100, "BAMBOO_BLOCK",
         "STRIPPED_BAMBOO_BLOCK");
     putExp(woodcuttingEXP, wood, "breakNew_Planks", 25, "BAMBOO_PLANKS", "BAMBOO_MOSAIC");
-    putExp(woodcuttingEXP, wood, "breakMangrove_Roots", 20, "MANGROVE_ROOTS",
-        "MUDDY_MANGROVE_ROOTS");
+    // MUDDY_MANGROVE_ROOTS is a digging block (breakMuddy_Mangrove_Roots), so it is not repeated here
+    putExp(woodcuttingEXP, wood, "breakMangrove_Roots", 20, "MANGROVE_ROOTS");
     putExp(woodcuttingEXP, wood, "breakHyphae", 125, "CRIMSON_HYPHAE", "WARPED_HYPHAE",
         "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE");
 
@@ -136,6 +143,10 @@ public class ExpMaps {
     putExp(farmingEXP, farming, "breakNew_Plants", 25, "CACTUS_FLOWER", "FIREFLY_BUSH", "BUSH",
         "WILDFLOWERS", "GOLDEN_DANDELION");
     putExp(farmingEXP, farming, "breakLeaf_Litter", 5, "LEAF_LITTER");
+    putExp(farmingEXP, farming, "breakVines", 20, "VINE", "TWISTING_VINES", "TWISTING_VINES_PLANT",
+        "WEEPING_VINES", "WEEPING_VINES_PLANT");
+    putExp(farmingEXP, farming, "breakSeagrass", 10, "SEAGRASS", "TALL_SEAGRASS");
+    putExp(farmingEXP, farming, "breakDried_Kelp_Block", 40, "DRIED_KELP_BLOCK");
     putExp(farmingEXP, farming, "breakHoney_Block", 25, "HONEY_BLOCK");
     putExp(farmingEXP, farming, "breakHoneycomb_Block", 25, "HONEYCOMB_BLOCK");
     putExp(farmingEXP, farming, "breakBee_Nest", 75, "BEEHIVE", "BEE_NEST");
@@ -273,7 +284,7 @@ public class ExpMaps {
     miningEXP.put(Material.GOLD_ORE, expMap.get("breakGold_Ore"));
     miningEXP.put(Material.EMERALD_ORE, expMap.get("breakEmerald_Ore"));
     miningEXP.put(Material.OBSIDIAN, expMap.get("breakObsidian"));
-    miningEXP.put(Material.GLOWSTONE, 0);
+    miningEXP.put(Material.GLOWSTONE, expMap.getOrDefault("breakGlowstone", 0));
     if (mcVersion >= 1.16) {
       miningEXP.put(Material.ANCIENT_DEBRIS, expMap.get("breakAncient_Debris"));
       miningEXP.put(Material.NETHER_GOLD_ORE, expMap.get("breakNether_Gold_Ore"));
@@ -349,7 +360,8 @@ public class ExpMaps {
         new Object[]{"mining", expMap.get("mining").get("breakIron_Ore")});
     flamePickEXP.put(Material.GOLD_ORE,
         new Object[]{"mining", expMap.get("mining").get("breakGold_Ore")});
-    flamePickEXP.put(Material.COBBLESTONE, new Object[]{"mining", 0});
+    flamePickEXP.put(Material.COBBLESTONE, new Object[]{"mining",
+        expMap.get("mining").getOrDefault("breakFlamePick_Cobblestone", 0)});
     flamePickEXP.put(Material.STONE,
         new Object[]{"mining", expMap.get("mining").get("breakStone")});
     flamePickEXP.put(Material.SANDSTONE,
@@ -358,13 +370,16 @@ public class ExpMaps {
         new Object[]{"mining", expMap.get("mining").get("breakRed_Sandstone")});
     flamePickEXP.put(Material.SAND,
         new Object[]{"digging", expMap.get("digging").get("breakSand")});
-    flamePickEXP.put(Material.QUARTZ_BLOCK, new Object[]{"mining", 0});
+    flamePickEXP.put(Material.QUARTZ_BLOCK, new Object[]{"mining",
+        expMap.get("mining").getOrDefault("breakFlamePick_Quartz_Block", 0)});
     flamePickEXP.put(Material.NETHERRACK,
         new Object[]{"mining", expMap.get("mining").get("breakNetherrack")});
     flamePickEXP.put(Material.CLAY,
         new Object[]{"digging", expMap.get("digging").get("breakClay")});
-    flamePickEXP.put(Material.STONE_BRICKS, new Object[]{"mining", 0});
-    flamePickEXP.put(Material.WET_SPONGE, new Object[]{"mining", 0});
+    flamePickEXP.put(Material.STONE_BRICKS, new Object[]{"mining",
+        expMap.get("mining").getOrDefault("breakFlamePick_Stone_Bricks", 0)});
+    flamePickEXP.put(Material.WET_SPONGE, new Object[]{"mining",
+        expMap.get("mining").getOrDefault("breakFlamePick_Wet_Sponge", 0)});
     flamePickEXP.put(Material.CACTUS,
         new Object[]{"farming", expMap.get("farming").get("breakCactus")});
     flamePickEXP.put(Material.JUNGLE_LOG,

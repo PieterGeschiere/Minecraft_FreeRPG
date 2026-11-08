@@ -27,6 +27,6 @@ public class FireworkShotByPlayerTracker {
   }
 
   public void removeFireWork(Entity firework) {
-    fireWorkPlayerMap.remove(firework);
+    fireWorkPlayerMap.remove(firework.getUniqueId());
   }
 }

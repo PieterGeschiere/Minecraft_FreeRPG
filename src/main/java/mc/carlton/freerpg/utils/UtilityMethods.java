@@ -72,9 +72,9 @@ public class UtilityMethods {
     int green = 0;
     int blue = 0;
     if (RGB.size() == 3) {
-      red = Integer.parseInt(RGB.get(0));
-      green = Integer.parseInt(RGB.get(1));
-      blue = Integer.parseInt(RGB.get(2));
+      red = Integer.parseInt(RGB.get(0).trim());
+      green = Integer.parseInt(RGB.get(1).trim());
+      blue = Integer.parseInt(RGB.get(2).trim());
     }
     return Color.fromRGB(red, green, blue);
   }

@@ -113,6 +113,10 @@ public class ConfirmationGUIClick implements Listener {
           ArrayList<Integer> soulsInfo = loadConfig.getSoulsInfo();
           int refundCost = (int) soulsInfo.get(1);
           int souls = (int) pStatAll.get("global").get(20);
+          if (!loadConfig.getAllowedSkillsMap().getOrDefault(skillName, true)) {
+            p.closeInventory(); // a disabled (or retired) skill cannot be refunded
+            return;
+          }
           if (souls >= refundCost) {
 
             //Refund the skill tree

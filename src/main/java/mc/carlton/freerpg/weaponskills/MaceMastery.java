@@ -161,8 +161,8 @@ public class MaceMastery implements Listener {
     double exp = expValue("hitBase", 10) * charge
         + expValue("hitPerDamage", 5) * e.getFinalDamage();
     if (smash) {
-      exp += expValue("smashBase", 150) + expValue("smashPerBlock", 25) * Math.min(fallDistance,
-          30);
+      exp += (expValue("smashBase", 150) + expValue("smashPerBlock", 25) * Math.min(fallDistance,
+          30)) * charge;
     }
     WeaponSkillManager.addExp(p, SKILL, exp * WeaponSkillRules.farmMultiplier(target));
 
@@ -197,7 +197,7 @@ public class MaceMastery implements Listener {
     center.getWorld().spawnParticle(Particle.CLOUD, center, 40, radius / 2, 0.2, radius / 2, 0.05);
     center.getWorld().playSound(center, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1.5f, 1f);
 
-    int hit = 0;
+    double hit = 0; // counted with the farm multiplier of every mob
     inShockwave = true;
     try {
       for (Entity entity : center.getWorld().getNearbyEntities(center, radius, radius, radius)) {
@@ -217,7 +217,7 @@ public class MaceMastery implements Listener {
         }
         push.setY(earthshaker ? 0.8 : 0.35);
         living.setVelocity(push);
-        hit++;
+        hit += WeaponSkillRules.farmMultiplier(living);
       }
     } finally {
       inShockwave = false;

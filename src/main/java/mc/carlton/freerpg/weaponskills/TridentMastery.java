@@ -31,6 +31,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
@@ -67,6 +68,8 @@ public class TridentMastery implements Listener {
 
   /** True while the maelstrom damages mobs, so those hits are not handled again. */
   private static boolean inEffect = false;
+  /** Thrown tridents that already made their whirlpool (a returning trident hits again). */
+  private static final Set<UUID> WHIRLED = new HashSet<>();
   private final Map<UUID, Long> lastMessage = new HashMap<>();
 
   private static double abilityDouble(String key, double defaultValue) {
@@ -155,7 +158,8 @@ public class TridentMastery implements Listener {
   /** The player who threw the trident, or null. */
   private static Player getThrower(Entity entity) {
     if (entity instanceof Trident && ((Trident) entity).getShooter() instanceof Player) {
-      return (Player) ((Trident) entity).getShooter();
+      Player thrower = (Player) ((Trident) entity).getShooter();
+      return thrower.isOnline() ? thrower : null; // a player who left gets nothing (and no reload)
     }
     return null;
   }
@@ -245,13 +249,34 @@ public class TridentMastery implements Listener {
     if (p == null || !WeaponSkillConfig.isEnabled()) {
       return;
     }
+    // Only a trident that was thrown while Maelstrom was ready makes a whirlpool
+    if (!ArrowTags.TRIDENT_MAELSTROM.equals(ArrowTags.get(e.getEntity()))) {
+      return;
+    }
+    if (WHIRLED.size() > 1000) {
+      WHIRLED.clear();
+    }
+    if (!WHIRLED.add(e.getEntity().getUniqueId())) {
+      return;
+    }
+    WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
+    Location center = e.getHitEntity() != null ? e.getHitEntity().getLocation()
+        : e.getEntity().getLocation();
+    startMaelstrom(p, center.clone().add(0, 0.5, 0), data);
+  }
+
+  /** Throwing a trident while Maelstrom is ready uses one charge and marks that trident. */
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onThrow(ProjectileLaunchEvent e) {
+    Player p = getThrower(e.getEntity());
+    if (p == null || !WeaponSkillConfig.isEnabled()) {
+      return;
+    }
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
     if (!data.isAbilityActive() || data.getAbilityCharges() <= 0) {
       return;
     }
-    Location center = e.getHitEntity() != null ? e.getHitEntity().getLocation()
-        : e.getEntity().getLocation();
-    startMaelstrom(p, center.clone().add(0, 0.5, 0), data);
+    ArrowTags.tag(e.getEntity(), ArrowTags.TRIDENT_MAELSTROM);
     data.setAbilityCharges(data.getAbilityCharges() - 1);
     if (data.getAbilityCharges() <= 0) {
       WeaponSkillRules.finishAbility(p, SKILL, data, true);
@@ -287,7 +312,7 @@ public class TridentMastery implements Listener {
           world.playSound(center, Sound.ENTITY_PLAYER_SWIM, 1.2f, 0.6f);
         }
 
-        int exp = 0;
+        double exp = 0;
         for (Entity entity : world.getNearbyEntities(center, radius, radius, radius)) {
           if (!(entity instanceof Enemy) || !(entity instanceof LivingEntity)) {
             continue;
@@ -311,7 +336,7 @@ public class TridentMastery implements Listener {
             }
           }
           if (counted.add(living.getUniqueId())) {
-            exp += expValue("maelstromPerEntity", 15);
+            exp += expValue("maelstromPerEntity", 15) * WeaponSkillRules.farmMultiplier(living);
           }
         }
         if (exp > 0 && p.isOnline()) {

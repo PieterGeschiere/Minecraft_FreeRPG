@@ -9,6 +9,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SpectralArrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -162,7 +163,7 @@ public class BowMastery implements Listener {
     for (int i = 1; i <= extra; i++) {
       double angle = ((i + 1) / 2) * spread * (i % 2 == 1 ? 1 : -1);
       Vector dir = direction.clone().rotateAroundY(Math.toRadians(angle));
-      Arrow arrow = world.spawnArrow(from, dir, (float) speed, 0f);
+      AbstractArrow arrow = spawnCopy(world, from, origin, dir, speed);
       arrow.setShooter(p);
       arrow.setCritical(origin.isCritical());
       arrow.setDamage(origin.getDamage());
@@ -176,6 +177,29 @@ public class BowMastery implements Listener {
     world.spawnParticle(Particle.CRIT, from, 12, 0.4, 0.4, 0.4, 0.2);
   }
 
+  /** A new arrow of the same kind as the one shot: tipped arrows keep their potion, spectral stay spectral. */
+  private static AbstractArrow spawnCopy(World world, Location from, AbstractArrow origin,
+      Vector dir, double speed) {
+    if (origin instanceof SpectralArrow) {
+      return world.spawn(from, SpectralArrow.class,
+          spectral -> spectral.setVelocity(dir.clone().multiply(speed)));
+    }
+    Arrow arrow = world.spawnArrow(from, dir, (float) speed, 0f);
+    if (origin instanceof Arrow) {
+      Arrow tipped = (Arrow) origin;
+      if (tipped.getBasePotionType() != null) {
+        arrow.setBasePotionType(tipped.getBasePotionType());
+      }
+      for (PotionEffect effect : tipped.getCustomEffects()) {
+        arrow.addCustomEffect(effect, true);
+      }
+      if (tipped.getColor() != null) {
+        arrow.setColor(tipped.getColor());
+      }
+    }
+    return arrow;
+  }
+
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onHit(EntityDamageByEntityEvent e) {
     String tag = ArrowTags.get(e.getDamager());
@@ -185,6 +209,10 @@ public class BowMastery implements Listener {
       return;
     }
     LivingEntity target = (LivingEntity) e.getEntity();
+    if (!(target instanceof org.bukkit.entity.Enemy) && !(target instanceof org.bukkit.entity.Animals)
+        && !(target instanceof Player)) {
+      return; // villagers, golems and other friendly mobs give no exp and get no effects
+    }
     if (!WeaponSkillRules.canHit(p, SKILL, target)) {
       return;
     }

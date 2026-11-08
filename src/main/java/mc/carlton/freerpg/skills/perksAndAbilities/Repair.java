@@ -326,6 +326,8 @@ public class Repair extends Skill {
         return new RepairProfile(0.8, 1, 3, 1, "elytra_baseEXP", "elytra_expMultiplier");
       case SHIELD:
         return new RepairProfile(0.8, 1, 3, 1, "shield_baseEXP", "shield_expMultiplier");
+      case TURTLE_HELMET:
+        return new RepairProfile(0.8, 1, 5, 5, "leather_baseEXP", "leather_EXPMultiplier");
       case WOLF_ARMOR:
         return new RepairProfile(0.8, 1, 4, 4, "leather_baseEXP", "leather_EXPMultiplier");
       default:

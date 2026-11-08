@@ -634,6 +634,10 @@ public class ItemGroups {
         repairItemsAmount.put(armor, 4);
       }
     }
+    if (Material.matchMaterial("TURTLE_SCUTE") != null) {
+      repairItems.put(Material.TURTLE_HELMET, Material.matchMaterial("TURTLE_SCUTE"));
+      repairItemsAmount.put(Material.TURTLE_HELMET, 5);
+    }
     repairItems.put(Material.WOODEN_AXE, Material.STICK);
     repairItems.put(Material.WOODEN_HOE, Material.STICK);
     repairItems.put(Material.WOODEN_PICKAXE, Material.STICK);

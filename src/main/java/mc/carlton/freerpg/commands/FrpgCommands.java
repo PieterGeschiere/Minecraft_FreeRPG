@@ -1109,6 +1109,10 @@ public class FrpgCommands implements CommandExecutor {
         commandHelper.sendImproperArgumentsMessage();
         return true; //Improper input
       }
+      if (!new ConfigLoad().getAllowedSkillsMap().getOrDefault(skillName, true)) {
+        sender.sendMessage(ChatColor.RED + "That skill is disabled (Archery is retired).");
+        return true;
+      }
       createLeaderboard(sender, page, skillName);
     }
 
@@ -1341,6 +1345,10 @@ public class FrpgCommands implements CommandExecutor {
         return true; //Improper argument (exp change not positive)
       }
 
+      if (!new ConfigLoad().getAllowedSkillsMap().getOrDefault(skillName, true)) {
+        sender.sendMessage(ChatColor.RED + "That skill is disabled (Archery is retired).");
+        return true;
+      }
       ChangeStats increaseStats = new ChangeStats(target);
       increaseStats.set_isCommand(true);
       increaseStats.changeEXP(skillName, exp);
@@ -1416,6 +1424,10 @@ public class FrpgCommands implements CommandExecutor {
         return true; //Improper argument (exp change not positive)
       }
 
+      if (!new ConfigLoad().getAllowedSkillsMap().getOrDefault(skillName, true)) {
+        sender.sendMessage(ChatColor.RED + "That skill is disabled (Archery is retired).");
+        return true;
+      }
       increaseStats.set_isCommand(true);
       increaseStats.changeEXP(skillName, exp - currentExp + 1);
       increaseStats.setTotalLevel();
