@@ -140,6 +140,7 @@ public class CrossbowMastery implements Listener {
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
     if (data.isAbilityActive() && data.getAbilityCharges() > 0) {
       ArrowTags.tag(e.getProjectile(), ArrowTags.CROSSBOW_BLAST);
+      ArrowTrail.start((AbstractArrow) e.getProjectile(), SKILL, data, false);
       data.setAbilityCharges(data.getAbilityCharges() - 1);
       if (data.getAbilityCharges() <= 0) {
         WeaponSkillRules.finishAbility(p, SKILL, data, true);
@@ -150,6 +151,7 @@ public class CrossbowMastery implements Listener {
     if (data.getSkill(RECOIL_BOOST) > 0) {
       p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,
           (int) (perk("recoilSeconds", 4) * 20), 0));
+      AbilityEffects.perk(p.getLocation(), "recoil");
     }
   }
 
@@ -213,6 +215,7 @@ public class CrossbowMastery implements Listener {
     world.spawnParticle(Particle.EXPLOSION, center, 1);
     world.spawnParticle(Particle.CRIT, center, 40, radius / 2, 0.4, radius / 2, 0.3);
     world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.2f, 1.3f);
+    AbilityEffects.blastImpact(center, radius);
 
     double hit = 0; // counted with the farm multiplier of every mob
     inEffect = true;
@@ -225,13 +228,16 @@ public class CrossbowMastery implements Listener {
         }
         LivingEntity living = (LivingEntity) entity;
         living.damage(damage, p);
+        AbilityEffects.damageNumber(living.getLocation(), damage, org.bukkit.ChatColor.GOLD);
         if (data.getSkill(CONCUSSION) > 0) {
           living.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
               (int) (getConcussionSeconds(data) * 20), 1));
+          AbilityEffects.perk(living.getLocation(), "concussion");
         }
         if (data.getSkill(REND) > 0) {
           living.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,
               (int) (getRendSeconds(data) * 20), 0));
+          AbilityEffects.perk(living.getLocation(), "rend");
         }
         if (launch) {
           Vector push = living.getLocation().toVector().subtract(center.toVector());
@@ -240,6 +246,7 @@ public class CrossbowMastery implements Listener {
             push.normalize().multiply(0.5);
           }
           living.setVelocity(push.setY(0.7));
+          AbilityEffects.perk(living.getLocation(), "shrapnel");
         }
         hit += WeaponSkillRules.farmMultiplier(living);
       }

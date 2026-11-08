@@ -16,6 +16,15 @@ tokens:
   rightClickInvestment: 10       # Tokens invested in a passive with a right-click
   shiftClickInvestment: 100      # Tokens invested with a shift-click (shift + right-click: all tokens)
 
+# Sounds and visuals of the weapon skills. Every part can be switched off.
+effects:
+  sounds: true          # Sounds of abilities, perks, level-ups and new skill tokens
+  particles: true       # The burst when an ability is readied and the aura while it is ready
+  hud: true             # Boss bar with the time and shots left while an ability is ready
+  arrowTrails: true     # Particle trails on the arrows of Arrow Storm and the bolts of Blast Bolt
+  impactRings: true     # Rings where Blast Bolt and Piercing Rush hit
+  damageNumbers: true   # Floating damage numbers for Blast Bolt and Piercing Rush
+
 mace:
   skillAllowed: true           # Set to false to disable Mace Mastery completely
   maxLevel: -1                 # Highest level, -1 for no limit

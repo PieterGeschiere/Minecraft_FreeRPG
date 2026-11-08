@@ -141,6 +141,7 @@ public class BowMastery implements Listener {
       return;
     }
     data.setAbilityCharges(data.getAbilityCharges() - 1);
+    ArrowTrail.start(origin, SKILL, data, false);
     fireVolley(p, origin, data);
     if (data.getAbilityCharges() <= 0) {
       WeaponSkillRules.finishAbility(p, SKILL, data, true);
@@ -172,8 +173,9 @@ public class BowMastery implements Listener {
         arrow.setFireTicks(fireTicks);
       }
       ArrowTags.tag(arrow, ArrowTags.BOW_VOLLEY);
+      ArrowTrail.start(arrow, SKILL, data, true);
     }
-    world.playSound(from, Sound.ENTITY_ARROW_SHOOT, 1f, 1.4f);
+    AbilityEffects.volleySound(from, extra);
     world.spawnParticle(Particle.CRIT, from, 12, 0.4, 0.4, 0.4, 0.2);
   }
 
@@ -233,14 +235,17 @@ public class BowMastery implements Listener {
     if (data.getSkill(PINNING_SHOT) > 0) {
       target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
           (int) (getPinningSeconds(data) * 20), 1));
+      AbilityEffects.perk(target.getLocation(), "pinning");
     }
     if (data.getSkill(MARKED_PREY) > 0) {
       target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,
           (int) (getMarkedSeconds(data) * 20), 0));
+      AbilityEffects.perk(target.getLocation(), "marked");
     }
     if (data.getSkill(FLEET_FOOT) > 0) {
       p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,
           (int) (perk("fleetFootSeconds", 4) * 20), 0));
+      AbilityEffects.perk(p.getLocation(), "fleet");
     }
   }
 

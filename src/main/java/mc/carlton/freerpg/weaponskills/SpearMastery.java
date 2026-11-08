@@ -186,6 +186,7 @@ public class SpearMastery implements Listener {
     if (data.getSkill(HAMSTRING) > 0) {
       target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
           (int) (getHamstringSeconds(data) * 20), 1));
+      AbilityEffects.perk(target.getLocation(), "hamstring");
     }
     if (data.isAbilityActive() && data.getAbilityCharges() > 0) {
       pierce(p, target, damage, data);
@@ -240,6 +241,8 @@ public class SpearMastery implements Listener {
         LivingEntity living = (LivingEntity) entity;
         living.damage(damage, p);
         hit += WeaponSkillRules.farmMultiplier(living);
+        AbilityEffects.impactRing(living.getLocation(), 0.9, AbilityEffects.color(SKILL));
+        AbilityEffects.damageNumber(living.getLocation(), damage, ChatColor.GREEN);
         if (along > lastDistance) {
           lastDistance = along;
           last = living;
@@ -248,11 +251,15 @@ public class SpearMastery implements Listener {
     } finally {
       inEffect = false;
     }
+    if (last != null) {
+      AbilityEffects.impactRing(last.getLocation(), width + 0.8, AbilityEffects.color(SKILL));
+    }
     if (last != null && data.getSkill(PIN) > 0) {
       // The mob at the end of the line is pinned in place
       last.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
           (int) (perk("pinSeconds", 2) * 20), 6));
       world.spawnParticle(Particle.CRIT, last.getLocation().add(0, 1, 0), 15, 0.3, 0.5, 0.3, 0.1);
+      AbilityEffects.perk(last.getLocation(), "pin");
     }
     if (hit > 0) {
       WeaponSkillManager.addExp(p, SKILL, hit * expValue("piercePerEntity", 15));
@@ -284,6 +291,7 @@ public class SpearMastery implements Listener {
     if (data.getSkill(TRIUMPH) > 0) {
       killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,
           (int) (perk("triumphSeconds", 3) * 20), 1));
+      AbilityEffects.perk(killer.getLocation(), "triumph");
     }
   }
 
@@ -328,6 +336,7 @@ public class SpearMastery implements Listener {
         Double.toString(Math.round(duration * 10) / 10.0), "count",
         Integer.toString(getAbilityCharges())));
     p.playSound(p.getLocation(), Sound.ITEM_TRIDENT_RIPTIDE_1, 1f, 1.4f);
+    AbilityEffects.activated(p, SKILL, data);
     UUID uuid = p.getUniqueId();
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {
       Player online = Bukkit.getPlayer(uuid);

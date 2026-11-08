@@ -140,6 +140,15 @@ class ResourceFilesTest {
   }
 
   @Test
+  void everyEffectCanBeSwitchedOffInWeaponSkillsYml() throws Exception {
+    YamlConfiguration yaml = load("weaponSkills.yml");
+    for (String key : new String[]{"sounds", "particles", "hud", "arrowTrails", "impactRings",
+        "damageNumbers"}) {
+      assertTrue(yaml.getBoolean("effects." + key, false), "effects." + key + " is missing or off");
+    }
+  }
+
+  @Test
   void archeryIsRetiredInTheDefaultConfig() throws Exception {
     assertEquals(false, load("config.yml").getBoolean("archery.skillAllowed", true));
   }

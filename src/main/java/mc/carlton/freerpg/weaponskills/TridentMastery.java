@@ -198,10 +198,12 @@ public class TridentMastery implements Listener {
       if (data.getSkill(BARBED_TIPS) > 0) {
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
             (int) (getBarbedSeconds(data) * 20), 1));
+        AbilityEffects.perk(target.getLocation(), "barbed");
       }
       if (data.getSkill(SEA_SHIELD) > 0) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,
             (int) (perk("seaShieldSeconds", 8) * 20), 0));
+        AbilityEffects.perk(p.getLocation(), "seashield");
       }
     } else {
       // Weak swings (attack not charged) give less exp, so spam-clicking is not worth it
@@ -446,6 +448,7 @@ public class TridentMastery implements Listener {
         Double.toString(Math.round(duration * 10) / 10.0), "count",
         Integer.toString(getAbilityCharges())));
     p.playSound(p.getLocation(), Sound.AMBIENT_UNDERWATER_ENTER, 1f, 1f);
+    AbilityEffects.activated(p, SKILL, data);
     UUID uuid = p.getUniqueId();
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {
       Player online = Bukkit.getPlayer(uuid);

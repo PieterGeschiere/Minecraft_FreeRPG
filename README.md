@@ -138,6 +138,15 @@ the same kind of skill tree.
 
 
 
+**Effects**: every weapon ability has sounds and visuals, all switchable in the `effects:` section of
+`weaponSkills.yml`: a burst and sound when an ability is readied, an aura around you and a boss bar
+with the time and shots left while it is ready, a puff when it ends, a different sound for every
+perk that works, a fanfare for each weapon skill when you level up, particle trails on the arrows
+of Arrow Storm and the bolts of Blast Bolt (a layer for each perk you own, like flames for Flaming
+Volley or a glow for Marked Prey), and rings and floating damage numbers where Blast Bolt and
+Piercing Rush hit.
+
+
 ## Repair and Salvage Stations
 
 Repairing and salvaging no longer works on every iron or gold block, so you can build freely with

@@ -170,10 +170,12 @@ public class MaceMastery implements Listener {
       if (data.getSkill(STAGGER) > 0) {
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,
             (int) (getStaggerSeconds(data) * 20), 1));
+        AbilityEffects.perk(target.getLocation(), "stagger");
       }
       if (data.getSkill(RATTLE) > 0) {
         target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,
             (int) (getRattleSeconds(data) * 20), 0));
+        AbilityEffects.perk(target.getLocation(), "rattle");
       }
       if (data.isAbilityActive()) {
         shockwave(p, target, damage, data);
@@ -182,6 +184,7 @@ public class MaceMastery implements Listener {
         int ticks = (int) (perk("adrenalineSeconds", 4) * 20);
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, ticks, 0));
         p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, ticks, 0));
+        AbilityEffects.perk(p.getLocation(), "adrenaline");
       }
     }
   }
@@ -319,6 +322,7 @@ public class MaceMastery implements Listener {
         Double.toString(Math.round(duration * 10) / 10.0), "count",
         Integer.toString(getAbilityCharges())));
     p.playSound(p.getLocation(), Sound.ITEM_MACE_SMASH_AIR, 1f, 1f);
+    AbilityEffects.activated(p, SKILL, data);
     UUID uuid = p.getUniqueId();
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {
       Player online = Bukkit.getPlayer(uuid);

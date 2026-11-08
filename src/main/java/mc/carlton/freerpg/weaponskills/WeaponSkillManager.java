@@ -363,7 +363,7 @@ public final class WeaponSkillManager {
     }
     String skillTitle = skill.getDisplayName();
     if (gainedGlobalToken) {
-      p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+      AbilityEffects.levelUp(p, skill);
       if (newTokensG > 0 && extraGlobalTokens <= 0) {
         p.sendTitle(ChatColor.DARK_PURPLE + lang.getString("globalPassiveTitle0") + " +"
                 + newTokensG,
@@ -377,7 +377,7 @@ public final class WeaponSkillManager {
       }
     }
     if (newTokensS > 0 || oldLevel < 3) {
-      p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+      AbilityEffects.levelUp(p, skill);
       String bars = "------------------------------------------------";
       String levelUpMessage = skillTitle + " " + lang.getString("level") + " " + newLevel + "!";
       int spaces = bars.length() - levelUpMessage.length();
@@ -477,6 +477,7 @@ public final class WeaponSkillManager {
     if (Math.floor(newLevel / perSkillToken) > Math.floor(oldLevel / perSkillToken)) {
       p.sendMessage(ChatColor.GOLD + WeaponSkillRules.text(p, "weaponTokenEarned", "skill",
           skill.getDisplayName()));
+      AbilityEffects.tokenEarned(p);
     }
   }
 }

@@ -149,7 +149,7 @@ public final class WeaponSkillRules {
     if (announce && p.isOnline()) {
       new ActionBarMessages(p).sendMessage(
           ChatColor.RED + text(p, "weaponEnded", "ability", skill.getAbilityName()));
-      AbilitySounds.end(p, "digging");
+      AbilityEffects.ended(p, skill);
     }
     scheduleReady(p, skill, data, cooldown * 20L + 2);
   }
