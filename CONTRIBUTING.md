@@ -3,7 +3,7 @@
 ## Issues
 
 Found an issue? Great, you can report bugs and crashes by opening an issue on
-our [issue tracker](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16/issues). Before opening a
+our [issue tracker](https://github.com/PieterGeschiere/Minecraft_FreeRPG/issues). Before opening a
 new issue, use the search tool to make sure that your issue has not already been reported and ensure
 that you have completely filled out the issue template. Issues that are duplicates or do not contain
 the necessary information to triage and debug may be closed.
@@ -24,7 +24,7 @@ know about your changes. We will be happy to integrate them.
 ## Translation
 
 You want to translate FreeRPG to a different language? Great, clone this repository or download the
-[languages.yml](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16/blob/master/src/main/resources/languages.yml)
+[languages.yml](https://github.com/PieterGeschiere/Minecraft_FreeRPG/blob/master/src/main/resources/languages.yml)
 file. Open it using a texteditor or an IDE. Start by coping for example the english translation (
 check out the
 [link](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16/blob/2301f9fbbea164e581973130d62509f891cb0103/src/main/resources/languages.yml#L4-L634)

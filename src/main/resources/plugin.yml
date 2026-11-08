@@ -2,8 +2,9 @@ name: FreeRPG
 version: ${project.version}
 main: mc.carlton.freerpg.FreeRPG
 api-version: '26.3'
-authors: [ JackCarlton, AdvancedWipe ]
-description: Made from Spite
+authors: [ JackCarlton, AdvancedWipe, PieterGeschiere ]
+description: RPG skill system for Minecraft 26.3 (fork of FreeRPG by Jack Carlton and AdvancedWipe)
+website: https://github.com/PieterGeschiere/Minecraft_FreeRPG
 softdepend: [ WorldGuard,PlaceholderAPI ]
 commands:
   frpg:
