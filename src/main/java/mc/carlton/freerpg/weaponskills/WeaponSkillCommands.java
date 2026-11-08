@@ -25,7 +25,8 @@ public final class WeaponSkillCommands {
       page = 1;
     }
     sender.sendMessage(ChatColor.AQUA + "------| " + ChatColor.WHITE + ChatColor.BOLD
-        + skill.getDisplayName() + " Leaderboard" + ChatColor.RESET + ChatColor.WHITE + " Page ["
+        + skill.getDisplayName() + " " + WeaponSkillRules.text(sender, "weaponLeaderboard")
+        + ChatColor.RESET + ChatColor.WHITE + " Page ["
         + page + "/" + totalPages + "]" + ChatColor.AQUA + " |-----");
     for (int i = 10 * (page - 1); i < Math.min(10 * page, sorted.size()); i++) {
       WeaponSkillBoard.Entry entry = sorted.get(i);
@@ -63,7 +64,7 @@ public final class WeaponSkillCommands {
         return false;
       }
       if (!sender.hasPermission("freeRPG.leaderboard")) {
-        sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
+        sender.sendMessage(ChatColor.RED + WeaponSkillRules.text(sender, "weaponNoPermission"));
         return true;
       }
       int page = 1;
@@ -126,12 +127,11 @@ public final class WeaponSkillCommands {
     }
 
     if (!sender.hasPermission("freeRPG." + permission)) {
-      sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
+      sender.sendMessage(ChatColor.RED + WeaponSkillRules.text(sender, "weaponNoPermission"));
       return true;
     }
     if (permission.equals("setTokens")) {
-      sender.sendMessage(ChatColor.RED + "Weapon skill tokens come from levels. Use /frpg setLevel "
-          + "to change them.");
+      sender.sendMessage(ChatColor.RED + WeaponSkillRules.text(sender, "weaponTokensFromLevels"));
       return true;
     }
 
@@ -139,7 +139,8 @@ public final class WeaponSkillCommands {
     if (skillIndex == 2) {
       target = Bukkit.getPlayerExact(args[1]);
       if (target == null) {
-        sender.sendMessage(ChatColor.RED + args[1] + " is not online.");
+        sender.sendMessage(ChatColor.RED + WeaponSkillRules.text(sender, "weaponNotOnline", "player",
+            args[1]));
         return true;
       }
     } else if (sender instanceof Player) {
@@ -160,7 +161,8 @@ public final class WeaponSkillCommands {
       try {
         amount = Integer.parseInt(args[skillIndex + 1]);
       } catch (NumberFormatException e) {
-        sender.sendMessage(ChatColor.RED + "\"" + args[skillIndex + 1] + "\" is not a number.");
+        sender.sendMessage(ChatColor.RED + WeaponSkillRules.text(sender, "weaponNotANumber", "value",
+            args[skillIndex + 1]));
         return true;
       }
     }
@@ -169,22 +171,25 @@ public final class WeaponSkillCommands {
     switch (permission) {
       case "giveEXP":
         WeaponSkillManager.giveExp(target, skill, amount);
-        sender.sendMessage(ChatColor.GREEN + "Gave " + amount + " exp to " + name + " (level "
-            + WeaponSkillManager.get(target, skill).getLevel() + ").");
+        sender.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(sender, "weaponGaveExp",
+            "amount", Integer.toString(amount), "name", name, "level",
+            Integer.toString(WeaponSkillManager.get(target, skill).getLevel())));
         break;
       case "setLevel":
         WeaponSkillManager.setLevel(target, skill, amount);
-        sender.sendMessage(ChatColor.GREEN + "Set " + name + " level to "
-            + WeaponSkillManager.get(target, skill).getLevel() + ".");
+        sender.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(sender, "weaponSetLevel",
+            "name", name, "level",
+            Integer.toString(WeaponSkillManager.get(target, skill).getLevel())));
         break;
       case "statReset":
         WeaponSkillManager.reset(target, skill);
-        sender.sendMessage(ChatColor.GREEN + "Reset " + name + ".");
+        sender.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(sender, "weaponStatReset", "name",
+            name));
         break;
       default:
         WeaponSkillManager.resetCooldown(target, skill);
-        sender.sendMessage(ChatColor.GREEN + "Reset the " + skill.getAbilityName()
-            + " cooldown of " + target.getName() + ".");
+        sender.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(sender, "weaponCooldownReset",
+            "ability", skill.getAbilityName(), "player", target.getName()));
         break;
     }
     return true;

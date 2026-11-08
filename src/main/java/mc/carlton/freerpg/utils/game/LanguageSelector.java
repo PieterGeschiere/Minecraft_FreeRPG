@@ -56,6 +56,33 @@ public class LanguageSelector {
     return translatedMessage;
   }
 
+  private static Map<String, String> bundledEnglish;
+
+  /** The English texts of the languages.yml inside the jar, used when the server's copy is old. */
+  private static Map<String, String> getBundledEnglish() {
+    if (bundledEnglish == null) {
+      Map<String, String> texts = new java.util.HashMap<>();
+      try (java.io.InputStream stream = mc.carlton.freerpg.FreeRPG.getPlugin(
+          mc.carlton.freerpg.FreeRPG.class).getResource("languages.yml")) {
+        if (stream != null) {
+          org.bukkit.configuration.ConfigurationSection section =
+              org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(
+                  new java.io.InputStreamReader(stream, java.nio.charset.StandardCharsets.UTF_8))
+                  .getConfigurationSection("lang.enUs");
+          if (section != null) {
+            for (String key : section.getKeys(false)) {
+              texts.put(key, section.getString(key));
+            }
+          }
+        }
+      } catch (java.io.IOException | RuntimeException e) {
+        // no fallback available, the identifier is shown instead
+      }
+      bundledEnglish = texts;
+    }
+    return bundledEnglish;
+  }
+
   public static String getString(String id,
       String languageCode) { //Used if we want to ignore the player's language choice
     String text = "";
@@ -66,6 +93,8 @@ public class LanguageSelector {
       text = text0.toString();
     } else if (idToStringMap.get("enUs." + id) != null) {
       text = idToStringMap.get("enUs." + id); //Not translated yet, fall back to English
+    } else if (getBundledEnglish().get(id) != null) {
+      text = getBundledEnglish().get(id); //languages.yml on the server lacks the key (not updated)
     } else {
       text = id; //If the text isn't found, the next best thing is the identifier
     }

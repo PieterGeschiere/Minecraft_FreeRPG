@@ -2,11 +2,17 @@ package mc.carlton.freerpg.weaponskills;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.entity.Player;
 
 /** Small text helpers for the weapon skill menus. */
 final class TreeText {
 
   private TreeText() {
+  }
+
+  /** A text from languages.yml in the player's language, with {placeholders} replaced. */
+  static String tr(Player p, String id, String... replacements) {
+    return WeaponSkillRules.text(p, id, replacements);
   }
 
   /** 3.0 becomes "3", 0.5 stays "0.5". */

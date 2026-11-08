@@ -965,14 +965,29 @@ public class FrpgCommands implements CommandExecutor {
     //Weapon skills menu (Mace Mastery, ...)
     else if (args[0].equalsIgnoreCase("weapons") || args[0].equalsIgnoreCase("weaponSkills")) {
       if (!(sender instanceof Player)) {
-        sender.sendMessage(ChatColor.RED + "Only players can open the weapon skills menu.");
+        sender.sendMessage(ChatColor.RED
+            + mc.carlton.freerpg.weaponskills.WeaponSkillRules.text(sender, "weaponPlayersOnly"));
         return true;
       }
       if (!sender.hasPermission("freeRPG.weaponSkills")) {
-        sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
+        sender.sendMessage(ChatColor.RED
+            + mc.carlton.freerpg.weaponskills.WeaponSkillRules.text(sender, "weaponNoPermission"));
         return true;
       }
       mc.carlton.freerpg.weaponskills.WeaponSkills.openMenu((Player) sender);
+      return true;
+    }
+
+    //Reloads weaponSkills.yml without a restart
+    else if (args[0].equalsIgnoreCase("reloadWeapons")) {
+      if (!sender.hasPermission("freeRPG.reloadWeapons")) {
+        sender.sendMessage(ChatColor.RED
+            + mc.carlton.freerpg.weaponskills.WeaponSkillRules.text(sender, "weaponNoPermission"));
+        return true;
+      }
+      mc.carlton.freerpg.weaponskills.WeaponSkillConfig.load(plugin);
+      sender.sendMessage(ChatColor.GREEN
+          + mc.carlton.freerpg.weaponskills.WeaponSkillRules.text(sender, "weaponReloaded"));
       return true;
     }
 
@@ -1457,6 +1472,10 @@ public class FrpgCommands implements CommandExecutor {
           if (!skillNameLabel.equalsIgnoreCase("all")) {
             changeStats.resetStat(skillNameLabel);
           }
+        }
+        for (mc.carlton.freerpg.weaponskills.WeaponSkill weaponSkill
+            : mc.carlton.freerpg.weaponskills.WeaponSkill.values()) {
+          mc.carlton.freerpg.weaponskills.WeaponSkillManager.reset(target, weaponSkill);
         }
       }
 

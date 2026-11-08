@@ -475,8 +475,8 @@ public final class WeaponSkillManager {
     double perSkillToken = Math.max(1, WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken",
         100));
     if (Math.floor(newLevel / perSkillToken) > Math.floor(oldLevel / perSkillToken)) {
-      p.sendMessage(ChatColor.GOLD + "You earned a skill token for " + skill.getDisplayName()
-          + "! Spend it in the skill tree (/frpg weapons).");
+      p.sendMessage(ChatColor.GOLD + WeaponSkillRules.text(p, "weaponTokenEarned", "skill",
+          skill.getDisplayName()));
     }
   }
 }

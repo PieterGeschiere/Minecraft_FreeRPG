@@ -33,6 +33,7 @@ public class FrpgTabCompleter implements TabCompleter {
     SUBCOMMANDS.put("help", "help");
     SUBCOMMANDS.put("skills", "mainGUI");
     SUBCOMMANDS.put("weapons", "weaponSkills");
+    SUBCOMMANDS.put("reloadWeapons", "reloadWeapons");
     SUBCOMMANDS.put("skillTree", "skillsGUI");
     SUBCOMMANDS.put("skillConfigGUI", "skillConfigGUI");
     SUBCOMMANDS.put("configGUI", "configGUI");

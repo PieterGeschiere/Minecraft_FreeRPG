@@ -1242,7 +1242,7 @@ stations:
   # When true, only crafted Repair/Salvage Stations work (right-click while sneaking). Ordinary iron and gold
   # blocks stay normal building blocks. When false, every iron block repairs and every gold block salvages.
   enabled: true
-  repairRecipeCenter: IRON_BLOCK #Repair Station: center ingredient, surrounded by 8 of the item below
+  # Repair Station: iron block in the middle, surrounded by 8 of the item below
   repairRecipeSurround: IRON_INGOT
-  salvageRecipeCenter: GOLD_BLOCK #Salvage Station: center ingredient, surrounded by 8 of the item below
+  # Salvage Station: gold block in the middle, surrounded by 8 of the item below
   salvageRecipeSurround: GOLD_INGOT

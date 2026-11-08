@@ -129,6 +129,9 @@ permissions:
   freeRPG.spearMasteryAbility:
     description: allows the player to use the spearMastery ability
     default: true
+  freeRPG.reloadWeapons:
+    description: allows user to reload weaponSkills.yml (/frpg reloadWeapons)
+    default: op
   freeRPG.weaponSkills:
     description: allows user to open the weapon skills menu (/frpg weapons)
     default: true

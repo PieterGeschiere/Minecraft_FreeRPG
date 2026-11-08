@@ -80,10 +80,10 @@ public class RepairStations implements Listener {
       return;
     }
     addRecipe(repairRecipeKey, REPAIR,
-        material(advanced.getString("stations.repairRecipeCenter"), Material.IRON_BLOCK),
+        Material.IRON_BLOCK,
         material(advanced.getString("stations.repairRecipeSurround"), Material.IRON_INGOT));
     addRecipe(salvageRecipeKey, SALVAGE,
-        material(advanced.getString("stations.salvageRecipeCenter"), Material.GOLD_BLOCK),
+        Material.GOLD_BLOCK,
         material(advanced.getString("stations.salvageRecipeSurround"), Material.GOLD_INGOT));
     for (Player player : Bukkit.getOnlinePlayers()) {
       discoverRecipes(player);

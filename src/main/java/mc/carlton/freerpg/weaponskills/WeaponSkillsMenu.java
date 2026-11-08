@@ -144,6 +144,17 @@ public class WeaponSkillsMenu implements Listener {
     lore.add(ChatColor.GRAY + lang.getString("rank") + ": " + ChatColor.WHITE + ChatColor.BOLD
         + String.format("%,d", rank[0]) + ChatColor.RESET + ChatColor.GRAY + " / "
         + ChatColor.WHITE + rank[1]);
+    int passiveTokens = WeaponSkillManager.getAvailablePassiveTokens(data);
+    int skillTokens = WeaponSkillManager.getAvailableSkillTokens(data);
+    if (passiveTokens > 0 || skillTokens > 0) {
+      lore.add(ChatColor.LIGHT_PURPLE + WeaponSkillRules.text(p, "weaponUnspentTokens",
+          "passive", Integer.toString(passiveTokens), "skill", Integer.toString(skillTokens)));
+    }
+    long cooldownLeft = data.getAbilityCooldownUntil() - System.currentTimeMillis();
+    if (cooldownLeft > 0) {
+      lore.add(ChatColor.RED + WeaponSkillRules.text(p, "weaponCooldownLeft", "ability",
+          skill.getAbilityName(), "seconds", Long.toString(cooldownLeft / 1000 + 1)));
+    }
     meta.setLore(lore);
     meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ADDITIONAL_TOOLTIP,
         ItemFlag.HIDE_ENCHANTS);

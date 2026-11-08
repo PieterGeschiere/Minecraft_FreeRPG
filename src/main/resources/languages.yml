@@ -7,6 +7,102 @@ lang:
     translationCredit: suppusmac
     weaponSkills: Weapon Skills
     weaponAbility: Ability
+    weaponNoPermission: You do not have permission to do that.
+    weaponPlayersOnly: Only players can open the weapon skills menu.
+    weaponLeaderboard: Leaderboard
+    weaponTokensFromLevels: Weapon skill tokens come from levels. Use /frpg setLevel to change them.
+    weaponNotOnline: '{player} is not online.'
+    weaponNotANumber: '"{value}" is not a number.'
+    weaponGaveExp: 'Gave {amount} exp to {name} (level {level}).'
+    weaponSetLevel: 'Set {name} level to {level}.'
+    weaponStatReset: 'Reset {name}.'
+    weaponCooldownReset: 'Reset the {ability} cooldown of {player}.'
+    weaponReloaded: weaponSkills.yml reloaded.
+    weaponMaceSkill0: 'Wide Shockwave'
+    weaponMaceSkillDesc0: 'Increases the radius of Seismic Slam''s shockwave by {v} blocks per level.'
+    weaponMaceSkill1: 'Stagger'
+    weaponMaceSkillDesc1: 'Smash attacks slow the target for {v} second(s) per level.'
+    weaponMaceSkill2: 'Aftershock'
+    weaponMaceSkillDesc2: 'Increases the damage of Seismic Slam''s shockwave by {v} of the smash damage per level.'
+    weaponMaceSkill3: 'Rattle'
+    weaponMaceSkillDesc3: 'Smash attacks weaken the target for {v} seconds per level.'
+    weaponMaceSkill4: 'Earthshaker'
+    weaponMaceSkillDesc4: 'Seismic Slam launches mobs into the air and its shockwave deals {v} more damage.'
+    weaponMaceSkill5: 'Adrenaline'
+    weaponMaceSkillDesc5: 'Smash attacks grant you Speed and Resistance for {v} seconds.'
+    weaponMaceSkill6: 'Titan''s Wrath'
+    weaponMaceSkillDesc6: 'Smash attacks deal {v} more damage and Seismic Slam''s shockwave is {w} wider.'
+    weaponMacePassive0: 'Slam Duration'
+    weaponMacePassiveDesc0: 'Increases how long Seismic Slam stays ready.'
+    weaponMacePassive1: 'Smash Power'
+    weaponMacePassiveDesc1: 'Increases the damage of your smash attacks.'
+    weaponMacePassive2: 'Soft Landing'
+    weaponMacePassiveDesc2: 'Reduces the fall damage you take while holding a mace.'
+    weaponMaceAbilityDesc: 'Seismic Slam: right-click a mace to ready it. For a short time (up to {charges} smashes) your smash attacks send a shockwave through nearby hostile mobs. Cooldown {cooldown} s.'
+    weaponTridentSkill0: 'Wide Maelstrom'
+    weaponTridentSkillDesc0: 'Increases the radius of the Maelstrom by {v} blocks per level.'
+    weaponTridentSkill1: 'Undertow'
+    weaponTridentSkillDesc1: 'The Maelstrom pulls mobs in {v} harder per level.'
+    weaponTridentSkill2: 'Maelstrom Bite'
+    weaponTridentSkillDesc2: 'The Maelstrom damages the mobs it pulls, {v} per half second per level.'
+    weaponTridentSkill3: 'Barbed Tips'
+    weaponTridentSkillDesc3: 'Thrown tridents slow the target for {v} second(s) per level.'
+    weaponTridentSkill4: 'Tidal Burst'
+    weaponTridentSkillDesc4: 'The Maelstrom ends with a burst of water that damages and launches mobs.'
+    weaponTridentSkill5: 'Sea Shield'
+    weaponTridentSkillDesc5: 'Thrown tridents that hit grant you two Absorption hearts for {v} seconds.'
+    weaponTridentSkill6: 'Poseidon''s Wrath'
+    weaponTridentSkillDesc6: 'Thrown tridents deal {v} more damage and the Maelstrom is {w} wider.'
+    weaponTridentPassive0: 'Maelstrom Duration'
+    weaponTridentPassiveDesc0: 'Increases how long Maelstrom stays ready.'
+    weaponTridentPassive1: 'Throwing Power'
+    weaponTridentPassiveDesc1: 'Increases the damage of thrown tridents.'
+    weaponTridentPassive2: 'Tidal Might'
+    weaponTridentPassiveDesc2: 'Increases the damage of tridents while you are in water or in the rain.'
+    weaponTridentAbilityDesc: 'Maelstrom: left-click a trident to ready it. Your next {charges} thrown tridents create a whirlpool where they land, pulling nearby hostile mobs towards it for {seconds} seconds. Cooldown {cooldown} s.'
+    weaponSpearSkill0: 'Long Reach'
+    weaponSpearSkillDesc0: 'Piercing Rush reaches {v} blocks further per level.'
+    weaponSpearSkill1: 'Wide Pierce'
+    weaponSpearSkillDesc1: 'Piercing Rush is {v} blocks wider per level.'
+    weaponSpearSkill2: 'Skewer'
+    weaponSpearSkillDesc2: 'The pierce deals {v} more of the hit''s damage per level.'
+    weaponSpearSkill3: 'Hamstring'
+    weaponSpearSkillDesc3: 'Spear hits slow the target for {v} second(s) per level.'
+    weaponSpearSkill4: 'Pin'
+    weaponSpearSkillDesc4: 'The last mob pierced by Piercing Rush is pinned in place for {v} seconds.'
+    weaponSpearSkill5: 'Triumph'
+    weaponSpearSkillDesc5: 'Killing a mob with a spear grants you Speed II for {v} seconds.'
+    weaponSpearSkill6: 'Dragoon''s Wrath'
+    weaponSpearSkillDesc6: 'Spear hits deal {v} more damage and Piercing Rush reaches {w} further.'
+    weaponSpearPassive0: 'Rush Duration'
+    weaponSpearPassiveDesc0: 'Increases how long Piercing Rush stays ready.'
+    weaponSpearPassive1: 'Momentum'
+    weaponSpearPassiveDesc1: 'Increases the damage of your spear while you are sprinting.'
+    weaponSpearPassive2: 'Mounted Charge'
+    weaponSpearPassiveDesc2: 'Increases the damage of your spear while you are riding a mount.'
+    weaponSpearAbilityDesc: 'Piercing Rush: sneak and left-click a spear to ready it. Your next {charges} spear hits also pierce every hostile mob in a line behind the target. Cooldown {cooldown} s.'
+    weaponStatDuration: Duration
+    weaponStatMax: max
+    weaponStatBonus: Bonus
+    weaponStatReduction: Reduction
+    weaponUnspentTokens: 'Unspent tokens: {passive} passive, {skill} skill'
+    weaponCooldownLeft: '{ability} ready in {seconds}s'
+    weaponReadyToUse: '>>>{ability} ready to use<<<'
+    weaponEnded: '>>>{ability} ended<<<'
+    weaponCooldown: '{ability} is on cooldown for {seconds}s'
+    weaponReadyMace: '>>>{ability} ready: smash for {seconds}s ({count} shockwaves)<<<'
+    weaponReadySpear: '>>>{ability} ready: strike within {seconds}s ({count} hits)<<<'
+    weaponReadyTrident: '>>>{ability} ready: throw within {seconds}s ({count} throws)<<<'
+    weaponTokenEarned: 'You earned a skill token for {skill}! Spend it in the skill tree (/frpg weapons).'
+    weaponNoTree: This skill has no skill tree yet.
+    weaponNoPassiveTokens: You have no passive tokens.
+    weaponNoSkillTokens: You have no skill tokens.
+    weaponPerkMaxed: This perk is already maxed out.
+    weaponNeedMasteryReq: You need at least 10 levels in the other perks first.
+    weaponNeedPreviousPerk: You need level 2 in the perk before this one first.
+    weaponNeedRefundPerk: You need to unlock the refund perk in the global skill tree first.
+    weaponNeedSouls: You need {cost} souls to refund the skill tree.
+    weaponRefunded: 'Your {skill} skill tree was refunded (-{cost} souls).'
     global: Global
     digging: Digging
     woodcutting: Woodcutting

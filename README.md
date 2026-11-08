@@ -34,7 +34,7 @@ server's `plugins` folder.
   bamboo wood, pitcher and torchflower crops, honey, pale moss and more.
 * Kill exp for newer mobs such as the Warden, Breeze, Bogged, Creaking, Camel, Nautilus, Sniffer,
   Armadillo, Frog, Allay and Copper Golem. Camel taming, riding and breeding exp.
-* Copper tools and armor, the Mace and spears are recognised by the combat and repair skills.
+* Copper tools and armor are recognised by the combat and repair skills, the Mace and spears by the repair skill and the Weapon Skills.
 * **Weapon Skills**: new Mace, Trident and Spear Mastery skills with their own skill trees and
   abilities (see below), configured in `weaponSkills.yml` and opened with `/frpg weapons`. The Fighter
   and Training global perks apply to them too.

@@ -26,6 +26,8 @@ public class WeaponSkillData {
   private long abilityCooldownUntil;
   /** Shockwaves left in the current activation. Not saved. */
   private int abilityCharges;
+  /** Cooldown (seconds) that starts when the running ability ends. Not saved. */
+  private int abilityCooldownSeconds;
 
   public int getBonusSkillTokens() {
     return bonusSkillTokens;
@@ -137,6 +139,14 @@ public class WeaponSkillData {
 
   public void setAbilityCharges(int abilityCharges) {
     this.abilityCharges = abilityCharges;
+  }
+
+  public int getAbilityCooldownSeconds() {
+    return abilityCooldownSeconds;
+  }
+
+  public void setAbilityCooldownSeconds(int abilityCooldownSeconds) {
+    this.abilityCooldownSeconds = abilityCooldownSeconds;
   }
 
   public boolean isAbilityActive() {

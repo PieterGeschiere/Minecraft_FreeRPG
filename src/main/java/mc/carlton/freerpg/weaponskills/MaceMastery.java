@@ -156,7 +156,10 @@ public class MaceMastery implements Listener {
     }
     double damage = e.getDamage();
 
-    double exp = expValue("hitBase", 10) + expValue("hitPerDamage", 5) * e.getFinalDamage();
+    // Weak swings (attack not charged) give less exp, so spam-clicking is not worth it
+    double charge = Math.max(0.0, Math.min(1.0, p.getAttackCooldown()));
+    double exp = expValue("hitBase", 10) * charge
+        + expValue("hitPerDamage", 5) * e.getFinalDamage();
     if (smash) {
       exp += expValue("smashBase", 150) + expValue("smashPerBlock", 25) * Math.min(fallDistance,
           30);
@@ -225,9 +228,7 @@ public class MaceMastery implements Listener {
     // Every activation only has a few shockwaves, then the ability ends
     data.setAbilityCharges(data.getAbilityCharges() - 1);
     if (data.getAbilityCharges() <= 0) {
-      data.setAbilityActiveUntil(0);
-      new ActionBarMessages(p).sendMessage(
-          ChatColor.RED + ">>>" + SKILL.getAbilityName() + " ended<<<");
+      WeaponSkillRules.finishAbility(p, SKILL, data, true);
     }
   }
 
@@ -302,26 +303,27 @@ public class MaceMastery implements Listener {
     if (now < data.getAbilityCooldownUntil()) {
       if (canSendMessage(p, now)) {
         long seconds = (data.getAbilityCooldownUntil() - now) / 1000 + 1;
-        bar.sendMessage(
-            ChatColor.RED + SKILL.getAbilityName() + " is on cooldown for " + seconds + "s");
+        bar.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponCooldown",
+            "ability", SKILL.getAbilityName(), "seconds", Long.toString(seconds)));
       }
       return;
     }
     double duration = getAbilityDuration(data);
     int cooldown = WeaponSkillRules.adjustCooldown(p, getAbilityCooldown());
     data.setAbilityCharges(getAbilityCharges());
+    data.setAbilityCooldownSeconds(cooldown);
     data.setAbilityActiveUntil(now + (long) (duration * 1000));
     data.setAbilityCooldownUntil(now + (long) ((duration + cooldown) * 1000));
-    bar.sendMessage(ChatColor.GREEN + ">>>" + SKILL.getAbilityName() + " ready: smash for "
-        + Math.round(duration * 10) / 10.0 + "s (" + getAbilityCharges() + " shockwaves)<<<");
+    bar.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(p, "weaponReadyMace",
+        "ability", SKILL.getAbilityName(), "seconds",
+        Double.toString(Math.round(duration * 10) / 10.0), "count",
+        Integer.toString(getAbilityCharges())));
     p.playSound(p.getLocation(), Sound.ITEM_MACE_SMASH_AIR, 1f, 1f);
     UUID uuid = p.getUniqueId();
-    WeaponSkillRules.scheduleReady(p, SKILL, data, (long) ((duration + cooldown) * 20) + 2);
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {
       Player online = Bukkit.getPlayer(uuid);
-      if (online != null && !data.isAbilityActive()) {
-        new ActionBarMessages(online).sendMessage(
-            ChatColor.RED + ">>>" + SKILL.getAbilityName() + " ended<<<");
+      if (online != null && !data.isAbilityActive() && data.getAbilityCharges() > 0) {
+        WeaponSkillRules.finishAbility(online, SKILL, data, true);
       }
     }, (long) (duration * 20) + 2);
   }

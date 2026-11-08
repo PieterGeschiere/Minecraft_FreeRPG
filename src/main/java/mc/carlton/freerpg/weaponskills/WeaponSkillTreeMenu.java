@@ -71,7 +71,7 @@ public class WeaponSkillTreeMenu implements Listener {
   public static void open(Player p, WeaponSkill skill) {
     SkillTreeInfo info = trees.get(skill);
     if (info == null) {
-      p.sendMessage(ChatColor.RED + "This skill has no skill tree yet.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNoTree"));
       return;
     }
     TreeHolder holder = new TreeHolder(skill);
@@ -83,8 +83,8 @@ public class WeaponSkillTreeMenu implements Listener {
     int skillTokens = WeaponSkillManager.getAvailableSkillTokens(data);
 
     // Skills
-    String[] names = info.getSkillNames();
-    String[] descriptions = info.getSkillDescriptions();
+    String[] names = info.getSkillNames(p);
+    String[] descriptions = info.getSkillDescriptions(p);
     for (int i = 0; i < SKILL_KEYS.length; i++) {
       int level = data.getSkill(SKILL_KEYS[i]);
       ItemStack item = new ItemStack(skillMaterial(data, i));
@@ -110,21 +110,21 @@ public class WeaponSkillTreeMenu implements Listener {
             + " levels. Spend them on the skills.", lang));
 
     // Passives
-    String[] passiveNames = info.getPassiveNames();
-    String[] passiveDescriptions = info.getPassiveDescriptions();
+    String[] passiveNames = info.getPassiveNames(p);
+    String[] passiveDescriptions = info.getPassiveDescriptions(p);
     for (int i = 0; i < 3; i++) {
       ItemStack item = new ItemStack(PASSIVE_MATERIALS[i], i + 1);
       ItemMeta meta = item.getItemMeta();
       meta.setDisplayName(ChatColor.BOLD + passiveNames[i]);
       List<String> lore = new ArrayList<>();
-      lore.add(info.getPassiveStat(i, data));
+      lore.add(info.getPassiveStat(p, i, data));
       for (String line : TreeText.wrap(passiveDescriptions[i], 40)) {
         lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString() + line);
       }
       if (i == 0) {
         lore.add("");
         lore.add(ChatColor.UNDERLINE + lang.getString("weaponAbility"));
-        for (String line : TreeText.wrap(info.getAbilityDescription(), 40)) {
+        for (String line : TreeText.wrap(info.getAbilityDescription(p), 40)) {
           lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString() + line);
         }
       }
@@ -279,12 +279,12 @@ public class WeaponSkillTreeMenu implements Listener {
       WeaponSkillData data, String key, InventoryClickEvent e) {
     int available = WeaponSkillManager.getAvailablePassiveTokens(data);
     if (available <= 0) {
-      p.sendMessage(ChatColor.RED + "You have no passive tokens.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNoPassiveTokens"));
       return;
     }
     int room = info.getPassiveMax(key) - data.getPassive(key);
     if (room <= 0) {
-      p.sendMessage(ChatColor.RED + "This perk is already at its maximum level.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponPerkMaxed"));
       return;
     }
     int investment;
@@ -306,17 +306,16 @@ public class WeaponSkillTreeMenu implements Listener {
   private void learnSkill(Player p, WeaponSkill skill, WeaponSkillData data, int index) {
     String key = SKILL_KEYS[index];
     if (data.getSkill(key) >= SKILL_MAX_LEVELS[index]) {
-      p.sendMessage(ChatColor.RED + "This perk is already maxed out.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponPerkMaxed"));
       return;
     }
     if (!requirementMet(data, index)) {
-      p.sendMessage(ChatColor.RED + (index == 6
-          ? "You need at least 10 levels in the other perks first."
-          : "You need level 2 in the perk before this one first."));
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p,
+          index == 6 ? "weaponNeedMasteryReq" : "weaponNeedPreviousPerk"));
       return;
     }
     if (WeaponSkillManager.getAvailableSkillTokens(data) <= 0) {
-      p.sendMessage(ChatColor.RED + "You have no skill tokens.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNoSkillTokens"));
       return;
     }
     data.setSkill(key, data.getSkill(key) + 1);
@@ -327,20 +326,20 @@ public class WeaponSkillTreeMenu implements Listener {
   private void refund(Player p, WeaponSkill skill, WeaponSkillData data) {
     ArrayList<Number> global = new PlayerStats(p).getPlayerData().get("global");
     if (global.get(9).intValue() < 1) {
-      p.sendMessage(ChatColor.RED + "You need to unlock the refund perk in the global skill tree "
-          + "first.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNeedRefundPerk"));
       return;
     }
     int cost = new ConfigLoad().getSoulsInfo().get(1);
     int souls = global.get(20).intValue();
     if (souls < cost) {
-      p.sendMessage(ChatColor.RED + "You need " + cost + " souls to refund the skill tree.");
+      p.sendMessage(ChatColor.RED + WeaponSkillRules.text(p, "weaponNeedSouls", "cost",
+          Integer.toString(cost)));
       return;
     }
     global.set(20, souls - cost);
     data.resetTree();
-    p.sendMessage(ChatColor.GREEN + "Your " + skill.getDisplayName()
-        + " skill tree was refunded (-" + cost + " souls).");
+    p.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(p, "weaponRefunded", "skill",
+        skill.getDisplayName(), "cost", Integer.toString(cost)));
     open(p, skill);
   }
 

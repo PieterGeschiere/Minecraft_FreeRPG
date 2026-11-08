@@ -26,6 +26,24 @@ public final class WeaponSkillRules {
   private WeaponSkillRules() {
   }
 
+  /** Like {@link #text(Player, String, String...)} for a command sender (the console gets the default language). */
+  public static String text(org.bukkit.command.CommandSender sender, String id,
+      String... replacements) {
+    return text(sender instanceof Player ? (Player) sender : null, id, replacements);
+  }
+
+  /**
+   * A message in the player's language (English if it has no translation yet). Placeholders like
+   * {ability} are replaced by the given key/value pairs.
+   */
+  public static String text(Player p, String id, String... replacements) {
+    String message = new mc.carlton.freerpg.utils.game.LanguageSelector(p).getString(id);
+    for (int i = 0; i + 1 < replacements.length; i += 2) {
+      message = message.replace("{" + replacements[i] + "}", replacements[i + 1]);
+    }
+    return message;
+  }
+
   /** Whether a hit on the target counts for the skill (exp, bonuses and effects). */
   public static boolean canHit(Player p, WeaponSkill skill, LivingEntity target) {
     if (!WeaponSkillConfig.isEnabled()
@@ -77,7 +95,7 @@ public final class WeaponSkillRules {
       Player online = Bukkit.getPlayer(uuid);
       if (online != null && System.currentTimeMillis() >= data.getAbilityCooldownUntil() - 500) {
         new ActionBarMessages(online).sendMessage(
-            ChatColor.GREEN + ">>>" + skill.getAbilityName() + " ready to use<<<");
+            ChatColor.GREEN + text(online, "weaponReadyToUse", "ability", skill.getAbilityName()));
         online.playSound(online.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.8f, 1.3f);
       }
     }, delayTicks);
@@ -86,13 +104,28 @@ public final class WeaponSkillRules {
   /** Ends a running ability early (death, logout, dropping the weapon). */
   public static void endAbility(Player p, WeaponSkill skill, boolean announce) {
     WeaponSkillData data = WeaponSkillManager.get(p, skill);
-    boolean wasActive = data.isAbilityActive();
+    if (data.getAbilityCharges() <= 0 && !data.isAbilityActive()) {
+      return; // nothing is running
+    }
+    finishAbility(p, skill, data, announce);
+  }
+
+  /**
+   * Ends a running ability, for whatever reason (time up, charges used, item switched, death). The
+   * cooldown starts now, so it is counted from the moment the ability ends, and the "ready"
+   * message is scheduled for the end of it.
+   */
+  public static void finishAbility(Player p, WeaponSkill skill, WeaponSkillData data,
+      boolean announce) {
     data.setAbilityActiveUntil(0);
     data.setAbilityCharges(0);
-    if (wasActive && announce && p.isOnline()) {
+    int cooldown = Math.max(0, data.getAbilityCooldownSeconds());
+    data.setAbilityCooldownUntil(System.currentTimeMillis() + cooldown * 1000L);
+    if (announce && p.isOnline()) {
       new ActionBarMessages(p).sendMessage(
-          ChatColor.RED + ">>>" + skill.getAbilityName() + " ended<<<");
+          ChatColor.RED + text(p, "weaponEnded", "ability", skill.getAbilityName()));
       AbilitySounds.end(p, "digging");
     }
+    scheduleReady(p, skill, data, cooldown * 20L + 2);
   }
 }
