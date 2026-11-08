@@ -96,6 +96,28 @@ public class SpearMastery implements Listener {
     return (int) abilityDouble("cooldownSeconds", 90);
   }
 
+  /** Whether the vehicle counts as a mount: a horse or camel, not a boat or minecart. */
+  static boolean isMount(org.bukkit.entity.Entity vehicle) {
+    return vehicle instanceof LivingEntity;
+  }
+
+  /**
+   * Exp of one spear hit. Weak swings (attack not charged) give less exp, so spam-clicking is not
+   * worth it; the sprint and mount bonuses are scaled by the swing as well.
+   */
+  static double getHitExp(double attackCharge, double finalDamage, boolean sprinting,
+      boolean mounted) {
+    double charge = Math.max(0.0, Math.min(1.0, attackCharge));
+    double exp = expValue("hitBase", 10) * charge + expValue("hitPerDamage", 5) * finalDamage;
+    if (sprinting) {
+      exp += expValue("chargeBonus", 30) * charge;
+    }
+    if (mounted) {
+      exp += expValue("mountedBonus", 30) * charge;
+    }
+    return exp;
+  }
+
   /** Damage bonus of a hit as a fraction (0.25 = +25%). */
   public static double getDamageBonus(WeaponSkillData data, boolean sprinting, boolean mounted) {
     double bonus = data.getSkill(DRAGOONS_WRATH) > 0 ? perk("dragoonsWrathDamage", 0.25) : 0;
@@ -149,7 +171,7 @@ public class SpearMastery implements Listener {
     }
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
     boolean sprinting = p.isSprinting();
-    boolean mounted = p.getVehicle() instanceof LivingEntity; // a horse or camel, not a boat
+    boolean mounted = isMount(p.getVehicle());
 
     double bonus = getDamageBonus(data, sprinting, mounted);
     if (bonus > 0) {
@@ -157,16 +179,8 @@ public class SpearMastery implements Listener {
     }
     double damage = e.getDamage();
 
-    // Weak swings (attack not charged) give less exp, so spam-clicking is not worth it
-    double charge = Math.max(0.0, Math.min(1.0, p.getAttackCooldown()));
-    double exp = expValue("hitBase", 10) * charge
-        + expValue("hitPerDamage", 5) * e.getFinalDamage();
-    if (sprinting) {
-      exp += expValue("chargeBonus", 30) * charge;
-    }
-    if (mounted) {
-      exp += expValue("mountedBonus", 30) * charge;
-    }
+    double charge = p.getAttackCooldown();
+    double exp = getHitExp(charge, e.getFinalDamage(), sprinting, mounted);
     WeaponSkillManager.addExp(p, SKILL, exp * WeaponSkillRules.farmMultiplier(target));
 
     if (data.getSkill(HAMSTRING) > 0) {

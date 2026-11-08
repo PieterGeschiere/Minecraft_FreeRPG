@@ -106,7 +106,7 @@ public class FreeRPGPlaceHolders extends PlaceholderExpansion {
         try {
           position = Integer.valueOf(identifierParts[2]);
         } catch (NumberFormatException e) {
-          // TODO needs some code in it
+          // The position is not a number, so there is no such leaderboard entry
           return null;
         }
         PlayerLeaderboardStat playerStatFromLeaderboard = leaderboards.getPlayerStatAtLeaderBoardPosition(

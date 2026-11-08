@@ -76,10 +76,17 @@ public final class WeaponSkillRules {
   /** The cooldown perk of the global skill tree makes cooldowns a third shorter. */
   public static int adjustCooldown(Player p, int cooldownSeconds) {
     ArrayList<Number> global = new PlayerStats(p).getPlayerData().get("global");
-    if (global.get(11).intValue() > 0) {
-      return (int) Math.round(cooldownSeconds * 2.0 / 3.0);
-    }
-    return cooldownSeconds;
+    return scaleCooldown(cooldownSeconds, global.get(11).intValue() > 0);
+  }
+
+  /** The cooldown after the cooldown perk (a third shorter, rounded) has been applied. */
+  static int scaleCooldown(int cooldownSeconds, boolean hasCooldownPerk) {
+    return hasCooldownPerk ? (int) Math.round(cooldownSeconds * 2.0 / 3.0) : cooldownSeconds;
+  }
+
+  /** The moment (epoch millis) the cooldown of an ability that ends at {@code now} is over. */
+  static long cooldownEnd(long now, int cooldownSeconds) {
+    return now + Math.max(0, cooldownSeconds) * 1000L;
   }
 
   /** Exp is reduced for mob farms and spawners, like for the other combat skills. */
@@ -120,7 +127,7 @@ public final class WeaponSkillRules {
     data.setAbilityActiveUntil(0);
     data.setAbilityCharges(0);
     int cooldown = Math.max(0, data.getAbilityCooldownSeconds());
-    data.setAbilityCooldownUntil(System.currentTimeMillis() + cooldown * 1000L);
+    data.setAbilityCooldownUntil(cooldownEnd(System.currentTimeMillis(), cooldown));
     if (announce && p.isOnline()) {
       new ActionBarMessages(p).sendMessage(
           ChatColor.RED + text(p, "weaponEnded", "ability", skill.getAbilityName()));
