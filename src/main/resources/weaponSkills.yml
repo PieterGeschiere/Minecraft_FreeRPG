@@ -1,0 +1,53 @@
+#---------------------------------------------
+# Weapon skills (Mace Mastery, ...)
+#
+# These skills are separate from the main FreeRPG skills. They have their own level, experience and
+# skill tree, and are shown in the menu opened with /frpg weapons (Swordsmanship and Axe Mastery are
+# listed there too, but keep their normal skill trees).
+# Every value below is optional, a missing value uses the default shown here.
+#---------------------------------------------
+enabled: true
+
+# Tokens work like in the main skills: passive tokens are invested in passives, skill tokens unlock
+# skills. The defaults match the main skills.
+tokens:
+  levelsPerPassiveToken: 1       # Levels needed for one passive token
+  levelsPerSkillToken: 100       # Levels needed for one skill token
+  rightClickInvestment: 10       # Tokens invested in a passive with a right-click
+  shiftClickInvestment: 100      # Tokens invested with a shift-click (shift + right-click: all tokens)
+
+mace:
+  exp:
+    hitBase: 10                # Exp for every hit with a mace
+    hitPerDamage: 5            # Extra exp per point of damage dealt
+    smashBase: 150             # Exp for a smash attack (hit while falling)
+    smashPerBlock: 25          # Extra exp per block fallen, up to 30 blocks
+    shockwavePerEntity: 20     # Exp for every mob hit by Seismic Slam's shockwave
+    killMultiplier: 1.0        # Kill exp uses the same mob values as Swordsmanship, times this
+  passives:                    # Passive tokens are invested in these (like the dyes of the main skills)
+    p2:
+      maxLevel: 100
+    p3:
+      maxLevel: 100
+  ability:
+    # Seismic Slam: right-click a mace to ready it, then your smash attacks create a shockwave.
+    # It ends when the time is up or after maxShockwaves shockwaves, whichever comes first.
+    baseDurationSeconds: 6     # Passive 1 adds durationPerLevelSeconds per level
+    durationPerLevelSeconds: 0.02
+    maxDurationSeconds: 12
+    maxShockwaves: 3
+    cooldownSeconds: 120       # Counted from the moment the ability ends
+    baseRadius: 3.0
+    maxRadius: 7.0
+    damageMultiplier: 0.4      # Shockwave damage as a part of the smash damage
+  perks:
+    smashPowerPerLevel: 0.003         # Passive 2: +0.3% smash damage per level
+    softLandingPerLevel: 0.006        # Passive 3: -0.6% fall damage per level
+    wideShockwaveRadiusPerLevel: 0.5  # Wide Shockwave (1a): extra radius per level
+    staggerSecondsPerLevel: 1.0       # Stagger (1b): slowness seconds per level
+    aftershockPerLevel: 0.06          # Aftershock (2a): extra shockwave damage per level
+    rattleSecondsPerLevel: 2.0        # Rattle (2b): weakness seconds per level
+    earthshakerDamage: 0.2            # Earthshaker (3a): extra shockwave damage, also launches mobs
+    adrenalineSeconds: 4              # Adrenaline (3b): seconds of Speed and Resistance after a smash
+    titansWrathDamage: 0.25           # Titan's Wrath (M): extra smash damage
+    titansWrathRadius: 1.5            # Titan's Wrath (M): shockwave radius multiplier

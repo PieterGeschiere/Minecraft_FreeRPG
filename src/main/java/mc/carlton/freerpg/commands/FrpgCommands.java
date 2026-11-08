@@ -317,6 +317,11 @@ public class FrpgCommands implements CommandExecutor {
     return EXPtoNextString;
   }
 
+  private boolean hasUnspentTokens(Map<String, ArrayList<Number>> pStat, String skillName) {
+    ArrayList<Number> stats = pStat.get(skillName);
+    return stats != null && (stats.get(2).intValue() > 0 || stats.get(3).intValue() > 0);
+  }
+
   private int getTotalSkillTokens(Player p) {
     PlayerStats pStatClass = new PlayerStats(p);
     Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
@@ -363,11 +368,8 @@ public class FrpgCommands implements CommandExecutor {
     GuiItem mining = new GuiItem(Material.IRON_PICKAXE, 13, gui);
     GuiItem farming = new GuiItem(Material.IRON_HOE, 14, gui);
     GuiItem fishing = new GuiItem(Material.FISHING_ROD, 15, gui);
-    GuiItem archery = new GuiItem(Material.BOW, 20, gui);
     GuiItem beastMastery = new GuiItem(Material.BONE, 21, gui);
-    GuiItem swords = new GuiItem(Material.IRON_SWORD, 22, gui);
     GuiItem armor = new GuiItem(Material.IRON_CHESTPLATE, 23, gui);
-    GuiItem axes = new GuiItem(Material.GOLDEN_AXE, 24, gui);
     GuiItem repair = new GuiItem(Material.ANVIL, 29, gui);
     GuiItem agility = new GuiItem(Material.LEATHER_LEGGINGS, 30, gui);
     GuiItem alchemy = new GuiItem(Material.POTION, 31, gui);
@@ -376,18 +378,18 @@ public class FrpgCommands implements CommandExecutor {
     GuiItem info = new GuiItem(Material.MAP, 36, gui);
     GuiItem configuration = new GuiItem(Material.REDSTONE, 44, gui);
 
-    GuiItem[] guiItems = {global, digging, woodcutting, mining, farming, fishing, archery,
-        beastMastery, swords, armor, axes, repair, agility, alchemy, smelting, enchanting, info,
+    GuiItem[] guiItems = {global, digging, woodcutting, mining, farming, fishing,
+        beastMastery, armor, repair, agility, alchemy, smelting, enchanting, info,
         configuration};
     String[] labels = {lang.getString("global"), lang.getString("digging"),
         lang.getString("woodcutting"), lang.getString("mining"), lang.getString("farming"),
-        lang.getString("fishing"), lang.getString("archery"), lang.getString("beastMastery"),
-        lang.getString("swordsmanship"), lang.getString("defense"), lang.getString("axeMastery"),
+        lang.getString("fishing"), lang.getString("beastMastery"),
+        lang.getString("defense"),
         lang.getString("repair"), lang.getString("agility"), lang.getString("alchemy"),
         lang.getString("smelting"), lang.getString("enchanting"), lang.getString("information"),
         lang.getString("configuration")};
     String[] labels0 = {"global", "digging", "woodcutting", "mining", "farming", "fishing",
-        "archery", "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility",
+        "beastMastery", "defense", "repair", "agility",
         "alchemy", "smelting", "enchanting", "information", "configuration"};
 
     for (int i = 0; i < guiItems.length; i++) {
@@ -415,7 +417,7 @@ public class FrpgCommands implements CommandExecutor {
           item.addEnchantmentGlow();
         }
 
-      } else if (i < 16) { //Skills
+      } else if (i < 13) { //Skills
         String skillName = labels0[i];
         int passiveTokens = (int) pStat.get(labels0[i]).get(2);
         int skillTokens = (int) pStat.get(labels0[i]).get(3);
@@ -443,7 +445,7 @@ public class FrpgCommands implements CommandExecutor {
           item.addEnchantmentGlow();
         }
 
-      } else if (i == 16) { //Information
+      } else if (i == 13) { //Information
         int totalSkillTokens = getTotalSkillTokens(p);
         int totalPassiveTokens = getTotalPassiveTokens(p);
         int globalTokens = pStat.get("global").get(1).intValue();
@@ -458,11 +460,23 @@ public class FrpgCommands implements CommandExecutor {
         item.addStatistic(lang.getString("diggingPassiveTitle2"), totalSkillTokens);
         item.addStatistic(lang.getString("diggingPassiveTitle0"), totalPassiveTokens);
         item.addStatistic(UtilityMethods.capitalizeString(lang.getString("souls")), souls);
-      } else if (i == 17) {//Configuration
+      } else if (i == 14) {//Configuration
         item.setDescription(lang.getString("clickForOptions"));
       }
       gui.addItem(item);
     }
+
+    //Weapon skills (separate module, see weaponskills package)
+    // Swordsmanship, Axe Mastery and the newer weapon skills are all inside this menu
+    GuiItem weapons = new GuiItem(Material.MACE, 22, gui);
+    weapons.setName("Weapon Skills");
+    weapons.setNameColor(nameColor);
+    weapons.setDescription("Archery, Swordsmanship, Axe Mastery, Mace Mastery and more");
+    if (hasUnspentTokens(pStat, "swordsmanship") || hasUnspentTokens(pStat, "axeMastery")
+        || hasUnspentTokens(pStat, "archery")) {
+      weapons.addEnchantmentGlow();
+    }
+    gui.addItem(weapons);
 
     //Put the items in the inventory
     gui.displayGuiForPlayer();
@@ -937,6 +951,20 @@ public class FrpgCommands implements CommandExecutor {
       }
       Player p = (Player) sender;
       generateMainMenu(p); //Generates the Main GUI
+      return true;
+    }
+
+    //Weapon skills menu (Mace Mastery, ...)
+    else if (args[0].equalsIgnoreCase("weapons") || args[0].equalsIgnoreCase("weaponSkills")) {
+      if (!(sender instanceof Player)) {
+        sender.sendMessage(ChatColor.RED + "Only players can open the weapon skills menu.");
+        return true;
+      }
+      if (!sender.hasPermission("freeRPG.weaponSkills")) {
+        sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
+        return true;
+      }
+      mc.carlton.freerpg.weaponskills.WeaponSkills.openMenu((Player) sender);
       return true;
     }
 

@@ -409,7 +409,7 @@ public class ItemGroups {
     axes.addAll(materialsByName("COPPER_AXE"));
     shovels.addAll(materialsByName("COPPER_SHOVEL"));
     hoes.addAll(materialsByName("COPPER_HOE"));
-    swords.addAll(materialsByName("COPPER_SWORD", "MACE", "WOODEN_SPEAR", "STONE_SPEAR",
+    swords.addAll(materialsByName("COPPER_SWORD", "WOODEN_SPEAR", "STONE_SPEAR",
         "COPPER_SPEAR", "IRON_SPEAR", "GOLDEN_SPEAR", "DIAMOND_SPEAR", "NETHERITE_SPEAR"));
   }
 
@@ -431,7 +431,7 @@ public class ItemGroups {
       leftClickItems.addAll(leftClickItems_append);
     }
     leftClickItems.addAll(materialsByName("COPPER_SWORD", "COPPER_PICKAXE", "COPPER_SHOVEL",
-        "COPPER_AXE", "MACE", "WOODEN_SPEAR", "STONE_SPEAR", "COPPER_SPEAR", "IRON_SPEAR",
+        "COPPER_AXE", "WOODEN_SPEAR", "STONE_SPEAR", "COPPER_SPEAR", "IRON_SPEAR",
         "GOLDEN_SPEAR", "DIAMOND_SPEAR", "NETHERITE_SPEAR"));
   }
 

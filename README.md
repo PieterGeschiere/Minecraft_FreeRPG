@@ -40,6 +40,32 @@ server's `plugins` folder.
   raw metals smelting into themselves, Luck and Turtle Master potions without an effect and an
   error when killing glow squids.
 
+## Weapon Skills
+
+All weapon skills live in one menu, opened with `/frpg weapons` (or the mace icon in the main menu): Archery, Swordsmanship
+and Axe Mastery (which open their normal skill trees) and the newer weapon skills below. The newer weapon skills have their own level, experience and perks, saved in `plugins/FreeRPG/weaponSkills/`.
+All values can be changed in `weaponSkills.yml`.
+
+**Mace Mastery**: earn exp by hitting, smashing (hitting while falling) and killing with a mace. It has its
+own skill tree, opened by clicking it in the weapons menu. Passive tokens (1 per level) are invested in
+passives, skill tokens (1 per 100 levels) unlock skills, like in the main skills.
+
+| Type | Name | Effect |
+|---|---|---|
+| Passive | **Slam Duration** | Seismic Slam stays ready longer (up to 12 s) |
+| Passive | **Smash Power** | Smash attacks deal bonus damage |
+| Passive | **Soft Landing** | Less fall damage while holding a mace |
+| Ability | **Seismic Slam** | Right-click a mace to ready it. For a few seconds (up to 3 smashes) your smash attacks send a shockwave through nearby hostile mobs |
+| Skill 1a | **Wide Shockwave** | Bigger shockwave radius |
+| Skill 1b | **Stagger** | Smash attacks slow the target |
+| Skill 2a | **Aftershock** | Stronger shockwave damage |
+| Skill 2b | **Rattle** | Smash attacks weaken the target |
+| Skill 3a | **Earthshaker** | The shockwave launches mobs into the air and deals more damage |
+| Skill 3b | **Adrenaline** | Smash attacks grant you Speed and Resistance for a few seconds |
+| Mastery | **Titan's Wrath** | More smash damage and a wider shockwave |
+
+Spear and Trident Mastery are planned.
+
 ## Repair and Salvage Stations
 
 Repairing and salvaging no longer works on every iron or gold block, so you can build freely with

@@ -71,7 +71,13 @@ public class SkillsGUIclick implements Listener {
           switch (e.getCurrentItem().getType()) {
             case ARROW:
               p.closeInventory();
-              p.performCommand("frpg skills");
+              // Archery, Swordsmanship and Axe Mastery are part of the Weapon Skills category
+              if (skillName.equals("swordsmanship") || skillName.equals("axeMastery")
+                  || skillName.equals("archery")) {
+                p.performCommand("frpg weapons");
+              } else {
+                p.performCommand("frpg skills");
+              }
               break;
             case COMPOSTER:
               if ((int) pStatAll.get("global").get(20) >= 250

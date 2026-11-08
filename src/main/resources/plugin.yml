@@ -105,6 +105,9 @@ permissions:
       freeRPG.swordsmanshipAbility: true
       freeRPG.defenseAbility: true
       freeRPG.axeMasteryAbility: true
+  freeRPG.weaponSkills:
+    description: allows user to open the weapon skills menu (/frpg weapons)
+    default: true
   freeRPG.mainGUI:
     description: allows user to access main GUI with all skills
     default: true

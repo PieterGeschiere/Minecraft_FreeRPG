@@ -172,6 +172,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     CraftingRecipes craftingRecipes = new CraftingRecipes();
     craftingRecipes.initializeAllCraftingRecipes();
     mc.carlton.freerpg.utils.game.RepairStations.initialize(this);
+    mc.carlton.freerpg.weaponskills.WeaponSkills.initialize(this);
     StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
     stringsAndOtherData.initializeData();
 
@@ -293,6 +294,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
 
   public void onDisable() {
     log(Level.INFO, "Shutting down FreeRPG");
+    mc.carlton.freerpg.weaponskills.WeaponSkills.shutdown();
 
     //Does everything that would normally be done if a player were to log out
     for (Player p : Bukkit.getOnlinePlayers()) {

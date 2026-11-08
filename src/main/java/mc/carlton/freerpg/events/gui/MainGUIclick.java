@@ -35,6 +35,10 @@ public class MainGUIclick implements Listener {
         //Determine what they selected and what to do
         if (e.getCurrentItem() != null) {
           switch (e.getCurrentItem().getType()) {
+            case MACE:
+              p.closeInventory();
+              p.performCommand("frpg weapons");
+              break;
             case NETHER_STAR:
               p.closeInventory();
               p.performCommand("frpg skillTreeGUI global");
