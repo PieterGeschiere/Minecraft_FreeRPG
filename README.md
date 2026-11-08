@@ -64,7 +64,40 @@ passives, skill tokens (1 per 100 levels) unlock skills, like in the main skills
 | Skill 3b | **Adrenaline** | Smash attacks grant you Speed and Resistance for a few seconds |
 | Mastery | **Titan's Wrath** | More smash damage and a wider shockwave |
 
-Spear and Trident Mastery are planned.
+**Trident Mastery**: earn exp by stabbing, throwing (more for long throws) and killing with a trident. It has the
+same kind of skill tree as the Mace.
+
+| Type | Name | Effect |
+|---|---|---|
+| Passive | **Maelstrom Duration** | Maelstrom stays ready longer (up to 14 s) |
+| Passive | **Throwing Power** | Thrown tridents deal bonus damage |
+| Passive | **Tidal Might** | Tridents deal bonus damage in water or rain |
+| Ability | **Maelstrom** | Left-click a trident to ready it. Your next 2 thrown tridents create a whirlpool that pulls nearby hostile mobs towards it |
+| Skill 1a | **Wide Maelstrom** | Bigger whirlpool |
+| Skill 1b | **Undertow** | The whirlpool pulls harder |
+| Skill 2a | **Maelstrom Bite** | The whirlpool damages the mobs it pulls |
+| Skill 2b | **Barbed Tips** | Thrown tridents slow the target |
+| Skill 3a | **Tidal Burst** | The whirlpool ends with a burst that damages and launches mobs |
+| Skill 3b | **Sea Shield** | Thrown tridents that hit grant you Absorption |
+| Mastery | **Poseidon's Wrath** | More thrown damage and a bigger whirlpool |
+
+**Spear Mastery**: earn exp by hitting and killing with a spear, with bonus exp for charging in at full sprint or on a
+mount. It has the same kind of skill tree.
+
+| Type | Name | Effect |
+|---|---|---|
+| Passive | **Rush Duration** | Piercing Rush stays ready longer (up to 14 s) |
+| Passive | **Momentum** | Spear hits deal bonus damage while sprinting |
+| Passive | **Mounted Charge** | Spear hits deal bonus damage while riding a mount |
+| Ability | **Piercing Rush** | Sneak and left-click a spear to ready it. Your next 3 hits also pierce every hostile mob in a line behind the target |
+| Skill 1a | **Long Reach** | The pierce reaches further |
+| Skill 1b | **Wide Pierce** | The pierce is wider |
+| Skill 2a | **Skewer** | The pierce deals more damage |
+| Skill 2b | **Hamstring** | Spear hits slow the target |
+| Skill 3a | **Pin** | The last mob pierced is pinned in place |
+| Skill 3b | **Triumph** | Killing a mob grants you Speed II |
+| Mastery | **Dragoon's Wrath** | More spear damage and a longer pierce |
+
 
 ## Repair and Salvage Stations
 

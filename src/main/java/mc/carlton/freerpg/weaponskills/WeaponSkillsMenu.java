@@ -67,7 +67,8 @@ public class WeaponSkillsMenu implements Listener {
     WeaponSkill[] skills = WeaponSkill.values();
     for (int i = 0; i < skills.length && i < SKILL_SLOTS.length; i++) {
       inventory.setItem(SKILL_SLOTS[i], createSkillItem(p, skills[i]));
-      holder.actions.put(SKILL_SLOTS[i], pl -> MaceSkillTreeMenu.open(pl));
+      WeaponSkill skill = skills[i];
+      holder.actions.put(SKILL_SLOTS[i], pl -> WeaponSkillTreeMenu.open(pl, skill));
     }
 
     ItemStack back = new ItemStack(Material.ARROW);

@@ -141,8 +141,71 @@ public class FreeRPGPlaceHolders extends PlaceholderExpansion {
       }
     }
 
+    // Leaderboard placeholders of the weapon skills:
+    // %freerpg_leaderboard_maceMastery_1_playerName%, _UUID, _exp, _level (add _formatted for 1,234)
+    if (identifierParts.length >= 4 && identifierParts[0].equalsIgnoreCase("leaderboard")) {
+      mc.carlton.freerpg.weaponskills.WeaponSkill boardSkill =
+          mc.carlton.freerpg.weaponskills.WeaponSkill.fromInput(identifierParts[1]);
+      if (boardSkill != null) {
+        int position;
+        try {
+          position = Integer.parseInt(identifierParts[2]);
+        } catch (NumberFormatException e) {
+          return null;
+        }
+        List<mc.carlton.freerpg.weaponskills.WeaponSkillBoard.Entry> board =
+            mc.carlton.freerpg.weaponskills.WeaponSkillBoard.getSorted(boardSkill);
+        if (position < 1 || position > board.size()) {
+          return "";
+        }
+        mc.carlton.freerpg.weaponskills.WeaponSkillBoard.Entry entry = board.get(position - 1);
+        String boardStat = identifierParts[3];
+        if (boardStat.equalsIgnoreCase("UUID")) {
+          return entry.getUuid().toString();
+        } else if (boardStat.equalsIgnoreCase("playerName") || boardStat.equalsIgnoreCase(
+            "username")) {
+          return entry.getName();
+        } else if (boardStat.equalsIgnoreCase("exp") || boardStat.equalsIgnoreCase("sortedStat")) {
+          return formatOutput(identifierParts, entry.getExperience(), 4);
+        } else if (boardStat.equalsIgnoreCase("level") || boardStat.equalsIgnoreCase("stat2")) {
+          return formatOutput(identifierParts, entry.getLevel(), 4);
+        }
+        return null;
+      }
+    }
+
     if (p == null) {
       return "";
+    }
+    // Weapon skills: %freerpg_maceMastery_Level%, _EXP, _passiveTokens, _skillTokens, _EXPtoNext, _rank
+    if (identifierParts.length >= 2) {
+      mc.carlton.freerpg.weaponskills.WeaponSkill weaponSkill =
+          mc.carlton.freerpg.weaponskills.WeaponSkill.fromInput(identifierParts[0]);
+      if (weaponSkill != null) {
+        mc.carlton.freerpg.weaponskills.WeaponSkillData weaponData =
+            mc.carlton.freerpg.weaponskills.WeaponSkillManager.get(p, weaponSkill);
+        String statName = identifierParts[1];
+        if (statName.equalsIgnoreCase("Level")) {
+          return formatOutput(identifierParts, weaponData.getLevel(), 2);
+        } else if (statName.equalsIgnoreCase("EXP")) {
+          return formatOutput(identifierParts, weaponData.getExperience(), 2);
+        } else if (statName.equalsIgnoreCase("passiveTokens")) {
+          return formatOutput(identifierParts,
+              mc.carlton.freerpg.weaponskills.WeaponSkillManager.getAvailablePassiveTokens(
+                  weaponData), 2);
+        } else if (statName.equalsIgnoreCase("skillTokens")) {
+          return formatOutput(identifierParts,
+              mc.carlton.freerpg.weaponskills.WeaponSkillManager.getAvailableSkillTokens(
+                  weaponData), 2);
+        } else if (statName.equalsIgnoreCase("EXPtoNext")) {
+          long toNext = mc.carlton.freerpg.weaponskills.WeaponSkillManager.getExpForLevel(p,
+              weaponData.getLevel() + 1) - weaponData.getExperience();
+          return formatOutput(identifierParts, Math.max(0, toNext), 2);
+        } else if (statName.equalsIgnoreCase("rank")) {
+          return String.valueOf(mc.carlton.freerpg.weaponskills.WeaponSkillManager.getRank(p,
+              weaponSkill)[0]);
+        }
+      }
     }
     StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
     ArrayList<String> skillNames = stringsAndOtherData.getSkillNames();

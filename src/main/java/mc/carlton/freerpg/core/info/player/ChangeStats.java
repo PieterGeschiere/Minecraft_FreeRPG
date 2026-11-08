@@ -781,6 +781,8 @@ public class ChangeStats {
       totalLevel += (int) pStatAll.get(skillName).get(0);
     }
 
+    totalLevel += mc.carlton.freerpg.weaponskills.WeaponSkillManager.getTotalLevel(p);
+
     //set total Level
     pStats.set(0, totalLevel);
     pStatAll.put("global", pStats);
@@ -805,6 +807,8 @@ public class ChangeStats {
     for (String skillName : labels_0) {
       totalExperience += (int) pStatAll.get(skillName).get(1);
     }
+
+    totalExperience += mc.carlton.freerpg.weaponskills.WeaponSkillManager.getTotalExperience(p);
 
     //set total Level
     pStats.set(29, totalExperience);

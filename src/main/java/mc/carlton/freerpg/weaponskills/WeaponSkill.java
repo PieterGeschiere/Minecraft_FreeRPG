@@ -11,7 +11,12 @@ import org.bukkit.Material;
  */
 public enum WeaponSkill {
 
-  MACE("maceMastery", "Mace Mastery", ChatColor.GOLD, "MACE", "Seismic Slam", "MACE");
+  MACE("maceMastery", "Mace Mastery", ChatColor.GOLD, "MACE", "Seismic Slam", "MACE"),
+  TRIDENT("tridentMastery", "Trident Mastery", ChatColor.AQUA, "TRIDENT", "Maelstrom",
+      "TRIDENT"),
+  SPEAR("spearMastery", "Spear Mastery", ChatColor.GREEN, "IRON_SPEAR", "Piercing Rush",
+      "WOODEN_SPEAR", "STONE_SPEAR", "COPPER_SPEAR", "IRON_SPEAR", "GOLDEN_SPEAR",
+      "DIAMOND_SPEAR", "NETHERITE_SPEAR");
 
   private final String id;
   private final String displayName;
@@ -28,6 +33,22 @@ public enum WeaponSkill {
     this.iconName = iconName;
     this.abilityName = abilityName;
     this.weaponNames = Arrays.asList(weaponNames);
+  }
+
+  /** Finds a skill by its id ("maceMastery") or short name ("mace"), ignoring case. */
+  public static WeaponSkill fromInput(String input) {
+    for (WeaponSkill skill : values()) {
+      String shortName = skill.id.replace("Mastery", "");
+      if (skill.id.equalsIgnoreCase(input) || shortName.equalsIgnoreCase(input)) {
+        return skill;
+      }
+    }
+    return null;
+  }
+
+  /** Name of the section in weaponSkills.yml ("mace", "trident", "spear"). */
+  public String getConfigKey() {
+    return id.replace("Mastery", "");
   }
 
   /** Key used in files and the config. */

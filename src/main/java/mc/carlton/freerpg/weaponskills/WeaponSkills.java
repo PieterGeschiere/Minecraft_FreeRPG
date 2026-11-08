@@ -4,7 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -23,7 +28,13 @@ public class WeaponSkills implements Listener {
     Bukkit.getPluginManager().registerEvents(new WeaponSkills(), plugin);
     Bukkit.getPluginManager().registerEvents(new MaceMastery(), plugin);
     Bukkit.getPluginManager().registerEvents(new WeaponSkillsMenu(), plugin);
-    Bukkit.getPluginManager().registerEvents(new MaceSkillTreeMenu(), plugin);
+    Bukkit.getPluginManager().registerEvents(new TridentMastery(), plugin);
+    Bukkit.getPluginManager().registerEvents(new SpearMastery(), plugin);
+    Bukkit.getPluginManager().registerEvents(new WeaponSkillTreeMenu(), plugin);
+    Bukkit.getPluginManager().registerEvents(new WeaponSkillConfigMenu(), plugin);
+    WeaponSkillTreeMenu.register(new MaceTreeInfo());
+    WeaponSkillTreeMenu.register(new TridentTreeInfo());
+    WeaponSkillTreeMenu.register(new SpearTreeInfo());
     Bukkit.getScheduler().runTaskTimer(plugin, WeaponSkillManager::saveAll, SAVE_INTERVAL_TICKS,
         SAVE_INTERVAL_TICKS);
   }
@@ -39,6 +50,45 @@ public class WeaponSkills implements Listener {
 
   @EventHandler
   public void onQuit(PlayerQuitEvent e) {
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      WeaponSkillRules.endAbility(e.getPlayer(), skill, false);
+    }
     WeaponSkillManager.unload(e.getPlayer().getUniqueId());
+  }
+
+  /** Dying ends the abilities, but the cooldowns keep running. */
+  @EventHandler
+  public void onDeath(PlayerDeathEvent e) {
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      WeaponSkillRules.endAbility(e.getEntity(), skill, false);
+    }
+  }
+
+  /** Dropping the weapon of a running ability ends it. */
+  @EventHandler
+  public void onDrop(PlayerDropItemEvent e) {
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      if (skill.isWeapon(e.getItemDrop().getItemStack().getType())) {
+        WeaponSkillRules.endAbility(e.getPlayer(), skill, true);
+      }
+    }
+  }
+
+  /** Switching to another item ends the abilities that need the weapon in hand. */
+  @EventHandler
+  public void onHeld(PlayerItemHeldEvent e) {
+    ItemStack now = e.getPlayer().getInventory().getItem(e.getNewSlot());
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      if (now == null || !skill.isWeapon(now.getType())) {
+        WeaponSkillRules.endAbility(e.getPlayer(), skill, true);
+      }
+    }
+  }
+
+  @EventHandler
+  public void onSwapHands(PlayerSwapHandItemsEvent e) {
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      WeaponSkillRules.endAbility(e.getPlayer(), skill, true);
+    }
   }
 }

@@ -255,6 +255,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
 
     //Register commands
     getCommand("frpg").setExecutor(new FrpgCommands());
+    getCommand("frpg").setTabCompleter(new mc.carlton.freerpg.commands.FrpgTabCompleter());
     getCommand("spite").setExecutor(new SpiteQuote());
 
     //If the plugin starts with players online

@@ -2,16 +2,25 @@ package mc.carlton.freerpg.weaponskills;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import mc.carlton.freerpg.FreeRPG;
+import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
+import mc.carlton.freerpg.core.info.player.Leaderboards;
+import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.utils.game.ActionBarMessages;
+import mc.carlton.freerpg.utils.game.BossBarStorage;
+import mc.carlton.freerpg.utils.game.LanguageSelector;
 import org.apache.logging.log4j.Level;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -35,6 +44,15 @@ public final class WeaponSkillManager {
     if (!folder.exists() && !folder.mkdirs()) {
       FreeRPG.log(Level.ERROR, "Could not create the weaponSkills folder");
     }
+  }
+
+  static File getFolder() {
+    return folder;
+  }
+
+  /** The data of an online (loaded) player, or null. */
+  static Map<WeaponSkill, WeaponSkillData> getLoaded(UUID uuid) {
+    return players.get(uuid);
   }
 
   private static File fileOf(UUID uuid) {
@@ -71,6 +89,8 @@ public final class WeaponSkillManager {
         }
       }
       data.setAbilityEnabled(yaml.getBoolean(skill.getId() + ".abilityEnabled", true));
+      data.setExpBarEnabled(yaml.getBoolean(skill.getId() + ".expBarEnabled", true));
+      data.setAbilityCooldownUntil(yaml.getLong(skill.getId() + ".cooldownUntil", 0L));
       skills.put(skill, data);
     }
     return skills;
@@ -82,6 +102,12 @@ public final class WeaponSkillManager {
       return;
     }
     YamlConfiguration yaml = new YamlConfiguration();
+    Player online = org.bukkit.Bukkit.getPlayer(uuid);
+    if (online != null) {
+      yaml.set("name", online.getName());
+    } else if (fileOf(uuid).exists()) {
+      yaml.set("name", YamlConfiguration.loadConfiguration(fileOf(uuid)).getString("name"));
+    }
     for (Map.Entry<WeaponSkill, WeaponSkillData> entry : skills.entrySet()) {
       yaml.set(entry.getKey().getId() + ".experience", entry.getValue().getExperience());
       yaml.set(entry.getKey().getId() + ".level", entry.getValue().getLevel());
@@ -92,6 +118,9 @@ public final class WeaponSkillManager {
         yaml.set(entry.getKey().getId() + ".skills." + skillLevel.getKey(), skillLevel.getValue());
       }
       yaml.set(entry.getKey().getId() + ".abilityEnabled", entry.getValue().isAbilityEnabled());
+      yaml.set(entry.getKey().getId() + ".expBarEnabled", entry.getValue().isExpBarEnabled());
+      yaml.set(entry.getKey().getId() + ".cooldownUntil",
+          entry.getValue().getAbilityCooldownUntil());
     }
     try {
       yaml.save(fileOf(uuid));
@@ -167,32 +196,257 @@ public final class WeaponSkillManager {
     return Math.max(0, earned - data.getTotalSkillLevels());
   }
 
+  /** Total of the levels of all weapon skills, which counts towards the global level. */
+  public static int getTotalLevel(Player p) {
+    int total = 0;
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      total += get(p, skill).getLevel();
+    }
+    return total;
+  }
+
+  /** Total experience of all weapon skills, which counts towards the global experience. */
+  public static int getTotalExperience(Player p) {
+    long total = 0;
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      total += get(p, skill).getExperience();
+    }
+    return (int) Math.min(Integer.MAX_VALUE, total);
+  }
+
   /**
-   * Gives experience to a weapon skill. The amount is multiplied by the player's combat multiplier,
-   * so personal multipliers and global perks apply like for other combat skills.
+   * Gives experience to a weapon skill the way the main skills do: permission, creative mode,
+   * enable switch, multipliers and maximum level are checked, the global level and experience grow,
+   * and the exp bar and level-up messages are shown.
    */
   public static void addExp(Player p, WeaponSkill skill, double rawExp) {
-    if (rawExp <= 0 || !WeaponSkillConfig.isEnabled()) {
+    String key = skill.getConfigKey();
+    if (rawExp <= 0 || !WeaponSkillConfig.isEnabled()
+        || !WeaponSkillConfig.getBoolean(key + ".skillAllowed", true)
+        || !p.hasPermission("freeRPG." + skill.getId() + "EXP")
+        || p.getGameMode() == GameMode.CREATIVE) {
       return;
     }
     ChangeStats changeStats = new ChangeStats(p);
-    long exp = Math.round(rawExp * changeStats.getSkillMultiplier("swordsmanship"));
+    double multiplier = changeStats.getSkillMultiplier("swordsmanship")
+        * WeaponSkillConfig.getDouble(key + ".EXP_Multiplier", 1.0);
+    int exp = (int) Math.ceil(rawExp * multiplier);
     if (exp <= 0) {
       return;
     }
+    int maxLevel = WeaponSkillConfig.getInt(key + ".maxLevel", -1);
+    if (maxLevel < 0) {
+      maxLevel = Integer.MAX_VALUE;
+    }
     WeaponSkillData data = get(p, skill);
-    data.setExperience(Math.min(Integer.MAX_VALUE, data.getExperience() + exp));
     int oldLevel = data.getLevel();
-    int newLevel = changeStats.getLevelfromEXP((int) data.getExperience());
+    if (oldLevel >= maxLevel) {
+      return;
+    }
+    long newExperience = Math.min(Integer.MAX_VALUE, data.getExperience() + exp);
+    int newLevel = Math.min(maxLevel, changeStats.getLevelfromEXP((int) newExperience));
+    data.setExperience(newExperience);
     data.setLevel(newLevel);
-    new ActionBarMessages(p).sendMessage(
-        skill.getColor() + "+" + exp + " " + skill.getDisplayName() + ChatColor.GRAY + " (Lv "
-            + newLevel + ")");
+
+    ArrayList<Number> global = new PlayerStats(p).getPlayerData().get("global");
+    global.set(29, global.get(29).intValue() + exp);
+    showExpBar(p, changeStats, skill, (int) newExperience, oldLevel, newLevel, exp,
+        newLevel >= maxLevel);
     if (newLevel > oldLevel) {
-      p.sendMessage(skill.getColor() + "" + ChatColor.BOLD + skill.getDisplayName()
-          + ChatColor.RESET + ChatColor.GREEN + " reached level " + newLevel + "!");
-      p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
-      announceTokens(p, skill, oldLevel, newLevel, data);
+      levelUp(p, changeStats, skill, global, oldLevel, newLevel);
+    }
+    if (new ConfigLoad().isLeaderboardDyanmicUpdate()) {
+      new Leaderboards().updatePlayerStats(p, "global", global.get(0).intValue(),
+          global.get(29).intValue());
+    }
+  }
+
+  /** The exp bar (boss bar) of the main skills, with the same toggle and look. */
+  private static void showExpBar(Player p, ChangeStats changeStats, WeaponSkill skill, int exp,
+      int oldLevel, int newLevel, int expChange, boolean maxed) {
+    ArrayList<Number> global = new PlayerStats(p).getPlayerData().get("global");
+    if (global.get(25).intValue() < 1 || !get(p, skill).isExpBarEnabled()) {
+      return;
+    }
+    LanguageSelector lang = new LanguageSelector(p);
+    String title = skill.getDisplayName();
+    BossBar expBar = new BossBarStorage().getPlayerExpBar(p);
+    if (newLevel > oldLevel) {
+      expBar.setProgress(1.0);
+      expBar.setVisible(true);
+      changeStats.flashEXPBarText(
+          title.toUpperCase() + " " + lang.getString("level").toUpperCase() + " " + newLevel + "!",
+          ChatColor.GOLD, ChatColor.DARK_PURPLE, expBar);
+      changeStats.removeEXPBar(expBar);
+      return;
+    }
+    int levelForBar = maxed ? changeStats.getLevelfromEXP(exp) : oldLevel;
+    int lastLevelExp = changeStats.getEXPfromLevel(levelForBar);
+    int nextLevelExp = changeStats.getEXPfromLevel(levelForBar + 1);
+    double progress = Math.max(exp - lastLevelExp, 0);
+    double needed = Math.max(1, nextLevelExp - lastLevelExp);
+    expBar.setProgress(Math.min(progress / needed, 1.0));
+    if (!maxed) {
+      expBar.setColor(BarColor.GREEN);
+      expBar.setTitle(ChatColor.GRAY + title + ChatColor.GOLD + " " + lang.getString("lvl") + " "
+          + newLevel + ChatColor.YELLOW + " (+" + expChange + " " + lang.getString("exp") + ")");
+    } else {
+      expBar.setColor(BarColor.BLUE);
+      expBar.setTitle(ChatColor.LIGHT_PURPLE + "(" + lang.getString("virtual") + ") "
+          + ChatColor.GRAY + title + ChatColor.GOLD + " " + lang.getString("lvl") + " "
+          + levelForBar + ChatColor.YELLOW + " (+" + expChange + " " + lang.getString("exp")
+          + ")");
+    }
+    expBar.setVisible(true);
+    changeStats.removeEXPBar(expBar);
+  }
+
+  /**
+   * The level-up of a main skill: the global level grows by the same amount, global tokens are
+   * given, and the same banner, titles and sound are shown (when the player has them turned on).
+   */
+  private static void levelUp(Player p, ChangeStats changeStats, WeaponSkill skill,
+      ArrayList<Number> global, int oldLevel, int newLevel) {
+    ConfigLoad configLoad = new ConfigLoad();
+    ArrayList<Double> tokensInfo = configLoad.getTokensInfo();
+    LanguageSelector lang = new LanguageSelector(p);
+    int levelChange = newLevel - oldLevel;
+
+    // Global level and global tokens
+    double levelsPerGlobal = tokensInfo.get(3);
+    int oldGlobalLevel = global.get(0).intValue();
+    int globalLevel = oldGlobalLevel + levelChange;
+    int newTokensG = (int) Math.floor(globalLevel / levelsPerGlobal)
+        - (int) Math.floor(oldGlobalLevel / levelsPerGlobal);
+    boolean gainedGlobalToken = false;
+    int extraGlobalTokens = -100;
+    if (newTokensG > 0) {
+      gainedGlobalToken = true;
+      extraGlobalTokens = changeStats.areGlobalPerksMaxed(newTokensG);
+      if (extraGlobalTokens >= 0) {
+        newTokensG -= extraGlobalTokens;
+        changeStats.changeStat("global", 23, extraGlobalTokens * tokensInfo.get(8));
+      }
+    }
+    global.set(0, globalLevel);
+    global.set(1, global.get(1).intValue() + newTokensG);
+
+    // Tokens of the skill itself
+    double perPassive = Math.max(0.01, WeaponSkillConfig.getDouble("tokens.levelsPerPassiveToken",
+        1));
+    double perSkill = Math.max(1, WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken", 100));
+    int newTokensP = (int) Math.floor(newLevel / perPassive) - (int) Math.floor(
+        oldLevel / perPassive);
+    int newTokensS = (int) Math.floor(newLevel / perSkill) - (int) Math.floor(oldLevel / perSkill);
+
+    if (global.get(21).intValue() < 1) {
+      return; // level-up messages are turned off
+    }
+    String skillTitle = skill.getDisplayName();
+    if (gainedGlobalToken) {
+      p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+      if (newTokensG > 0 && extraGlobalTokens <= 0) {
+        p.sendTitle(ChatColor.DARK_PURPLE + lang.getString("globalPassiveTitle0") + " +"
+                + newTokensG,
+            ChatColor.YELLOW + lang.getString("try0") + " /frpg skillTree global", 5, 40, 20);
+      } else {
+        double multiplierIncrease = extraGlobalTokens * tokensInfo.get(8);
+        p.sendTitle(ChatColor.DARK_PURPLE + lang.getString("expIncrease") + " +" + (
+                multiplierIncrease * 100) + "%",
+            ChatColor.RED + lang.getString("globalPassiveTitle0") + " +" + newTokensG, 5, 40,
+            20);
+      }
+    }
+    if (newTokensS > 0 || oldLevel < 3) {
+      p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+      String bars = "------------------------------------------------";
+      String levelUpMessage = skillTitle + " " + lang.getString("level") + " " + newLevel + "!";
+      int spaces = bars.length() - levelUpMessage.length();
+      if (spaces % 2 != 0) {
+        bars += "-";
+        spaces -= 1;
+      }
+      StringBuilder padding = new StringBuilder();
+      for (int i = 0; i < spaces / 2.0; i++) {
+        padding.append(' ');
+      }
+      p.sendMessage(bars);
+      p.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + padding + levelUpMessage);
+      if (newTokensP > 0) {
+        p.sendMessage(ChatColor.LIGHT_PURPLE + "+" + newTokensP + " "
+            + lang.getString("diggingPassiveTitle0"));
+      }
+      if (newTokensS > 0) {
+        p.sendMessage(ChatColor.GOLD + "+" + newTokensS + " "
+            + lang.getString("diggingPassiveTitle2"));
+      }
+      if (newTokensG > 0) {
+        p.sendMessage(ChatColor.DARK_PURPLE + "+" + newTokensG + " "
+            + lang.getString("globalPassiveTitle0"));
+      }
+      if (oldLevel < configLoad.getMaxLevelForBeginnerMessage()) {
+        p.sendMessage("");
+        p.sendMessage(ChatColor.ITALIC + lang.getString("passiveImprove"));
+        p.sendMessage(ChatColor.ITALIC + lang.getString("try0") + " /frpg weapons");
+      }
+      p.sendMessage(bars);
+    } else {
+      new ActionBarMessages(p).sendMessage(
+          ChatColor.YELLOW + skillTitle + " " + lang.getString("increasedBy") + " " + levelChange
+              + ". (" + newLevel + ")");
+    }
+  }
+
+  /** Administration: adds exact experience (no multipliers, no messages). */
+  public static void giveExp(Player p, WeaponSkill skill, long exp) {
+    WeaponSkillData data = get(p, skill);
+    data.setExperience(Math.max(0, Math.min(Integer.MAX_VALUE, data.getExperience() + exp)));
+    data.setLevel(new ChangeStats(p).getLevelfromEXP((int) data.getExperience()));
+    enforceTokenLimits(data);
+    syncGlobalTotals(p);
+  }
+
+  /** Administration: sets the level, with the experience the level needs. */
+  public static void setLevel(Player p, WeaponSkill skill, int level) {
+    WeaponSkillData data = get(p, skill);
+    data.setExperience(new ChangeStats(p).getEXPfromLevel(Math.max(0, level)));
+    data.setLevel(Math.max(0, level));
+    enforceTokenLimits(data);
+    syncGlobalTotals(p);
+  }
+
+  /** Administration: removes all experience and the whole skill tree. */
+  public static void reset(Player p, WeaponSkill skill) {
+    WeaponSkillData data = get(p, skill);
+    data.setExperience(0);
+    data.setLevel(0);
+    data.resetTree();
+    syncGlobalTotals(p);
+  }
+
+  /** Administration: ends the ability and removes its cooldown. */
+  public static void resetCooldown(Player p, WeaponSkill skill) {
+    WeaponSkillData data = get(p, skill);
+    data.setAbilityActiveUntil(0);
+    data.setAbilityCooldownUntil(0);
+    data.setAbilityCharges(0);
+  }
+
+  /** Recalculates the global level and experience, which include the weapon skills. */
+  private static void syncGlobalTotals(Player p) {
+    ChangeStats changeStats = new ChangeStats(p);
+    changeStats.setTotalLevel();
+    changeStats.setTotalExperience();
+  }
+
+  /** If the level dropped below what the invested tokens need, the skill tree is reset. */
+  private static void enforceTokenLimits(WeaponSkillData data) {
+    double perPassive = Math.max(0.01, WeaponSkillConfig.getDouble("tokens.levelsPerPassiveToken",
+        1));
+    double perSkill = Math.max(1, WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken", 100));
+    if (data.getTotalPassiveLevels() > Math.floor(data.getLevel() / perPassive)
+        || data.getTotalSkillLevels() > Math.floor(data.getLevel() / perSkill)) {
+      data.resetTree();
     }
   }
 

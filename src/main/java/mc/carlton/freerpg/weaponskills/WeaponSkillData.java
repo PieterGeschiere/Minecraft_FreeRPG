@@ -17,6 +17,7 @@ public class WeaponSkillData {
   private final Map<String, Integer> passiveLevels = new HashMap<>();
   private final Map<String, Integer> skillLevels = new HashMap<>();
   private boolean abilityEnabled = true;
+  private boolean expBarEnabled = true;
   /** Time (ms) until the ability stays active, 0 if it is not active. Not saved. */
   private long abilityActiveUntil;
   /** Time (ms) until the ability can be used again. Not saved. */
@@ -86,6 +87,14 @@ public class WeaponSkillData {
   public void resetTree() {
     passiveLevels.clear();
     skillLevels.clear();
+  }
+
+  public boolean isExpBarEnabled() {
+    return expBarEnabled;
+  }
+
+  public void setExpBarEnabled(boolean expBarEnabled) {
+    this.expBarEnabled = expBarEnabled;
   }
 
   public boolean isAbilityEnabled() {

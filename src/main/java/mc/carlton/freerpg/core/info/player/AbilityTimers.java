@@ -187,6 +187,7 @@ public class AbilityTimers {
           } else {
             ActionBarMessages actionMessage = new ActionBarMessages(player);
             actionMessage.sendMessage(cooldownCompleteMessage);
+            mc.carlton.freerpg.utils.game.AbilitySounds.ready(player, skillName);
           }
           killCooldownTask(taskUUID);
         } else {
@@ -202,6 +203,7 @@ public class AbilityTimers {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
     initializeCooldownTimer(skillName);
     setAbilityDurationTime(skillName, (int) duration);
+    mc.carlton.freerpg.utils.game.AbilitySounds.activate(player, skillName);
     int refreshTicks = 2;
     UUID taskUUID = UUID.randomUUID();
     int taskID = new BukkitRunnable() { //The outer task is used for Ability time remaining bars and is accurate to 0.1 seconds on default
@@ -234,6 +236,7 @@ public class AbilityTimers {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
     initializeCooldownTimer(skillName);
     setAbilityDurationTime(skillName, (int) duration);
+    mc.carlton.freerpg.utils.game.AbilitySounds.activate(player, skillName);
     int refreshTicks = 2;
     UUID taskUUID = UUID.randomUUID();
     int taskID = new BukkitRunnable() { //The outer task is used for Ability time remaining bars and is accurate to 0.1 seconds on default
@@ -267,6 +270,9 @@ public class AbilityTimers {
     AbilityTracker abilities = new AbilityTracker(player);
     if (player.isOnline()) {
       actionMessage.sendMessage(endMessage);
+      if (!isDisabling) {
+        mc.carlton.freerpg.utils.game.AbilitySounds.end(player, skillName);
+      }
     }
     abilities.setPlayerAbility(skillName, -1);
     durationBarUpdate(skillName, 0,
@@ -283,6 +289,9 @@ public class AbilityTimers {
     AbilityTracker abilities = new AbilityTracker(player);
     if (player.isOnline()) {
       actionMessage.sendMessage(endMessage);
+      if (!isDisabling) {
+        mc.carlton.freerpg.utils.game.AbilitySounds.end(player, skillName);
+      }
     }
     abilities.setPlayerAbility(skillName, -1);
     durationBarUpdate(skillName, 0,

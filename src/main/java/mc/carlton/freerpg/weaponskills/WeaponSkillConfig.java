@@ -27,6 +27,10 @@ public final class WeaponSkillConfig {
     return config.getBoolean("enabled", true);
   }
 
+  public static boolean getBoolean(String path, boolean defaultValue) {
+    return config.getBoolean(path, defaultValue);
+  }
+
   public static double getDouble(String path, double defaultValue) {
     return config.getDouble(path, defaultValue);
   }

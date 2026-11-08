@@ -141,7 +141,7 @@ public class MaceMastery implements Listener {
     }
     Player p = (Player) e.getDamager();
     LivingEntity target = (LivingEntity) e.getEntity();
-    if (!isHoldingMace(p)) {
+    if (!isHoldingMace(p) || !WeaponSkillRules.canHit(p, SKILL, target)) {
       return;
     }
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
@@ -156,12 +156,12 @@ public class MaceMastery implements Listener {
     }
     double damage = e.getDamage();
 
-    double exp = expValue("hitBase", 10) + expValue("hitPerDamage", 5) * damage;
+    double exp = expValue("hitBase", 10) + expValue("hitPerDamage", 5) * e.getFinalDamage();
     if (smash) {
       exp += expValue("smashBase", 150) + expValue("smashPerBlock", 25) * Math.min(fallDistance,
           30);
     }
-    WeaponSkillManager.addExp(p, SKILL, exp);
+    WeaponSkillManager.addExp(p, SKILL, exp * WeaponSkillRules.farmMultiplier(target));
 
     if (smash) {
       if (data.getSkill(STAGGER) > 0) {
@@ -281,9 +281,14 @@ public class MaceMastery implements Listener {
     if (!isHoldingMace(p)) {
       return;
     }
-    if (e.getClickedBlock() != null && e.getClickedBlock().getType().isInteractable()
-        && !p.isSneaking()) {
+    if (e.getClickedBlock() != null && (e.getClickedBlock().getType().isInteractable()
+        || new mc.carlton.freerpg.utils.globalVariables.ItemGroups().getActionableBlocks()
+        .contains(e.getClickedBlock().getType())) && !p.isSneaking()) {
       return; // opening a chest or door, not activating the ability
+    }
+    if (!WeaponSkillRules.canUseAbility(p, SKILL,
+        e.useItemInHand() == org.bukkit.event.Event.Result.DENY)) {
+      return;
     }
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
     ActionBarMessages bar = new ActionBarMessages(p);
@@ -303,7 +308,7 @@ public class MaceMastery implements Listener {
       return;
     }
     double duration = getAbilityDuration(data);
-    int cooldown = getAbilityCooldown();
+    int cooldown = WeaponSkillRules.adjustCooldown(p, getAbilityCooldown());
     data.setAbilityCharges(getAbilityCharges());
     data.setAbilityActiveUntil(now + (long) (duration * 1000));
     data.setAbilityCooldownUntil(now + (long) ((duration + cooldown) * 1000));
@@ -311,6 +316,7 @@ public class MaceMastery implements Listener {
         + Math.round(duration * 10) / 10.0 + "s (" + getAbilityCharges() + " shockwaves)<<<");
     p.playSound(p.getLocation(), Sound.ITEM_MACE_SMASH_AIR, 1f, 1f);
     UUID uuid = p.getUniqueId();
+    WeaponSkillRules.scheduleReady(p, SKILL, data, (long) ((duration + cooldown) * 20) + 2);
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {
       Player online = Bukkit.getPlayer(uuid);
       if (online != null && !data.isAbilityActive()) {

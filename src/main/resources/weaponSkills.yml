@@ -17,6 +17,9 @@ tokens:
   shiftClickInvestment: 100      # Tokens invested with a shift-click (shift + right-click: all tokens)
 
 mace:
+  skillAllowed: true           # Set to false to disable Mace Mastery completely
+  maxLevel: -1                 # Highest level, -1 for no limit
+  EXP_Multiplier: 1.0          # Multiplies all exp this skill gets (on top of the combat multipliers)
   exp:
     hitBase: 10                # Exp for every hit with a mace
     hitPerDamage: 5            # Extra exp per point of damage dealt
@@ -51,3 +54,84 @@ mace:
     adrenalineSeconds: 4              # Adrenaline (3b): seconds of Speed and Resistance after a smash
     titansWrathDamage: 0.25           # Titan's Wrath (M): extra smash damage
     titansWrathRadius: 1.5            # Titan's Wrath (M): shockwave radius multiplier
+
+trident:
+  skillAllowed: true           # Set to false to disable Trident Mastery completely
+  maxLevel: -1                 # Highest level, -1 for no limit
+  EXP_Multiplier: 1.0          # Multiplies all exp this skill gets (on top of the combat multipliers)
+  exp:
+    hitBase: 10                # Exp for every melee hit with a trident
+    hitPerDamage: 5            # Extra exp per point of damage dealt
+    throwBase: 25              # Exp for a thrown trident that hits
+    throwPerDamage: 5          # Extra exp per point of damage dealt
+    throwPerBlock: 3           # Extra exp per block of distance, up to 50 blocks
+    maelstromPerEntity: 15     # Exp for every mob pulled by a Maelstrom
+    killMultiplier: 1.0        # Kill exp uses the same mob values as Swordsmanship, times this
+  passives:                    # Passive tokens are invested in these (like the dyes of the main skills)
+    p2:
+      maxLevel: 100
+    p3:
+      maxLevel: 100
+  ability:
+    # Maelstrom: left-click a trident to ready it, then thrown tridents create a whirlpool where they land.
+    # It ends when the time is up or after maxThrows throws, whichever comes first.
+    baseDurationSeconds: 8     # Passive 1 adds durationPerLevelSeconds per level
+    durationPerLevelSeconds: 0.02
+    maxDurationSeconds: 14
+    maxThrows: 2
+    cooldownSeconds: 90        # Counted from the moment the ability ends
+    maelstromSeconds: 3        # How long a whirlpool lasts
+    baseRadius: 4.0
+    maxRadius: 8.0
+    pullStrength: 0.35
+  perks:
+    throwingPowerPerLevel: 0.003      # Passive 2: +0.3% thrown damage per level
+    tidalMightPerLevel: 0.004         # Passive 3: +0.4% damage in water or rain per level
+    wideMaelstromRadiusPerLevel: 0.5  # Wide Maelstrom (1a): extra radius per level
+    undertowPerLevel: 0.1             # Undertow (1b): stronger pull per level
+    biteDamagePerLevel: 0.5           # Maelstrom Bite (2a): damage per half second per level
+    barbedSecondsPerLevel: 1.0        # Barbed Tips (2b): slowness seconds per level
+    tidalBurstDamage: 6               # Tidal Burst (3a): damage of the final burst
+    seaShieldSeconds: 8               # Sea Shield (3b): seconds of Absorption
+    poseidonsWrathDamage: 0.25        # Poseidon's Wrath (M): extra thrown damage
+    poseidonsWrathRadius: 1.5         # Poseidon's Wrath (M): Maelstrom radius multiplier
+
+spear:
+  skillAllowed: true           # Set to false to disable Spear Mastery completely
+  maxLevel: -1                 # Highest level, -1 for no limit
+  EXP_Multiplier: 1.0          # Multiplies all exp this skill gets (on top of the combat multipliers)
+  exp:
+    hitBase: 10                # Exp for every hit with a spear
+    hitPerDamage: 5            # Extra exp per point of damage dealt
+    chargeBonus: 30            # Extra exp for a hit while sprinting
+    mountedBonus: 30           # Extra exp for a hit while riding a mount
+    piercePerEntity: 15        # Exp for every mob hit by Piercing Rush's pierce
+    killMultiplier: 1.0        # Kill exp uses the same mob values as Swordsmanship, times this
+  passives:                    # Passive tokens are invested in these (like the dyes of the main skills)
+    p2:
+      maxLevel: 100
+    p3:
+      maxLevel: 100
+  ability:
+    # Piercing Rush: sneak + left-click a spear to ready it, then your spear hits also pierce a line of mobs.
+    # It ends when the time is up or after maxHits hits, whichever comes first.
+    baseDurationSeconds: 8     # Passive 1 adds durationPerLevelSeconds per level
+    durationPerLevelSeconds: 0.02
+    maxDurationSeconds: 14
+    maxHits: 3
+    cooldownSeconds: 90        # Counted from the moment the ability ends
+    baseLength: 5.0            # Blocks the line reaches behind the target
+    maxLength: 10.0
+    baseWidth: 1.0             # Blocks to each side of the line
+    damageMultiplier: 0.5      # Pierce damage as a part of the hit's damage
+  perks:
+    momentumPerLevel: 0.003           # Passive 2: +0.3% damage per level while sprinting
+    mountedChargePerLevel: 0.004      # Passive 3: +0.4% damage per level while riding
+    longReachPerLevel: 0.5            # Long Reach (1a): extra length per level
+    widePierceWidth: 0.2              # Wide Pierce (1b): extra width per level
+    skewerPerLevel: 0.1               # Skewer (2a): extra pierce damage per level
+    hamstringSecondsPerLevel: 1.0     # Hamstring (2b): slowness seconds per level
+    pinSeconds: 2                     # Pin (3a): seconds the last pierced mob is pinned
+    triumphSeconds: 3                 # Triumph (3b): seconds of Speed II after a kill
+    dragoonsWrathDamage: 0.25         # Dragoon's Wrath (M): extra spear damage
+    dragoonsWrathLength: 1.5          # Dragoon's Wrath (M): pierce length multiplier

@@ -506,6 +506,9 @@ public class FrpgCommands implements CommandExecutor {
           p.sendMessage(ChatColor.GOLD + "/frpg configurationGUI" + ChatColor.RESET
               + ChatColor.GRAY.toString() + " - " +
               ChatColor.RESET + ChatColor.WHITE + lang.getString("commandDesc2"));
+          p.sendMessage(ChatColor.GOLD + "/frpg weapons" + ChatColor.RESET
+              + ChatColor.GRAY.toString() + " - " + ChatColor.RESET + ChatColor.WHITE
+              + "Opens the weapon skills menu (Archery, Swordsmanship, Axe, Mace, Trident, Spear)");
           p.sendMessage(ChatColor.GOLD + "/frpg giveEXP [" + lang.getString("playerName") + "] ["
               + lang.getString("skillName") + "] [amount]" + ChatColor.RESET
               + ChatColor.GRAY.toString() + " - " +
@@ -940,6 +943,11 @@ public class FrpgCommands implements CommandExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
 
+    // Admin commands for the weapon skills (Mace, Trident, Spear)
+    if (mc.carlton.freerpg.weaponskills.WeaponSkillCommands.handle(sender, args)) {
+      return true;
+    }
+
     // /frpg aka MainGUI
     if (args.length == 0) {
       CommandHelper commandHelper = new CommandHelper(sender, args, 0, "");
@@ -1122,6 +1130,7 @@ public class FrpgCommands implements CommandExecutor {
           return true; //Player not on leaderboards
         }
         createStatLookup(sender, playerName);
+        mc.carlton.freerpg.weaponskills.WeaponSkillCommands.sendStatLines(sender, playerName);
       }
     }
 
