@@ -152,4 +152,19 @@ class ResourceFilesTest {
   void archeryIsRetiredInTheDefaultConfig() throws Exception {
     assertEquals(false, load("config.yml").getBoolean("archery.skillAllowed", true));
   }
+
+  @Test
+  void everySkillHasAShortcutCommand() throws Exception {
+    YamlConfiguration plugin = load("plugin.yml");
+    java.util.List<String> names = new java.util.ArrayList<>(
+        mc.carlton.freerpg.commands.SkillShortcutCommands.SKILLS);
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      names.add(skill.getId());
+    }
+    assertEquals(19, names.size());
+    for (String name : names) {
+      assertNotNull(plugin.get("commands." + name.toLowerCase()), "no /" + name + " command");
+    }
+    assertFalse(names.contains("archery"));
+  }
 }

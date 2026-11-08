@@ -193,7 +193,6 @@ public class WeaponSkillsMenu implements Listener {
     Consumer<Player> action = holder.actions.get(e.getRawSlot());
     if (action != null && e.getWhoClicked() instanceof Player) {
       Player p = (Player) e.getWhoClicked();
-      p.closeInventory();
       action.accept(p);
     }
   }

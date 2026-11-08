@@ -36,75 +36,57 @@ public class MainGUIclick implements Listener {
         if (e.getCurrentItem() != null) {
           switch (e.getCurrentItem().getType()) {
             case MACE:
-              p.closeInventory();
               p.performCommand("frpg weapons");
               break;
             case NETHER_STAR:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI global");
               break;
             case IRON_SHOVEL:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI digging");
               break;
             case IRON_AXE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI woodcutting");
               break;
             case IRON_PICKAXE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI mining");
               break;
             case IRON_HOE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI farming");
               break;
             case FISHING_ROD:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI fishing");
               break;
             case BOW:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI archery");
               break;
             case BONE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI beastMastery");
               break;
             case IRON_SWORD:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI swordsmanship");
               break;
             case IRON_CHESTPLATE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI defense");
               break;
             case GOLDEN_AXE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI axeMastery");
               break;
             case ANVIL:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI repair");
               break;
             case LEATHER_LEGGINGS:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI agility");
               break;
             case POTION:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI alchemy");
               break;
             case COAL:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI smelting");
               break;
             case ENCHANTING_TABLE:
-              p.closeInventory();
               p.performCommand("frpg skillTreeGUI enchanting");
               break;
             case REDSTONE:
-              p.closeInventory();
               p.performCommand("frpg configurationGUI");
               break;
             default:

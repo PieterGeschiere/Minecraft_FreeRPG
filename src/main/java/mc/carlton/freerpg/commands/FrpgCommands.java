@@ -442,6 +442,10 @@ public class FrpgCommands implements CommandExecutor {
             + descriptionColor + " " + lang.getString("outOf") + " " + ChatColor.RESET
             + ChatColor.WHITE.toString() + totalPlayers);
         if (passiveTokens > 0 || skillTokens > 0) {
+          // Same line as in the weapon skills menu, so all skills look alike
+          item.addSpecialLoreLine(ChatColor.LIGHT_PURPLE + lang.getString("weaponUnspentTokens")
+              .replace("{passive}", Integer.toString(passiveTokens))
+              .replace("{skill}", Integer.toString(skillTokens)));
           item.addEnchantmentGlow();
         }
 
@@ -639,7 +643,7 @@ public class FrpgCommands implements CommandExecutor {
     ArrayList<PlayerLeaderboardStat> sortedStats = getStats.getLeaderboard(skillName);
     int totalPlayers = sortedStats.size();
     int totalPages = (int) Math.ceil(totalPlayers / 10.0);
-    if (page > totalPages) {
+    if (page < 1 || page > totalPages) {
       page = 1;
     }
     if (sender instanceof Player) {
@@ -1086,11 +1090,20 @@ public class FrpgCommands implements CommandExecutor {
     else if (args[0].equalsIgnoreCase("leaderboard") || args[0].equalsIgnoreCase("statLeaders")
         || args[0].equalsIgnoreCase("top")) {
       final String IMPROPER_ARGUMENTS_MESSSAGE = " /frpg top [::skillName::] [::page::]";
-      CommandHelper commandHelper = new CommandHelper(sender, args, 2, 3,
+      CommandHelper commandHelper = new CommandHelper(sender, args, 1, 3,
           IMPROPER_ARGUMENTS_MESSSAGE);
       commandHelper.setPermissionName("leaderboard");
       if (!commandHelper.isProperCommand()) {
         return true; //Command Restricted or Improper
+      }
+      // "/frpg top" and "/frpg top <page>" show the global leaderboard (total level)
+      if (args.length == 1) {
+        createLeaderboard(sender, 1, "global");
+        return true;
+      }
+      if (args.length == 2 && getArgumentAsInteger(args[1]) != Integer.MAX_VALUE) {
+        createLeaderboard(sender, getArgumentAsInteger(args[1]), "global");
+        return true;
       }
       int page = 1;
       if (args.length == 3) {

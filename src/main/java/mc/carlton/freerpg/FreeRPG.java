@@ -187,6 +187,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.utils.game.RepairStations(), this);
     getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
     getServer().getPluginManager().registerEvents(new MainGUIclick(), this);
+    getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.events.gui.MenuSounds(), this);
     getServer().getPluginManager().registerEvents(new SkillsGUIclick(), this);
     getServer().getPluginManager().registerEvents(new CraftingGUIclick(), this);
     getServer().getPluginManager().registerEvents(new ConfirmationGUIClick(), this);
@@ -241,6 +242,22 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     getCommand("frpg").setExecutor(new FrpgCommands());
     getCommand("frpg").setTabCompleter(new mc.carlton.freerpg.commands.FrpgTabCompleter());
     getCommand("spite").setExecutor(new SpiteQuote());
+    // One command per skill (/mining, /maceMastery, ...) that opens its skill tree
+    mc.carlton.freerpg.commands.FrpgCommands frpgCommands = new mc.carlton.freerpg.commands.FrpgCommands();
+    mc.carlton.freerpg.commands.SkillShortcutCommands shortcuts =
+        new mc.carlton.freerpg.commands.SkillShortcutCommands(frpgCommands);
+    java.util.List<String> shortcutNames = new java.util.ArrayList<>(
+        mc.carlton.freerpg.commands.SkillShortcutCommands.SKILLS);
+    for (mc.carlton.freerpg.weaponskills.WeaponSkill weaponSkill
+        : mc.carlton.freerpg.weaponskills.WeaponSkill.values()) {
+      shortcutNames.add(weaponSkill.getId());
+    }
+    for (String shortcutName : shortcutNames) {
+      org.bukkit.command.PluginCommand shortcut = getCommand(shortcutName.toLowerCase());
+      if (shortcut != null) {
+        shortcut.setExecutor(shortcuts);
+      }
+    }
 
     //If the plugin starts with players online
     for (Player p : Bukkit.getOnlinePlayers()) {

@@ -132,10 +132,8 @@ public class ConfirmationGUIClick implements Listener {
                 ChatColor.RED + refundCostString + " " + langManager.getString("requiredSouls"));
           }
 
-          p.closeInventory();
           p.performCommand("frpg skillTreeGUI " + skillName);
         } else if (e.getCurrentItem().getType() == Material.RED_TERRACOTTA) {
-          p.closeInventory();
           p.performCommand("frpg skillTreeGUI " + skillName);
         }
       }

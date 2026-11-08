@@ -70,7 +70,6 @@ public class SkillsGUIclick implements Listener {
         if (e.getCurrentItem() != null) {
           switch (e.getCurrentItem().getType()) {
             case ARROW:
-              p.closeInventory();
               // Archery, Swordsmanship and Axe Mastery are part of the Weapon Skills category
               if (skillName.equals("swordsmanship") || skillName.equals("axeMastery")
                   || skillName.equals("archery")) {
@@ -82,7 +81,6 @@ public class SkillsGUIclick implements Listener {
             case COMPOSTER:
               if ((int) pStatAll.get("global").get(20) >= 250
                   && (int) pStatAll.get("global").get(9) > 0) {
-                p.closeInventory();
                 p.performCommand("frpg confirmationGUI " + skillName);
               } else {
                 if ((int) pStatAll.get("global").get(9) > 0) {
@@ -220,78 +218,61 @@ public class SkillsGUIclick implements Listener {
               p.performCommand("frpg skillTreeGUI " + skillName);
               break;
             case REDSTONE:
-              p.closeInventory();
               p.performCommand("frpg skillConfigGUI " + skillName);
               break;
             case CRAFTING_TABLE:
               if (skillName.equalsIgnoreCase("farming")) {
                 switch (e.getRawSlot()) {
                   case 48:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "farming1");
                     break;
                   case 49:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "farming2");
                     break;
                   case 50:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "farming3");
                     break;
                   case 51:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "farming4");
                     break;
                   case 52:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "farming5");
                     break;
                   default:
                     break;
                 }
               } else if (skillName.equalsIgnoreCase("archery")) {
-                p.closeInventory();
                 p.performCommand("frpg craftingGUI " + "archery1");
               } else if (skillName.equalsIgnoreCase("enchanting")) {
                 switch (e.getRawSlot()) {
                   case 39:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting1");
                     break;
                   case 40:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting2");
                     break;
                   case 41:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting3");
                     break;
                   case 42:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting4");
                     break;
                   case 43:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting5");
                     break;
                   case 48:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting6");
                     break;
                   case 49:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting7");
                     break;
                   case 50:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting8");
                     break;
                   case 51:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting9");
                     break;
                   case 52:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "enchanting10");
                     break;
                   default:
@@ -301,23 +282,18 @@ public class SkillsGUIclick implements Listener {
               if (skillName.equalsIgnoreCase("alchemy")) {
                 switch (e.getRawSlot()) {
                   case 48:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "alchemy1");
                     break;
                   case 49:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "alchemy2");
                     break;
                   case 50:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "alchemy3");
                     break;
                   case 51:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "alchemy4");
                     break;
                   case 52:
-                    p.closeInventory();
                     p.performCommand("frpg craftingGUI " + "alchemy5");
                     break;
                 }
@@ -348,7 +324,6 @@ public class SkillsGUIclick implements Listener {
         if (e.getCurrentItem() != null && e.getSlot() < 54) {
           switch (e.getCurrentItem().getType()) {
             case ARROW:
-              p.closeInventory();
               p.performCommand("frpg skills");
               break;
             case RED_TERRACOTTA:

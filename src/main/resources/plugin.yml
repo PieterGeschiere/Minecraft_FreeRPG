@@ -12,6 +12,68 @@ commands:
     aliases: [ rpgFree ]
   spite:
     description: Tells you what spite is good for.
+  digging:
+    description: Opens the skill tree of digging (same as /frpg skillTree digging)
+    usage: /digging
+  woodcutting:
+    description: Opens the skill tree of woodcutting (same as /frpg skillTree woodcutting)
+    usage: /woodcutting
+  mining:
+    description: Opens the skill tree of mining (same as /frpg skillTree mining)
+    usage: /mining
+  farming:
+    description: Opens the skill tree of farming (same as /frpg skillTree farming)
+    usage: /farming
+  fishing:
+    description: Opens the skill tree of fishing (same as /frpg skillTree fishing)
+    usage: /fishing
+  beastmastery:
+    description: Opens the skill tree of beastMastery (same as /frpg skillTree beastMastery)
+    usage: /beastmastery
+  swordsmanship:
+    description: Opens the skill tree of swordsmanship (same as /frpg skillTree swordsmanship)
+    usage: /swordsmanship
+  defense:
+    description: Opens the skill tree of defense (same as /frpg skillTree defense)
+    usage: /defense
+  axemastery:
+    description: Opens the skill tree of axeMastery (same as /frpg skillTree axeMastery)
+    usage: /axemastery
+  repair:
+    description: Opens the skill tree of repair (same as /frpg skillTree repair)
+    usage: /repair
+  agility:
+    description: Opens the skill tree of agility (same as /frpg skillTree agility)
+    usage: /agility
+  alchemy:
+    description: Opens the skill tree of alchemy (same as /frpg skillTree alchemy)
+    usage: /alchemy
+  smelting:
+    description: Opens the skill tree of smelting (same as /frpg skillTree smelting)
+    usage: /smelting
+  enchanting:
+    description: Opens the skill tree of enchanting (same as /frpg skillTree enchanting)
+    usage: /enchanting
+  macemastery:
+    description: Opens the skill tree of maceMastery (same as /frpg weapons, then the skill)
+    usage: /macemastery
+    aliases: [ mace ]
+  tridentmastery:
+    description: Opens the skill tree of tridentMastery (same as /frpg weapons, then the skill)
+    usage: /tridentmastery
+    aliases: [ trident ]
+  spearmastery:
+    description: Opens the skill tree of spearMastery (same as /frpg weapons, then the skill)
+    usage: /spearmastery
+    aliases: [ spear ]
+  bowmastery:
+    description: Opens the skill tree of bowMastery (same as /frpg weapons, then the skill)
+    usage: /bowmastery
+    aliases: [ bow ]
+  crossbowmastery:
+    description: Opens the skill tree of crossbowMastery (same as /frpg weapons, then the skill)
+    usage: /crossbowmastery
+    aliases: [ crossbow ]
 permissions:
   freeRPG.*:
     description: Gives access to all FreeRPG commands
