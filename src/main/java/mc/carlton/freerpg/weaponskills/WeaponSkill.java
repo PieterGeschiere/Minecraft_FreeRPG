@@ -16,7 +16,10 @@ public enum WeaponSkill {
       "TRIDENT"),
   SPEAR("spearMastery", "Spear Mastery", ChatColor.GREEN, "IRON_SPEAR", "Piercing Rush",
       "WOODEN_SPEAR", "STONE_SPEAR", "COPPER_SPEAR", "IRON_SPEAR", "GOLDEN_SPEAR",
-      "DIAMOND_SPEAR", "NETHERITE_SPEAR");
+      "DIAMOND_SPEAR", "NETHERITE_SPEAR"),
+  BOW("bowMastery", "Bow Mastery", ChatColor.YELLOW, "BOW", "Arrow Storm", "BOW"),
+  CROSSBOW("crossbowMastery", "Crossbow Mastery", ChatColor.DARK_RED, "CROSSBOW", "Blast Bolt",
+      "CROSSBOW");
 
   private final String id;
   private final String displayName;

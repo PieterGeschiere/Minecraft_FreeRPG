@@ -56,7 +56,7 @@ fishing:
   EXP_Multiplier: 1.0
   abilityCooldown: 300 #This skill's ability cooldown (in seconds)
 archery:
-  skillAllowed: true #Setting this to false disables all skill features and EXP drops.
+  skillAllowed: false #Archery is retired (always off): Bow Mastery and Crossbow Mastery in weaponSkills.yml replace it.
   maxLevel: -1
   EXP_Multiplier: 1.0
   abilityCooldown: 300 #This skill's ability cooldown (in seconds)

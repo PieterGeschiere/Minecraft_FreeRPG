@@ -158,23 +158,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
       }
     }
 
-    //Initializes all "global" variables
-    // TODO find a better solution
-    log(Level.INFO, "Initializing FreeRPG");
-    MinecraftVersion minecraftVersion = new MinecraftVersion();
-    minecraftVersion.initializeVersion();
-    EntityGroups entityGroups = new EntityGroups();
-    entityGroups.initializeAllEntityGroups();
-    ExpMaps expMaps = new ExpMaps();
-    expMaps.initializeAllExpMaps();
-    ItemGroups itemGroups = new ItemGroups();
-    itemGroups.initializeItemGroups();
-    CraftingRecipes craftingRecipes = new CraftingRecipes();
-    craftingRecipes.initializeAllCraftingRecipes();
-    mc.carlton.freerpg.utils.game.RepairStations.initialize(this);
-    mc.carlton.freerpg.weaponskills.WeaponSkills.initialize(this);
-    StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
-    stringsAndOtherData.initializeData();
+    initializeGlobalVariables();
 
     //Initializes Player Leaderboard (and may create a file)
     Leaderboards playerLeaderboard = new Leaderboards();
@@ -291,6 +275,28 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     //customRecipe.addTranslatedVariants();
     //System.out.println(customRecipe);
     //System.out.println(CustomContainerImporter.convertListedTableRowToMap(test,testConfigPath));
+  }
+
+  /**
+   * Initializes the "global" variables (version, entity groups, exp maps, item groups, recipes,
+   * repair stations, weapon skills and strings). They have to be set up before any event can run.
+   */
+  private void initializeGlobalVariables() {
+    log(Level.INFO, "Initializing FreeRPG");
+    MinecraftVersion minecraftVersion = new MinecraftVersion();
+    minecraftVersion.initializeVersion();
+    EntityGroups entityGroups = new EntityGroups();
+    entityGroups.initializeAllEntityGroups();
+    ExpMaps expMaps = new ExpMaps();
+    expMaps.initializeAllExpMaps();
+    ItemGroups itemGroups = new ItemGroups();
+    itemGroups.initializeItemGroups();
+    CraftingRecipes craftingRecipes = new CraftingRecipes();
+    craftingRecipes.initializeAllCraftingRecipes();
+    mc.carlton.freerpg.utils.game.RepairStations.initialize(this);
+    mc.carlton.freerpg.weaponskills.WeaponSkills.initialize(this);
+    StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
+    stringsAndOtherData.initializeData();
   }
 
   public void onDisable() {

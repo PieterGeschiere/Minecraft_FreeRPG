@@ -19,12 +19,12 @@ import org.bukkit.entity.Player;
 public class FrpgTabCompleter implements TabCompleter {
 
   private static final List<String> SKILLS = Arrays.asList("digging", "woodcutting", "mining",
-      "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense", "axeMastery",
+      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery",
       "repair", "agility", "alchemy", "smelting", "enchanting");
 
   /** The weapon skills, which the administration commands accept too. */
   private static final List<String> WEAPON_SKILLS = Arrays.asList("maceMastery", "tridentMastery",
-      "spearMastery");
+      "spearMastery", "bowMastery", "crossbowMastery");
 
   /** Subcommand -> permission it needs (without the "freeRPG." prefix), null for no permission. */
   private static final Map<String, String> SUBCOMMANDS = new LinkedHashMap<>();
@@ -154,7 +154,6 @@ public class FrpgTabCompleter implements TabCompleter {
       ids.add("farming" + i);
       ids.add("alchemy" + i);
     }
-    ids.add("archery1");
     for (int i = 1; i <= 10; i++) {
       ids.add("enchanting" + i);
     }

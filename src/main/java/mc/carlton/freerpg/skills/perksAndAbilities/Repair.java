@@ -78,330 +78,13 @@ public class Repair extends Skill {
         double a = 1.0;
         MinecraftVersion minecraftVersion = new MinecraftVersion();
         double MCversion = minecraftVersion.getMinecraftVersionAsDouble();
-        // TODO check if code in if statements can be extracted to separate methode
-        if (toolType.equals(Material.WOODEN_AXE)) {
-          repairPercentage = (0.9 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("wooden_baseEXP");
-          expRepairMultiplier = expMap.get("wooden_EXPMultiplier");
-        } else if (toolType.equals(Material.WOODEN_HOE)) {
-          repairPercentage = (0.9 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("wooden_baseEXP");
-          expRepairMultiplier = expMap.get("wooden_EXPMultiplier");
-        } else if (toolType.equals(Material.WOODEN_PICKAXE)) {
-          repairPercentage = (0.9 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("wooden_baseEXP");
-          expRepairMultiplier = expMap.get("wooden_EXPMultiplier");
-        } else if (toolType.equals(Material.WOODEN_SHOVEL)) {
-          repairPercentage = (0.9 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("wooden_baseEXP");
-          expRepairMultiplier = expMap.get("wooden_EXPMultiplier");
-        } else if (toolType.equals(Material.WOODEN_SWORD)) {
-          repairPercentage = (0.9 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("wooden_baseEXP");
-          expRepairMultiplier = expMap.get("wooden_EXPMultiplier");
-        } else if (toolType.equals(Material.LEATHER_HELMET)) {
-          repairPercentage = (0.9 + repairBonus) / 5.0;
-          a = 5.0;
-          expToGive += expMap.get("leather_baseEXP");
-          expRepairMultiplier = expMap.get("leather_EXPMultiplier");
-        } else if (toolType.equals(Material.LEATHER_CHESTPLATE)) {
-          repairPercentage = (0.9 + repairBonus) / 8.0;
-          a = 8.0;
-          expToGive += expMap.get("leather_baseEXP");
-          expRepairMultiplier = expMap.get("leather_EXPMultiplier");
-        } else if (toolType.equals(Material.LEATHER_LEGGINGS)) {
-          repairPercentage = (0.9 + repairBonus) / 7.0;
-          a = 7.0;
-          expToGive += expMap.get("leather_baseEXP");
-          expRepairMultiplier = expMap.get("leather_EXPMultiplier");
-        } else if (toolType.equals(Material.LEATHER_BOOTS)) {
-          repairPercentage = (0.9 + repairBonus) / 4.0;
-          a = 4.0;
-          expToGive += expMap.get("leather_baseEXP");
-          expRepairMultiplier = expMap.get("leather_EXPMultiplier");
-        } else if (toolType.equals(Material.STONE_AXE)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("stone_baseEXP");
-          expRepairMultiplier = expMap.get("stone_EXPMultiplier");
-        } else if (toolType.equals(Material.STONE_HOE)) {
-          repairPercentage = (0.8 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("stone_baseEXP");
-          expRepairMultiplier = expMap.get("stone_EXPMultiplier");
-        } else if (toolType.equals(Material.STONE_PICKAXE)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("stone_baseEXP");
-          expRepairMultiplier = expMap.get("stone_EXPMultiplier");
-        } else if (toolType.equals(Material.STONE_SHOVEL)) {
-          repairPercentage = (0.8 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("stone_baseEXP");
-          expRepairMultiplier = expMap.get("stone_EXPMultiplier");
-        } else if (toolType.equals(Material.STONE_SWORD)) {
-          repairPercentage = (0.8 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("stone_baseEXP");
-          expRepairMultiplier = expMap.get("stone_EXPMultiplier");
-        } else if (toolType.equals(Material.CHAINMAIL_HELMET)) {
-          repairPercentage = (0.11 + repairBonus) / 5.0;
-          a = 5.0;
-          expToGive += expMap.get("chainmail_baseEXP");
-          expRepairMultiplier = expMap.get("chainmail_EXPMultiplier");
-        } else if (toolType.equals(Material.CHAINMAIL_CHESTPLATE)) {
-          repairPercentage = (0.11 + repairBonus) / 8.0;
-          a = 8.0;
-          expToGive += expMap.get("chainmail_baseEXP");
-          expRepairMultiplier = expMap.get("chainmail_EXPMultiplier");
-        } else if (toolType.equals(Material.CHAINMAIL_LEGGINGS)) {
-          repairPercentage = (0.11 + repairBonus) / 11.0;
-          a = 11.0;
-          expToGive += expMap.get("chainmail_baseEXP");
-          expRepairMultiplier = expMap.get("chainmail_EXPMultiplier");
-        } else if (toolType.equals(Material.CHAINMAIL_BOOTS)) {
-          repairPercentage = (0.11 + repairBonus) / 4.0;
-          a = 4.0;
-          expToGive += expMap.get("chainmail_baseEXP");
-          expRepairMultiplier = expMap.get("chainmail_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_AXE)) {
-          repairPercentage = (0.7 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_HOE)) {
-          repairPercentage = (0.7 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_PICKAXE)) {
-          repairPercentage = (0.7 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_SHOVEL)) {
-          repairPercentage = (0.7 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_SWORD)) {
-          repairPercentage = (0.7 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_HELMET)) {
-          repairPercentage = (0.7 + repairBonus) / 5.0;
-          a = 5.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_CHESTPLATE)) {
-          repairPercentage = (0.7 + repairBonus) / 8.0;
-          a = 8.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_LEGGINGS)) {
-          repairPercentage = (0.7 + repairBonus) / 7.0;
-          a = 7.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (toolType.equals(Material.GOLDEN_BOOTS)) {
-          repairPercentage = (0.7 + repairBonus) / 4.0;
-          a = 4.0;
-          expToGive += expMap.get("gold_baseEXP");
-          expRepairMultiplier = expMap.get("gold_EXPMultiplier");
-        } else if (copperIngotCost(toolType) > 0) {
-          // Copper tools and armor repair like iron-tier gear
-          a = copperIngotCost(toolType);
-          repairPercentage = (0.5 + repairBonus) / a;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_AXE)) {
-          repairPercentage = (0.5 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_HOE)) {
-          repairPercentage = (0.5 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_PICKAXE)) {
-          repairPercentage = (0.5 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_SHOVEL)) {
-          repairPercentage = (0.5 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_SWORD)) {
-          repairPercentage = (0.5 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_HELMET)) {
-          repairPercentage = (0.5 + repairBonus) / 5.0;
-          a = 5.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_CHESTPLATE)) {
-          repairPercentage = (0.5 + repairBonus) / 8.0;
-          a = 8.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_LEGGINGS)) {
-          repairPercentage = (0.5 + repairBonus) / 7.0;
-          a = 7.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.IRON_BOOTS)) {
-          repairPercentage = (0.5 + repairBonus) / 4.0;
-          a = 4.0;
-          expToGive += expMap.get("iron_baseEXP");
-          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_AXE)) {
-          repairPercentage = (0.00 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_HOE)) {
-          repairPercentage = (0.00 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_PICKAXE)) {
-          repairPercentage = (0.00 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_SHOVEL)) {
-          repairPercentage = (0.00 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_SWORD)) {
-          repairPercentage = (0.00 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_HELMET)) {
-          repairPercentage = (0.00 + repairBonus) / 5.0;
-          a = 5.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_CHESTPLATE)) {
-          repairPercentage = (0.00 + repairBonus) / 8.0;
-          a = 8.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_LEGGINGS)) {
-          repairPercentage = (0.00 + repairBonus) / 7.0;
-          a = 7.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.DIAMOND_BOOTS)) {
-          repairPercentage = (0.0 + repairBonus) / 4.0;
-          a = 4.0;
-          expToGive += expMap.get("diamond_baseEXP");
-          expRepairMultiplier = expMap.get("diamond_EXPMultiplier");
-        } else if (toolType.equals(Material.SHEARS)) {
-          repairPercentage = (0.5 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("shears_baseEXP");
-          expRepairMultiplier = expMap.get("shear_expMultiplier");
-        } else if (toolType.equals(Material.FISHING_ROD)) {
-          repairPercentage = (0.5 + repairBonus) / 2.0;
-          a = 2.0;
-          expToGive += expMap.get("fishingRod_baseEXP");
-          expRepairMultiplier = expMap.get("fishingRod_expMultiplier");
-        } else if (toolType.equals(Material.CARROT_ON_A_STICK)) {
-          repairPercentage = (0.8 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("carrotOnAStick_baseEXP");
-          expRepairMultiplier = expMap.get("carrotOnAStick_expMultiplier");
-        } else if (toolType.equals(Material.FLINT_AND_STEEL)) {
-          repairPercentage = (0.8 + repairBonus) / 1.0;
-          a = 1.0;
-          expToGive += expMap.get("flintAndSteel_baseEXP");
-          expRepairMultiplier = expMap.get("flintAndSteel_expMultiplier");
-        } else if (toolType.equals(Material.BOW)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("bow_baseEXP");
-          expRepairMultiplier = expMap.get("bow_expMultiplier");
-        } else if (toolType.equals(Material.TRIDENT)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 1.0;
-          expToGive += expMap.get("trident_baseEXP");
-          expRepairMultiplier = expMap.get("trident_expMultiplier");
-        } else if (toolType.equals(Material.ELYTRA)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 1.0;
-          expToGive += expMap.get("elytra_baseEXP");
-          expRepairMultiplier = expMap.get("elytra_expMultiplier");
-        } else if (toolType.equals(Material.SHIELD)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 1.0;
-          expToGive += expMap.get("shield_baseEXP");
-          expRepairMultiplier = expMap.get("shield_expMultiplier");
-        } else if (toolType.equals(Material.CROSSBOW)) {
-          repairPercentage = (0.8 + repairBonus) / 3.0;
-          a = 3.0;
-          expToGive += expMap.get("crossbow_baseEXP");
-          expRepairMultiplier = expMap.get("crossbow_expMultiplier");
-        } else if (MCversion >= 1.16) {
-          if (toolType.equals(Material.NETHERITE_AXE)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 3.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_HOE)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 2.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_PICKAXE)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 3.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_SHOVEL)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 1.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_SWORD)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 2.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_HELMET)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 5.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_CHESTPLATE)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 8.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_LEGGINGS)) {
-            repairPercentage = (0.00 + repairBonus * 0.5) / 7.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          } else if (toolType.equals(Material.NETHERITE_BOOTS)) {
-            repairPercentage = (0.0 + repairBonus * 0.5) / 4.0;
-            a = 4.0;
-            expToGive += expMap.get("netherite_baseEXP");
-            expRepairMultiplier = expMap.get("netherite_EXPMultiplier");
-          }
+        RepairProfile profile = getRepairProfile(toolType, MCversion);
+        if (profile != null) {
+          repairPercentage =
+              (profile.baseFraction + repairBonus * profile.bonusFactor) / profile.divisor;
+          a = profile.materialCost;
+          expToGive += expMap.get(profile.baseExpKey);
+          expRepairMultiplier = expMap.get(profile.multiplierKey);
         }
         ItemMeta itemInHandMeta = itemInHand.getItemMeta();
         if (repairPercentage * a < 0.2) {
@@ -566,6 +249,125 @@ public class Repair extends Skill {
     }
   }
 
+  /** How much of an item one material repairs, and the exp it gives. */
+  static final class RepairProfile {
+
+    final double baseFraction;
+    final double bonusFactor;
+    final double divisor;
+    final double materialCost;
+    final String baseExpKey;
+    final String multiplierKey;
+
+    RepairProfile(double baseFraction, double bonusFactor, double divisor, double materialCost,
+        String baseExpKey, String multiplierKey) {
+      this.baseFraction = baseFraction;
+      this.bonusFactor = bonusFactor;
+      this.divisor = divisor;
+      this.materialCost = materialCost;
+      this.baseExpKey = baseExpKey;
+      this.multiplierKey = multiplierKey;
+    }
+  }
+
+  /** Materials per tool or armor piece of a tier: axe, hoe, pickaxe, shovel, sword, armor. */
+  private static double partCost(String part, String tier) {
+    switch (part) {
+      case "AXE":
+      case "PICKAXE":
+        return 3.0;
+      case "HOE":
+      case "SWORD":
+        return 2.0;
+      case "SHOVEL":
+        return 1.0;
+      case "HELMET":
+        return 5.0;
+      case "CHESTPLATE":
+        return 8.0;
+      case "LEGGINGS":
+        return tier.equals("CHAINMAIL") ? 11.0 : 7.0;
+      case "BOOTS":
+      case "NAUTILUS_ARMOR":
+        return 4.0;
+      default:
+        return 0.0;
+    }
+  }
+
+  /**
+   * The repair values of an item, or null if the item cannot be repaired by this skill. Tool and
+   * armor tiers share their values, other items have their own.
+   */
+  static RepairProfile getRepairProfile(Material item, double minecraftVersion) {
+    if (copperIngotCost(item) > 0) {
+      // Copper tools and armor repair like iron-tier gear
+      double cost = copperIngotCost(item);
+      return new RepairProfile(0.5, 1, cost, cost, "iron_baseEXP", "iron_EXPMultiplier");
+    }
+    switch (item) {
+      case SHEARS:
+        return new RepairProfile(0.5, 1, 2, 2, "shears_baseEXP", "shear_expMultiplier");
+      case FISHING_ROD:
+        return new RepairProfile(0.5, 1, 2, 2, "fishingRod_baseEXP", "fishingRod_expMultiplier");
+      case CARROT_ON_A_STICK:
+        return new RepairProfile(0.8, 1, 1, 1, "carrotOnAStick_baseEXP",
+            "carrotOnAStick_expMultiplier");
+      case FLINT_AND_STEEL:
+        return new RepairProfile(0.8, 1, 1, 1, "flintAndSteel_baseEXP",
+            "flintAndSteel_expMultiplier");
+      case BOW:
+        return new RepairProfile(0.8, 1, 3, 3, "bow_baseEXP", "bow_expMultiplier");
+      case CROSSBOW:
+        return new RepairProfile(0.8, 1, 3, 3, "crossbow_baseEXP", "crossbow_expMultiplier");
+      case TRIDENT:
+        return new RepairProfile(0.8, 1, 3, 1, "trident_baseEXP", "trident_expMultiplier");
+      case ELYTRA:
+        return new RepairProfile(0.8, 1, 3, 1, "elytra_baseEXP", "elytra_expMultiplier");
+      case SHIELD:
+        return new RepairProfile(0.8, 1, 3, 1, "shield_baseEXP", "shield_expMultiplier");
+      case WOLF_ARMOR:
+        return new RepairProfile(0.8, 1, 4, 4, "leather_baseEXP", "leather_EXPMultiplier");
+      default:
+        break;
+    }
+    // Tools and armor are named TIER_PART, like IRON_PICKAXE or LEATHER_BOOTS
+    String name = item.name();
+    int underscore = name.indexOf('_');
+    if (underscore < 0) {
+      return null;
+    }
+    String tier = name.substring(0, underscore);
+    String part = name.substring(underscore + 1);
+    double cost = partCost(part, tier);
+    if (cost == 0.0) {
+      return null;
+    }
+    switch (tier) {
+      case "WOODEN":
+        return new RepairProfile(0.9, 1, cost, cost, "wooden_baseEXP", "wooden_EXPMultiplier");
+      case "LEATHER":
+        return cost >= 4.0 ? new RepairProfile(0.9, 1, cost, cost, "leather_baseEXP",
+            "leather_EXPMultiplier") : null;
+      case "STONE":
+        return new RepairProfile(0.8, 1, cost, cost, "stone_baseEXP", "stone_EXPMultiplier");
+      case "CHAINMAIL":
+        return new RepairProfile(0.11, 1, cost, cost, "chainmail_baseEXP",
+            "chainmail_EXPMultiplier");
+      case "GOLDEN":
+        return new RepairProfile(0.7, 1, cost, cost, "gold_baseEXP", "gold_EXPMultiplier");
+      case "IRON":
+        return new RepairProfile(0.5, 1, cost, cost, "iron_baseEXP", "iron_EXPMultiplier");
+      case "DIAMOND":
+        return new RepairProfile(0.0, 1, cost, cost, "diamond_baseEXP", "diamond_EXPMultiplier");
+      case "NETHERITE":
+        return minecraftVersion >= 1.16 ? new RepairProfile(0.0, 0.5, cost, 4.0,
+            "netherite_baseEXP", "netherite_EXPMultiplier") : null;
+      default:
+        return null;
+    }
+  }
+
   /** Number of copper ingots in a copper tool/armor piece, or 0 if the item is not copper gear. */
   public static int copperIngotCost(Material material) {
     String name = material.name();
@@ -589,6 +391,7 @@ public class Repair extends Skill {
       case "LEGGINGS":
         return 7;
       case "BOOTS":
+      case "NAUTILUS_ARMOR":
         return 4;
       default:
         return 0;

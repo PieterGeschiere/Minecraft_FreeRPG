@@ -59,7 +59,7 @@ class WeaponSkillLanguagesTest {
   @Test
   void englishHasTheWeaponTexts() {
     assertFalse(weaponKeys().isEmpty());
-    assertEquals(98, weaponKeys().size());
+    assertEquals(142, weaponKeys().size());
   }
 
   @Test

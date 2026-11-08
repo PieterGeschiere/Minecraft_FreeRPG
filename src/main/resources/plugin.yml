@@ -89,6 +89,8 @@ permissions:
       freeRPG.maceMasteryEXP: true
       freeRPG.tridentMasteryEXP: true
       freeRPG.spearMasteryEXP: true
+      freeRPG.bowMasteryEXP: true
+      freeRPG.crossbowMasteryEXP: true
       freeRPG.repairEXP: true
       freeRPG.agilityEXP: true
       freeRPG.alchemyEXP: true
@@ -111,6 +113,8 @@ permissions:
       freeRPG.maceMasteryAbility: true
       freeRPG.tridentMasteryAbility: true
       freeRPG.spearMasteryAbility: true
+      freeRPG.bowMasteryAbility: true
+      freeRPG.crossbowMasteryAbility: true
   freeRPG.maceMasteryEXP:
     description: Allows player to get maceMastery experience
     default: true
@@ -128,6 +132,18 @@ permissions:
     default: true
   freeRPG.spearMasteryAbility:
     description: allows the player to use the spearMastery ability
+    default: true
+  freeRPG.bowMasteryEXP:
+    description: Allows player to get bowMastery experience
+    default: true
+  freeRPG.bowMasteryAbility:
+    description: allows the player to use the bowMastery ability
+    default: true
+  freeRPG.crossbowMasteryEXP:
+    description: Allows player to get crossbowMastery experience
+    default: true
+  freeRPG.crossbowMasteryAbility:
+    description: allows the player to use the crossbowMastery ability
     default: true
   freeRPG.reloadWeapons:
     description: allows user to reload weaponSkills.yml (/frpg reloadWeapons)

@@ -163,9 +163,8 @@ public class PerkConfig {
     }
     Object configInformation = configSection.get(localConfigNodeName);
 
-    //TODO: Make CustomBrewables behave like CustomRecipes, change the config to be more comprehensive
-    //      Other things to think about:
-    //          - Experience for crafting things
+    // Note: CustomBrewables are configured per brew step, while CustomRecipes list their whole
+    // recipe. Experience for crafting things is not part of the custom config.
     CustomContainerImporter customContainerImporter = new CustomContainerImporter(PATH);
     if (UtilityMethods.stringContainsIgnoreCase(localConfigNodeName, MOB_DROP_TABLE_KEYS)) {
       //This must be checked before DROP_TABLE_KEYS, because any MobDropTable node contains the one of the DROP_TABLE_KEYS

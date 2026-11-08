@@ -24,17 +24,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 /**
- * The weapon skills menu (/frpg weapons). It lists the main skills Archery, Swordsmanship and Axe
+ * The weapon skills menu (/frpg weapons). It lists the main skills Swordsmanship and Axe
  * Mastery,
  * which open their normal skill tree when clicked, and the weapon skills of this module.
  */
 public class WeaponSkillsMenu implements Listener {
 
-  private static final int ARCHERY_SLOT = 10;
-  private static final int SWORDSMANSHIP_SLOT = 11;
-  private static final int AXE_MASTERY_SLOT = 12;
+  private static final int SWORDSMANSHIP_SLOT = 10;
+  private static final int AXE_MASTERY_SLOT = 11;
   /** Slots of the weapon skills of this module, in the order of {@link WeaponSkill#values()}. */
-  private static final int[] SKILL_SLOTS = {13, 14, 15};
+  private static final int[] SKILL_SLOTS = {12, 13, 14, 15, 16};
   private static final int BACK_SLOT = 22;
 
   /** Marks the inventory as the weapon skills menu and remembers which slot runs which command. */
@@ -57,8 +56,6 @@ public class WeaponSkillsMenu implements Listener {
     holder.inventory = inventory;
 
 
-    inventory.setItem(ARCHERY_SLOT, createMainSkillItem(p, "archery", Material.BOW));
-    holder.actions.put(ARCHERY_SLOT, pl -> pl.performCommand("frpg skillTreeGUI archery"));
     inventory.setItem(SWORDSMANSHIP_SLOT,
         createMainSkillItem(p, "swordsmanship", Material.IRON_SWORD));
     holder.actions.put(SWORDSMANSHIP_SLOT, pl -> pl.performCommand("frpg skillTreeGUI swordsmanship"));

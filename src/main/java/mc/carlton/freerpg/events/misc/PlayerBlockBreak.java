@@ -179,6 +179,16 @@ public class PlayerBlockBreak implements Listener {
           }
           farmingClass.farmingDoubleDropCrop(block, world);
         }
+      } else if (block_data instanceof org.bukkit.block.data.type.CaveVines
+          || block_data instanceof org.bukkit.block.data.type.CaveVinesPlant) {
+        // Only the parts that carry glow berries give exp
+        boolean hasBerries = block_data instanceof org.bukkit.block.data.type.CaveVines
+            ? ((org.bukkit.block.data.type.CaveVines) block_data).isBerries()
+            : ((org.bukkit.block.data.type.CaveVinesPlant) block_data).isBerries();
+        if (hasBerries) {
+          increaseStats.changeEXP("farming", farmingEXP.get(blockType));
+          farmingClass.farmingDoubleDropCrop(block, world);
+        }
       } else if (block_data instanceof Cocoa) {
         Cocoa coco = (Cocoa) block_data;
         if (coco.getAge() == coco.getMaximumAge()) {

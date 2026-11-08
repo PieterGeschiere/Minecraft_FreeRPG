@@ -94,6 +94,24 @@ public final class WeaponSkillRules {
     return new ExpFarmTracker().getExpFarmAndSpawnerCombinedMultiplier(target, "swordsmanship");
   }
 
+  /**
+   * The exp a kill is worth: it reuses the mob values of Swordsmanship, collecting what it would
+   * give instead of giving it.
+   */
+  static double killReward(Player killer, LivingEntity victim) {
+    double[] reward = {0};
+    mc.carlton.freerpg.core.info.player.ChangeStats collector =
+        new mc.carlton.freerpg.core.info.player.ChangeStats(killer) {
+          @Override
+          public void changeEXP(String skillName, int expChange) {
+            reward[0] += expChange;
+          }
+        };
+    new mc.carlton.freerpg.utils.globalVariables.EntityGroups().killEntity(victim, "swordsmanship",
+        new ConfigLoad().getExpMapForSkill("swordsmanship"), collector);
+    return reward[0];
+  }
+
   /** Tells the player (with a chime) when the cooldown of the ability is over. */
   public static void scheduleReady(Player p, WeaponSkill skill, WeaponSkillData data,
       long delayTicks) {

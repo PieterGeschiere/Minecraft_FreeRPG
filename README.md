@@ -35,7 +35,7 @@ server's `plugins` folder.
 * Kill exp for newer mobs such as the Warden, Breeze, Bogged, Creaking, Camel, Nautilus, Sniffer,
   Armadillo, Frog, Allay and Copper Golem. Camel taming, riding and breeding exp.
 * Copper tools and armor are recognised by the combat and repair skills, the Mace and spears by the repair skill and the Weapon Skills.
-* **Weapon Skills**: new Mace, Trident and Spear Mastery skills with their own skill trees and
+* **Weapon Skills**: new Mace, Trident, Spear, Bow and Crossbow Mastery skills with their own skill trees and
   abilities (see below), configured in `weaponSkills.yml` and opened with `/frpg weapons`. The Fighter
   and Training global perks apply to them too.
 * **Repair and Salvage Stations** (see below).
@@ -45,7 +45,7 @@ server's `plugins` folder.
 
 ## Weapon Skills
 
-All weapon skills live in one menu, opened with `/frpg weapons` (or the mace icon in the main menu): Archery, Swordsmanship
+All weapon skills live in one menu, opened with `/frpg weapons` (or the mace icon in the main menu): Swordsmanship
 and Axe Mastery (which open their normal skill trees) and the newer weapon skills below. The newer weapon skills have their own level, experience and perks, saved in `plugins/FreeRPG/weaponSkills/`.
 All values can be changed in `weaponSkills.yml`.
 
@@ -100,6 +100,42 @@ mount. It has the same kind of skill tree.
 | Skill 3a | **Pin** | The last mob pierced is pinned in place |
 | Skill 3b | **Triumph** | Killing a mob grants you Speed II |
 | Mastery | **Dragoon's Wrath** | More spear damage and a longer pierce |
+
+**Bow Mastery**: earn exp by hitting and killing with a bow, with bonus exp for long shots (up to 50 blocks).
+It has the same kind of skill tree. Bow Mastery and Crossbow Mastery replace the old Archery skill, which is retired (it stays in
+the player files but is always off and no longer shown).
+
+| Tree | Name | Effect |
+|---|---|---|
+| Passive | **Storm Duration** | Arrow Storm stays ready longer |
+| Passive | **Draw Power** | Arrows deal bonus damage |
+| Passive | **Sniper** | Arrows deal more damage the further away the target is (full bonus at 30 blocks) |
+| Ability | **Arrow Storm** | Left-click a bow to ready it. Your next 3 shots also fire 2 extra arrows in a fan |
+| Skill 1a | **Extra Arrows** | More extra arrows per shot |
+| Skill 1b | **Pinning Shot** | Arrows slow the target |
+| Skill 2a | **Volley Power** | The extra arrows deal more damage |
+| Skill 2b | **Marked Prey** | Arrows make the target glow |
+| Skill 3a | **Flaming Volley** | The extra arrows set targets on fire |
+| Skill 3b | **Fleet Foot** | Arrow hits grant you Speed |
+| Mastery | **Hawkeye's Wrath** | More arrow damage and more extra arrows |
+
+**Crossbow Mastery**: earn exp by hitting and killing with a crossbow, with bonus exp for long shots. It has
+the same kind of skill tree.
+
+| Tree | Name | Effect |
+|---|---|---|
+| Passive | **Blast Duration** | Blast Bolt stays ready longer |
+| Passive | **Bolt Power** | Bolts deal bonus damage |
+| Passive | **Point Blank** | Bolts deal more damage to targets within 8 blocks |
+| Ability | **Blast Bolt** | Left-click a crossbow to ready it. Your next 3 bolts explode where they land and hurt the hostile mobs around (no block damage) |
+| Skill 1a | **Wide Blast** | Bigger explosion |
+| Skill 1b | **Concussion** | Explosions slow the mobs they hit |
+| Skill 2a | **Heavy Charge** | The explosion deals more damage |
+| Skill 2b | **Rend** | Explosions weaken the mobs they hit |
+| Skill 3a | **Shrapnel** | The explosion deals more damage and launches mobs into the air |
+| Skill 3b | **Recoil Boost** | Shooting grants you Speed |
+| Mastery | **Siege Master's Wrath** | More bolt damage and a bigger explosion |
+
 
 
 ## Repair and Salvage Stations

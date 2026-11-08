@@ -47,7 +47,6 @@ public class MinecraftVersion {
       minecraftVersion_Double = parseYearBasedVersion(Bukkit.getBukkitVersion());
     } else {
       minecraftVersion_Double = 1.18;
-      // TODO replace with logger call
       FreeRPG.log(Level.WARN,
           "Could not determine minecraft version, the plugin assumes 1.18. "
               + "This might be caused due to the usage of a newer minecraft version the plugin does not support. "

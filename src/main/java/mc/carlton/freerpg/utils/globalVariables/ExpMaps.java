@@ -44,6 +44,18 @@ public class ExpMaps {
     }
   }
 
+  /** Like putExp, but skips names that are items instead of blocks on this version. */
+  private static void putBlockExp(Map<Material, Integer> target, Map<String, Integer> expMap,
+      String key, int defaultExp, String... names) {
+    int exp = expMap.getOrDefault(key, defaultExp);
+    for (String name : names) {
+      Material material = Material.matchMaterial(name);
+      if (material != null && material.isBlock()) {
+        target.put(material, exp);
+      }
+    }
+  }
+
   private static String[] copperFamily(boolean cut) {
     String[] bases = cut
         ? new String[]{"CUT_COPPER", "EXPOSED_CUT_COPPER", "WEATHERED_CUT_COPPER",
@@ -84,6 +96,11 @@ public class ExpMaps {
     putExp(miningEXP, mining, "breakMud_Bricks", 25, "MUD_BRICKS");
     putExp(miningEXP, mining, "breakPacked_Mud", 25, "PACKED_MUD");
     putExp(miningEXP, mining, "breakResin", 25, "RESIN_BLOCK", "RESIN_BRICKS");
+    // Cinnabar and sulfur stone (only the names that are blocks on this version count)
+    putBlockExp(miningEXP, mining, "breakCinnabar", 25, "CINNABAR", "POLISHED_CINNABAR",
+        "CINNABAR_BRICKS", "CHISELED_CINNABAR");
+    putBlockExp(miningEXP, mining, "breakSulfur", 25, "SULFUR", "POLISHED_SULFUR",
+        "SULFUR_BRICKS", "CHISELED_SULFUR", "SULFUR_SPIKE", "POTENT_SULFUR");
 
     Map<String, Integer> digging = configLoad.getExpMapForSkill("digging");
     putExp(diggingEXP, digging, "breakMud", 22, "MUD");
@@ -91,13 +108,20 @@ public class ExpMaps {
 
     Map<String, Integer> wood = configLoad.getExpMapForSkill("woodcutting");
     String[][] woodTypes = {{"breakMangrove_Log", "MANGROVE"}, {"breakCherry_Log", "CHERRY"},
-        {"breakPale_Oak_Log", "PALE_OAK"}};
+        {"breakPale_Oak_Log", "PALE_OAK"}, {"breakPoplar_Log", "POPLAR"}};
     for (String[] type : woodTypes) {
       putExp(woodcuttingEXP, wood, type[0], 100, type[1] + "_LOG", "STRIPPED_" + type[1] + "_LOG",
           type[1] + "_WOOD", "STRIPPED_" + type[1] + "_WOOD");
       putExp(woodcuttingEXP, wood, "breakNew_Planks", 25, type[1] + "_PLANKS");
       putExp(woodcuttingEXP, wood, "breakNew_Leaves", 13, type[1] + "_LEAVES");
     }
+    // Poplar leaves come in three colors, so there is no POPLAR_LEAVES block
+    putExp(woodcuttingEXP, wood, "breakNew_Leaves", 13, "ORANGE_POPLAR_LEAVES",
+        "RED_POPLAR_LEAVES", "YELLOW_POPLAR_LEAVES");
+    // Giant mushrooms and the nether trees (their wart blocks are the "leaves" of the huge fungi)
+    putExp(woodcuttingEXP, wood, "breakMushroom_Stem", 125, "MUSHROOM_STEM");
+    putExp(woodcuttingEXP, wood, "breakWart_Block", 13, "NETHER_WART_BLOCK", "WARPED_WART_BLOCK",
+        "SHROOMLIGHT");
     putExp(woodcuttingEXP, wood, "breakBamboo_Block", 100, "BAMBOO_BLOCK",
         "STRIPPED_BAMBOO_BLOCK");
     putExp(woodcuttingEXP, wood, "breakNew_Planks", 25, "BAMBOO_PLANKS", "BAMBOO_MOSAIC");
@@ -109,6 +133,9 @@ public class ExpMaps {
     Map<String, Integer> farming = configLoad.getExpMapForSkill("farming");
     putExp(farmingEXP, farming, "breakPitcher_Crop", 50, "PITCHER_CROP", "TORCHFLOWER_CROP",
         "PITCHER_PLANT");
+    putExp(farmingEXP, farming, "breakNew_Plants", 25, "CACTUS_FLOWER", "FIREFLY_BUSH", "BUSH",
+        "WILDFLOWERS", "GOLDEN_DANDELION");
+    putExp(farmingEXP, farming, "breakLeaf_Litter", 5, "LEAF_LITTER");
     putExp(farmingEXP, farming, "breakHoney_Block", 25, "HONEY_BLOCK");
     putExp(farmingEXP, farming, "breakHoneycomb_Block", 25, "HONEYCOMB_BLOCK");
     putExp(farmingEXP, farming, "breakBee_Nest", 75, "BEEHIVE", "BEE_NEST");
@@ -303,6 +330,7 @@ public class ExpMaps {
       farmingEXP.put(Material.AZALEA, expMap.get("breakAzalea"));
       farmingEXP.put(Material.FLOWERING_AZALEA, expMap.get("breakFlowering_Aealea"));
       farmingEXP.put(Material.CAVE_VINES, expMap.get("breakCave_Vines"));
+      farmingEXP.put(Material.CAVE_VINES_PLANT, expMap.get("breakCave_Vines"));
       farmingEXP.put(Material.SMALL_DRIPLEAF, expMap.get("breakSmall_Dripleaf"));
       farmingEXP.put(Material.GLOW_LICHEN, expMap.get("breakGlow_Lichen"));
       farmingEXP.put(Material.HANGING_ROOTS, expMap.get("breakHanging_Roots"));
@@ -387,6 +415,18 @@ public class ExpMaps {
         new Object[]{"woodcutting", expMap.get("woodcutting").get("breakBirch_Log")});
     flamePickEXP.put(Material.STRIPPED_ACACIA_WOOD,
         new Object[]{"woodcutting", expMap.get("woodcutting").get("breakAcacia_Log")});
+    // Copper ore and the deepslate versions of the ores Flame Pick smelts (1.17 and later)
+    Object[][] deepOres = {{"COPPER_ORE", "breakCopper_Ore", 350},
+        {"DEEPSLATE_COPPER_ORE", "breakDeepslate_Copper_Ore", 350},
+        {"DEEPSLATE_IRON_ORE", "breakDeepslate_Iron_Ore", 700},
+        {"DEEPSLATE_GOLD_ORE", "breakDeepslate_Gold_Ore", 1000}};
+    for (Object[] ore : deepOres) {
+      Material material = Material.matchMaterial((String) ore[0]);
+      if (material != null) {
+        int exp = expMap.get("mining").getOrDefault((String) ore[1], (Integer) ore[2]);
+        flamePickEXP.put(material, new Object[]{"mining", exp});
+      }
+    }
     if (mcVersion >= 1.16) {
       flamePickEXP.put(Material.NETHER_GOLD_ORE,
           new Object[]{"mining", expMap.get("mining").get("breakNether_Gold_Ore")});

@@ -1,5 +1,5 @@
 #---------------------------------------------
-# Weapon skills (Mace Mastery, ...)
+# Weapon skills (Mace, Trident, Spear, Bow and Crossbow Mastery)
 #
 # These skills are separate from the main FreeRPG skills. They have their own level, experience and
 # skill tree, and are shown in the menu opened with /frpg weapons (Swordsmanship and Axe Mastery are
@@ -135,3 +135,82 @@ spear:
     triumphSeconds: 3                 # Triumph (3b): seconds of Speed II after a kill
     dragoonsWrathDamage: 0.25         # Dragoon's Wrath (M): extra spear damage
     dragoonsWrathLength: 1.5          # Dragoon's Wrath (M): pierce length multiplier
+
+bow:
+  skillAllowed: true           # Set to false to disable Bow Mastery completely
+  maxLevel: -1                 # Highest level, -1 for no limit
+  EXP_Multiplier: 1.0          # Multiplies all exp this skill gets (on top of the combat multipliers)
+  exp:
+    hitBase: 15                # Exp for every arrow that hits
+    volleyHitBase: 5           # Exp for every hit of the extra arrows of Arrow Storm
+    hitPerDamage: 5            # Extra exp per point of damage dealt
+    hitPerBlock: 2             # Extra exp per block of distance, up to 50 blocks
+    killMultiplier: 1.0        # Kill exp uses the same mob values as Swordsmanship, times this
+  passives:                    # Passive tokens are invested in these (like the dyes of the main skills)
+    p2:
+      maxLevel: 100
+    p3:
+      maxLevel: 100
+  ability:
+    # Arrow Storm: left-click a bow to ready it, then your shots also fire extra arrows in a fan.
+    # It ends when the time is up or after maxShots shots, whichever comes first.
+    baseDurationSeconds: 8     # Passive 1 adds durationPerLevelSeconds per level
+    durationPerLevelSeconds: 0.02
+    maxDurationSeconds: 14
+    maxShots: 3
+    cooldownSeconds: 90        # Counted from the moment the ability ends
+    baseExtraArrows: 2         # Extra arrows per shot
+    maxExtraArrows: 8
+    spreadDegrees: 7           # Angle between the arrows of the fan
+    volleyDamage: 0.7          # Damage of an extra arrow as a part of a full arrow
+  perks:
+    drawPowerPerLevel: 0.003          # Passive 2: +0.3% arrow damage per level
+    sniperPerLevel: 0.004             # Passive 3: +0.4% damage per level, full at sniperFullDistance
+    sniperFullDistance: 30            # Blocks at which Sniper gives its full bonus
+    extraArrowsPerLevel: 1            # Extra Arrows (1a): extra arrows per level
+    pinningSecondsPerLevel: 1.0       # Pinning Shot (1b): slowness seconds per level
+    volleyPowerPerLevel: 0.06         # Volley Power (2a): extra damage of the extra arrows per level
+    markedSecondsPerLevel: 2.0        # Marked Prey (2b): glowing seconds per level
+    flamingSeconds: 5                 # Flaming Volley (3a): seconds the extra arrows set targets on fire
+    fleetFootSeconds: 4               # Fleet Foot (3b): seconds of Speed after a hit
+    hawkeyesWrathDamage: 0.25         # Hawkeye's Wrath (M): extra arrow damage
+    hawkeyesWrathArrows: 2            # Hawkeye's Wrath (M): extra arrows per Arrow Storm shot
+
+crossbow:
+  skillAllowed: true           # Set to false to disable Crossbow Mastery completely
+  maxLevel: -1                 # Highest level, -1 for no limit
+  EXP_Multiplier: 1.0          # Multiplies all exp this skill gets (on top of the combat multipliers)
+  exp:
+    hitBase: 15                # Exp for every bolt that hits
+    hitPerDamage: 5            # Extra exp per point of damage dealt
+    hitPerBlock: 2             # Extra exp per block of distance, up to 50 blocks
+    blastPerEntity: 20         # Exp for every mob hit by a Blast Bolt explosion
+    killMultiplier: 1.0        # Kill exp uses the same mob values as Swordsmanship, times this
+  passives:                    # Passive tokens are invested in these (like the dyes of the main skills)
+    p2:
+      maxLevel: 100
+    p3:
+      maxLevel: 100
+  ability:
+    # Blast Bolt: left-click a crossbow to ready it, then your next bolts explode where they land.
+    # It ends when the time is up or after maxBolts bolts, whichever comes first.
+    baseDurationSeconds: 6     # Passive 1 adds durationPerLevelSeconds per level
+    durationPerLevelSeconds: 0.02
+    maxDurationSeconds: 12
+    maxBolts: 3
+    cooldownSeconds: 100       # Counted from the moment the ability ends
+    baseRadius: 3.0
+    maxRadius: 7.0
+    baseDamage: 4.0            # Damage of the explosion to every hostile mob in the radius
+  perks:
+    boltPowerPerLevel: 0.003          # Passive 2: +0.3% bolt damage per level
+    pointBlankPerLevel: 0.005         # Passive 3: +0.5% damage per level within pointBlankDistance
+    pointBlankDistance: 8             # Blocks within which Point Blank counts
+    wideBlastRadiusPerLevel: 0.5      # Wide Blast (1a): extra radius per level
+    concussionSecondsPerLevel: 1.0    # Concussion (1b): slowness seconds per level
+    heavyChargePerLevel: 1.0          # Heavy Charge (2a): extra explosion damage per level
+    rendSecondsPerLevel: 2.0          # Rend (2b): weakness seconds per level
+    shrapnelDamage: 3                 # Shrapnel (3a): extra explosion damage, also launches mobs
+    recoilSeconds: 4                  # Recoil Boost (3b): seconds of Speed after a shot
+    siegeWrathDamage: 0.25            # Siege Master's Wrath (M): extra bolt damage
+    siegeWrathRadius: 1.5             # Siege Master's Wrath (M): explosion radius multiplier

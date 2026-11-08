@@ -213,10 +213,13 @@ woodcutting:
     breakMangrove_Log: 100 #Logs, wood and stripped versions
     breakCherry_Log: 100
     breakPale_Oak_Log: 100
+    breakPoplar_Log: 100
     breakBamboo_Block: 100
     breakHyphae: 125 #Crimson and warped hyphae (and stripped)
-    breakNew_Planks: 25 #Mangrove, cherry, pale oak, bamboo planks and bamboo mosaic
-    breakNew_Leaves: 13 #Mangrove, cherry, pale oak leaves
+    breakNew_Planks: 25 #Mangrove, cherry, pale oak, poplar, bamboo planks and bamboo mosaic
+    breakNew_Leaves: 13 #Mangrove, cherry, pale oak, poplar leaves
+    breakMushroom_Stem: 125 #Stem of the giant mushrooms
+    breakWart_Block: 13 #Nether and warped wart blocks and shroomlight (leaves of the huge fungi)
     breakMangrove_Roots: 20
 mining:
   # All Blocks affected by the Vein Miner perk. Putting something like "DIRT" will break your server if maximum blocks broken is very high or -1.
@@ -303,6 +306,8 @@ mining:
     breakMud_Bricks: 25
     breakPacked_Mud: 25
     breakResin: 25 #Resin block, resin bricks
+    breakCinnabar: 25 #Cinnabar, polished, bricks and chiseled versions
+    breakSulfur: 25 #Sulfur, polished, bricks, chiseled, sulfur spike and potent sulfur
 farming:
   expDrops:
     enableEXPDrops: true
@@ -348,6 +353,8 @@ farming:
     breakBee_Nest: 75 #Beehive, bee nest
     breakPale_Moss: 15 #Pale moss block, pale hanging moss
     breakPale_Moss_Carpet: 5
+    breakNew_Plants: 25 #Cactus flower, firefly bush, bush, wildflowers, golden dandelion
+    breakLeaf_Litter: 5
     breakCave_Vines: 85
     breakSmall_Dripleaf: 70
     breakGlow_Lichen: 70

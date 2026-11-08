@@ -151,7 +151,11 @@ public class ItemGroups {
     return result;
   }
 
-  // TODO Comment what for the blocks are tracked
+  /**
+   * Fills the map of tracked blocks: blocks that give exp when broken (logs, leaves, ores, melons,
+   * pumpkins, mushrooms, cactus, ...) and that a player could place and break again to farm exp.
+   * PlayerBlockPlace remembers every placed block of this map, so breaking it later gives no exp.
+   */
   public void initializeTrackedBlocks() {
     Material[] trackedBlocks0 = new Material[]{Material.ACACIA_LOG, Material.ACACIA_LEAVES,
         Material.BIRCH_LOG, Material.BIRCH_LEAVES,
@@ -188,7 +192,8 @@ public class ItemGroups {
         "WAXED_OXIDIZED_COPPER", "BUDDING_AMETHYST", "SMALL_AMETHYST_BUD", "MEDIUM_AMETHYST_BUD",
         "LARGE_AMETHYST_BUD", "AMETHYST_CLUSTER", "COPPER_ORE", "MUD", "MUDDY_MANGROVE_ROOTS",
         "MANGROVE_LOG", "MANGROVE_LEAVES", "CHERRY_LOG", "CHERRY_LEAVES", "PALE_OAK_LOG",
-        "PALE_OAK_LEAVES", "BAMBOO_BLOCK", "PITCHER_CROP", "TORCHFLOWER_CROP", "PITCHER_PLANT",
+        "PALE_OAK_LEAVES", "POPLAR_LOG", "ORANGE_POPLAR_LEAVES", "RED_POPLAR_LEAVES",
+        "YELLOW_POPLAR_LEAVES", "MUSHROOM_STEM", "BAMBOO_BLOCK", "PITCHER_CROP", "TORCHFLOWER_CROP", "PITCHER_PLANT",
         "BEEHIVE", "BEE_NEST", "HONEY_BLOCK", "HONEYCOMB_BLOCK", "PALE_MOSS_BLOCK"));
     for (Material mat : trackedBlocks1) {
       trackedBlocks.putIfAbsent(mat, true);
@@ -233,20 +238,17 @@ public class ItemGroups {
     }
     // post-1.18 trees (stripped logs are part of the logs list)
     logs.addAll(materialsByName("MANGROVE_LOG", "STRIPPED_MANGROVE_LOG", "CHERRY_LOG",
-        "STRIPPED_CHERRY_LOG", "PALE_OAK_LOG", "STRIPPED_PALE_OAK_LOG", "BAMBOO_BLOCK",
+        "STRIPPED_CHERRY_LOG", "PALE_OAK_LOG", "STRIPPED_PALE_OAK_LOG", "POPLAR_LOG",
+        "STRIPPED_POPLAR_LOG", "BAMBOO_BLOCK",
         "STRIPPED_BAMBOO_BLOCK"));
-    // TODO What is the reason why Material.MELON is missing below and pumkin is not?
     Material[] crops0 = {Material.WHEAT, Material.BEETROOTS, Material.CARROTS,
         Material.CHORUS_FLOWER,
         Material.MELON_STEM, Material.MELON, Material.NETHER_WART, Material.POTATOES,
         Material.PUMPKIN_STEM,
         Material.PUMPKIN, Material.SWEET_BERRY_BUSH, Material.COCOA, Material.CAVE_VINES};
-        /*
-            TODO exp of cave_vines only apply to the lowest part of the cave_vines, otherwise they don't give exp
-            Its better to only give exp if the cave_vines with blockstate berries=true are broken!
-         */
+    // Cave vines give exp for every part that carries glow berries (see PlayerBlockBreak)
     crops = new LinkedList<>(Arrays.asList(crops0));
-    crops.addAll(materialsByName("PITCHER_CROP", "TORCHFLOWER_CROP"));
+    crops.addAll(materialsByName("PITCHER_CROP", "TORCHFLOWER_CROP", "CAVE_VINES_PLANT"));
     // adds ore to list
     Material[] ores0 = {Material.REDSTONE_ORE, Material.NETHER_QUARTZ_ORE, Material.LAPIS_ORE,
         Material.IRON_ORE,
@@ -270,11 +272,14 @@ public class ItemGroups {
       List<Material> ores_append = Arrays.asList(ores_append_v1_17);
       ores.addAll(ores_append);
     }
-    // adds all ores which can be smelted to LinkedList flamePickOres
-    // TODO What exactly is flamePickOres, maybe needs comment to describe it!
-    // TODO Might need a rework due to ore changes in 1.18, so that code is backwards compatible to older versions
+    // flamePickOres: the ores Flame Pick smelts into ingots. Only these ores also use the Vein Miner
+    // and Wasteless Haste of the Mining skill when they are broken with Flame Pick.
+    // Only the ores that have an entry in ExpMaps.flamePickEXP and in the smelting maps can be here.
     Material[] flamePickOres0 = {Material.IRON_ORE, Material.GOLD_ORE};
     flamePickOres = new LinkedList<>(Arrays.asList(flamePickOres0));
+    // copper ore and the deepslate ores (1.17 and later), resolved by name for older servers
+    flamePickOres.addAll(materialsByName("COPPER_ORE", "DEEPSLATE_COPPER_ORE",
+        "DEEPSLATE_IRON_ORE", "DEEPSLATE_GOLD_ORE"));
     // appends new 1.16 ores
     if (mcVersion >= 1.16) {
       Material[] flamePickOres_append_v1_16 = {Material.NETHER_GOLD_ORE, Material.ANCIENT_DEBRIS};
@@ -289,7 +294,8 @@ public class ItemGroups {
         Material.DARK_OAK_WOOD,
         Material.BIRCH_WOOD, Material.ACACIA_WOOD};
     wood = new LinkedList<>(Arrays.asList(wood0));
-    wood.addAll(materialsByName("MANGROVE_WOOD", "CHERRY_WOOD", "PALE_OAK_WOOD", "CRIMSON_HYPHAE",
+    wood.addAll(materialsByName("MANGROVE_WOOD", "CHERRY_WOOD", "PALE_OAK_WOOD", "POPLAR_WOOD",
+        "CRIMSON_HYPHAE",
         "WARPED_HYPHAE"));
     Material[] strippedWood0 = {Material.STRIPPED_SPRUCE_WOOD, Material.STRIPPED_OAK_WOOD,
         Material.STRIPPED_JUNGLE_WOOD,
@@ -297,7 +303,7 @@ public class ItemGroups {
         Material.STRIPPED_ACACIA_WOOD};
     strippedWood = new LinkedList<>(Arrays.asList(strippedWood0));
     strippedWood.addAll(materialsByName("STRIPPED_MANGROVE_WOOD", "STRIPPED_CHERRY_WOOD",
-        "STRIPPED_PALE_OAK_WOOD", "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE"));
+        "STRIPPED_PALE_OAK_WOOD", "STRIPPED_POPLAR_WOOD", "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE"));
     allLogs.addAll(logs);
     allLogs.addAll(strippedLogs);
     allLogs.addAll(wood);
@@ -306,8 +312,10 @@ public class ItemGroups {
         Material.OAK_LEAVES,
         Material.SPRUCE_LEAVES, Material.JUNGLE_LEAVES};
     leaves = new LinkedList<>(Arrays.asList(leaves0));
-    leaves.addAll(materialsByName("MANGROVE_LEAVES", "CHERRY_LEAVES", "PALE_OAK_LEAVES"));
-    // TODO Do the leaves of all the nether trees count as well? Might need to be added
+    leaves.addAll(materialsByName("MANGROVE_LEAVES", "CHERRY_LEAVES", "PALE_OAK_LEAVES",
+        "ORANGE_POPLAR_LEAVES", "RED_POPLAR_LEAVES", "YELLOW_POPLAR_LEAVES"));
+    // The huge fungi of the Nether (crimson and warped) grow wart blocks and shroomlight instead of
+    // leaves, so they have no leaves to add here.
     // appends new 1.17 leaves
     if (mcVersion >= 1.17) {
       Material[] leaves_append_v1_17 = {Material.AZALEA_LEAVES, Material.FLOWERING_AZALEA_LEAVES};
@@ -510,7 +518,7 @@ public class ItemGroups {
     farmFood.put(Material.SWEET_BERRIES, 2);
     farmFoodSaturation.put(Material.SWEET_BERRIES, 0.4);
     if (mcVersion >= 1.17) {
-      // TODO check if values are valid!
+      // Glow berries restore 2 hunger points and 0.4 saturation, like sweet berries
       farmFood.put(Material.GLOW_BERRIES, 2);
       farmFoodSaturation.put(Material.GLOW_BERRIES, 0.4);
     }
@@ -581,6 +589,10 @@ public class ItemGroups {
         Material.MUSIC_DISC_MELLOHI,
         Material.MUSIC_DISC_STAL, Material.MUSIC_DISC_STRAD, Material.MUSIC_DISC_WAIT,
         Material.MUSIC_DISC_WARD,
+        Material.MUSIC_DISC_5, Material.MUSIC_DISC_OTHERSIDE, Material.MUSIC_DISC_PIGSTEP,
+        Material.MUSIC_DISC_RELIC, Material.MUSIC_DISC_CREATOR,
+        Material.MUSIC_DISC_CREATOR_MUSIC_BOX, Material.MUSIC_DISC_PRECIPICE,
+        Material.MUSIC_DISC_TEARS, Material.MUSIC_DISC_LAVA_CHICKEN, Material.MUSIC_DISC_BOUNCE,
         Material.NAME_TAG, Material.TIPPED_ARROW, Material.TOTEM_OF_UNDYING,
         Material.SPECTRAL_ARROW, Material.DIAMOND, Material.GOLD_INGOT,
         Material.HEART_OF_THE_SEA, Material.DRAGON_BREATH, Material.EMERALD,
@@ -596,7 +608,9 @@ public class ItemGroups {
           Material.NETHERITE_SCRAP, Material.ANCIENT_DEBRIS};
       List<Material> valueableItems_append = Arrays.asList(valuableItems_append0);
       valuableItems.addAll(valueableItems_append);
-      // TODO might need to add 1.17 items
+      valuableItems.addAll(materialsByName("COPPER_BLOCK", "RAW_COPPER", "AMETHYST_SHARD",
+          "SPYGLASS", "DEEPSLATE_DIAMOND_ORE", "DEEPSLATE_EMERALD_ORE", "DEEPSLATE_GOLD_ORE",
+          "DEEPSLATE_IRON_ORE", "DEEPSLATE_LAPIS_ORE", "DEEPSLATE_REDSTONE_ORE"));
     }
   }
 
@@ -607,6 +621,17 @@ public class ItemGroups {
         repairItems.put(material, Material.COPPER_INGOT);
         repairItemsAmount.put(material,
             mc.carlton.freerpg.skills.perksAndAbilities.Repair.copperIngotCost(material));
+      }
+    }
+    // Armor for wolves and nautilus: armadillo scutes, or the ingot of the tier
+    for (String[] pair : new String[][]{{"WOLF_ARMOR", "ARMADILLO_SCUTE"},
+        {"IRON_NAUTILUS_ARMOR", "IRON_INGOT"}, {"GOLDEN_NAUTILUS_ARMOR", "GOLD_INGOT"},
+        {"DIAMOND_NAUTILUS_ARMOR", "DIAMOND"}, {"NETHERITE_NAUTILUS_ARMOR", "NETHERITE_INGOT"}}) {
+      Material armor = Material.matchMaterial(pair[0]);
+      Material repairMaterial = Material.matchMaterial(pair[1]);
+      if (armor != null && repairMaterial != null) {
+        repairItems.put(armor, repairMaterial);
+        repairItemsAmount.put(armor, 4);
       }
     }
     repairItems.put(Material.WOODEN_AXE, Material.STICK);
@@ -912,6 +937,14 @@ public class ItemGroups {
 
     smeltingXPMap.put(Material.IRON_ORE, 0.7);
     smeltingXPMap.put(Material.GOLD_ORE, 1.0);
+    // Copper ore and the deepslate versions smelt for the same smelting xp as in a furnace
+    for (String[] ore : new String[][]{{"COPPER_ORE", "0.7"}, {"DEEPSLATE_COPPER_ORE", "0.7"},
+        {"DEEPSLATE_IRON_ORE", "0.7"}, {"DEEPSLATE_GOLD_ORE", "1.0"}}) {
+      Material material = Material.matchMaterial(ore[0]);
+      if (material != null) {
+        smeltingXPMap.put(material, Double.parseDouble(ore[1]));
+      }
+    }
     smeltingXPMap.put(Material.SAND, 0.1);
     smeltingXPMap.put(Material.RED_SAND, 0.1);
     smeltingXPMap.put(Material.COBBLESTONE, 0.1);

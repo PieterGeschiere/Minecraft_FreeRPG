@@ -55,23 +55,5 @@ public class PlayerFish implements Listener {
       fishingClass.rob(e.getHook(), e.getCaught(), world);
     }
 
-    // TODO remove dead code!
-        /*
-        System.out.println(e.getState());;
-        System.out.println(e.getHook().getLocation().getBlock().getType());
-        if (caughtThing == null && e.getState() == PlayerFishEvent.State.REEL_IN) {
-            double dx = p.getLocation().getX() - e.getHook().getLocation().getX();
-            double dy = p.getLocation().getY() - e.getHook().getLocation().getY();
-            double dz = p.getLocation().getZ() - e.getHook().getLocation().getZ();
-            double distance = Math.sqrt(dx*dx + dy*dy + dz+dz);
-            double multiplier = 0.08;
-            Item droppedItem = world.dropItemNaturally(e.getHook().getLocation(),new ItemStack(Material.GOLD_INGOT,1));
-            Vector velocity = new Vector(dx*multiplier,dy*multiplier + (double) Math.sqrt(distance)*0.1 ,dz*multiplier);
-            droppedItem.setVelocity(velocity);
-
-
-        }
-
-         */
   }
 }

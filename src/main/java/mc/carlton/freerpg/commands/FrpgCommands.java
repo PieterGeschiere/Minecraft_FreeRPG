@@ -471,9 +471,8 @@ public class FrpgCommands implements CommandExecutor {
     GuiItem weapons = new GuiItem(Material.MACE, 22, gui);
     weapons.setName("Weapon Skills");
     weapons.setNameColor(nameColor);
-    weapons.setDescription("Archery, Swordsmanship, Axe Mastery, Mace Mastery and more");
-    if (hasUnspentTokens(pStat, "swordsmanship") || hasUnspentTokens(pStat, "axeMastery")
-        || hasUnspentTokens(pStat, "archery")) {
+    weapons.setDescription("Swordsmanship, Axe Mastery, Mace, Bow, Crossbow and more");
+    if (hasUnspentTokens(pStat, "swordsmanship") || hasUnspentTokens(pStat, "axeMastery")) {
       weapons.addEnchantmentGlow();
     }
     gui.addItem(weapons);
@@ -508,7 +507,7 @@ public class FrpgCommands implements CommandExecutor {
               ChatColor.RESET + ChatColor.WHITE + lang.getString("commandDesc2"));
           p.sendMessage(ChatColor.GOLD + "/frpg weapons" + ChatColor.RESET
               + ChatColor.GRAY.toString() + " - " + ChatColor.RESET + ChatColor.WHITE
-              + "Opens the weapon skills menu (Archery, Swordsmanship, Axe, Mace, Trident, Spear)");
+              + "Opens the weapon skills menu (Swordsmanship, Axe, Mace, Trident, Spear, Bow, Crossbow)");
           p.sendMessage(ChatColor.GOLD + "/frpg giveEXP [" + lang.getString("playerName") + "] ["
               + lang.getString("skillName") + "] [amount]" + ChatColor.RESET
               + ChatColor.GRAY.toString() + " - " +
@@ -943,7 +942,7 @@ public class FrpgCommands implements CommandExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
 
-    // Admin commands for the weapon skills (Mace, Trident, Spear)
+    // Admin commands for the weapon skills (Mace, Trident, Spear, Bow, Crossbow)
     if (mc.carlton.freerpg.weaponskills.WeaponSkillCommands.handle(sender, args)) {
       return true;
     }

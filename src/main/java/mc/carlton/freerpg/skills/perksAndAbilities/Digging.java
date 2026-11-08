@@ -301,7 +301,10 @@ public class Digging extends Skill {
         Material.MUSIC_DISC_CHIRP, Material.MUSIC_DISC_FAR, Material.MUSIC_DISC_MALL,
         Material.MUSIC_DISC_MELLOHI,
         Material.MUSIC_DISC_STAL, Material.MUSIC_DISC_STRAD, Material.MUSIC_DISC_WAIT,
-        Material.MUSIC_DISC_WARD}; // TODO Maybe add new discs!
+        Material.MUSIC_DISC_WARD, Material.MUSIC_DISC_5, Material.MUSIC_DISC_OTHERSIDE,
+        Material.MUSIC_DISC_PIGSTEP, Material.MUSIC_DISC_RELIC, Material.MUSIC_DISC_CREATOR,
+        Material.MUSIC_DISC_CREATOR_MUSIC_BOX, Material.MUSIC_DISC_PRECIPICE,
+        Material.MUSIC_DISC_TEARS, Material.MUSIC_DISC_LAVA_CHICKEN, Material.MUSIC_DISC_BOUNCE};
     Material[] horse_armor = {Material.LEATHER_HORSE_ARMOR, Material.IRON_HORSE_ARMOR,
         Material.GOLDEN_HORSE_ARMOR, Material.DIAMOND_HORSE_ARMOR};
 

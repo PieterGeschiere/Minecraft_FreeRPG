@@ -271,111 +271,67 @@ public class Swordsmanship extends Skill {
       return;
     }
 
-    //Speed
+    applyKillBuff(PotionEffectType.SPEED, totalSpeedTime, speedIItime, speedItime);
+    applyKillBuff(PotionEffectType.STRENGTH, totalStrengthtime, strengthIItime, strengthItime);
+  }
+
+  /**
+   * Gives the kill buff (Speed or Strength): first the level II part, then, when that is over, the
+   * level I part for the rest of the time. A stronger or longer effect the player already has is
+   * never replaced.
+   *
+   * @param totalTime  total duration in ticks
+   * @param levelIITime ticks of the effect at level II
+   * @param levelITime ticks of the effect at level I that follow the level II part
+   */
+  private void applyKillBuff(PotionEffectType type, int totalTime, int levelIITime,
+      int levelITime) {
     boolean addEffect = true;
     boolean hasEffect = false;
-    potionEffectLoop:
     for (PotionEffect effect : p.getActivePotionEffects()) {
-      if (effect.getType().equals(PotionEffectType.SPEED)) {
+      if (effect.getType().equals(type)) {
         hasEffect = true;
-        if ((effect.getDuration() > totalSpeedTime) || (effect.getAmplifier() > 1
-            && effect.getDuration() > totalSpeedTime * 0.2) || (effect.getAmplifier() == 1
-            && effect.getDuration() > speedIItime && effect.getDuration() > totalSpeedTime * 0.2)
-            || totalSpeedTime == 0) {
+        if ((effect.getDuration() > totalTime) || (effect.getAmplifier() > 1
+            && effect.getDuration() > totalTime * 0.2) || (effect.getAmplifier() == 1
+            && effect.getDuration() > levelIITime && effect.getDuration() > totalTime * 0.2)
+            || totalTime == 0) {
           addEffect = false;
         }
-        break potionEffectLoop;
+        break;
       }
     }
-    // TODO check for code duplication, check if code can be extracted to separate method
-    if (addEffect) {
-      if (hasEffect) {
-        p.removePotionEffect(PotionEffectType.SPEED);
-      }
-      if (speedIItime == 0) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, totalSpeedTime, 0));
-      } else {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, speedIItime + 2, 1));
-        int taskID = new BukkitRunnable() {
-          @Override
-          public void run() {
-            boolean addEffect = true;
-            boolean hasEffect = false;
-            potionEffectLoop:
-            for (PotionEffect effect : p.getActivePotionEffects()) {
-              if (effect.getType().equals(PotionEffectType.SPEED)) {
-                hasEffect = true;
-                if ((effect.getDuration() > totalSpeedTime) || (effect.getAmplifier() > 1
-                    && effect.getDuration() > speedItime * 0.2)) {
-                  addEffect = false;
-                }
-                break potionEffectLoop;
-              }
+    if (!addEffect) {
+      return;
+    }
+    if (hasEffect) {
+      p.removePotionEffect(type);
+    }
+    if (levelIITime == 0) {
+      p.addPotionEffect(new PotionEffect(type, totalTime, 0));
+      return;
+    }
+    p.addPotionEffect(new PotionEffect(type, levelIITime + 2, 1));
+    new BukkitRunnable() {
+      @Override
+      public void run() {
+        boolean addLevelI = true;
+        boolean hasLevelII = false;
+        for (PotionEffect effect : p.getActivePotionEffects()) {
+          if (effect.getType().equals(type)) {
+            hasLevelII = true;
+            if ((effect.getDuration() > totalTime) || (effect.getAmplifier() > 1
+                && effect.getDuration() > levelITime * 0.2)) {
+              addLevelI = false;
             }
-            if (addEffect && hasEffect) {
-              p.removePotionEffect(PotionEffectType.SPEED);
-              p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, speedItime, 0));
-            }
-
+            break;
           }
-        }.runTaskLater(plugin, speedIItime).getTaskId();
-      }
-    }
-
-    //Strength
-    addEffect = true;
-    hasEffect = false;
-    potionEffectLoop:
-    for (PotionEffect effect : p.getActivePotionEffects()) {
-      if (effect.getType().equals(PotionEffectType.STRENGTH)) {
-        hasEffect = true;
-        if ((effect.getDuration() > totalStrengthtime) || (effect.getAmplifier() > 1
-            && effect.getDuration() > totalStrengthtime * 0.2) || (effect.getAmplifier() == 1
-            && effect.getDuration() > strengthIItime
-            && effect.getDuration() > totalStrengthtime * 0.2) || totalStrengthtime == 0) {
-          addEffect = false;
         }
-        break potionEffectLoop;
+        if (addLevelI && hasLevelII) {
+          p.removePotionEffect(type);
+          p.addPotionEffect(new PotionEffect(type, levelITime, 0));
+        }
       }
-    }
-    // TODO check for code duplication, check if code can be extracted to separate method
-    if (addEffect) {
-      if (hasEffect) {
-        p.removePotionEffect(PotionEffectType.STRENGTH);
-      }
-      if (strengthIItime == 0) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, totalStrengthtime, 0));
-      } else {
-        p.addPotionEffect(
-            new PotionEffect(PotionEffectType.STRENGTH, strengthIItime + 2, 1));
-        int taskID = new BukkitRunnable() {
-          @Override
-          public void run() {
-            boolean addEffect = true;
-            boolean hasEffect = false;
-            potionEffectLoop:
-            for (PotionEffect effect : p.getActivePotionEffects()) {
-              if (effect.getType().equals(PotionEffectType.STRENGTH)) {
-                hasEffect = true;
-                if ((effect.getDuration() > totalStrengthtime) || (effect.getAmplifier() > 1
-                    && effect.getDuration() > strengthItime * 0.2)) {
-                  addEffect = false;
-                }
-                break potionEffectLoop;
-              }
-            }
-            if (addEffect && hasEffect) {
-              p.removePotionEffect(PotionEffectType.STRENGTH);
-              p.addPotionEffect(
-                  new PotionEffect(PotionEffectType.STRENGTH, strengthItime, 0));
-            }
-
-          }
-        }.runTaskLater(plugin, strengthIItime).getTaskId();
-      }
-
-    }
-
+    }.runTaskLater(plugin, levelIITime);
   }
 
   public void giveHitEXP(double finalDamage, Entity entity) {

@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
- * Entry point of the self-contained weapon skill module (Mace Mastery and later Spear and Trident
+ * Entry point of the self-contained weapon skill module (Mace, Trident, Spear, Bow and Crossbow
  * Mastery). It has its own data, config (weaponSkills.yml) and menu (/frpg weapons) and does not
  * touch the data of the main FreeRPG skills.
  */
@@ -30,11 +30,15 @@ public class WeaponSkills implements Listener {
     Bukkit.getPluginManager().registerEvents(new WeaponSkillsMenu(), plugin);
     Bukkit.getPluginManager().registerEvents(new TridentMastery(), plugin);
     Bukkit.getPluginManager().registerEvents(new SpearMastery(), plugin);
+    Bukkit.getPluginManager().registerEvents(new BowMastery(), plugin);
+    Bukkit.getPluginManager().registerEvents(new CrossbowMastery(), plugin);
     Bukkit.getPluginManager().registerEvents(new WeaponSkillTreeMenu(), plugin);
     Bukkit.getPluginManager().registerEvents(new WeaponSkillConfigMenu(), plugin);
     WeaponSkillTreeMenu.register(new MaceTreeInfo());
     WeaponSkillTreeMenu.register(new TridentTreeInfo());
     WeaponSkillTreeMenu.register(new SpearTreeInfo());
+    WeaponSkillTreeMenu.register(new BowTreeInfo());
+    WeaponSkillTreeMenu.register(new CrossbowTreeInfo());
     Bukkit.getScheduler().runTaskTimer(plugin, WeaponSkillManager::saveAll, SAVE_INTERVAL_TICKS,
         SAVE_INTERVAL_TICKS);
   }
