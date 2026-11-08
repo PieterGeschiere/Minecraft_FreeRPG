@@ -1,7 +1,7 @@
 name: FreeRPG
 version: ${project.version}
 main: mc.carlton.freerpg.FreeRPG
-api-version: 1.13
+api-version: '26.3'
 authors: [ JackCarlton, AdvancedWipe ]
 description: Made from Spite
 softdepend: [ WorldGuard,PlaceholderAPI ]

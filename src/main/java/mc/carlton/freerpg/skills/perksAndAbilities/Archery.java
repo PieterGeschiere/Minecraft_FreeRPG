@@ -164,7 +164,7 @@ public class Archery extends Skill {
     if (!runMethods) {
       return;
     }
-    if (bow.getEnchantments().containsKey(Enchantment.ARROW_INFINITE)) {
+    if (bow.getEnchantments().containsKey(Enchantment.INFINITY)) {
       return;
     }
     if (bow.getEnchantments().containsKey(Enchantment.MULTISHOT)) {

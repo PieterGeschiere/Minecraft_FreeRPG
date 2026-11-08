@@ -91,43 +91,64 @@ public class ItemGroups {
   }
 
   public void initializeEnchantmentLevelMap() {
-    enchantmentLevelMap.put(Enchantment.ARROW_KNOCKBACK, 2);
-    enchantmentLevelMap.put(Enchantment.ARROW_DAMAGE, 5);
-    enchantmentLevelMap.put(Enchantment.ARROW_FIRE, 1);
-    enchantmentLevelMap.put(Enchantment.ARROW_INFINITE, 1);
+    enchantmentLevelMap.put(Enchantment.PUNCH, 2);
+    enchantmentLevelMap.put(Enchantment.POWER, 5);
+    enchantmentLevelMap.put(Enchantment.FLAME, 1);
+    enchantmentLevelMap.put(Enchantment.INFINITY, 1);
     enchantmentLevelMap.put(Enchantment.BINDING_CURSE, 1);
     enchantmentLevelMap.put(Enchantment.CHANNELING, 1);
-    enchantmentLevelMap.put(Enchantment.DAMAGE_ALL, 4);
-    enchantmentLevelMap.put(Enchantment.DAMAGE_ARTHROPODS, 4);
-    enchantmentLevelMap.put(Enchantment.DAMAGE_UNDEAD, 4);
+    enchantmentLevelMap.put(Enchantment.SHARPNESS, 4);
+    enchantmentLevelMap.put(Enchantment.BANE_OF_ARTHROPODS, 4);
+    enchantmentLevelMap.put(Enchantment.SMITE, 4);
     enchantmentLevelMap.put(Enchantment.DEPTH_STRIDER, 2);
-    enchantmentLevelMap.put(Enchantment.DIG_SPEED, 4);
-    enchantmentLevelMap.put(Enchantment.DURABILITY, 3);
+    enchantmentLevelMap.put(Enchantment.EFFICIENCY, 4);
+    enchantmentLevelMap.put(Enchantment.UNBREAKING, 3);
     enchantmentLevelMap.put(Enchantment.FIRE_ASPECT, 2);
     enchantmentLevelMap.put(Enchantment.FROST_WALKER, 2);
     enchantmentLevelMap.put(Enchantment.IMPALING, 4);
     enchantmentLevelMap.put(Enchantment.KNOCKBACK, 2);
-    enchantmentLevelMap.put(Enchantment.LOOT_BONUS_BLOCKS, 3);
-    enchantmentLevelMap.put(Enchantment.LUCK, 3);
-    enchantmentLevelMap.put(Enchantment.LOOT_BONUS_MOBS, 3);
+    enchantmentLevelMap.put(Enchantment.FORTUNE, 3);
+    enchantmentLevelMap.put(Enchantment.LUCK_OF_THE_SEA, 3);
+    enchantmentLevelMap.put(Enchantment.LOOTING, 3);
     enchantmentLevelMap.put(Enchantment.LOYALTY, 3);
     enchantmentLevelMap.put(Enchantment.LURE, 3);
     enchantmentLevelMap.put(Enchantment.MENDING, 1);
     enchantmentLevelMap.put(Enchantment.MULTISHOT, 1);
-    enchantmentLevelMap.put(Enchantment.OXYGEN, 3);
+    enchantmentLevelMap.put(Enchantment.RESPIRATION, 3);
     enchantmentLevelMap.put(Enchantment.PIERCING, 4);
-    enchantmentLevelMap.put(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-    enchantmentLevelMap.put(Enchantment.PROTECTION_EXPLOSIONS, 4);
-    enchantmentLevelMap.put(Enchantment.PROTECTION_FALL, 4);
-    enchantmentLevelMap.put(Enchantment.PROTECTION_FIRE, 4);
-    enchantmentLevelMap.put(Enchantment.PROTECTION_PROJECTILE, 4);
+    enchantmentLevelMap.put(Enchantment.PROTECTION, 4);
+    enchantmentLevelMap.put(Enchantment.BLAST_PROTECTION, 4);
+    enchantmentLevelMap.put(Enchantment.FEATHER_FALLING, 4);
+    enchantmentLevelMap.put(Enchantment.FIRE_PROTECTION, 4);
+    enchantmentLevelMap.put(Enchantment.PROJECTILE_PROTECTION, 4);
     enchantmentLevelMap.put(Enchantment.QUICK_CHARGE, 3);
     enchantmentLevelMap.put(Enchantment.RIPTIDE, 3);
     enchantmentLevelMap.put(Enchantment.SILK_TOUCH, 1);
     enchantmentLevelMap.put(Enchantment.SWEEPING_EDGE, 3);
     enchantmentLevelMap.put(Enchantment.THORNS, 3);
     enchantmentLevelMap.put(Enchantment.VANISHING_CURSE, 1);
-    enchantmentLevelMap.put(Enchantment.WATER_WORKER, 1);
+    enchantmentLevelMap.put(Enchantment.AQUA_AFFINITY, 1);
+    // post-1.18 enchantments (looked up by key, skipped if not present)
+    String[][] newEnchants = {{"swift_sneak", "3"}, {"soul_speed", "3"}, {"density", "5"},
+        {"breach", "4"}, {"wind_burst", "3"}, {"lunge", "3"}};
+    for (String[] e : newEnchants) {
+      Enchantment enchantment = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft(e[0]));
+      if (enchantment != null) {
+        enchantmentLevelMap.put(enchantment, Integer.parseInt(e[1]));
+      }
+    }
+  }
+
+  /** Looks up materials by name, skipping names that do not exist on this server version. */
+  private static List<Material> materialsByName(String... names) {
+    List<Material> result = new LinkedList<>();
+    for (String name : names) {
+      Material material = Material.matchMaterial(name);
+      if (material != null) {
+        result.add(material);
+      }
+    }
+    return result;
   }
 
   // TODO Comment what for the blocks are tracked
@@ -159,6 +180,16 @@ public class ItemGroups {
       List<Material> trackedBlocks_append = Arrays.asList(trackedBlocks_v1_17);
       trackedBlocks1.addAll(trackedBlocks_append);
     }
+    // Valuable/new blocks must be tracked so that player-placed ones never give exp
+    trackedBlocks1.addAll(materialsByName("RAW_GOLD_BLOCK", "RAW_IRON_BLOCK", "RAW_COPPER_BLOCK",
+        "COAL_BLOCK", "IRON_BLOCK", "GOLD_BLOCK", "LAPIS_BLOCK", "REDSTONE_BLOCK", "DIAMOND_BLOCK",
+        "EMERALD_BLOCK", "NETHERITE_BLOCK", "COPPER_BLOCK", "EXPOSED_COPPER", "WEATHERED_COPPER",
+        "OXIDIZED_COPPER", "WAXED_COPPER_BLOCK", "WAXED_EXPOSED_COPPER", "WAXED_WEATHERED_COPPER",
+        "WAXED_OXIDIZED_COPPER", "BUDDING_AMETHYST", "SMALL_AMETHYST_BUD", "MEDIUM_AMETHYST_BUD",
+        "LARGE_AMETHYST_BUD", "AMETHYST_CLUSTER", "COPPER_ORE", "MUD", "MUDDY_MANGROVE_ROOTS",
+        "MANGROVE_LOG", "MANGROVE_LEAVES", "CHERRY_LOG", "CHERRY_LEAVES", "PALE_OAK_LOG",
+        "PALE_OAK_LEAVES", "BAMBOO_BLOCK", "PITCHER_CROP", "TORCHFLOWER_CROP", "PITCHER_PLANT",
+        "BEEHIVE", "BEE_NEST", "HONEY_BLOCK", "HONEYCOMB_BLOCK", "PALE_MOSS_BLOCK"));
     for (Material mat : trackedBlocks1) {
       trackedBlocks.putIfAbsent(mat, true);
     }
@@ -200,6 +231,10 @@ public class ItemGroups {
       List<Material> logs_append = Arrays.asList(logs_append0);
       logs.addAll(logs_append);
     }
+    // post-1.18 trees (stripped logs are part of the logs list)
+    logs.addAll(materialsByName("MANGROVE_LOG", "STRIPPED_MANGROVE_LOG", "CHERRY_LOG",
+        "STRIPPED_CHERRY_LOG", "PALE_OAK_LOG", "STRIPPED_PALE_OAK_LOG", "BAMBOO_BLOCK",
+        "STRIPPED_BAMBOO_BLOCK"));
     // TODO What is the reason why Material.MELON is missing below and pumkin is not?
     Material[] crops0 = {Material.WHEAT, Material.BEETROOTS, Material.CARROTS,
         Material.CHORUS_FLOWER,
@@ -210,7 +245,8 @@ public class ItemGroups {
             TODO exp of cave_vines only apply to the lowest part of the cave_vines, otherwise they don't give exp
             Its better to only give exp if the cave_vines with blockstate berries=true are broken!
          */
-    crops = Arrays.asList(crops0);
+    crops = new LinkedList<>(Arrays.asList(crops0));
+    crops.addAll(materialsByName("PITCHER_CROP", "TORCHFLOWER_CROP"));
     // adds ore to list
     Material[] ores0 = {Material.REDSTONE_ORE, Material.NETHER_QUARTZ_ORE, Material.LAPIS_ORE,
         Material.IRON_ORE,
@@ -225,7 +261,8 @@ public class ItemGroups {
     }
     // appends new 1.17 ores to LinkedList ores
     if (mcVersion >= 1.17) {
-      Material[] ores_append_v1_17 = {Material.DEEPSLATE_COAL_ORE, Material.DEEPSLATE_DIAMOND_ORE,
+      Material[] ores_append_v1_17 = {Material.COPPER_ORE, Material.DEEPSLATE_COAL_ORE,
+          Material.DEEPSLATE_DIAMOND_ORE,
           Material.DEEPSLATE_COPPER_ORE, Material.DEEPSLATE_EMERALD_ORE,
           Material.DEEPSLATE_IRON_ORE,
           Material.DEEPSLATE_GOLD_ORE, Material.DEEPSLATE_LAPIS_ORE,
@@ -251,12 +288,16 @@ public class ItemGroups {
     Material[] wood0 = {Material.SPRUCE_WOOD, Material.OAK_WOOD, Material.JUNGLE_WOOD,
         Material.DARK_OAK_WOOD,
         Material.BIRCH_WOOD, Material.ACACIA_WOOD};
-    wood = Arrays.asList(wood0);
+    wood = new LinkedList<>(Arrays.asList(wood0));
+    wood.addAll(materialsByName("MANGROVE_WOOD", "CHERRY_WOOD", "PALE_OAK_WOOD", "CRIMSON_HYPHAE",
+        "WARPED_HYPHAE"));
     Material[] strippedWood0 = {Material.STRIPPED_SPRUCE_WOOD, Material.STRIPPED_OAK_WOOD,
         Material.STRIPPED_JUNGLE_WOOD,
         Material.STRIPPED_DARK_OAK_WOOD, Material.STRIPPED_BIRCH_WOOD,
         Material.STRIPPED_ACACIA_WOOD};
-    strippedWood = Arrays.asList(strippedWood0);
+    strippedWood = new LinkedList<>(Arrays.asList(strippedWood0));
+    strippedWood.addAll(materialsByName("STRIPPED_MANGROVE_WOOD", "STRIPPED_CHERRY_WOOD",
+        "STRIPPED_PALE_OAK_WOOD", "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE"));
     allLogs.addAll(logs);
     allLogs.addAll(strippedLogs);
     allLogs.addAll(wood);
@@ -265,6 +306,7 @@ public class ItemGroups {
         Material.OAK_LEAVES,
         Material.SPRUCE_LEAVES, Material.JUNGLE_LEAVES};
     leaves = new LinkedList<>(Arrays.asList(leaves0));
+    leaves.addAll(materialsByName("MANGROVE_LEAVES", "CHERRY_LEAVES", "PALE_OAK_LEAVES"));
     // TODO Do the leaves of all the nether trees count as well? Might need to be added
     // appends new 1.17 leaves
     if (mcVersion >= 1.17) {
@@ -280,7 +322,7 @@ public class ItemGroups {
   public void initializeHarmfulPotions() {
     PotionEffectType[] harmfulEffects0 = {PotionEffectType.WEAKNESS, PotionEffectType.POISON,
         PotionEffectType.BLINDNESS, PotionEffectType.HUNGER,
-        PotionEffectType.HARM, PotionEffectType.SLOW_DIGGING, PotionEffectType.SLOW,
+        PotionEffectType.INSTANT_DAMAGE, PotionEffectType.MINING_FATIGUE, PotionEffectType.SLOWNESS,
         PotionEffectType.WEAKNESS, PotionEffectType.WITHER};
     harmfulEffects = Arrays.asList(harmfulEffects0);
   }
@@ -362,6 +404,13 @@ public class ItemGroups {
       hoes.add(Material.NETHERITE_HOE);
       swords.add(Material.NETHERITE_SWORD);
     }
+    // post-1.18 tools and weapons (copper tools, mace, spears)
+    pickaxes.addAll(materialsByName("COPPER_PICKAXE"));
+    axes.addAll(materialsByName("COPPER_AXE"));
+    shovels.addAll(materialsByName("COPPER_SHOVEL"));
+    hoes.addAll(materialsByName("COPPER_HOE"));
+    swords.addAll(materialsByName("COPPER_SWORD", "MACE", "WOODEN_SPEAR", "STONE_SPEAR",
+        "COPPER_SPEAR", "IRON_SPEAR", "GOLDEN_SPEAR", "DIAMOND_SPEAR", "NETHERITE_SPEAR"));
   }
 
   public void initializeLeftClickItems() {
@@ -381,6 +430,9 @@ public class ItemGroups {
       List<Material> leftClickItems_append = Arrays.asList(leftClickItems_append0);
       leftClickItems.addAll(leftClickItems_append);
     }
+    leftClickItems.addAll(materialsByName("COPPER_SWORD", "COPPER_PICKAXE", "COPPER_SHOVEL",
+        "COPPER_AXE", "MACE", "WOODEN_SPEAR", "STONE_SPEAR", "COPPER_SPEAR", "IRON_SPEAR",
+        "GOLDEN_SPEAR", "DIAMOND_SPEAR", "NETHERITE_SPEAR"));
   }
 
   public void initializeIngredients() {
@@ -551,6 +603,14 @@ public class ItemGroups {
   }
 
   public void initializeRepairItems() {
+    for (Material material : Material.values()) {
+      if (mc.carlton.freerpg.skills.perksAndAbilities.Repair.copperIngotCost(material) > 0
+          && Material.COPPER_INGOT != null) {
+        repairItems.put(material, Material.COPPER_INGOT);
+        repairItemsAmount.put(material,
+            mc.carlton.freerpg.skills.perksAndAbilities.Repair.copperIngotCost(material));
+      }
+    }
     repairItems.put(Material.WOODEN_AXE, Material.STICK);
     repairItems.put(Material.WOODEN_HOE, Material.STICK);
     repairItems.put(Material.WOODEN_PICKAXE, Material.STICK);
@@ -686,11 +746,11 @@ public class ItemGroups {
   public void initalizeArrows() {
     PotionType[] potionType = {PotionType.WATER, PotionType.MUNDANE, PotionType.THICK,
         PotionType.AWKWARD, PotionType.NIGHT_VISION,
-        PotionType.INVISIBILITY, PotionType.JUMP, PotionType.FIRE_RESISTANCE, PotionType.SPEED,
+        PotionType.INVISIBILITY, PotionType.LEAPING, PotionType.FIRE_RESISTANCE, PotionType.SWIFTNESS,
         PotionType.SLOWNESS,
-        PotionType.WATER_BREATHING, PotionType.INSTANT_HEAL, PotionType.INSTANT_DAMAGE,
+        PotionType.WATER_BREATHING, PotionType.HEALING, PotionType.HARMING,
         PotionType.POISON,
-        PotionType.REGEN, PotionType.STRENGTH, PotionType.WEAKNESS, PotionType.LUCK,
+        PotionType.REGENERATION, PotionType.STRENGTH, PotionType.WEAKNESS, PotionType.LUCK,
         PotionType.TURTLE_MASTER, PotionType.SLOW_FALLING};
     String[] labels = {"water", "mundane", "thick", "awkward", "night_vision", "invisibility",
         "leaping", "fire_resistance", "swiftness", "slowness",
@@ -766,6 +826,21 @@ public class ItemGroups {
     smeltableItemsMap.put(Material.MAGENTA_TERRACOTTA, Material.MAGENTA_GLAZED_TERRACOTTA);
     smeltableItemsMap.put(Material.PINK_TERRACOTTA, Material.PINK_GLAZED_TERRACOTTA);
     smeltableItemsMap.put(Material.CACTUS, Material.GREEN_DYE);
+    String[][] newSmeltables = {{"COPPER_ORE", "COPPER_INGOT"},
+        {"DEEPSLATE_COPPER_ORE", "COPPER_INGOT"}, {"DEEPSLATE_IRON_ORE", "IRON_INGOT"},
+        {"DEEPSLATE_GOLD_ORE", "GOLD_INGOT"}, {"DEEPSLATE_COAL_ORE", "COAL"},
+        {"DEEPSLATE_DIAMOND_ORE", "DIAMOND"}, {"DEEPSLATE_LAPIS_ORE", "LAPIS_LAZULI"},
+        {"DEEPSLATE_REDSTONE_ORE", "REDSTONE"}, {"DEEPSLATE_EMERALD_ORE", "EMERALD"},
+        {"BASALT", "SMOOTH_BASALT"}, {"DEEPSLATE_BRICKS", "CRACKED_DEEPSLATE_BRICKS"},
+        {"DEEPSLATE_TILES", "CRACKED_DEEPSLATE_TILES"},
+        {"POLISHED_BLACKSTONE_BRICKS", "CRACKED_POLISHED_BLACKSTONE_BRICKS"}};
+    for (String[] pair : newSmeltables) {
+      Material input = Material.matchMaterial(pair[0]);
+      Material output = Material.matchMaterial(pair[1]);
+      if (input != null && output != null) {
+        smeltableItemsMap.putIfAbsent(input, output);
+      }
+    }
     for (Material log : logs) {
       smeltableItemsMap.put(log, Material.CHARCOAL);
     }
@@ -820,9 +895,9 @@ public class ItemGroups {
       smeltableItemsMap.put(Material.NETHER_BRICK, Material.CRACKED_NETHER_BRICKS);
     }
     if (mcVersion >= 1.17) {
-      smeltableItemsMap.put(Material.RAW_IRON, Material.RAW_IRON);
-      smeltableItemsMap.put(Material.RAW_COPPER, Material.RAW_COPPER);
-      smeltableItemsMap.put(Material.RAW_GOLD, Material.RAW_GOLD);
+      smeltableItemsMap.put(Material.RAW_IRON, Material.IRON_INGOT);
+      smeltableItemsMap.put(Material.RAW_COPPER, Material.COPPER_INGOT);
+      smeltableItemsMap.put(Material.RAW_GOLD, Material.GOLD_INGOT);
     }
 
   }

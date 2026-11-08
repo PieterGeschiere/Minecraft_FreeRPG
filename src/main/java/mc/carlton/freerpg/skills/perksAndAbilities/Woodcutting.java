@@ -594,7 +594,7 @@ public class Woodcutting extends Skill {
       Integer[] pAbilities = abilities.getPlayerAbilities();
       if (pAbilities[10] == -1) {
         p.addPotionEffect(
-            new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 12 * freshArmsLevel, 0));
+            new PotionEffect(PotionEffectType.HASTE, 20 * 12 * freshArmsLevel, 0));
         int taskID = new BukkitRunnable() {
           @Override
           public void run() {

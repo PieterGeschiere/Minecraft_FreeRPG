@@ -98,7 +98,7 @@ public class LoginProcedure {
     changeStats.setTotalExperience();
 
     //Makes sure player's attack speed is normal
-    ((Attributable) p).getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4.0);
+    ((Attributable) p).getAttribute(Attribute.ATTACK_SPEED).setBaseValue(4.0);
 
     //Initiates player abilities
     Integer[] initAbils = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};

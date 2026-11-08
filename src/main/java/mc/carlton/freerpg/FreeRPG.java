@@ -171,6 +171,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     itemGroups.initializeItemGroups();
     CraftingRecipes craftingRecipes = new CraftingRecipes();
     craftingRecipes.initializeAllCraftingRecipes();
+    mc.carlton.freerpg.utils.game.RepairStations.initialize(this);
     StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
     stringsAndOtherData.initializeData();
 
@@ -198,6 +199,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     }
     getServer().getPluginManager().registerEvents(this, this);
     getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+    getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.utils.game.RepairStations(), this);
     getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
     getServer().getPluginManager().registerEvents(new MainGUIclick(), this);
     getServer().getPluginManager().registerEvents(new SkillsGUIclick(), this);
@@ -313,50 +315,6 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     if (configLoad.isSaveRunTimeData()) {
       RunTimeData runTimeData = new RunTimeData();
       runTimeData.logRunTimeData();
-    }
-  }
-
-  //Load custom enchantments
-  public void registerEnchantment(Enchantment enchantment) {
-    boolean registered = true;
-    try {
-      Field f = Enchantment.class.getDeclaredField("acceptingNew");
-      f.setAccessible(true);
-      f.set(null, true);
-      Enchantment.registerEnchantment(enchantment);
-    } catch (Exception e) {
-      registered = false;
-      log(Level.ERROR, e.getMessage());
-    }
-    if (registered) {
-      // It's been registered!
-    }
-  }
-
-  public void unregisterEnchantments(Enchantment enchantment) {
-    try {
-      Field keyField = Enchantment.class.getDeclaredField("byKey");
-
-      keyField.setAccessible(true);
-      @SuppressWarnings("unchecked")
-      HashMap<NamespacedKey, Enchantment> byKey = (HashMap<NamespacedKey, Enchantment>) keyField.get(
-          null);
-
-      if (byKey.containsKey(enchantment.getKey())) {
-        byKey.remove(enchantment.getKey());
-      }
-
-      Field nameField = Enchantment.class.getDeclaredField("byName");
-
-      nameField.setAccessible(true);
-      @SuppressWarnings("unchecked")
-      HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
-
-      if (byName.containsKey(enchantment.getName())) {
-        byName.remove(enchantment.getName());
-      }
-
-    } catch (Exception ignored) {
     }
   }
 }

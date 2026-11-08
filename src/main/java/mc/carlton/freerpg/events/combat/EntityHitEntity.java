@@ -276,7 +276,7 @@ public class EntityHitEntity implements Listener {
           if (e.getFinalDamage() > livingEnemy.getHealth()) {
             double heartsHealed = (int) pStat.get("beastMastery").get(9);
             LivingEntity livingDog = (LivingEntity) dog;
-            double maxHealth = ((Attributable) dog).getAttribute(Attribute.GENERIC_MAX_HEALTH)
+            double maxHealth = ((Attributable) dog).getAttribute(Attribute.MAX_HEALTH)
                 .getBaseValue();
             livingDog.setHealth(Math.min(livingDog.getHealth() + heartsHealed, maxHealth));
             beastMastery.dogKillEntity(enemy);

@@ -54,7 +54,7 @@ public class ExpFarmTracker {
       return false;
     }
     Collection<Entity> nearbyEntities = world.getNearbyEntities(location, 1, 1, 1);
-    double HP = ((Attributable) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+    double HP = ((Attributable) entity).getAttribute(Attribute.MAX_HEALTH).getBaseValue();
     int numberOfLowHPEntitiesOfSameType = 0;
     for (Entity surroundingEntity : nearbyEntities) {
       if (surroundingEntity.getType().equals(entity.getType())) {

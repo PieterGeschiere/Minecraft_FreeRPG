@@ -1,6 +1,7 @@
 package mc.carlton.freerpg.utils.globalVariables;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,46 @@ public class EntityGroups {
   private MinecraftVersion minecraftVersion = new MinecraftVersion();
   private double mcVersion = minecraftVersion.getMinecraftVersionAsDouble();
 
+  /**
+   * Post-1.18 mobs: entity type name -> {config key, reference key, multiplier}. The kill exp is
+   * read from the config key if present, otherwise it is derived from a similar existing mob.
+   */
+  private static final Map<String, Object[]> NEW_MOB_KILL_EXP = new HashMap<>();
+
+  static {
+    String[][] equalTo = {{"BOGGED", "killBogged", "killSkeleton"},
+        {"PARCHED", "killParched", "killSkeleton"}, {"BREEZE", "killBreeze", "killBlaze"},
+        {"CREAKING", "killCreaking", "killZombie"}, {"CAMEL", "killCamel", "killHorse"},
+        {"CAMEL_HUSK", "killCamel_Husk", "killHorse"},
+        {"NAUTILUS", "killNautilus", "killDolphin"},
+        {"ZOMBIE_NAUTILUS", "killZombie_Nautilus", "killDrowned"},
+        {"HAPPY_GHAST", "killHappy_Ghast", "killLlama"}, {"ALLAY", "killAllay", "killVillager"},
+        {"FROG", "killFrog", "killRabbit"}, {"ARMADILLO", "killArmadillo", "killRabbit"},
+        {"SNIFFER", "killSniffer", "killPig"}, {"SULFUR_CUBE", "killSulfur_Cube", "killSlime"},
+        {"PIGLIN_BRUTE", "killPiglin_Brute", "killPiglin"},
+        {"TRADER_LLAMA", "killTrader_Llama", "killLlama"}};
+    for (String[] e : equalTo) {
+      NEW_MOB_KILL_EXP.put(e[0], new Object[]{e[1], e[2], 1.0});
+    }
+    NEW_MOB_KILL_EXP.put("WARDEN", new Object[]{"killWarden", "killRavager", 1.5});
+    NEW_MOB_KILL_EXP.put("COPPER_GOLEM", new Object[]{"killCopper_Golem", "killIron_Golem", 0.5});
+    NEW_MOB_KILL_EXP.put("TADPOLE", new Object[]{"killTadpole", "killSquid", 0.3});
+  }
+
+  /** Adds entity types by name, skipping any that do not exist on this server version. */
+  private static void addEntityTypes(List<EntityType> list, String... names) {
+    for (String name : names) {
+      try {
+        EntityType type = EntityType.valueOf(name);
+        if (!list.contains(type)) {
+          list.add(type);
+        }
+      } catch (IllegalArgumentException ignored) {
+        // entity does not exist in this version
+      }
+    }
+  }
+
   public void initializeAllEntityGroups() {
     initializeHostileMobs();
     initializeTameableAnimals();
@@ -38,13 +79,14 @@ public class EntityGroups {
         EntityType.CAVE_SPIDER, EntityType.PIG, EntityType.CREEPER, EntityType.WITCH,
         EntityType.CHICKEN,
         EntityType.SKELETON, EntityType.WITHER_SKELETON, EntityType.MAGMA_CUBE, EntityType.COW,
-        EntityType.MUSHROOM_COW,
-        EntityType.ENDERMAN, EntityType.SHEEP, EntityType.IRON_GOLEM, EntityType.SNOWMAN,
+        EntityType.MOOSHROOM,
+        EntityType.ENDERMAN, EntityType.SHEEP, EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM,
         EntityType.SHULKER};
     hookableEntities = new LinkedList<>(Arrays.asList(hookableEntities0));
     if (mcVersion >= 1.16) {
       hookableEntities.add(EntityType.ZOMBIFIED_PIGLIN);
     }
+    addEntityTypes(hookableEntities, "BOGGED", "PARCHED");
   }
 
   public void initializeHostileMobs() {
@@ -62,32 +104,39 @@ public class EntityGroups {
       hostileMobs.add(EntityType.ZOMBIFIED_PIGLIN);
       hostileMobs.add(EntityType.ZOGLIN);
     }
+    addEntityTypes(hostileMobs, "BOGGED", "PARCHED", "BREEZE", "CREAKING", "WARDEN",
+        "PIGLIN_BRUTE");
   }
 
   public void initializeTameableAnimals() {
     EntityType[] breedingAnimals0 = {EntityType.HORSE, EntityType.WOLF, EntityType.CAT,
         EntityType.OCELOT, EntityType.PARROT};
-    breedingAnimals = Arrays.asList(breedingAnimals0);
+    breedingAnimals = new LinkedList<>(Arrays.asList(breedingAnimals0));
+    addEntityTypes(breedingAnimals, "CAMEL", "NAUTILUS");
   }
 
   public void initializeFarmingAnimals() {
     EntityType[] animals0 = {EntityType.CHICKEN, EntityType.COW, EntityType.DONKEY, EntityType.FOX,
-        EntityType.HORSE, EntityType.MUSHROOM_COW,
+        EntityType.HORSE, EntityType.MOOSHROOM,
         EntityType.MULE, EntityType.PARROT, EntityType.PIG, EntityType.RABBIT, EntityType.SHEEP,
         EntityType.SQUID,
         EntityType.SKELETON_HORSE, EntityType.TURTLE, EntityType.GOAT};
-    animals = Arrays.asList(animals0);
-    EntityType[] babyAnimals0 = {EntityType.MUSHROOM_COW, EntityType.COW, EntityType.SHEEP,
+    animals = new LinkedList<>(Arrays.asList(animals0));
+    addEntityTypes(animals, "ARMADILLO");
+    EntityType[] babyAnimals0 = {EntityType.MOOSHROOM, EntityType.COW, EntityType.SHEEP,
         EntityType.PIG, EntityType.CHICKEN, EntityType.RABBIT,
         EntityType.WOLF, EntityType.CAT, EntityType.OCELOT, EntityType.LLAMA, EntityType.POLAR_BEAR,
         EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.SKELETON_HORSE,
         EntityType.TURTLE,
         EntityType.PANDA, EntityType.FOX, EntityType.BEE, EntityType.GOAT};
-    babyAnimals = Arrays.asList(babyAnimals0);
-    EntityType[] breedingAnimals0 = {EntityType.MUSHROOM_COW, EntityType.COW, EntityType.SHEEP,
+    babyAnimals = new LinkedList<>(Arrays.asList(babyAnimals0));
+    addEntityTypes(babyAnimals, "CAMEL", "SNIFFER", "ARMADILLO", "FROG");
+    EntityType[] breedingAnimals0 = {EntityType.MOOSHROOM, EntityType.COW, EntityType.SHEEP,
         EntityType.PIG, EntityType.CHICKEN, EntityType.RABBIT,
-        EntityType.TURTLE, EntityType.PANDA, EntityType.FOX, EntityType.BEE, EntityType.GOAT};
-    breedingAnimalsFarming = Arrays.asList(breedingAnimals0);
+        EntityType.TURTLE, EntityType.PANDA, EntityType.FOX, EntityType.BEE, EntityType.GOAT,
+        EntityType.AXOLOTL};
+    breedingAnimalsFarming = new LinkedList<>(Arrays.asList(breedingAnimals0));
+    addEntityTypes(breedingAnimalsFarming, "FROG", "CAMEL", "SNIFFER", "ARMADILLO");
   }
 
   public void initializeThirstMobs() {
@@ -102,6 +151,8 @@ public class EntityGroups {
       thirstMobs.add(EntityType.ZOMBIFIED_PIGLIN);
       thirstMobs.add(EntityType.ZOGLIN);
     }
+    addEntityTypes(thirstMobs, "BOGGED", "PARCHED", "BREEZE", "CREAKING", "WARDEN",
+        "PIGLIN_BRUTE");
   }
 
   public void killEntity(Entity entity, String skillName, Map<String, Integer> expMap,
@@ -129,7 +180,7 @@ public class EntityGroups {
           expReward = expMap.get("killHorse");
         } else if (type.equals(EntityType.POLAR_BEAR)) {
           expReward = expMap.get("killPolarBear");
-        } else if (type.equals(EntityType.MUSHROOM_COW)) {
+        } else if (type.equals(EntityType.MOOSHROOM)) {
           expReward = expMap.get("killMooshroom");
         } else if (type.equals(EntityType.MULE)) {
           expReward = expMap.get("killMule");
@@ -147,7 +198,7 @@ public class EntityGroups {
           expReward = expMap.get("killSheep");
         } else if (type.equals(EntityType.SKELETON_HORSE)) {
           expReward = expMap.get("killSkeleton_Horse");
-        } else if (type.equals(EntityType.SNOWMAN)) {
+        } else if (type.equals(EntityType.SNOW_GOLEM)) {
           expReward = expMap.get("killSnowman");
         } else if (type.equals(EntityType.SQUID)) {
           expReward = expMap.get("killSquid");
@@ -253,9 +304,21 @@ public class EntityGroups {
         }
         if (mcVersion >= 1.17) {
           if (type.equals(EntityType.GLOW_SQUID)) {
-            expReward = expMap.get("killGlow_Squid");
+            expReward = expMap.getOrDefault("killGlow_Squid", expMap.get("killSquid"));
+          } else if (type.equals(EntityType.AXOLOTL)) {
+            expReward = expMap.getOrDefault("killAxolotl", expReward);
           } else if (type.equals(EntityType.GOAT)) {
             expReward = expMap.get("killGoat");
+          }
+        }
+        Object[] newMob = NEW_MOB_KILL_EXP.get(type.name());
+        if (newMob != null) {
+          Integer configured = expMap.get((String) newMob[0]);
+          Integer reference = expMap.get((String) newMob[1]);
+          if (configured != null) {
+            expReward = configured;
+          } else if (reference != null) {
+            expReward = (int) Math.round(reference * (double) newMob[2]);
           }
         }
         ExpFarmTracker expFarmTracker = new ExpFarmTracker();

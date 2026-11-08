@@ -157,11 +157,11 @@ public class BeastMastery extends Skill {
       Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
       int identifyLevel = (int) pStat.get(skillName).get(12);
       if (identifyLevel > 0) {
-        double maxHealth = ((Attributable) animal).getAttribute(Attribute.GENERIC_MAX_HEALTH)
+        double maxHealth = ((Attributable) animal).getAttribute(Attribute.MAX_HEALTH)
             .getBaseValue();
-        double speed = ((Attributable) animal).getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)
+        double speed = ((Attributable) animal).getAttribute(Attribute.MOVEMENT_SPEED)
             .getBaseValue();
-        double jump = ((Attributable) animal).getAttribute(Attribute.HORSE_JUMP_STRENGTH)
+        double jump = ((Attributable) animal).getAttribute(Attribute.JUMP_STRENGTH)
             .getBaseValue();
 
         double healthReadable = Math.round((maxHealth / 2.0d) * 10) / 10.0d;
@@ -259,6 +259,9 @@ public class BeastMastery extends Skill {
     if (entity.getType() == EntityType.HORSE || entity.getType() == EntityType.DONKEY
         || entity.getType() == EntityType.MULE || entity.getType() == EntityType.LLAMA) {
       increaseStats.changeEXP(skillName, expMap.get("tameHorse"));
+    } else if (entity.getType().name().equals("CAMEL") || entity.getType().name().equals("NAUTILUS")
+        || entity.getType().name().equals("CAMEL_HUSK")) {
+      increaseStats.changeEXP(skillName, expMap.get("tameHorse"));
     } else if (entity.getType() == EntityType.WOLF) {
       increaseStats.changeEXP(skillName, expMap.get("tameWolf"));
     } else if (entity.getType() == EntityType.CAT) {
@@ -272,9 +275,16 @@ public class BeastMastery extends Skill {
     if (!runMethods) {
       return;
     }
-    List<EntityType> mounts = Arrays.asList(
+    List<EntityType> mounts = new java.util.ArrayList<>(Arrays.asList(
         new EntityType[]{EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.LLAMA,
-            EntityType.ZOMBIE_HORSE, EntityType.SKELETON_HORSE});
+            EntityType.ZOMBIE_HORSE, EntityType.SKELETON_HORSE}));
+    for (String name : new String[]{"CAMEL", "CAMEL_HUSK", "HAPPY_GHAST"}) {
+      try {
+        mounts.add(EntityType.valueOf(name));
+      } catch (IllegalArgumentException ignored) {
+        // not available in this version
+      }
+    }
     if (mounts.contains(entity.getType())) {
       Entity mount = entity;
       HorseRiding data_set = new HorseRiding();

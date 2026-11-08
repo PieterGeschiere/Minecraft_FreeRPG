@@ -60,7 +60,7 @@ public class PlayerStatsLoadIn {
       playTime = Long.valueOf(getStat("general.playTime", 0L).toString());
       return playTime;
     }
-    return Instant.now().getEpochSecond();
+    return 0L;
   }
 
   public String getPlayerLanguage() {
@@ -226,8 +226,7 @@ public class PlayerStatsLoadIn {
       //Setting playTime in seconds
       if (savePlayTime) {
         playerData.set("general.lastLogout", unixTime);
-        long lastLoginTime = pStatClass.getPlayerLoginTime();
-        long playTime = unixTime - lastLoginTime;
+        long playTime = pStatClass.getNewPlayTime();
         playerData.set("general.playTime", playTime);
       }
 

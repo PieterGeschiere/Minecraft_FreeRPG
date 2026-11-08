@@ -98,9 +98,9 @@ public class Digging extends Skill {
     actionMessage.sendMessage(
         ChatColor.GREEN + ChatColor.BOLD.toString() + ">>>" + lang.getString("bigDig") + " "
             + lang.getString("activated") + "<<<");
-    int effLevel = itemInHand.getEnchantmentLevel(Enchantment.DIG_SPEED);
-    itemInHand.removeEnchantment(Enchantment.DIG_SPEED);
-    itemInHand.addUnsafeEnchantment(Enchantment.DIG_SPEED, effLevel + 5);
+    int effLevel = itemInHand.getEnchantmentLevel(Enchantment.EFFICIENCY);
+    itemInHand.removeEnchantment(Enchantment.EFFICIENCY);
+    itemInHand.addUnsafeEnchantment(Enchantment.EFFICIENCY, effLevel + 5);
 
     //Mark the item
     long unixTime = Instant.now().getEpochSecond();
@@ -557,7 +557,7 @@ public class Digging extends Skill {
     Integer[] pAbilities = abilities.getPlayerAbilities();
     if (pAbilities[0] == -2) {
       Bukkit.getScheduler().cancelTask(taskID_digging);
-      int effLevel = itemInHand_digging.getEnchantmentLevel(Enchantment.DIG_SPEED) - 5;
+      int effLevel = itemInHand_digging.getEnchantmentLevel(Enchantment.EFFICIENCY) - 5;
       String endMessage =
           ChatColor.RED + ChatColor.BOLD.toString() + ">>>" + lang.getString("magicForce") + "<<<";
       String coolDownEndMessage =

@@ -382,7 +382,7 @@ public class ConfigLoad {
           advancedConfig.getInt("alchemy.crafting.recipeOutputAmount" + i));
       if (materialString.equalsIgnoreCase("POTION")) {
         oldCustomRecipe.setPotionType(
-            PotionType.valueOf(advancedConfig.getString("alchemy.crafting.recipePotionType" + i)));
+            mc.carlton.freerpg.utils.globalVariables.PotionTypeCompat.parse(advancedConfig.getString("alchemy.crafting.recipePotionType" + i)));
         oldCustomRecipe.setExtended(
             advancedConfig.getBoolean("alchemy.crafting.recipePotionExtended" + i));
         oldCustomRecipe.setUpgraded(

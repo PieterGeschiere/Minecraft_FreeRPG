@@ -205,10 +205,10 @@ public class Global extends Skill {
     PotionEffectType[] positiveEffects0 = {PotionEffectType.DOLPHINS_GRACE, PotionEffectType.LUCK,
         PotionEffectType.INVISIBILITY, PotionEffectType.NIGHT_VISION,
         PotionEffectType.FIRE_RESISTANCE, PotionEffectType.WATER_BREATHING, PotionEffectType.SPEED,
-        PotionEffectType.JUMP,
+        PotionEffectType.JUMP_BOOST,
         PotionEffectType.ABSORPTION, PotionEffectType.CONDUIT_POWER,
-        PotionEffectType.DAMAGE_RESISTANCE, PotionEffectType.FAST_DIGGING,
-        PotionEffectType.HEAL, PotionEffectType.HEALTH_BOOST, PotionEffectType.INCREASE_DAMAGE,
+        PotionEffectType.RESISTANCE, PotionEffectType.HASTE,
+        PotionEffectType.INSTANT_HEALTH, PotionEffectType.HEALTH_BOOST, PotionEffectType.STRENGTH,
         PotionEffectType.REGENERATION,
         PotionEffectType.SATURATION};
     List<PotionEffectType> positiveEffects = Arrays.asList(positiveEffects0);

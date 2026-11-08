@@ -663,7 +663,7 @@ public class Farming extends Skill {
     if (!runMethods) {
       return;
     }
-    if (entity.getType() == EntityType.COW || entity.getType() == EntityType.MUSHROOM_COW) {
+    if (entity.getType() == EntityType.COW || entity.getType() == EntityType.MOOSHROOM) {
       if (itemInHand.getType() == Material.BUCKET) {
         new BukkitRunnable() {
           @Override

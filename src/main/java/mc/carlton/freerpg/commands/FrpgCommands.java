@@ -3261,7 +3261,7 @@ public class FrpgCommands implements CommandExecutor {
             ArrayList<String> lore = new ArrayList<>();
             ItemStack brewingItem = brewing[i];
             ItemMeta brewingMeta = brewingItem.getItemMeta();
-            brewingMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            brewingMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             brewingMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             brewingMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             String brewingName =

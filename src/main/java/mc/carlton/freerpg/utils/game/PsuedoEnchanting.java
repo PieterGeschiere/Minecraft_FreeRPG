@@ -29,62 +29,62 @@ public class PsuedoEnchanting {
     double mcVersion = minecraftVersion.getMinecraftVersionAsDouble();
 
     toolEnchantMap.put("chestplate",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS,
-            Enchantment.PROTECTION_FIRE, Enchantment.PROTECTION_PROJECTILE, Enchantment.THORNS,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.PROTECTION, Enchantment.BLAST_PROTECTION,
+            Enchantment.FIRE_PROTECTION, Enchantment.PROJECTILE_PROTECTION, Enchantment.THORNS,
             Enchantment.BINDING_CURSE});
     toolEnchantMap.put("leggings",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS,
-            Enchantment.PROTECTION_FIRE, Enchantment.PROTECTION_PROJECTILE,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.PROTECTION, Enchantment.BLAST_PROTECTION,
+            Enchantment.FIRE_PROTECTION, Enchantment.PROJECTILE_PROTECTION,
             Enchantment.BINDING_CURSE});
     toolEnchantMap.put("boots",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS,
-            Enchantment.PROTECTION_FIRE, Enchantment.PROTECTION_PROJECTILE,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.PROTECTION, Enchantment.BLAST_PROTECTION,
+            Enchantment.FIRE_PROTECTION, Enchantment.PROJECTILE_PROTECTION,
             Enchantment.BINDING_CURSE, Enchantment.DEPTH_STRIDER, Enchantment.FROST_WALKER,
-            Enchantment.PROTECTION_FALL});
+            Enchantment.FEATHER_FALLING});
     toolEnchantMap.put("helmet",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS,
-            Enchantment.PROTECTION_FIRE, Enchantment.PROTECTION_PROJECTILE,
-            Enchantment.BINDING_CURSE, Enchantment.WATER_WORKER, Enchantment.OXYGEN});
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.PROTECTION, Enchantment.BLAST_PROTECTION,
+            Enchantment.FIRE_PROTECTION, Enchantment.PROJECTILE_PROTECTION,
+            Enchantment.BINDING_CURSE, Enchantment.AQUA_AFFINITY, Enchantment.RESPIRATION});
     toolEnchantMap.put("sword",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.DAMAGE_ALL, Enchantment.DAMAGE_ARTHROPODS, Enchantment.DAMAGE_UNDEAD,
-            Enchantment.KNOCKBACK, Enchantment.FIRE_ASPECT, Enchantment.LOOT_BONUS_MOBS,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.SHARPNESS, Enchantment.BANE_OF_ARTHROPODS, Enchantment.SMITE,
+            Enchantment.KNOCKBACK, Enchantment.FIRE_ASPECT, Enchantment.LOOTING,
             Enchantment.SWEEPING_EDGE});
     toolEnchantMap.put("tool",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.DIG_SPEED, Enchantment.LOOT_BONUS_BLOCKS, Enchantment.SILK_TOUCH});
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.EFFICIENCY, Enchantment.FORTUNE, Enchantment.SILK_TOUCH});
     toolEnchantMap.put("bow",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.ARROW_DAMAGE, Enchantment.ARROW_FIRE, Enchantment.ARROW_INFINITE,
-            Enchantment.ARROW_KNOCKBACK});
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.POWER, Enchantment.FLAME, Enchantment.INFINITY,
+            Enchantment.PUNCH});
     toolEnchantMap.put("rod",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
-            Enchantment.LUCK, Enchantment.LURE});
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+            Enchantment.LUCK_OF_THE_SEA, Enchantment.LURE});
     toolEnchantMap.put("trident",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
             Enchantment.LOYALTY, Enchantment.IMPALING, Enchantment.RIPTIDE,
             Enchantment.CHANNELING});
     toolEnchantMap.put("crossbow",
-        new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
+        new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING, Enchantment.VANISHING_CURSE,
             Enchantment.QUICK_CHARGE, Enchantment.MULTISHOT, Enchantment.PIERCING});
-    Enchantment[] holder = new Enchantment[]{Enchantment.DURABILITY, Enchantment.MENDING,
+    Enchantment[] holder = new Enchantment[]{Enchantment.UNBREAKING, Enchantment.MENDING,
         Enchantment.VANISHING_CURSE, Enchantment.PIERCING, Enchantment.MULTISHOT,
         Enchantment.QUICK_CHARGE, Enchantment.CHANNELING, Enchantment.RIPTIDE, Enchantment.IMPALING,
-        Enchantment.LOYALTY, Enchantment.LURE, Enchantment.LUCK,
-        Enchantment.ARROW_INFINITE, Enchantment.ARROW_KNOCKBACK, Enchantment.ARROW_FIRE,
-        Enchantment.ARROW_DAMAGE, Enchantment.SILK_TOUCH, Enchantment.LOOT_BONUS_BLOCKS,
-        Enchantment.DIG_SPEED, Enchantment.SWEEPING_EDGE, Enchantment.LOOT_BONUS_MOBS,
+        Enchantment.LOYALTY, Enchantment.LURE, Enchantment.LUCK_OF_THE_SEA,
+        Enchantment.INFINITY, Enchantment.PUNCH, Enchantment.FLAME,
+        Enchantment.POWER, Enchantment.SILK_TOUCH, Enchantment.FORTUNE,
+        Enchantment.EFFICIENCY, Enchantment.SWEEPING_EDGE, Enchantment.LOOTING,
         Enchantment.FIRE_ASPECT,
-        Enchantment.DAMAGE_UNDEAD, Enchantment.KNOCKBACK, Enchantment.DAMAGE_ARTHROPODS,
-        Enchantment.DAMAGE_ALL, Enchantment.BINDING_CURSE, Enchantment.THORNS,
-        Enchantment.FROST_WALKER, Enchantment.DEPTH_STRIDER, Enchantment.OXYGEN,
-        Enchantment.PROTECTION_EXPLOSIONS,
-        Enchantment.WATER_WORKER, Enchantment.PROTECTION_PROJECTILE, Enchantment.PROTECTION_FIRE,
-        Enchantment.PROTECTION_FALL, Enchantment.PROTECTION_ENVIRONMENTAL};
+        Enchantment.SMITE, Enchantment.KNOCKBACK, Enchantment.BANE_OF_ARTHROPODS,
+        Enchantment.SHARPNESS, Enchantment.BINDING_CURSE, Enchantment.THORNS,
+        Enchantment.FROST_WALKER, Enchantment.DEPTH_STRIDER, Enchantment.RESPIRATION,
+        Enchantment.BLAST_PROTECTION,
+        Enchantment.AQUA_AFFINITY, Enchantment.PROJECTILE_PROTECTION, Enchantment.FIRE_PROTECTION,
+        Enchantment.FEATHER_FALLING, Enchantment.PROTECTION};
     toolEnchantMap.put("book", holder);
 
     //itemEnchantMap
@@ -148,32 +148,32 @@ public class PsuedoEnchanting {
       itemEnchantTypeMap.put(Material.NETHERITE_BOOTS, new Object[]{"boots", 15});
     }
 
-    enchantmentWeightMap.put(Enchantment.PROTECTION_ENVIRONMENTAL, 10);
-    enchantmentWeightMap.put(Enchantment.PROTECTION_FALL, 5);
-    enchantmentWeightMap.put(Enchantment.PROTECTION_FIRE, 5);
-    enchantmentWeightMap.put(Enchantment.PROTECTION_PROJECTILE, 5);
-    enchantmentWeightMap.put(Enchantment.WATER_WORKER, 2);
-    enchantmentWeightMap.put(Enchantment.PROTECTION_EXPLOSIONS, 2);
-    enchantmentWeightMap.put(Enchantment.OXYGEN, 2);
+    enchantmentWeightMap.put(Enchantment.PROTECTION, 10);
+    enchantmentWeightMap.put(Enchantment.FEATHER_FALLING, 5);
+    enchantmentWeightMap.put(Enchantment.FIRE_PROTECTION, 5);
+    enchantmentWeightMap.put(Enchantment.PROJECTILE_PROTECTION, 5);
+    enchantmentWeightMap.put(Enchantment.AQUA_AFFINITY, 2);
+    enchantmentWeightMap.put(Enchantment.BLAST_PROTECTION, 2);
+    enchantmentWeightMap.put(Enchantment.RESPIRATION, 2);
     enchantmentWeightMap.put(Enchantment.DEPTH_STRIDER, 2);
     enchantmentWeightMap.put(Enchantment.FROST_WALKER, 2);
     enchantmentWeightMap.put(Enchantment.THORNS, 1);
     enchantmentWeightMap.put(Enchantment.BINDING_CURSE, 1);
-    enchantmentWeightMap.put(Enchantment.DAMAGE_ALL, 10);
-    enchantmentWeightMap.put(Enchantment.DAMAGE_ARTHROPODS, 5);
+    enchantmentWeightMap.put(Enchantment.SHARPNESS, 10);
+    enchantmentWeightMap.put(Enchantment.BANE_OF_ARTHROPODS, 5);
     enchantmentWeightMap.put(Enchantment.KNOCKBACK, 5);
-    enchantmentWeightMap.put(Enchantment.DAMAGE_UNDEAD, 5);
+    enchantmentWeightMap.put(Enchantment.SMITE, 5);
     enchantmentWeightMap.put(Enchantment.FIRE_ASPECT, 2);
-    enchantmentWeightMap.put(Enchantment.LOOT_BONUS_MOBS, 2);
+    enchantmentWeightMap.put(Enchantment.LOOTING, 2);
     enchantmentWeightMap.put(Enchantment.SWEEPING_EDGE, 2);
-    enchantmentWeightMap.put(Enchantment.DIG_SPEED, 10);
-    enchantmentWeightMap.put(Enchantment.LOOT_BONUS_BLOCKS, 2);
+    enchantmentWeightMap.put(Enchantment.EFFICIENCY, 10);
+    enchantmentWeightMap.put(Enchantment.FORTUNE, 2);
     enchantmentWeightMap.put(Enchantment.SILK_TOUCH, 2);
-    enchantmentWeightMap.put(Enchantment.ARROW_DAMAGE, 10);
-    enchantmentWeightMap.put(Enchantment.ARROW_FIRE, 2);
-    enchantmentWeightMap.put(Enchantment.ARROW_KNOCKBACK, 2);
-    enchantmentWeightMap.put(Enchantment.ARROW_INFINITE, 1);
-    enchantmentWeightMap.put(Enchantment.LUCK, 2);
+    enchantmentWeightMap.put(Enchantment.POWER, 10);
+    enchantmentWeightMap.put(Enchantment.FLAME, 2);
+    enchantmentWeightMap.put(Enchantment.PUNCH, 2);
+    enchantmentWeightMap.put(Enchantment.INFINITY, 1);
+    enchantmentWeightMap.put(Enchantment.LUCK_OF_THE_SEA, 2);
     enchantmentWeightMap.put(Enchantment.LURE, 2);
     enchantmentWeightMap.put(Enchantment.LOYALTY, 5);
     enchantmentWeightMap.put(Enchantment.IMPALING, 2);
@@ -182,46 +182,46 @@ public class PsuedoEnchanting {
     enchantmentWeightMap.put(Enchantment.QUICK_CHARGE, 10);
     enchantmentWeightMap.put(Enchantment.MULTISHOT, 3);
     enchantmentWeightMap.put(Enchantment.PIERCING, 30);
-    enchantmentWeightMap.put(Enchantment.DURABILITY, 5);
+    enchantmentWeightMap.put(Enchantment.UNBREAKING, 5);
     enchantmentWeightMap.put(Enchantment.MENDING, 2);
     enchantmentWeightMap.put(Enchantment.VANISHING_CURSE, 1);
 
-    enchantmentBracketMap.put(Enchantment.PROTECTION_ENVIRONMENTAL,
+    enchantmentBracketMap.put(Enchantment.PROTECTION,
         new Integer[]{1, 12, 12, 23, 23, 34, 34, 45});
-    enchantmentBracketMap.put(Enchantment.PROTECTION_FALL,
+    enchantmentBracketMap.put(Enchantment.FEATHER_FALLING,
         new Integer[]{5, 11, 11, 17, 17, 23, 23, 29});
-    enchantmentBracketMap.put(Enchantment.PROTECTION_FIRE,
+    enchantmentBracketMap.put(Enchantment.FIRE_PROTECTION,
         new Integer[]{10, 18, 18, 26, 26, 34, 34, 42});
-    enchantmentBracketMap.put(Enchantment.PROTECTION_PROJECTILE,
+    enchantmentBracketMap.put(Enchantment.PROJECTILE_PROTECTION,
         new Integer[]{3, 9, 9, 15, 15, 21, 21, 27});
-    enchantmentBracketMap.put(Enchantment.WATER_WORKER, new Integer[]{1, 41});
-    enchantmentBracketMap.put(Enchantment.PROTECTION_EXPLOSIONS,
+    enchantmentBracketMap.put(Enchantment.AQUA_AFFINITY, new Integer[]{1, 41});
+    enchantmentBracketMap.put(Enchantment.BLAST_PROTECTION,
         new Integer[]{5, 13, 13, 21, 21, 29, 29, 37});
-    enchantmentBracketMap.put(Enchantment.OXYGEN, new Integer[]{10, 40, 20, 50, 30, 60});
+    enchantmentBracketMap.put(Enchantment.RESPIRATION, new Integer[]{10, 40, 20, 50, 30, 60});
     enchantmentBracketMap.put(Enchantment.DEPTH_STRIDER, new Integer[]{10, 25, 20, 35, 30, 45});
     enchantmentBracketMap.put(Enchantment.FROST_WALKER, new Integer[]{10, 25});
     enchantmentBracketMap.put(Enchantment.THORNS, new Integer[]{10, 61, 30, 71, 50, 81});
     enchantmentBracketMap.put(Enchantment.BINDING_CURSE, new Integer[]{25, 50});
-    enchantmentBracketMap.put(Enchantment.DAMAGE_ALL,
+    enchantmentBracketMap.put(Enchantment.SHARPNESS,
         new Integer[]{1, 21, 12, 32, 23, 43, 34, 54, 45, 65});
-    enchantmentBracketMap.put(Enchantment.DAMAGE_ARTHROPODS,
+    enchantmentBracketMap.put(Enchantment.BANE_OF_ARTHROPODS,
         new Integer[]{5, 12, 13, 33, 21, 41, 29, 49, 37, 57});
     enchantmentBracketMap.put(Enchantment.KNOCKBACK, new Integer[]{5, 61, 25, 71});
-    enchantmentBracketMap.put(Enchantment.DAMAGE_UNDEAD,
+    enchantmentBracketMap.put(Enchantment.SMITE,
         new Integer[]{5, 12, 13, 33, 21, 41, 29, 49, 37, 57});
     enchantmentBracketMap.put(Enchantment.FIRE_ASPECT, new Integer[]{10, 61, 30, 71});
-    enchantmentBracketMap.put(Enchantment.LOOT_BONUS_MOBS, new Integer[]{15, 61, 24, 71, 33, 81});
+    enchantmentBracketMap.put(Enchantment.LOOTING, new Integer[]{15, 61, 24, 71, 33, 81});
     enchantmentBracketMap.put(Enchantment.SWEEPING_EDGE, new Integer[]{5, 20, 14, 29, 23, 38});
-    enchantmentBracketMap.put(Enchantment.DIG_SPEED,
+    enchantmentBracketMap.put(Enchantment.EFFICIENCY,
         new Integer[]{1, 61, 11, 71, 21, 81, 31, 91, 41, 101});
-    enchantmentBracketMap.put(Enchantment.LOOT_BONUS_BLOCKS, new Integer[]{15, 61, 24, 71, 33, 81});
+    enchantmentBracketMap.put(Enchantment.FORTUNE, new Integer[]{15, 61, 24, 71, 33, 81});
     enchantmentBracketMap.put(Enchantment.SILK_TOUCH, new Integer[]{15, 81});
-    enchantmentBracketMap.put(Enchantment.ARROW_DAMAGE,
+    enchantmentBracketMap.put(Enchantment.POWER,
         new Integer[]{1, 16, 11, 26, 21, 36, 31, 46, 41, 56});
-    enchantmentBracketMap.put(Enchantment.ARROW_FIRE, new Integer[]{20, 50});
-    enchantmentBracketMap.put(Enchantment.ARROW_KNOCKBACK, new Integer[]{12, 37, 32, 57});
-    enchantmentBracketMap.put(Enchantment.ARROW_INFINITE, new Integer[]{20, 50});
-    enchantmentBracketMap.put(Enchantment.LUCK, new Integer[]{15, 61, 24, 71, 33, 81});
+    enchantmentBracketMap.put(Enchantment.FLAME, new Integer[]{20, 50});
+    enchantmentBracketMap.put(Enchantment.PUNCH, new Integer[]{12, 37, 32, 57});
+    enchantmentBracketMap.put(Enchantment.INFINITY, new Integer[]{20, 50});
+    enchantmentBracketMap.put(Enchantment.LUCK_OF_THE_SEA, new Integer[]{15, 61, 24, 71, 33, 81});
     enchantmentBracketMap.put(Enchantment.LURE, new Integer[]{15, 61, 24, 71, 33, 81});
     enchantmentBracketMap.put(Enchantment.LOYALTY, new Integer[]{12, 50, 19, 50, 26, 50});
     enchantmentBracketMap.put(Enchantment.IMPALING,
@@ -231,7 +231,7 @@ public class PsuedoEnchanting {
     enchantmentBracketMap.put(Enchantment.QUICK_CHARGE, new Integer[]{12, 50, 32, 50, 42, 50});
     enchantmentBracketMap.put(Enchantment.MULTISHOT, new Integer[]{20, 50});
     enchantmentBracketMap.put(Enchantment.PIERCING, new Integer[]{1, 50, 11, 50, 21, 50, 31, 50});
-    enchantmentBracketMap.put(Enchantment.DURABILITY, new Integer[]{5, 61, 13, 71, 21, 81});
+    enchantmentBracketMap.put(Enchantment.UNBREAKING, new Integer[]{5, 61, 13, 71, 21, 81});
     enchantmentBracketMap.put(Enchantment.MENDING, new Integer[]{25, 75});
     enchantmentBracketMap.put(Enchantment.VANISHING_CURSE, new Integer[]{25, 50});
   }
@@ -337,39 +337,39 @@ public class PsuedoEnchanting {
       return enchantedItem;
     }
     for (Enchantment enchantment : enchants.keySet()) {
-      if (enchantment.equals(Enchantment.DAMAGE_ALL) || enchantment.equals(
-          Enchantment.DAMAGE_ARTHROPODS) || enchantment.equals(Enchantment.DAMAGE_UNDEAD)) {
-        if (possibleEnchants.containsKey(Enchantment.DAMAGE_ALL)) {
-          possibleEnchants.remove(Enchantment.DAMAGE_ALL);
+      if (enchantment.equals(Enchantment.SHARPNESS) || enchantment.equals(
+          Enchantment.BANE_OF_ARTHROPODS) || enchantment.equals(Enchantment.SMITE)) {
+        if (possibleEnchants.containsKey(Enchantment.SHARPNESS)) {
+          possibleEnchants.remove(Enchantment.SHARPNESS);
         }
-        if (possibleEnchants.containsKey(Enchantment.DAMAGE_ARTHROPODS)) {
-          possibleEnchants.remove(Enchantment.DAMAGE_ARTHROPODS);
+        if (possibleEnchants.containsKey(Enchantment.BANE_OF_ARTHROPODS)) {
+          possibleEnchants.remove(Enchantment.BANE_OF_ARTHROPODS);
         }
-        if (possibleEnchants.containsKey(Enchantment.DAMAGE_UNDEAD)) {
-          possibleEnchants.remove(Enchantment.DAMAGE_UNDEAD);
+        if (possibleEnchants.containsKey(Enchantment.SMITE)) {
+          possibleEnchants.remove(Enchantment.SMITE);
         }
-      } else if (enchantment.equals(Enchantment.PROTECTION_ENVIRONMENTAL) || enchantment.equals(
-          Enchantment.PROTECTION_EXPLOSIONS) || enchantment.equals(Enchantment.PROTECTION_FIRE)
-          || enchantment.equals(Enchantment.PROTECTION_PROJECTILE)) {
-        if (possibleEnchants.containsKey(Enchantment.PROTECTION_ENVIRONMENTAL)) {
-          possibleEnchants.remove(Enchantment.PROTECTION_ENVIRONMENTAL);
+      } else if (enchantment.equals(Enchantment.PROTECTION) || enchantment.equals(
+          Enchantment.BLAST_PROTECTION) || enchantment.equals(Enchantment.FIRE_PROTECTION)
+          || enchantment.equals(Enchantment.PROJECTILE_PROTECTION)) {
+        if (possibleEnchants.containsKey(Enchantment.PROTECTION)) {
+          possibleEnchants.remove(Enchantment.PROTECTION);
         }
-        if (possibleEnchants.containsKey(Enchantment.PROTECTION_EXPLOSIONS)) {
-          possibleEnchants.remove(Enchantment.PROTECTION_EXPLOSIONS);
+        if (possibleEnchants.containsKey(Enchantment.BLAST_PROTECTION)) {
+          possibleEnchants.remove(Enchantment.BLAST_PROTECTION);
         }
-        if (possibleEnchants.containsKey(Enchantment.PROTECTION_PROJECTILE)) {
-          possibleEnchants.remove(Enchantment.PROTECTION_PROJECTILE);
+        if (possibleEnchants.containsKey(Enchantment.PROJECTILE_PROTECTION)) {
+          possibleEnchants.remove(Enchantment.PROJECTILE_PROTECTION);
         }
-        if (possibleEnchants.containsKey(Enchantment.PROTECTION_FIRE)) {
-          possibleEnchants.remove(Enchantment.PROTECTION_FIRE);
+        if (possibleEnchants.containsKey(Enchantment.FIRE_PROTECTION)) {
+          possibleEnchants.remove(Enchantment.FIRE_PROTECTION);
         }
       } else if (enchantment.equals(Enchantment.SILK_TOUCH) || enchantment.equals(
-          Enchantment.LOOT_BONUS_BLOCKS)) {
+          Enchantment.FORTUNE)) {
         if (possibleEnchants.containsKey(Enchantment.SILK_TOUCH)) {
           possibleEnchants.remove(Enchantment.SILK_TOUCH);
         }
-        if (possibleEnchants.containsKey(Enchantment.LOOT_BONUS_BLOCKS)) {
-          possibleEnchants.remove(Enchantment.LOOT_BONUS_BLOCKS);
+        if (possibleEnchants.containsKey(Enchantment.FORTUNE)) {
+          possibleEnchants.remove(Enchantment.FORTUNE);
         }
       } else if (enchantment.equals(Enchantment.DEPTH_STRIDER) || enchantment.equals(
           Enchantment.FROST_WALKER)) {
@@ -380,12 +380,12 @@ public class PsuedoEnchanting {
           possibleEnchants.remove(Enchantment.FROST_WALKER);
         }
       } else if (enchantment.equals(Enchantment.MENDING) || enchantment.equals(
-          Enchantment.ARROW_INFINITE)) {
+          Enchantment.INFINITY)) {
         if (possibleEnchants.containsKey(Enchantment.MENDING)) {
           possibleEnchants.remove(Enchantment.MENDING);
         }
-        if (possibleEnchants.containsKey(Enchantment.ARROW_INFINITE)) {
-          possibleEnchants.remove(Enchantment.ARROW_INFINITE);
+        if (possibleEnchants.containsKey(Enchantment.INFINITY)) {
+          possibleEnchants.remove(Enchantment.INFINITY);
         }
       } else if (enchantment.equals(Enchantment.RIPTIDE)) {
         if (possibleEnchants.containsKey(Enchantment.LOYALTY)) {

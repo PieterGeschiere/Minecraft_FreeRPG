@@ -392,7 +392,7 @@ public class GuiItem {
   private void hideItemInformation() {
     ItemMeta itemMeta = item.getItemMeta();
     itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-    itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+    itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
     itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
     item.setItemMeta(itemMeta);
   }

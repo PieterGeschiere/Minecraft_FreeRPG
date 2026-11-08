@@ -151,10 +151,10 @@ public class AxeMastery extends Skill {
           Material blockType = below.getType();
           if (blockType != Material.AIR) {
             if (blockType == Material.WATER) {
-              world.spawnParticle(Particle.WATER_SPLASH, b.getLocation(), 50);
+              world.spawnParticle(Particle.SPLASH, b.getLocation(), 50);
             } else {
               if (blockType.isBlock()) {
-                world.spawnParticle(Particle.BLOCK_CRACK, b.getLocation(), 50,
+                world.spawnParticle(Particle.BLOCK, b.getLocation(), 50,
                     below.getBlockData());
               }
             }
@@ -172,7 +172,7 @@ public class AxeMastery extends Skill {
     boolean hasEffect = false;
     potionEffectLoop:
     for (PotionEffect effect : p.getActivePotionEffects()) {
-      if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+      if (effect.getType().equals(PotionEffectType.STRENGTH)) {
         hasEffect = true;
         if ((effect.getDuration() > duration && effect.getAmplifier() >= buffLevel) || (
             effect.getAmplifier() > buffLevel && effect.getDuration() > 40)) {
@@ -208,7 +208,7 @@ public class AxeMastery extends Skill {
     Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
     int revitalizedLevel = (int) pStat.get(skillName).get(9);
     if (revitalizedLevel * 0.01 > rand.nextDouble()) {
-      double maxHP = ((Attributable) p).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+      double maxHP = ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).getBaseValue();
       p.setHealth(maxHP);
       increaseStats.changeEXP(skillName, expMap.get("revitalizedActivateEXP"));
     }
@@ -227,9 +227,9 @@ public class AxeMastery extends Skill {
     boolean[] strengthChecks = buffCheckerStrength(0, duration);
     if (strengthChecks[0]) {
       if (strengthChecks[1]) {
-        p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+        p.removePotionEffect(PotionEffectType.STRENGTH);
       }
-      p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) duration, 0));
+      p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, (int) duration, 0));
     }
   }
 

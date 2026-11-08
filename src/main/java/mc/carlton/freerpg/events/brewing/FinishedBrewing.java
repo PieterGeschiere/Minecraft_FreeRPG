@@ -56,7 +56,7 @@ public class FinishedBrewing implements Listener {
             if (slot_i != null) {
               if (slot_i.getType() != Material.AIR) {
                 if (slot_i.getEnchantments().containsKey(Enchantment.LOYALTY)
-                    || slot_i.getEnchantments().containsKey(Enchantment.DURABILITY)) {
+                    || slot_i.getEnchantments().containsKey(Enchantment.UNBREAKING)) {
                   PotionMeta slotMeta = (PotionMeta) slot_i.getItemMeta();
                   String normalName = slotMeta.getDisplayName().substring(2);
                   if (ingredient.getType() == Material.GUNPOWDER) {

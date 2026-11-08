@@ -25,6 +25,95 @@ public class ExpMaps {
     initializeMiningEXP();
     initializeFarmingEXP();
     initializeFlamePickEXP();
+    initializeNewContentEXP();
+  }
+
+  /**
+   * Adds experience for blocks introduced after 1.18. Materials are looked up by name so that a
+   * material missing in some server version is simply skipped. Config keys that are missing (old
+   * config files) fall back to the given default.
+   */
+  private static void putExp(Map<Material, Integer> target, Map<String, Integer> expMap,
+      String key, int defaultExp, String... names) {
+    int exp = expMap.getOrDefault(key, defaultExp);
+    for (String name : names) {
+      Material material = Material.matchMaterial(name);
+      if (material != null) {
+        target.put(material, exp);
+      }
+    }
+  }
+
+  private static String[] copperFamily(boolean cut) {
+    String[] bases = cut
+        ? new String[]{"CUT_COPPER", "EXPOSED_CUT_COPPER", "WEATHERED_CUT_COPPER",
+        "OXIDIZED_CUT_COPPER"}
+        : new String[]{"COPPER_BLOCK", "EXPOSED_COPPER", "WEATHERED_COPPER", "OXIDIZED_COPPER"};
+    String[] all = new String[bases.length * 2];
+    for (int i = 0; i < bases.length; i++) {
+      all[i] = bases[i];
+      all[i + bases.length] = "WAXED_" + bases[i];
+    }
+    return all;
+  }
+
+  public void initializeNewContentEXP() {
+    ConfigLoad configLoad = new ConfigLoad();
+    Map<String, Integer> mining = configLoad.getExpMapForSkill("mining");
+    putExp(miningEXP, mining, "breakRaw_Gold_Block", 4500, "RAW_GOLD_BLOCK");
+    putExp(miningEXP, mining, "breakCoal_Block", 1800, "COAL_BLOCK");
+    putExp(miningEXP, mining, "breakIron_Block", 3150, "IRON_BLOCK");
+    putExp(miningEXP, mining, "breakGold_Block", 4500, "GOLD_BLOCK");
+    putExp(miningEXP, mining, "breakLapis_Block", 6300, "LAPIS_BLOCK");
+    putExp(miningEXP, mining, "breakRedstone_Block", 4500, "REDSTONE_BLOCK");
+    putExp(miningEXP, mining, "breakDiamond_Block", 9000, "DIAMOND_BLOCK");
+    putExp(miningEXP, mining, "breakEmerald_Block", 11250, "EMERALD_BLOCK");
+    putExp(miningEXP, mining, "breakNetherite_Block", 15000, "NETHERITE_BLOCK");
+    putExp(miningEXP, mining, "breakCopper_Block", 3000, copperFamily(false));
+    putExp(miningEXP, mining, "breakCut_Copper", 75, copperFamily(true));
+    putExp(miningEXP, mining, "breakBudding_Amethyst", 250, "BUDDING_AMETHYST");
+    putExp(miningEXP, mining, "breakSmall_Amethyst_Bud", 300, "SMALL_AMETHYST_BUD");
+    putExp(miningEXP, mining, "breakMedium_Amethyst_Bud", 400, "MEDIUM_AMETHYST_BUD");
+    putExp(miningEXP, mining, "breakLarge_Amethyst_Bud", 600, "LARGE_AMETHYST_BUD");
+    putExp(miningEXP, mining, "breakCobbled_Deepslate", 30, "COBBLED_DEEPSLATE");
+    putExp(miningEXP, mining, "breakPolished_Deepslate", 25, "POLISHED_DEEPSLATE",
+        "DEEPSLATE_BRICKS", "DEEPSLATE_TILES", "CHISELED_DEEPSLATE");
+    putExp(miningEXP, mining, "breakTuff_Variants", 25, "POLISHED_TUFF", "TUFF_BRICKS",
+        "CHISELED_TUFF", "CHISELED_TUFF_BRICKS");
+    putExp(miningEXP, mining, "breakPolished_Basalt", 25, "SMOOTH_BASALT", "POLISHED_BASALT");
+    putExp(miningEXP, mining, "breakMud_Bricks", 25, "MUD_BRICKS");
+    putExp(miningEXP, mining, "breakPacked_Mud", 25, "PACKED_MUD");
+    putExp(miningEXP, mining, "breakResin", 25, "RESIN_BLOCK", "RESIN_BRICKS");
+
+    Map<String, Integer> digging = configLoad.getExpMapForSkill("digging");
+    putExp(diggingEXP, digging, "breakMud", 22, "MUD");
+    putExp(diggingEXP, digging, "breakMuddy_Mangrove_Roots", 22, "MUDDY_MANGROVE_ROOTS");
+
+    Map<String, Integer> wood = configLoad.getExpMapForSkill("woodcutting");
+    String[][] woodTypes = {{"breakMangrove_Log", "MANGROVE"}, {"breakCherry_Log", "CHERRY"},
+        {"breakPale_Oak_Log", "PALE_OAK"}};
+    for (String[] type : woodTypes) {
+      putExp(woodcuttingEXP, wood, type[0], 100, type[1] + "_LOG", "STRIPPED_" + type[1] + "_LOG",
+          type[1] + "_WOOD", "STRIPPED_" + type[1] + "_WOOD");
+      putExp(woodcuttingEXP, wood, "breakNew_Planks", 25, type[1] + "_PLANKS");
+      putExp(woodcuttingEXP, wood, "breakNew_Leaves", 13, type[1] + "_LEAVES");
+    }
+    putExp(woodcuttingEXP, wood, "breakBamboo_Block", 100, "BAMBOO_BLOCK",
+        "STRIPPED_BAMBOO_BLOCK");
+    putExp(woodcuttingEXP, wood, "breakNew_Planks", 25, "BAMBOO_PLANKS", "BAMBOO_MOSAIC");
+    putExp(woodcuttingEXP, wood, "breakMangrove_Roots", 20, "MANGROVE_ROOTS",
+        "MUDDY_MANGROVE_ROOTS");
+    putExp(woodcuttingEXP, wood, "breakHyphae", 125, "CRIMSON_HYPHAE", "WARPED_HYPHAE",
+        "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE");
+
+    Map<String, Integer> farming = configLoad.getExpMapForSkill("farming");
+    putExp(farmingEXP, farming, "breakPitcher_Crop", 50, "PITCHER_CROP", "TORCHFLOWER_CROP",
+        "PITCHER_PLANT");
+    putExp(farmingEXP, farming, "breakHoney_Block", 25, "HONEY_BLOCK");
+    putExp(farmingEXP, farming, "breakHoneycomb_Block", 25, "HONEYCOMB_BLOCK");
+    putExp(farmingEXP, farming, "breakBee_Nest", 75, "BEEHIVE", "BEE_NEST");
+    putExp(farmingEXP, farming, "breakPale_Moss", 15, "PALE_MOSS_BLOCK", "PALE_HANGING_MOSS");
+    putExp(farmingEXP, farming, "breakPale_Moss_Carpet", 5, "PALE_MOSS_CARPET");
   }
 
   public void initializeDiggingEXP() {
@@ -62,7 +151,8 @@ public class ExpMaps {
     diggingEXP.put(Material.BLACK_CONCRETE_POWDER, expMap.get("breakConcretePowder"));
     if (mcVersion >= 1.16) {
       diggingEXP.put(Material.SOUL_SOIL, expMap.get("breakSoulSoil"));
-    } else if (mcVersion >= 1.17) {
+    }
+    if (mcVersion >= 1.17) {
       diggingEXP.put(Material.ROOTED_DIRT, expMap.get("breakRooted_Dirt"));
     }
   }
@@ -114,9 +204,10 @@ public class ExpMaps {
       woodcuttingEXP.put(Material.WARPED_STEM, expMap.get("breakWarped_Stem"));
       woodcuttingEXP.put(Material.STRIPPED_CRIMSON_STEM, expMap.get("breakCrimson_Stem"));
       woodcuttingEXP.put(Material.STRIPPED_WARPED_STEM, expMap.get("breakWarped_Stem"));
-      woodcuttingEXP.put(Material.WARPED_PLANKS, expMap.get("breakCrimson_Planks"));
-      woodcuttingEXP.put(Material.CRIMSON_PLANKS, expMap.get("breakWarped_Planks"));
-    } else if (mcVersion >= 1.17) {
+      woodcuttingEXP.put(Material.WARPED_PLANKS, expMap.get("breakWarped_Planks"));
+      woodcuttingEXP.put(Material.CRIMSON_PLANKS, expMap.get("breakCrimson_Planks"));
+    }
+    if (mcVersion >= 1.17) {
       woodcuttingEXP.put(Material.FLOWERING_AZALEA_LEAVES,
           expMap.get("breakFlowering_Azalea_Leaves"));
     }

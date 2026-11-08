@@ -733,7 +733,7 @@ public class CustomContainerImporter {
   }
 
   private PotionType getPotionType(Object value) {
-    PotionType potionType = PotionType.valueOf(value.toString().toUpperCase());
+    PotionType potionType = mc.carlton.freerpg.utils.globalVariables.PotionTypeCompat.parse(value.toString());
     if (potionType == null) {
       printReadInError(INVALID_POTION_TYPE + value.toString());
       return null;

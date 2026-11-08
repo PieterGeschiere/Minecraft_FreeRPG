@@ -83,8 +83,8 @@ public class Skill {
 
     //Unnbreaking checks
     int unbreakingLevel = 0;
-    if (toolMeta.hasEnchant(Enchantment.DURABILITY)) {
-      unbreakingLevel = toolMeta.getEnchantLevel(Enchantment.DURABILITY);
+    if (toolMeta.hasEnchant(Enchantment.UNBREAKING)) {
+      unbreakingLevel = toolMeta.getEnchantLevel(Enchantment.UNBREAKING);
     }
     if (unbreakingLevel > 0) {
       double chanceToSaveDurability = 1.0 - (1.0 / (unbreakingLevel + 1));

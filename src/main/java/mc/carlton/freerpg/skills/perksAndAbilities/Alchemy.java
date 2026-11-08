@@ -232,7 +232,7 @@ public class Alchemy extends Skill {
               potionMeta.setDisplayName(potionMeta.getDisplayName() + " II");
             }
             potionMeta.removeEnchant(Enchantment.LOYALTY);
-            potionMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+            potionMeta.addEnchant(Enchantment.UNBREAKING, 1, true);
             potion.setItemMeta(potionMeta);
             stand.getSnapshotInventory().setItem(i, potion);
             increaseStats.changeEXP(skillName, expMap.get("upgradeCustomPotion"));
@@ -338,7 +338,7 @@ public class Alchemy extends Skill {
     }
     if (potion.getItemMeta() instanceof PotionMeta) {
       PotionType[] noEXPPots0 = {PotionType.MUNDANE, PotionType.WATER, PotionType.AWKWARD,
-          PotionType.THICK, PotionType.UNCRAFTABLE};
+          PotionType.THICK};
       List<PotionType> noEXPPots = Arrays.asList(noEXPPots0);
       if (!noEXPPots.contains(((PotionMeta) potion.getItemMeta()).getBasePotionData().getType())) {
         if (((PotionMeta) potion.getItemMeta()).getBasePotionData().isUpgraded()) {
@@ -364,6 +364,11 @@ public class Alchemy extends Skill {
         PotionEffect pEffect = potionToEffect(potionData);
         if (!pEffect.getType().equals(PotionEffectType.BAD_OMEN)) {
           p.addPotionEffect(pEffect, true);
+        }
+        if (potionData.getType() == PotionType.TURTLE_MASTER) {
+          // Turtle Master gives Slowness alongside Resistance
+          p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, pEffect.getDuration(),
+              pEffect.getAmplifier() + 1), true);
         }
 
       }
@@ -401,19 +406,19 @@ public class Alchemy extends Skill {
               (int) Math.round(20 * 45 * durationMultiplier), potionMasterLevel);
         }
         break;
-      case JUMP:
+      case LEAPING:
         if (potionData.isExtended()) {
-          pEffect = new PotionEffect(PotionEffectType.JUMP,
+          pEffect = new PotionEffect(PotionEffectType.JUMP_BOOST,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
         } else if (potionData.isUpgraded()) {
-          pEffect = new PotionEffect(PotionEffectType.JUMP,
+          pEffect = new PotionEffect(PotionEffectType.JUMP_BOOST,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
-          pEffect = new PotionEffect(PotionEffectType.JUMP,
+          pEffect = new PotionEffect(PotionEffectType.JUMP_BOOST,
               (int) Math.round(20 * 180 * durationMultiplier), potionMasterLevel);
         }
         break;
-      case SPEED:
+      case SWIFTNESS:
         if (potionData.isExtended()) {
           pEffect = new PotionEffect(PotionEffectType.SPEED,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
@@ -449,9 +454,9 @@ public class Alchemy extends Skill {
               (int) Math.round(20 * 180 * durationMultiplier), potionMasterLevel);
         }
         break;
-      case INSTANT_DAMAGE:
+      case HARMING:
         if (potionMasterLevel > 0) { //damages an additional 3(?) hearts
-          pEffect = new PotionEffect(PotionEffectType.HARM, 1, 0);
+          pEffect = new PotionEffect(PotionEffectType.INSTANT_DAMAGE, 1, 0);
         }
         break;
       case SLOW_FALLING:
@@ -490,36 +495,36 @@ public class Alchemy extends Skill {
               (int) Math.round(20 * 180 * durationMultiplier), potionMasterLevel);
         }
         break;
-      case INSTANT_HEAL:
+      case HEALING:
         if (potionMasterLevel > 0) { //heals an additional 2 hearts
-          pEffect = new PotionEffect(PotionEffectType.HEAL, 1, 0);
+          pEffect = new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1, 0);
         }
         break;
       case STRENGTH:
         if (potionData.isExtended()) {
-          pEffect = new PotionEffect(PotionEffectType.INCREASE_DAMAGE,
+          pEffect = new PotionEffect(PotionEffectType.STRENGTH,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
         } else if (potionData.isUpgraded()) {
-          pEffect = new PotionEffect(PotionEffectType.INCREASE_DAMAGE,
+          pEffect = new PotionEffect(PotionEffectType.STRENGTH,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
-          pEffect = new PotionEffect(PotionEffectType.INCREASE_DAMAGE,
+          pEffect = new PotionEffect(PotionEffectType.STRENGTH,
               (int) Math.round(20 * 180 * durationMultiplier), potionMasterLevel);
         }
         break;
       case SLOWNESS:
         if (potionData.isExtended()) {
-          pEffect = new PotionEffect(PotionEffectType.SLOW,
+          pEffect = new PotionEffect(PotionEffectType.SLOWNESS,
               (int) Math.round(20 * 4 * 60 * durationMultiplier), potionMasterLevel);
         } else if (potionData.isUpgraded()) {
-          pEffect = new PotionEffect(PotionEffectType.SLOW,
+          pEffect = new PotionEffect(PotionEffectType.SLOWNESS,
               (int) Math.round(20 * 20 * durationMultiplier), 3 + potionMasterLevel);
         } else {
-          pEffect = new PotionEffect(PotionEffectType.SLOW,
+          pEffect = new PotionEffect(PotionEffectType.SLOWNESS,
               (int) Math.round(20 * 90 * durationMultiplier), potionMasterLevel);
         }
         break;
-      case REGEN:
+      case REGENERATION:
         if (potionData.isExtended()) {
           pEffect = new PotionEffect(PotionEffectType.REGENERATION,
               (int) Math.round(20 * 90 * durationMultiplier), potionMasterLevel);
@@ -529,6 +534,22 @@ public class Alchemy extends Skill {
         } else {
           pEffect = new PotionEffect(PotionEffectType.REGENERATION,
               (int) Math.round(20 * 45 * durationMultiplier), potionMasterLevel);
+        }
+        break;
+      case LUCK:
+        pEffect = new PotionEffect(PotionEffectType.LUCK,
+            (int) Math.round(20 * 5 * 60 * durationMultiplier), potionMasterLevel);
+        break;
+      case TURTLE_MASTER:
+        if (potionData.isExtended()) {
+          pEffect = new PotionEffect(PotionEffectType.RESISTANCE,
+              (int) Math.round(20 * 40 * durationMultiplier), 2 + potionMasterLevel);
+        } else if (potionData.isUpgraded()) {
+          pEffect = new PotionEffect(PotionEffectType.RESISTANCE,
+              (int) Math.round(20 * 20 * durationMultiplier), 3 + potionMasterLevel);
+        } else {
+          pEffect = new PotionEffect(PotionEffectType.RESISTANCE,
+              (int) Math.round(20 * 20 * durationMultiplier), 2 + potionMasterLevel);
         }
         break;
       default:
@@ -601,6 +622,12 @@ public class Alchemy extends Skill {
         break;
       case REDSTONE:
         expToGive = expMap.get("extendPotion");
+        break;
+      case WIND_CHARGE: // Wind Charged potion
+      case COBWEB: // Weaving potion
+      case SLIME_BLOCK: // Oozing potion
+      case STONE: // Infested potion
+        expToGive = expMap.getOrDefault("brewNewEffectPotion", 550);
         break;
       default:
         expToGive = expMap.get("brewAnythingElse");

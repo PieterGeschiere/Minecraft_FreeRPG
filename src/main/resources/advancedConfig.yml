@@ -151,6 +151,8 @@ digging:
     breakConcretePowder: 20
     # added since 1.16.5
     breakRooted_Dirt: 100
+    breakMud: 22
+    breakMuddy_Mangrove_Roots: 22
 woodcutting:
   timberEXPMultiplier: 0.4 #EXP nerf when using the Timber skill
   timberMaxBreakInitial: 64 #Max number of logs that can be broken with the without Timber+
@@ -207,6 +209,15 @@ woodcutting:
     breakWarped_Planks: 28
     # added since 1.16.5
     breakFlowering_Azalea_Leaves: 13
+    # added for 26.x
+    breakMangrove_Log: 100 #Logs, wood and stripped versions
+    breakCherry_Log: 100
+    breakPale_Oak_Log: 100
+    breakBamboo_Block: 100
+    breakHyphae: 125 #Crimson and warped hyphae (and stripped)
+    breakNew_Planks: 25 #Mangrove, cherry, pale oak, bamboo planks and bamboo mosaic
+    breakNew_Leaves: 13 #Mangrove, cherry, pale oak leaves
+    breakMangrove_Roots: 20
 mining:
   # All Blocks affected by the Vein Miner perk. Putting something like "DIRT" will break your server if maximum blocks broken is very high or -1.
   veinMinerBlocks: [ REDSTONE_ORE,NETHER_QUARTZ_ORE,LAPIS_ORE,IRON_ORE,GOLD_ORE,EMERALD_ORE,DIAMOND_ORE,COAL_ORE,
@@ -269,6 +280,29 @@ mining:
     breakDripstone_Block: 45
     breakPointed_Dripstone: 95
     breakTuff: 30
+    # added for 26.x: ore/storage blocks (placed blocks never give exp, so ruined portal gold blocks etc. do)
+    breakRaw_Gold_Block: 4500
+    breakCoal_Block: 1800
+    breakIron_Block: 3150
+    breakGold_Block: 4500
+    breakLapis_Block: 6300
+    breakRedstone_Block: 4500
+    breakDiamond_Block: 9000
+    breakEmerald_Block: 11250
+    breakNetherite_Block: 15000
+    breakCopper_Block: 3000 #Copper block and its exposed/weathered/oxidized/waxed forms
+    breakCut_Copper: 75
+    breakBudding_Amethyst: 250
+    breakSmall_Amethyst_Bud: 300
+    breakMedium_Amethyst_Bud: 400
+    breakLarge_Amethyst_Bud: 600
+    breakCobbled_Deepslate: 30
+    breakPolished_Deepslate: 25 #Polished deepslate, deepslate bricks, deepslate tiles, chiseled deepslate
+    breakTuff_Variants: 25 #Polished tuff, tuff bricks, chiseled tuff, chiseled tuff bricks
+    breakPolished_Basalt: 25 #Smooth basalt, polished basalt
+    breakMud_Bricks: 25
+    breakPacked_Mud: 25
+    breakResin: 25 #Resin block, resin bricks
 farming:
   expDrops:
     enableEXPDrops: true
@@ -307,6 +341,13 @@ farming:
     # added since 1.16.5
     breakAzalea: 75
     breakFlowering_Aealea: 75
+    # added for 26.x
+    breakPitcher_Crop: 50 #Pitcher crop, torchflower crop, pitcher plant
+    breakHoney_Block: 25
+    breakHoneycomb_Block: 25
+    breakBee_Nest: 75 #Beehive, bee nest
+    breakPale_Moss: 15 #Pale moss block, pale hanging moss
+    breakPale_Moss_Carpet: 5
     breakCave_Vines: 85
     breakSmall_Dripleaf: 70
     breakGlow_Lichen: 70
@@ -446,6 +487,8 @@ fishing:
     killSalmon: 250
     killPufferfish: 500
     killTropical_Fish: 300
+    killTadpole: 150
+    killNautilus: 400
     robBlaze: 300
     robGhast: 300
     robZombie_Pigman: 300
@@ -497,6 +540,7 @@ archery:
     killSkeleton_Horse: 75
     killSnowman: 10
     killSquid: 30
+    killGlow_Squid: 30
     killStrider: 30
     killTropical_Fish: 30
     killTurtle: 30
@@ -584,6 +628,7 @@ beastMastery:
     killSkeleton_Horse: 750
     killSnowman: 100
     killSquid: 450
+    killGlow_Squid: 450
     killStrider: 500
     killTropical_Fish: 450
     killTurtle: 450
@@ -667,6 +712,7 @@ swordsmanship:
     killSkeleton_Horse: 75
     killSnowman: 10
     killSquid: 30
+    killGlow_Squid: 30
     killStrider: 30
     killTropical_Fish: 30
     killTurtle: 30
@@ -753,6 +799,7 @@ defense:
     killSkeleton_Horse: 75
     killSnowman: 10
     killSquid: 30
+    killGlow_Squid: 30
     killStrider: 30
     killTropical_Fish: 30
     killTurtle: 30
@@ -836,6 +883,7 @@ axeMastery:
     killSkeleton_Horse: 75
     killSnowman: 10
     killSquid: 30
+    killGlow_Squid: 30
     killStrider: 30
     killTropical_Fish: 30
     killTurtle: 30
@@ -1048,6 +1096,7 @@ alchemy:
     upgradePotion: 250
     extendPotion: 250
     brewAnythingElse: 150
+    brewNewEffectPotion: 550 #Wind Charged, Weaving, Oozing and Infested potions
     brewCustomPotion: 700 #Applies to potions added in customPotions
     upgradeCustomPotion: 350 #Applies to potions added in customPotions
     drinkPotion: 1000
@@ -1189,3 +1238,11 @@ enchanting:
     XPcostToCraft10: 2
     recipe10: [ AIR,AIR,AIR,AIR,PAPER,PAPER,AIR,PAPER,GOLD_BLOCK ]
 
+stations:
+  # When true, only crafted Repair/Salvage Stations work (right-click while sneaking). Ordinary iron and gold
+  # blocks stay normal building blocks. When false, every iron block repairs and every gold block salvages.
+  enabled: true
+  repairRecipeCenter: IRON_BLOCK #Repair Station: center ingredient, surrounded by 8 of the item below
+  repairRecipeSurround: IRON_INGOT
+  salvageRecipeCenter: GOLD_BLOCK #Salvage Station: center ingredient, surrounded by 8 of the item below
+  salvageRecipeSurround: GOLD_INGOT

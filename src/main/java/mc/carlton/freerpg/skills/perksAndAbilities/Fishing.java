@@ -134,6 +134,9 @@ public class Fishing extends Skill {
     fishMap.put(EntityType.SALMON, expMap.get("killSalmon"));
     fishMap.put(EntityType.PUFFERFISH, expMap.get("killPufferfish"));
     fishMap.put(EntityType.TROPICAL_FISH, expMap.get("killTropical_Fish"));
+    // post-1.18 water creatures: tadpole and nautilus (looked up by name for version safety)
+    fishMap.put(EntityType.TADPOLE, expMap.getOrDefault("killTadpole", 150));
+    fishMap.put(EntityType.NAUTILUS, expMap.getOrDefault("killNautilus", 400));
     if (fishMap.containsKey(fish.getType())) {
       increaseStats.changeEXP(skillName, fishMap.get(fish.getType()));
     }
@@ -497,7 +500,7 @@ public class Fishing extends Skill {
         drop.setType(Material.MILK_BUCKET);
       }
       increaseStats.changeEXP(skillName, expMap.get("robCow"));
-    } else if (hookedEntity.getType() == EntityType.MUSHROOM_COW) {
+    } else if (hookedEntity.getType() == EntityType.MOOSHROOM) {
       double randomNum = rand.nextDouble();
       if (randomNum < .05) {
         drop.setType(Material.MILK_BUCKET);
@@ -528,7 +531,7 @@ public class Fishing extends Skill {
         drop.setType(Material.POPPY);
       }
       increaseStats.changeEXP(skillName, expMap.get("robIron_Golem"));
-    } else if (hookedEntity.getType() == EntityType.SNOWMAN) {
+    } else if (hookedEntity.getType() == EntityType.SNOW_GOLEM) {
       double randomNum = rand.nextDouble();
       if (randomNum < .03) {
         drop.setType(Material.PUMPKIN);
@@ -542,7 +545,7 @@ public class Fishing extends Skill {
         drop.setType(Material.SPLASH_POTION);
         PotionMeta pm = (PotionMeta) drop.getItemMeta();
         assert pm != null;
-        pm.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 15, 0), false);
+        pm.addCustomEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH, 15, 0), false);
         pm.setDisplayName(ChatColor.YELLOW + "Splash Potion of Healing");
         drop.setItemMeta(pm);
       } else if (randomNum < 0.02) {
@@ -701,8 +704,8 @@ public class Fishing extends Skill {
       ItemMeta rodMeta = itemInHand.getItemMeta();
       if (rodMeta != null) {
         if (rodMeta.getEnchants() != null) {
-          if (rodMeta.getEnchants().containsKey(Enchantment.LUCK)) {
-            luckOfTheSeaLevel = rodMeta.getEnchantLevel(Enchantment.LUCK);
+          if (rodMeta.getEnchants().containsKey(Enchantment.LUCK_OF_THE_SEA)) {
+            luckOfTheSeaLevel = rodMeta.getEnchantLevel(Enchantment.LUCK_OF_THE_SEA);
           }
         }
       }
@@ -1444,7 +1447,7 @@ public class Fishing extends Skill {
         if (tools.contains(drop)) {
           int roll = rand.nextInt(2);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.DIG_SPEED, 5);
+            drop.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5);
           } else {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
@@ -1452,11 +1455,11 @@ public class Fishing extends Skill {
         } else if (swords.contains(drop)) {
           int roll = rand.nextInt(5);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+            drop.addUnsafeEnchantment(Enchantment.SHARPNESS, 5);
           } else if (roll == 2) {
             drop.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
           } else if (roll == 3) {
-            drop.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 3);
+            drop.addUnsafeEnchantment(Enchantment.LOOTING, 3);
           } else if (roll == 4) {
             drop.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
           } else {
@@ -1466,13 +1469,13 @@ public class Fishing extends Skill {
         } else if (boots.contains(drop)) {
           int roll = rand.nextInt(5);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+            drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
           } else if (roll == 2) {
             drop.addUnsafeEnchantment(Enchantment.FROST_WALKER, 2);
           } else if (roll == 3) {
             drop.addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 2);
           } else if (roll == 4) {
-            drop.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 4);
+            drop.addUnsafeEnchantment(Enchantment.FEATHER_FALLING, 4);
           } else {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
@@ -1480,7 +1483,7 @@ public class Fishing extends Skill {
         } else if (chestplate.contains(drop)) {
           int roll = rand.nextInt(3);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+            drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
           } else if (roll == 2) {
             drop.addUnsafeEnchantment(Enchantment.THORNS, 3);
           } else {
@@ -1490,7 +1493,7 @@ public class Fishing extends Skill {
         } else if (leggings.contains(drop)) {
           int roll = rand.nextInt(2);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+            drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
           } else {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
@@ -1499,11 +1502,11 @@ public class Fishing extends Skill {
         } else if (helmet.contains(drop)) {
           int roll = rand.nextInt(4);
           if (roll == 1) {
-            drop.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+            drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
           } else if (roll == 2) {
-            drop.addUnsafeEnchantment(Enchantment.OXYGEN, 3);
+            drop.addUnsafeEnchantment(Enchantment.RESPIRATION, 3);
           } else if (roll == 3) {
-            drop.addUnsafeEnchantment(Enchantment.WATER_WORKER, 1);
+            drop.addUnsafeEnchantment(Enchantment.AQUA_AFFINITY, 1);
           } else {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }

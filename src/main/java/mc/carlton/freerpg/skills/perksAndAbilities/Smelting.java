@@ -323,6 +323,7 @@ public class Smelting extends Skill {
       case CHARCOAL:
         EXP = expMap.get("smeltCharcoal");
         break;
+      case COPPER_INGOT:
       case IRON_INGOT:
         EXP = expMap.get("smeltIronIngot");
         break;
@@ -356,21 +357,16 @@ public class Smelting extends Skill {
       case CRACKED_STONE_BRICKS:
         EXP = expMap.get("smeltCracked_Stone_Bricks");
         break;
+      case NETHERITE_SCRAP:
+        EXP = expMap.get("smeltNetherite_Scrap");
+        break;
+      case CRACKED_NETHER_BRICKS:
+        EXP = expMap.get("smeltCracked_Nether_Bricks");
+        break;
       default:
         EXP = expMap.get("smeltAnythingElse");
         break;
     }
-    MinecraftVersion minecraftVersion = new MinecraftVersion();
-    if (minecraftVersion.getMinecraftVersionAsDouble() >= 1.16 && EXP != expMap.get(
-        "smeltAnythingElse")) {
-      if (smeltedMaterial.equals(Material.NETHERITE_SCRAP)) {
-        EXP = expMap.get("smeltNetherite_Scrap");
-      }
-      if (smeltedMaterial.equals(Material.CRACKED_NETHER_BRICKS)) {
-        EXP = expMap.get("smeltCracked_Nether_Bricks");
-      }
-    }
-    // TODO add 1.17 items
     return EXP;
   }
 

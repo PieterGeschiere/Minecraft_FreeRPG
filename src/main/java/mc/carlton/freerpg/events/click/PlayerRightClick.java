@@ -78,7 +78,9 @@ public class PlayerRightClick implements Listener {
         farmingClass.composterEXP(e.getClickedBlock());
 
         //Repair
-        if (e.getClickedBlock().getType() == Material.IRON_BLOCK && !itemInHandType.isBlock()) {
+        if (mc.carlton.freerpg.utils.game.RepairStations.isRepairStation(e.getClickedBlock())
+            && !itemInHandType.isBlock()
+            && p.isSneaking()) {
           if (pAbilities[0] != -2 && pAbilities[2] != -2 && pAbilities[7] != -2) {
             Repair repairClass = new Repair(p);
             repairClass.repairItem();
@@ -89,7 +91,7 @@ public class PlayerRightClick implements Listener {
           return;
         }
         //Salvaging
-        else if (e.getClickedBlock().getType() == Material.GOLD_BLOCK
+        else if (mc.carlton.freerpg.utils.game.RepairStations.isSalvageStation(e.getClickedBlock())
             && !itemInHandType.isBlock()) {
           if (p.isSneaking()) {
             if (pAbilities[0] != -2 && pAbilities[2] != -2 && pAbilities[7] != -2) {

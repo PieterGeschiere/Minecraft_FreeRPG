@@ -42,6 +42,9 @@ public class MinecraftVersion {
       minecraftVersion_Double = 1.17;
     } else if (minecraftVersion.contains("1.18")) {
       minecraftVersion_Double = 1.18;
+    } else if (parseYearBasedVersion(Bukkit.getBukkitVersion()) > 0) {
+      // Year-based versioning (26.1 and later), e.g. 26.3 -> 26.03. Always above any 1.x gate.
+      minecraftVersion_Double = parseYearBasedVersion(Bukkit.getBukkitVersion());
     } else {
       minecraftVersion_Double = 1.18;
       // TODO replace with logger call
@@ -50,6 +53,16 @@ public class MinecraftVersion {
               + "This might be caused due to the usage of a newer minecraft version the plugin does not support. "
               + "If you notice unexpected behaviour please visit the plugins Github page and open a new issue!");
     }
+  }
+
+  /** Returns e.g. 26.03 for "26.3-R0.1-SNAPSHOT", or -1 if not a year-based version. */
+  private static double parseYearBasedVersion(String bukkitVersion) {
+    java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(\\d{2})\\.(\\d+)")
+        .matcher(bukkitVersion);
+    if (!m.find()) {
+      return -1;
+    }
+    return Integer.parseInt(m.group(1)) + Integer.parseInt(m.group(2)) / 100.0;
   }
 
   /**

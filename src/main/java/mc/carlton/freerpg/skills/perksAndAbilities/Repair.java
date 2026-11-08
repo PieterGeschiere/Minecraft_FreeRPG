@@ -54,6 +54,17 @@ public class Repair extends Skill {
     Map<Material, Material> repairItems = itemGroups.getRepairItems();
     if (repairItems.containsKey(toolType)) {
       Material mats = repairItems.get(itemInHand.getType());
+      ItemMeta checkMeta = itemInHand.getItemMeta();
+      if (checkMeta instanceof Damageable && ((Damageable) checkMeta).getDamage() == 0) {
+        actionMessage.sendMessage(ChatColor.YELLOW + "This item is already fully repaired.");
+        return false;
+      }
+      if (!p.getInventory().contains(mats)) {
+        actionMessage.sendMessage(
+            ChatColor.RED + "You need " + ChatColor.GOLD + readableName(mats) + ChatColor.RED
+                + " in your inventory to repair " + ChatColor.GOLD
+                + readableName(itemInHand.getType()) + ChatColor.RED + ".");
+      }
       if (p.getInventory().contains(mats)) {
         Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
         int repairLevel = (int) pStat.get(skillName).get(4);
@@ -203,6 +214,12 @@ public class Repair extends Skill {
           a = 4.0;
           expToGive += expMap.get("gold_baseEXP");
           expRepairMultiplier = expMap.get("gold_EXPMultiplier");
+        } else if (copperIngotCost(toolType) > 0) {
+          // Copper tools and armor repair like iron-tier gear
+          a = copperIngotCost(toolType);
+          repairPercentage = (0.5 + repairBonus) / a;
+          expToGive += expMap.get("iron_baseEXP");
+          expRepairMultiplier = expMap.get("iron_EXPMultiplier");
         } else if (toolType.equals(Material.IRON_AXE)) {
           repairPercentage = (0.5 + repairBonus) / 3.0;
           a = 3.0;
@@ -413,8 +430,22 @@ public class Repair extends Skill {
           }
         }
       }
+    } else if (toolType != Material.AIR) {
+      actionMessage.sendMessage(ChatColor.RED + "This item cannot be repaired this way.");
     }
     return repaired;
+  }
+
+  /** Turns COPPER_INGOT into "Copper Ingot" for player messages. */
+  private static String readableName(Material material) {
+    StringBuilder name = new StringBuilder();
+    for (String word : material.name().toLowerCase().split("_")) {
+      if (name.length() > 0) {
+        name.append(' ');
+      }
+      name.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1));
+    }
+    return name.toString();
   }
 
   public void salvaging() {
@@ -517,7 +548,7 @@ public class Repair extends Skill {
         increaseStats.changeEXP(skillName, expMap.get("salvageLeather"));
       } else if (type.equals(Material.COBBLESTONE)) {
         increaseStats.changeEXP(skillName, expMap.get("salvageCobblestone"));
-      } else if (type.equals(Material.IRON_INGOT)) {
+      } else if (type.equals(Material.IRON_INGOT) || type.equals(Material.COPPER_INGOT)) {
         increaseStats.changeEXP(skillName, expMap.get("salvageIron_Ingot"));
       } else if (type.equals(Material.GOLD_INGOT)) {
         increaseStats.changeEXP(skillName, expMap.get("salvageGold_Ingot"));
@@ -532,6 +563,35 @@ public class Repair extends Skill {
           increaseStats.changeEXP(skillName, expMap.get("salvageNetherite_Ingot"));
         }
       }
+    }
+  }
+
+  /** Number of copper ingots in a copper tool/armor piece, or 0 if the item is not copper gear. */
+  public static int copperIngotCost(Material material) {
+    String name = material.name();
+    if (!name.startsWith("COPPER_")) {
+      return 0;
+    }
+    switch (name.substring("COPPER_".length())) {
+      case "AXE":
+      case "PICKAXE":
+        return 3;
+      case "HOE":
+      case "SWORD":
+      case "SPEAR":
+        return 2;
+      case "SHOVEL":
+        return 1;
+      case "HELMET":
+        return 5;
+      case "CHESTPLATE":
+        return 8;
+      case "LEGGINGS":
+        return 7;
+      case "BOOTS":
+        return 4;
+      default:
+        return 0;
     }
   }
 

@@ -122,20 +122,20 @@ public class Defense extends Skill {
 
     if (slownessChecks[0]) {
       if (slownessChecks[1]) {
-        p.removePotionEffect(PotionEffectType.SLOW);
+        p.removePotionEffect(PotionEffectType.SLOWNESS);
       }
       if (strongerLegsLevel > 0) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) duration, 0));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, (int) duration, 0));
       } else {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) duration, 3));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, (int) duration, 3));
       }
     }
 
     if (resistanceChecks[0]) {
       if (resistanceChecks[1]) {
-        p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+        p.removePotionEffect(PotionEffectType.RESISTANCE);
       }
-      p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) duration, 2));
+      p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 2));
     }
 
     Bukkit.getScheduler().cancelTask(pAbilities[8]);
@@ -170,12 +170,12 @@ public class Defense extends Skill {
         hasAbsorption = true;
       }
       for (PotionEffect effect : p.getActivePotionEffects()) {
-        if (effect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)
+        if (effect.getType().equals(PotionEffectType.RESISTANCE)
             && effect.getDuration() <= duration && effect.getAmplifier() == 2) {
-          p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-        } else if (effect.getType().equals(PotionEffectType.SLOW)
+          p.removePotionEffect(PotionEffectType.RESISTANCE);
+        } else if (effect.getType().equals(PotionEffectType.SLOWNESS)
             && effect.getDuration() <= duration && effect.getAmplifier() == slowBuff) {
-          p.removePotionEffect(PotionEffectType.SLOW);
+          p.removePotionEffect(PotionEffectType.SLOWNESS);
         } else if (effect.getType().equals(PotionEffectType.ABSORPTION)) {
           if (hasAbsorption) {
             if (effect.getDuration() <= duration + 1200 && effect.getAmplifier() == 1) {
@@ -202,7 +202,7 @@ public class Defense extends Skill {
     boolean hasEffect = false;
     potionEffectLoop:
     for (PotionEffect effect : p.getActivePotionEffects()) {
-      if (effect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)) {
+      if (effect.getType().equals(PotionEffectType.RESISTANCE)) {
         hasEffect = true;
         if ((effect.getDuration() > duration && effect.getAmplifier() >= buffLevel) || (
             effect.getAmplifier() > buffLevel && effect.getDuration() > 40)) {
@@ -221,7 +221,7 @@ public class Defense extends Skill {
     boolean hasEffect = false;
     potionEffectLoop:
     for (PotionEffect effect : p.getActivePotionEffects()) {
-      if (effect.getType().equals(PotionEffectType.SLOW)) {
+      if (effect.getType().equals(PotionEffectType.SLOWNESS)) {
         hasEffect = true;
         if ((effect.getDuration() > duration && effect.getAmplifier() >= buffLevel)) {
           addEffect = false;
@@ -302,9 +302,9 @@ public class Defense extends Skill {
       boolean[] resistanceChecks = buffCheckerResistance(1, 100);
       if (resistanceChecks[0]) {
         if (resistanceChecks[1]) {
-          p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+          p.removePotionEffect(PotionEffectType.RESISTANCE);
         }
-        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 1));
       }
       increaseStats.changeEXP(skillName, expMap.get("reactionsLevel2Activate"));
 
@@ -312,9 +312,9 @@ public class Defense extends Skill {
       boolean[] resistanceChecks = buffCheckerResistance(0, 100);
       if (resistanceChecks[0]) {
         if (resistanceChecks[1]) {
-          p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+          p.removePotionEffect(PotionEffectType.RESISTANCE);
         }
-        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 0));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 0));
       }
       increaseStats.changeEXP(skillName, expMap.get("reactionsLevel1Activate"));
     }
@@ -338,17 +338,17 @@ public class Defense extends Skill {
      * If hearty is allowed to be on, we turn it on (if it was off)
      * If hearty is not allowed to be on, we turn it off (if it was on)
      */
-    double HP = ((Attributable) p).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+    double HP = ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).getBaseValue();
     ChangeStats changeStats = new ChangeStats(p);
     if (heartyLevel < 1) { //Hearty level not high enough to be active
       if (heartyToggle > 0) { //Hearty was somehow on
-        ((Attributable) p).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(HP - 4.0);
+        ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).setBaseValue(HP - 4.0);
         changeStats.setStat("global", 30, 0);
       }
       //Otherwise, hearty was off and we do nothing
     } else { //Hearty level is high enough to be active
       if (heartyToggle < 1) { //Hearty was off
-        ((Attributable) p).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(HP + 4.0);
+        ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).setBaseValue(HP + 4.0);
         changeStats.setStat("global", 30, 1);
       }
       //Otherwise, hearty was on so we do nothing
@@ -398,7 +398,7 @@ public class Defense extends Skill {
     if (healerLevel < 4) {
       return;
     }
-    double maxHP = ((Attributable) p).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+    double maxHP = ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).getValue();
     int HP_to_add = (healerLevel - 3);
     p.setHealth(Math.min(maxHP, p.getHealth() + HP_to_add));
     increaseStats.changeEXP(skillName, expMap.get("healerHealActivate"));
