@@ -35,6 +35,9 @@ server's `plugins` folder.
 * Kill exp for newer mobs such as the Warden, Breeze, Bogged, Creaking, Camel, Nautilus, Sniffer,
   Armadillo, Frog, Allay and Copper Golem. Camel taming, riding and breeding exp.
 * Copper tools and armor, the Mace and spears are recognised by the combat and repair skills.
+* **Weapon Skills**: new Mace, Trident and Spear Mastery skills with their own skill trees and
+  abilities (see below), configured in `weaponSkills.yml` and opened with `/frpg weapons`. The Fighter
+  and Training global perks apply to them too.
 * **Repair and Salvage Stations** (see below).
 * Many bug fixes, among them wrong playtime display, missing exp for deepslate and copper ores,
   raw metals smelting into themselves, Luck and Turtle Master potions without an effect and an

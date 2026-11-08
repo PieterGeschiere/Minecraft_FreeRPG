@@ -51,8 +51,9 @@ public class WeaponSkillsMenu implements Listener {
 
   public static void open(Player p) {
     MenuHolder holder = new MenuHolder();
+    LanguageSelector lang = new LanguageSelector(p);
     Inventory inventory = Bukkit.createInventory(holder, 27,
-        "Weapon Skills");
+        lang.getString("weaponSkills"));
     holder.inventory = inventory;
 
 
@@ -73,7 +74,7 @@ public class WeaponSkillsMenu implements Listener {
 
     ItemStack back = new ItemStack(Material.ARROW);
     ItemMeta backMeta = back.getItemMeta();
-    backMeta.setDisplayName(ChatColor.GRAY + "Back to the main menu");
+    backMeta.setDisplayName(ChatColor.GRAY + lang.getString("diggingPassiveDesc1"));
     back.setItemMeta(backMeta);
     inventory.setItem(BACK_SLOT, back);
     holder.actions.put(BACK_SLOT, pl -> pl.performCommand("frpg"));
@@ -101,11 +102,12 @@ public class WeaponSkillsMenu implements Listener {
     ItemMeta meta = item.getItemMeta();
     meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + lang.getString(skillName));
     List<String> lore = new ArrayList<>();
-    lore.add(ChatColor.GRAY + "Level: " + ChatColor.BLUE + level);
-    lore.add(ChatColor.GRAY + "Experience: " + ChatColor.BLUE + String.format("%,d", exp));
-    lore.add(ChatColor.GRAY + "To next level: " + ChatColor.GREEN + expToNext);
-    lore.add(ChatColor.GRAY + "Rank: " + ChatColor.WHITE + ChatColor.BOLD
-        + String.format("%,d", rank) + ChatColor.RESET + ChatColor.GRAY + " out of "
+    lore.add(ChatColor.GRAY + lang.getString("level") + ": " + ChatColor.BLUE + level);
+    lore.add(ChatColor.GRAY + lang.getString("experience") + ": " + ChatColor.BLUE
+        + String.format("%,d", exp));
+    lore.add(ChatColor.GRAY + lang.getString("expToLevel") + ": " + ChatColor.GREEN + expToNext);
+    lore.add(ChatColor.GRAY + lang.getString("rank") + ": " + ChatColor.WHITE + ChatColor.BOLD
+        + String.format("%,d", rank) + ChatColor.RESET + ChatColor.GRAY + " / "
         + ChatColor.WHITE + totalPlayers);
     meta.setLore(lore);
     meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ADDITIONAL_TOOLTIP,
@@ -123,6 +125,7 @@ public class WeaponSkillsMenu implements Listener {
   }
 
   private static ItemStack createSkillItem(Player p, WeaponSkill skill) {
+    LanguageSelector lang = new LanguageSelector(p);
     WeaponSkillData data = WeaponSkillManager.get(p, skill);
     int level = data.getLevel();
     long exp = data.getExperience();
@@ -133,12 +136,13 @@ public class WeaponSkillsMenu implements Listener {
     meta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + skill.getDisplayName());
     int[] rank = WeaponSkillManager.getRank(p, skill);
     List<String> lore = new ArrayList<>();
-    lore.add(ChatColor.GRAY + "Level: " + ChatColor.BLUE + level);
-    lore.add(ChatColor.GRAY + "Experience: " + ChatColor.BLUE + String.format("%,d", exp));
-    lore.add(ChatColor.GRAY + "To next level: " + ChatColor.GREEN
+    lore.add(ChatColor.GRAY + lang.getString("level") + ": " + ChatColor.BLUE + level);
+    lore.add(ChatColor.GRAY + lang.getString("experience") + ": " + ChatColor.BLUE
+        + String.format("%,d", exp));
+    lore.add(ChatColor.GRAY + lang.getString("expToLevel") + ": " + ChatColor.GREEN
         + String.format("%,d", Math.max(0, nextLevelExp - exp)));
-    lore.add(ChatColor.GRAY + "Rank: " + ChatColor.WHITE + ChatColor.BOLD
-        + String.format("%,d", rank[0]) + ChatColor.RESET + ChatColor.GRAY + " out of "
+    lore.add(ChatColor.GRAY + lang.getString("rank") + ": " + ChatColor.WHITE + ChatColor.BOLD
+        + String.format("%,d", rank[0]) + ChatColor.RESET + ChatColor.GRAY + " / "
         + ChatColor.WHITE + rank[1]);
     meta.setLore(lore);
     meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ADDITIONAL_TOOLTIP,

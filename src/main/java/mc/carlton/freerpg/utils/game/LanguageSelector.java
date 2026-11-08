@@ -64,6 +64,8 @@ public class LanguageSelector {
     Object text0 = idToStringMap.get(languageCode + "." + id);
     if (text0 != null) {
       text = text0.toString();
+    } else if (idToStringMap.get("enUs." + id) != null) {
+      text = idToStringMap.get("enUs." + id); //Not translated yet, fall back to English
     } else {
       text = id; //If the text isn't found, the next best thing is the identifier
     }

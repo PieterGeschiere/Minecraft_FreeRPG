@@ -392,6 +392,7 @@ public class SkillsGUIclick implements Listener {
                     pStats.set(7, pStats.get(7).intValue() + 1);
                     Global globalClass7 = new Global(p);
                     globalClass7.skillTokenBoost(7);
+                    mc.carlton.freerpg.weaponskills.WeaponSkillManager.refreshPerkBonuses(p);
                     break;
                   case 6:
                     pStats.set(8, pStats.get(8).intValue() + 1);

@@ -240,7 +240,7 @@ global:
   skill-3: #Fighter
     enabled: true #Change this to false to disable this skill from working
     level-1:
-      expMultiplier: 1.2 #Multiplier for experience in Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery
+      expMultiplier: 1.2 #Multiplier for experience in Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
   skill-4: #Hard Work
     enabled: true #Change this to false to disable this skill from working
     level-1:
@@ -254,7 +254,7 @@ global:
   skill-6: #Training
     enabled: true #Change this to false to disable this skill from working
     level-1:
-      skillTokenIncrease: 1 #Number of skill tokens added to Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery
+      skillTokenIncrease: 1 #Number of skill tokens added to Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
       passiveTokenIncrease: 0 #Number of passive tokens added to Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery
   skill-7: #Soul Harvesting
     enabled: true #Change this to false to disable this skill from working

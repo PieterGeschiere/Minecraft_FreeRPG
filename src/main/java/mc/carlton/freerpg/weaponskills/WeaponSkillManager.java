@@ -91,9 +91,28 @@ public final class WeaponSkillManager {
       data.setAbilityEnabled(yaml.getBoolean(skill.getId() + ".abilityEnabled", true));
       data.setExpBarEnabled(yaml.getBoolean(skill.getId() + ".expBarEnabled", true));
       data.setAbilityCooldownUntil(yaml.getLong(skill.getId() + ".cooldownUntil", 0L));
+      data.setBonusSkillTokens(trainingBonus(p));
       skills.put(skill, data);
     }
     return skills;
+  }
+
+  /** The Training global perk gives one extra skill token to every fighting skill. */
+  private static int trainingBonus(Player p) {
+    try {
+      Number owned = new mc.carlton.freerpg.core.info.player.PlayerStats(p).getPlayerData()
+          .get("global").get(7);
+      return owned.intValue() > 0 ? 1 : 0;
+    } catch (RuntimeException e) {
+      return 0;
+    }
+  }
+
+  /** Re-reads the global perks, call after the player buys one. */
+  public static void refreshPerkBonuses(Player p) {
+    for (WeaponSkill skill : WeaponSkill.values()) {
+      get(p, skill).setBonusSkillTokens(trainingBonus(p));
+    }
   }
 
   public static void save(UUID uuid) {
@@ -192,7 +211,7 @@ public final class WeaponSkillManager {
   /** Skill tokens earned so far (from the level) minus the skills already unlocked. */
   public static int getAvailableSkillTokens(WeaponSkillData data) {
     double perToken = Math.max(1, WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken", 100));
-    int earned = (int) Math.floor(data.getLevel() / perToken);
+    int earned = (int) Math.floor(data.getLevel() / perToken) + data.getBonusSkillTokens();
     return Math.max(0, earned - data.getTotalSkillLevels());
   }
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
+import mc.carlton.freerpg.utils.game.LanguageSelector;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -76,6 +77,7 @@ public class WeaponSkillTreeMenu implements Listener {
     TreeHolder holder = new TreeHolder(skill);
     Inventory gui = Bukkit.createInventory(holder, 54, skill.getDisplayName());
     holder.inventory = gui;
+    LanguageSelector lang = new LanguageSelector(p);
     WeaponSkillData data = WeaponSkillManager.get(p, skill);
     int passiveTokens = WeaponSkillManager.getAvailablePassiveTokens(data);
     int skillTokens = WeaponSkillManager.getAvailableSkillTokens(data);
@@ -91,7 +93,7 @@ public class WeaponSkillTreeMenu implements Listener {
       List<String> lore = new ArrayList<>();
       String levelColor = i < 4 ? ChatColor.GREEN.toString()
           : i == 6 ? ChatColor.DARK_PURPLE.toString() : ChatColor.BLUE.toString();
-      lore.add(ChatColor.GRAY + "Level " + levelColor + level + "/" + SKILL_MAX_LEVELS[i]);
+      lore.add(ChatColor.GRAY + lang.getString("level") + " " + levelColor + level + "/" + SKILL_MAX_LEVELS[i]);
       for (String line : TreeText.wrap(descriptions[i], 40)) {
         lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString() + line);
       }
@@ -102,10 +104,10 @@ public class WeaponSkillTreeMenu implements Listener {
 
     // Token counters
     gui.setItem(PASSIVE_TOKEN_SLOT, tokenItem(Material.IRON_NUGGET, "Passive Tokens", passiveTokens,
-        "Earned by leveling up. Invest them in the dyes below."));
+        "Earned by leveling up. Invest them in the dyes below.", lang));
     gui.setItem(SKILL_TOKEN_SLOT, tokenItem(Material.GOLD_NUGGET, "Skill Tokens", skillTokens,
         "Earned every " + (int) WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken", 100)
-            + " levels. Spend them on the skills."));
+            + " levels. Spend them on the skills.", lang));
 
     // Passives
     String[] passiveNames = info.getPassiveNames();
@@ -121,7 +123,7 @@ public class WeaponSkillTreeMenu implements Listener {
       }
       if (i == 0) {
         lore.add("");
-        lore.add(ChatColor.UNDERLINE + "Ability");
+        lore.add(ChatColor.UNDERLINE + lang.getString("weaponAbility"));
         for (String line : TreeText.wrap(info.getAbilityDescription(), 40)) {
           lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString() + line);
         }
@@ -134,10 +136,10 @@ public class WeaponSkillTreeMenu implements Listener {
     // Back, refund and configuration
     ItemStack back = new ItemStack(Material.ARROW);
     ItemMeta backMeta = back.getItemMeta();
-    backMeta.setDisplayName(ChatColor.BOLD + "Back");
+    backMeta.setDisplayName(ChatColor.BOLD + lang.getString("diggingPassiveTitle1"));
     back.setItemMeta(backMeta);
     gui.setItem(BACK_SLOT, back);
-    gui.setItem(REFUND_SLOT, refundItem(p));
+    gui.setItem(REFUND_SLOT, refundItem(p, lang));
     gui.setItem(CONFIG_SLOT, configItem(skill, data));
 
     // Connectors
@@ -186,12 +188,13 @@ public class WeaponSkillTreeMenu implements Listener {
     }
   }
 
-  private static ItemStack tokenItem(Material material, String name, int tokens, String text) {
+  private static ItemStack tokenItem(Material material, String name, int tokens, String text,
+      LanguageSelector lang) {
     ItemStack item = new ItemStack(material, Math.max(1, Math.min(64, tokens)));
     ItemMeta meta = item.getItemMeta();
     meta.setDisplayName(ChatColor.BOLD + name);
     List<String> lore = new ArrayList<>();
-    lore.add(ChatColor.BLUE + "Total: " + ChatColor.GOLD + tokens);
+    lore.add(ChatColor.BLUE + lang.getString("total") + ": " + ChatColor.GOLD + tokens);
     for (String line : TreeText.wrap(text, 40)) {
       lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString() + line);
     }
@@ -200,17 +203,17 @@ public class WeaponSkillTreeMenu implements Listener {
     return item;
   }
 
-  private static ItemStack refundItem(Player p) {
+  private static ItemStack refundItem(Player p, LanguageSelector lang) {
     ItemStack soul = new ItemStack(Material.COMPOSTER);
     ItemMeta meta = soul.getItemMeta();
-    meta.setDisplayName(ChatColor.BOLD + "Refund Skill Tree");
+    meta.setDisplayName(ChatColor.BOLD + lang.getString("refundSkillTitle"));
     List<String> lore = new ArrayList<>();
     ArrayList<Number> global = new PlayerStats(p).getPlayerData().get("global");
     if (global.get(9).intValue() < 1) {
-      lore.add(ChatColor.RED + ChatColor.ITALIC.toString() + "Locked");
+      lore.add(ChatColor.RED + ChatColor.ITALIC.toString() + lang.getString("locked"));
     } else {
       int cost = new ConfigLoad().getSoulsInfo().get(1);
-      lore.add("Souls: " + ChatColor.AQUA + ChatColor.ITALIC + global.get(20).intValue() + "/"
+      lore.add(lang.getString("souls") + ": " + ChatColor.AQUA + ChatColor.ITALIC + global.get(20).intValue() + "/"
           + cost);
       lore.add(ChatColor.GRAY + ChatColor.ITALIC.toString()
           + "Gives all invested tokens back so you can spend them again.");

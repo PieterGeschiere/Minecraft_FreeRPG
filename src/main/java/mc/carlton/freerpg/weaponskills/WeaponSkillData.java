@@ -16,6 +16,8 @@ public class WeaponSkillData {
   private int level;
   private final Map<String, Integer> passiveLevels = new HashMap<>();
   private final Map<String, Integer> skillLevels = new HashMap<>();
+  /** Extra skill tokens from the Training global perk. Derived from the perk, not saved. */
+  private int bonusSkillTokens;
   private boolean abilityEnabled = true;
   private boolean expBarEnabled = true;
   /** Time (ms) until the ability stays active, 0 if it is not active. Not saved. */
@@ -24,6 +26,14 @@ public class WeaponSkillData {
   private long abilityCooldownUntil;
   /** Shockwaves left in the current activation. Not saved. */
   private int abilityCharges;
+
+  public int getBonusSkillTokens() {
+    return bonusSkillTokens;
+  }
+
+  public void setBonusSkillTokens(int bonusSkillTokens) {
+    this.bonusSkillTokens = bonusSkillTokens;
+  }
 
   public long getExperience() {
     return experience;
