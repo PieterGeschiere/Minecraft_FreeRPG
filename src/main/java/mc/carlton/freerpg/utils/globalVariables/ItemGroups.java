@@ -11,11 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.MinecraftVersion;
 import mc.carlton.freerpg.customContainers.OldCustomPotion;
+import mc.carlton.freerpg.utils.PotionTypes;
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
@@ -132,7 +133,7 @@ public class ItemGroups {
     String[][] newEnchants = {{"swift_sneak", "3"}, {"soul_speed", "3"}, {"density", "5"},
         {"breach", "4"}, {"wind_burst", "3"}, {"lunge", "3"}};
     for (String[] e : newEnchants) {
-      Enchantment enchantment = Enchantment.getByKey(org.bukkit.NamespacedKey.minecraft(e[0]));
+      Enchantment enchantment = Registry.ENCHANTMENT.get(org.bukkit.NamespacedKey.minecraft(e[0]));
       if (enchantment != null) {
         enchantmentLevelMap.put(enchantment, Integer.parseInt(e[1]));
       }
@@ -789,14 +790,14 @@ public class ItemGroups {
         if (modifier.equalsIgnoreCase("")) {
           ItemStack arrow = new ItemStack(Material.TIPPED_ARROW, 8);
           PotionMeta arrowMeta = (PotionMeta) arrow.getItemMeta();
-          arrowMeta.setBasePotionData(new PotionData(potionType[i], false, false));
+          arrowMeta.setBasePotionType(potionType[i]);
           arrow.setItemMeta(arrowMeta);
           effectArrows.put(modifier + labels[i], arrow);
         } else if (modifier.equalsIgnoreCase("long_")) {
           if (potionType[i].isExtendable()) {
             ItemStack arrow = new ItemStack(Material.TIPPED_ARROW, 8);
             PotionMeta arrowMeta = (PotionMeta) arrow.getItemMeta();
-            arrowMeta.setBasePotionData(new PotionData(potionType[i], true, false));
+            arrowMeta.setBasePotionType(PotionTypes.of(potionType[i], true, false));
             arrow.setItemMeta(arrowMeta);
             effectArrows.put(modifier + labels[i], arrow);
           }
@@ -804,7 +805,7 @@ public class ItemGroups {
           if (potionType[i].isUpgradeable()) {
             ItemStack arrow = new ItemStack(Material.TIPPED_ARROW, 8);
             PotionMeta arrowMeta = (PotionMeta) arrow.getItemMeta();
-            arrowMeta.setBasePotionData(new PotionData(potionType[i], false, true));
+            arrowMeta.setBasePotionType(PotionTypes.of(potionType[i], false, true));
             arrow.setItemMeta(arrowMeta);
             effectArrows.put(modifier + labels[i], arrow);
           }

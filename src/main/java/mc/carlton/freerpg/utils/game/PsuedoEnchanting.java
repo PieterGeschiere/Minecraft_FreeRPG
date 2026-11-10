@@ -238,7 +238,7 @@ public class PsuedoEnchanting {
 
   public void printInfo() {
     for (Enchantment enchant : enchantmentWeightMap.keySet()) {
-      FreeRPG.log(Level.INFO, String.valueOf(enchant.getKey()));
+      FreeRPG.log(Level.INFO, String.valueOf(enchant.getKeyOrThrow()));
     }
   }
 
@@ -481,18 +481,12 @@ public class PsuedoEnchanting {
     }
 
     //Finding possible enchants
-    int T = 0;
     for (Enchantment enchant : possibleEnchants) {
       Integer[] brackets = enchantmentBracketMap.get(enchant);
       int power = brackets.length / 2;
       for (int i = 0; i < power; i++) {
         if (brackets[2 * i] <= modifiedLevel && brackets[2 * i + 1] >= modifiedLevel) {
-          if (enchantment_level.containsKey(enchant)) {
-            enchantment_level.put(enchant, i + 1);
-          } else {
-            enchantment_level.put(enchant, i + 1);
-            T += enchantmentWeightMap.get(enchant);
-          }
+          enchantment_level.put(enchant, i + 1);
         }
       }
     }

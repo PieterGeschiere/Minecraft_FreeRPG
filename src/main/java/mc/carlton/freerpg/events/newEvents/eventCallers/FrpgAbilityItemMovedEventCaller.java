@@ -61,13 +61,8 @@ public class FrpgAbilityItemMovedEventCaller implements Listener {
   @EventHandler
   public void inventoryDragAbilityItem(InventoryDragEvent e) {
     Player p;
-
-    Inventory clickedInventory;
-    InventoryType clickedInventoryType;
     try {
       p = (Player) e.getWhoClicked();
-      clickedInventory = e.getInventory();
-      clickedInventoryType = clickedInventory.getType();
     } catch (Exception except) {
       return;
     }

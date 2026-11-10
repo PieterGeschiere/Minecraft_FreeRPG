@@ -135,7 +135,7 @@ public class AbilityTimers {
   }
 
   public void setTimes(Map<UUID, Integer[]> timers) {
-    this.cooldownTimes = timers;
+    AbilityTimers.cooldownTimes = timers;
   }
 
   public void removePlayer() {

@@ -2,14 +2,12 @@ package mc.carlton.freerpg.events.furnace;
 
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.utils.game.FurnaceUserTracker;
-import org.apache.logging.log4j.Level;
 import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.plugin.Plugin;
 
 public class FurnaceInventoryClick implements Listener {
@@ -21,10 +19,7 @@ public class FurnaceInventoryClick implements Listener {
     if (e.isCancelled()) {
       return;
     }
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      FreeRPG.log(Level.WARN, except.getMessage());
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     if (e.getInventory()

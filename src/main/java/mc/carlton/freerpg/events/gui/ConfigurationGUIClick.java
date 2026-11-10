@@ -19,11 +19,7 @@ public class ConfigurationGUIClick implements Listener {
 
   @EventHandler
   public void clickEvent(InventoryClickEvent e) {
-    boolean proceed = true;
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      proceed = false;
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     if (e.getView().getTitle().equalsIgnoreCase("Configuration Window")) {
@@ -56,7 +52,7 @@ public class ConfigurationGUIClick implements Listener {
               default:
                 p.sendMessage(
                     ChatColor.GOLD + lang.getString("translators") + ChatColor.GRAY + ": " +
-                        ChatColor.WHITE + lang.getString("translationCredit", languageCode));
+                        ChatColor.WHITE + LanguageSelector.getString("translationCredit", languageCode));
                 break;
             }
             e.setCancelled(true);

@@ -1,8 +1,6 @@
 package mc.carlton.freerpg.events.gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import mc.carlton.freerpg.config.ConfigLoad;
@@ -24,11 +22,7 @@ public class ConfirmationGUIClick implements Listener {
 
   @EventHandler
   public void clickEvent(InventoryClickEvent e) {
-    boolean proceed = true;
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      proceed = false;
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     if (e.getView().getTitle().equalsIgnoreCase("Confirmation Window")) {
@@ -49,9 +43,6 @@ public class ConfirmationGUIClick implements Listener {
         String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
             "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility",
             "alchemy", "smelting", "enchanting", "global"};
-        String[] mainSkills_0 = {"digging", "woodcutting", "mining", "farming", "fishing",
-            "archery", "beastMastery", "swordsmanship", "defense", "axeMastery"};
-        List<String> mainSkills = Arrays.asList(mainSkills_0);
         Material indicator = inv.getItem(4).getType();
         switch (indicator) {
           case IRON_SHOVEL:

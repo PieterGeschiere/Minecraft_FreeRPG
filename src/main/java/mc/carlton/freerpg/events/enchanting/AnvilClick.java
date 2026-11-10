@@ -4,13 +4,11 @@ import java.util.Map;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
-import org.apache.logging.log4j.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,10 +22,7 @@ public class AnvilClick implements Listener {
     if (e.isCancelled()) {
       return;
     }
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      FreeRPG.log(Level.WARN, except.getMessage());
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     if (e.getInventory() instanceof AnvilInventory) { //This section is very buggy, and not clean. Hopefully I can improve it in the future

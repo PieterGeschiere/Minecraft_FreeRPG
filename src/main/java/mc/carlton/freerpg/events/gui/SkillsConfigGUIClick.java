@@ -1,12 +1,8 @@
 package mc.carlton.freerpg.events.gui;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
-import mc.carlton.freerpg.utils.game.LanguageSelector;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,17 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 
 public class SkillsConfigGUIClick implements Listener {
 
   @EventHandler
   public void clickEvent(InventoryClickEvent e) {
-    boolean proceed = true;
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      proceed = false;
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     String[] titles_0 = {"Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Archery",
@@ -51,13 +42,8 @@ public class SkillsConfigGUIClick implements Listener {
           e.setCancelled(true);
         }
         Player p = (Player) e.getWhoClicked();
-        LanguageSelector lang = new LanguageSelector(p);
-        Inventory inv = e.getClickedInventory();
         PlayerStats pStatClass = new PlayerStats(p);
-        Map<UUID, Map<String, ArrayList<Number>>> statAll = pStatClass.getData();
-        Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
         if (e.getCurrentItem() != null) {
-          PlayerStats languageChange = new PlayerStats(p);
           if (e.getCurrentItem().getType().equals(Material.ARROW)) {
             p.performCommand("frpg skillTreeGUI " + skillName);
           } else if (e.getRawSlot() == 19) {//Toggle EXPBar for skill

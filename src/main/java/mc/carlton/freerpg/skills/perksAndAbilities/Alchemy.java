@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
+import mc.carlton.freerpg.utils.PotionTypes;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -16,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -44,8 +44,7 @@ public class Alchemy extends Skill {
     if (counter.containsKey(inventory)) {
       return;
     }
-    Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
-    //int speedBrewingLevel = (int) pStat.get(skillName).get(7);
+    //int speedBrewingLevel = (int) pStatClass.getPlayerData().get(skillName).get(7);
     int time = 400;
     BrewingStand stand = inventory.getHolder();
     World world = stand.getWorld();
@@ -184,8 +183,7 @@ public class Alchemy extends Skill {
     if (counter.containsKey(inventory)) {
       return;
     }
-    Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
-    //int speedBrewingLevel = (int) pStat.get(skillName).get(7);
+    //int speedBrewingLevel = (int) pStatClass.getPlayerData().get(skillName).get(7);
     int time = 400; //(int) Math.round((1 - speedBrewingLevel * 0.15) * 400);
     BrewingStand stand = inventory.getHolder();
     World world = stand.getWorld();
@@ -313,8 +311,8 @@ public class Alchemy extends Skill {
     if (!(p1.getItemMeta() instanceof PotionMeta) || !(p2.getItemMeta() instanceof PotionMeta)) {
       return false;
     }
-    PotionType p1Type = ((PotionMeta) p1.getItemMeta()).getBasePotionData().getType();
-    PotionType p2Type = ((PotionMeta) p2.getItemMeta()).getBasePotionData().getType();
+    PotionType p1Type = PotionTypes.getBase(((PotionMeta) p1.getItemMeta()).getBasePotionType());
+    PotionType p2Type = PotionTypes.getBase(((PotionMeta) p2.getItemMeta()).getBasePotionType());
     if (p1Type == p2Type) {
       return true;
     }
@@ -340,10 +338,11 @@ public class Alchemy extends Skill {
       PotionType[] noEXPPots0 = {PotionType.MUNDANE, PotionType.WATER, PotionType.AWKWARD,
           PotionType.THICK};
       List<PotionType> noEXPPots = Arrays.asList(noEXPPots0);
-      if (!noEXPPots.contains(((PotionMeta) potion.getItemMeta()).getBasePotionData().getType())) {
-        if (((PotionMeta) potion.getItemMeta()).getBasePotionData().isUpgraded()) {
+      PotionType drunkType = ((PotionMeta) potion.getItemMeta()).getBasePotionType();
+      if (!noEXPPots.contains(PotionTypes.getBase(drunkType))) {
+        if (PotionTypes.isUpgraded(drunkType)) {
           increaseStats.changeEXP(skillName, expMap.get("drinkUpgradedPotion"));
-        } else if (((PotionMeta) potion.getItemMeta()).getBasePotionData().isExtended()) {
+        } else if (PotionTypes.isExtended(drunkType)) {
           increaseStats.changeEXP(skillName, expMap.get("drinkExtendedPotion"));
         } else {
           increaseStats.changeEXP(skillName, expMap.get("drinkPotion"));
@@ -356,37 +355,41 @@ public class Alchemy extends Skill {
         for (PotionEffect effect : potionMeta.getCustomEffects()) {
           p.addPotionEffect(new PotionEffect(effect.getType(),
               (int) Math.round(effect.getDuration() * durationMultiplier),
-              effect.getAmplifier() + potionMasterLevel), true);
+              effect.getAmplifier() + potionMasterLevel));
         }
       } else {
         PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
-        PotionData potionData = potionMeta.getBasePotionData();
-        PotionEffect pEffect = potionToEffect(potionData);
+        PotionType potionType = potionMeta.getBasePotionType();
+        PotionEffect pEffect = potionToEffect(potionType);
         if (!pEffect.getType().equals(PotionEffectType.BAD_OMEN)) {
-          p.addPotionEffect(pEffect, true);
+          p.addPotionEffect(pEffect);
         }
-        if (potionData.getType() == PotionType.TURTLE_MASTER) {
+        if (PotionTypes.getBase(potionType) == PotionType.TURTLE_MASTER) {
           // Turtle Master gives Slowness alongside Resistance
           p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, pEffect.getDuration(),
-              pEffect.getAmplifier() + 1), true);
+              pEffect.getAmplifier() + 1));
         }
 
       }
     }
   }
 
-  public PotionEffect potionToEffect(PotionData potionData) {
+  public PotionEffect potionToEffect(PotionType potionType) {
     PotionEffect pEffect = new PotionEffect(PotionEffectType.BAD_OMEN, 1, 1);
     Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
     int lengthBoostLevel = (int) pStat.get(skillName).get(4);
     double durationMultiplier = 1.0 + 0.001 * lengthBoostLevel;
     int potionMasterLevel = (int) Math.min((int) pStat.get(skillName).get(13), 1);
-    switch (potionData.getType()) {
+    PotionType baseType = PotionTypes.getBase(potionType);
+    if (baseType == null) {
+      return pEffect;
+    }
+    switch (baseType) {
       case WEAKNESS:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.WEAKNESS,
               (int) Math.round(20 * 60 * 4 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.WEAKNESS,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -395,10 +398,10 @@ public class Alchemy extends Skill {
         }
         break;
       case POISON:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.POISON,
               (int) Math.round(20 * 90 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.POISON,
               (int) Math.round(20 * 21 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -407,10 +410,10 @@ public class Alchemy extends Skill {
         }
         break;
       case LEAPING:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.JUMP_BOOST,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.JUMP_BOOST,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -419,10 +422,10 @@ public class Alchemy extends Skill {
         }
         break;
       case SWIFTNESS:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SPEED,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SPEED,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -431,10 +434,10 @@ public class Alchemy extends Skill {
         }
         break;
       case WATER_BREATHING:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.WATER_BREATHING,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.WATER_BREATHING,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -443,10 +446,10 @@ public class Alchemy extends Skill {
         }
         break;
       case FIRE_RESISTANCE:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -460,10 +463,10 @@ public class Alchemy extends Skill {
         }
         break;
       case SLOW_FALLING:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SLOW_FALLING,
               (int) Math.round(20 * 4 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SLOW_FALLING,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -472,10 +475,10 @@ public class Alchemy extends Skill {
         }
         break;
       case NIGHT_VISION:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.NIGHT_VISION,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.NIGHT_VISION,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -484,10 +487,10 @@ public class Alchemy extends Skill {
         }
         break;
       case INVISIBILITY:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.INVISIBILITY,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.INVISIBILITY,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -501,10 +504,10 @@ public class Alchemy extends Skill {
         }
         break;
       case STRENGTH:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.STRENGTH,
               (int) Math.round(20 * 8 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.STRENGTH,
               (int) Math.round(20 * 90 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -513,10 +516,10 @@ public class Alchemy extends Skill {
         }
         break;
       case SLOWNESS:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SLOWNESS,
               (int) Math.round(20 * 4 * 60 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.SLOWNESS,
               (int) Math.round(20 * 20 * durationMultiplier), 3 + potionMasterLevel);
         } else {
@@ -525,10 +528,10 @@ public class Alchemy extends Skill {
         }
         break;
       case REGENERATION:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.REGENERATION,
               (int) Math.round(20 * 90 * durationMultiplier), potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.REGENERATION,
               (int) Math.round(20 * 22 * durationMultiplier), 1 + potionMasterLevel);
         } else {
@@ -541,10 +544,10 @@ public class Alchemy extends Skill {
             (int) Math.round(20 * 5 * 60 * durationMultiplier), potionMasterLevel);
         break;
       case TURTLE_MASTER:
-        if (potionData.isExtended()) {
+        if (PotionTypes.isExtended(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.RESISTANCE,
               (int) Math.round(20 * 40 * durationMultiplier), 2 + potionMasterLevel);
-        } else if (potionData.isUpgraded()) {
+        } else if (PotionTypes.isUpgraded(potionType)) {
           pEffect = new PotionEffect(PotionEffectType.RESISTANCE,
               (int) Math.round(20 * 20 * durationMultiplier), 3 + potionMasterLevel);
         } else {

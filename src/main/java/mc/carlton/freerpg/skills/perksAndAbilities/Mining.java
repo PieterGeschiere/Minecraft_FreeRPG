@@ -336,7 +336,6 @@ public class Mining extends Skill {
     if (!runMethods) {
       return;
     }
-    Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
     Integer[] pAbilities = abilities.getPlayerAbilities();
     if (pAbilities[2] == -2) {
       Bukkit.getScheduler().cancelTask(taskID_mining);
@@ -405,7 +404,6 @@ public class Mining extends Skill {
     getVeinOres(initialBlock, initialBlock.getX(), initialBlock.getY(), initialBlock.getZ(),
         initialBlock.getType(), maxBreakSize); //Get Ores in Vein
     int numOres = veinOres.size();
-    World world = initialBlock.getWorld();
     damageTool(numOres, configLoad.getDurabilityModifiers().get("veinMiner"));
     for (Block block : veinOres) {
       Location blockLoc = block.getLocation();

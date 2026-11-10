@@ -91,7 +91,6 @@ public class PlayerCraft implements Listener {
     ArrayList<Material> mooshroomEgg = craftingRecipes.getMooshroomEggRecipe();
     ArrayList<Material> horseEgg = craftingRecipes.getHorseEggRecipe();
     ArrayList<Material> slimeEgg = craftingRecipes.getSlimeEggRecipe();
-    ArrayList<Material> tippedArrow = craftingRecipes.getTippedArrowRecipe();
     ArrayList<Material> power = craftingRecipes.getPowerRecipe();
     ArrayList<Material> efficiency = craftingRecipes.getEfficiencyRecipe();
     ArrayList<Material> sharpness = craftingRecipes.getSharpnessRecipe();

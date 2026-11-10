@@ -517,7 +517,6 @@ public class Farming extends Skill {
         public void run() {
           oneWithNatureCounters.put(p, 0);
           Block blockBelow = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
-          int counter = 0;
           if (blockBelow.getType() == Material.GRASS_BLOCK) {
             for (int i = 1; i <= 20; i++) {
               new BukkitRunnable() {

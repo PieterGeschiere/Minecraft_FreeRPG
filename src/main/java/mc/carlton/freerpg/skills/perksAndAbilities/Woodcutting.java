@@ -23,6 +23,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -318,7 +319,7 @@ public class Woodcutting extends Skill {
         if (randInt < keysAsArray.size()) {
           randomEnchant = keysAsArray.get(randInt);
         } else { //Enchantment will be chopping
-          randomEnchant = Enchantment.getByKey(
+          randomEnchant = Registry.ENCHANTMENT.get(
               new NamespacedKey(FreeRPG.getPlugin(FreeRPG.class), "chopping"));
         }
 
@@ -537,6 +538,7 @@ public class Woodcutting extends Skill {
             abilities.setPlayerAbility("woodcuttingHaste", -1);
           }
         }.runTaskLater(plugin, 20 * 300).getTaskId();
+        abilities.setPlayerAbility("woodcuttingHaste", taskID);
       }
     }
   }

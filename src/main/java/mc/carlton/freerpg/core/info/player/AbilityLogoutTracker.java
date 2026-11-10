@@ -11,11 +11,9 @@ public class AbilityLogoutTracker {
 
   static Map<UUID, Map<String, Integer>> playerTasks = new HashMap<>();
   static Map<UUID, Map<String, NamespacedKey>> playerKeys = new HashMap<>();
-  private Player p;
   private UUID playerUUID;
 
   public AbilityLogoutTracker(Player p) {
-    this.p = p;
     this.playerUUID = p.getUniqueId();
   }
 

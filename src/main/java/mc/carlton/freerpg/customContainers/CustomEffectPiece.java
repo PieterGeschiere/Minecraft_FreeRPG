@@ -2,6 +2,7 @@ package mc.carlton.freerpg.customContainers;
 
 import java.util.Map;
 import mc.carlton.freerpg.customContainers.collections.CustomEffect;
+import mc.carlton.freerpg.utils.globalVariables.EffectTypeCompat;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -226,7 +227,7 @@ public class CustomEffectPiece extends CustomContainer {
   public String toString() {
     String stringValue = "";
     stringValue += "[";
-    stringValue += "Effect: " + this.effectType.getName() + ", ";
+    stringValue += "Effect: " + EffectTypeCompat.legacyName(this.effectType) + ", ";
     stringValue += "Duration: " + this.duration + ", ";
     stringValue += "Delay: " + this.delay + ", ";
     stringValue += "Probability: " + this.probability + ", ";

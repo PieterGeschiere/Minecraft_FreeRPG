@@ -2,8 +2,6 @@ package mc.carlton.freerpg;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.HashMap;
 import mc.carlton.freerpg.commands.FrpgCommands;
 import mc.carlton.freerpg.commands.SpiteQuote;
 import mc.carlton.freerpg.config.ConfigLoad;
@@ -87,9 +85,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -107,7 +103,6 @@ public final class FreeRPG extends JavaPlugin implements Listener {
   public void onEnable() {
     log(Level.INFO, "Starting FreeRPG");
     //Plugin startup logic
-    Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
 
     //Saves Resources if they aren't there
     getConfig().options().copyDefaults();

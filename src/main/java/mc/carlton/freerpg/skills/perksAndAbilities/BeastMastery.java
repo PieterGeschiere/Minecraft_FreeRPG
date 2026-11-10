@@ -218,7 +218,6 @@ public class BeastMastery extends Skill {
     } else if (entity.getType() == EntityType.WOLF) {
       Tameable dog = (Tameable) entity;
       if (dog.isTamed()) {
-        LivingEntity livingDog = (LivingEntity) dog;
         Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
         int sharpTeethLevel = (int) pStat.get(skillName).get(8);
         double damageBoost = sharpTeethLevel * 2 / 10.0d + 2.0;
@@ -286,7 +285,6 @@ public class BeastMastery extends Skill {
       }
     }
     if (mounts.contains(entity.getType())) {
-      Entity mount = entity;
       HorseRiding data_set = new HorseRiding();
       int taskID = new BukkitRunnable() {
         @Override

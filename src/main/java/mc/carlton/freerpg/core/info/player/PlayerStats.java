@@ -48,7 +48,7 @@ public class PlayerStats {
 
   //Getters and setters for entire playerbase map
   public void setData(Map<UUID, Map<String, ArrayList<Number>>> playerStatsMap) {
-    this.player_statsMap = playerStatsMap;
+    PlayerStats.player_statsMap = playerStatsMap;
   }
 
   //Getters and setters for single player stats

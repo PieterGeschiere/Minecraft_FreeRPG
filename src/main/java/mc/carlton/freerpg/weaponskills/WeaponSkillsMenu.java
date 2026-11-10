@@ -163,26 +163,6 @@ public class WeaponSkillsMenu implements Listener {
     return item;
   }
 
-  /** Splits text into lines of at most the given length, breaking at spaces. */
-  private static List<String> wrap(String text, int width) {
-    List<String> lines = new ArrayList<>();
-    StringBuilder line = new StringBuilder();
-    for (String word : text.split(" ")) {
-      if (line.length() > 0 && line.length() + word.length() + 1 > width) {
-        lines.add(line.toString());
-        line = new StringBuilder();
-      }
-      if (line.length() > 0) {
-        line.append(' ');
-      }
-      line.append(word);
-    }
-    if (line.length() > 0) {
-      lines.add(line.toString());
-    }
-    return lines;
-  }
-
   @EventHandler
   public void onClick(InventoryClickEvent e) {
     if (!(e.getInventory().getHolder() instanceof MenuHolder)) {

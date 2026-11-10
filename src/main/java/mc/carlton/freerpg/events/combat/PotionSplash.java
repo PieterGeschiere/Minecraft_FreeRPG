@@ -64,13 +64,13 @@ public class PotionSplash implements Listener {
                   if (!effect.getType().equals(PotionEffectType.INSTANT_DAMAGE)) {
                     entity.addPotionEffect(new PotionEffect(effect.getType(),
                         (int) Math.round(effect.getDuration() * (1.0 / durationMultiplier)),
-                        effect.getAmplifier()), true);
+                        effect.getAmplifier()));
                   }
                 } else if (!(entity instanceof Player)) {
                   if (!effect.getType().equals(PotionEffectType.INSTANT_DAMAGE)) {
                     entity.addPotionEffect(new PotionEffect(effect.getType(),
                         (int) Math.round(effect.getDuration() * durationMultiplier),
-                        effect.getAmplifier() + finalPotionMasterLevel), true);
+                        effect.getAmplifier() + finalPotionMasterLevel));
                   } else {
                     if (finalPotionMasterLevel > 0) {
                       entity.addPotionEffect(new PotionEffect(effect.getType(), 1,
@@ -82,7 +82,7 @@ public class PotionSplash implements Listener {
                     if (!effect.getType().equals(PotionEffectType.INSTANT_DAMAGE)) {
                       entity.addPotionEffect(new PotionEffect(effect.getType(),
                           (int) Math.round(effect.getDuration() * durationMultiplier),
-                          effect.getAmplifier() + finalPotionMasterLevel), true);
+                          effect.getAmplifier() + finalPotionMasterLevel));
                     } else {
                       if (finalPotionMasterLevel > 0) {
                         entity.addPotionEffect(new PotionEffect(effect.getType(), 1,
@@ -101,12 +101,12 @@ public class PotionSplash implements Listener {
           } else {
             entity.addPotionEffect(new PotionEffect(effect.getType(),
                 (int) Math.round(effect.getDuration() * durationMultiplier),
-                effect.getAmplifier() + potionMasterLevel), true);
+                effect.getAmplifier() + potionMasterLevel));
           }
         } else {
           entity.addPotionEffect(new PotionEffect(effect.getType(),
               (int) Math.round(effect.getDuration() * durationMultiplier),
-              effect.getAmplifier() + potionMasterLevel), true);
+              effect.getAmplifier() + potionMasterLevel));
         }
       }
     }

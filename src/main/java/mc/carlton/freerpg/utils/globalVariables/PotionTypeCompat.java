@@ -18,6 +18,10 @@ public final class PotionTypeCompat {
 
   public static PotionType parse(String name) {
     String key = name.trim().toUpperCase();
-    return PotionType.valueOf(LEGACY.getOrDefault(key, key));
+    try {
+      return PotionType.valueOf(LEGACY.getOrDefault(key, key));
+    } catch (IllegalArgumentException e) {
+      return null;
+    }
   }
 }

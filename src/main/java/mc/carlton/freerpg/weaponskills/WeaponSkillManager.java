@@ -18,7 +18,6 @@ import mc.carlton.freerpg.utils.game.LanguageSelector;
 import org.apache.logging.log4j.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.ConfigurationSection;
@@ -173,14 +172,12 @@ public final class WeaponSkillManager {
     long mine = get(p, skill).getExperience();
     int higher = 0;
     int total = 0;
-    boolean foundSelf = false;
     File[] files = folder == null ? null : folder.listFiles((dir, name) -> name.endsWith(".yml"));
     if (files != null) {
       for (File file : files) {
         String name = file.getName().substring(0, file.getName().length() - 4);
         long exp;
         if (name.equals(p.getUniqueId().toString())) {
-          foundSelf = true;
           continue;
         }
         try {
@@ -466,18 +463,6 @@ public final class WeaponSkillManager {
     if (data.getTotalPassiveLevels() > Math.floor(data.getLevel() / perPassive)
         || data.getTotalSkillLevels() > Math.floor(data.getLevel() / perSkill)) {
       data.resetTree();
-    }
-  }
-
-  /** Tells the player when a level-up gave a new skill token. */
-  private static void announceTokens(Player p, WeaponSkill skill, int oldLevel, int newLevel,
-      WeaponSkillData data) {
-    double perSkillToken = Math.max(1, WeaponSkillConfig.getDouble("tokens.levelsPerSkillToken",
-        100));
-    if (Math.floor(newLevel / perSkillToken) > Math.floor(oldLevel / perSkillToken)) {
-      p.sendMessage(ChatColor.GOLD + WeaponSkillRules.text(p, "weaponTokenEarned", "skill",
-          skill.getDisplayName()));
-      AbilityEffects.tokenEarned(p);
     }
   }
 }

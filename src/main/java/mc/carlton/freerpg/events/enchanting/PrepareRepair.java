@@ -24,8 +24,8 @@ public class PrepareRepair implements Listener {
       PlayerStats pStatClass = new PlayerStats(p);
       Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
       int levelSubtract = (int) pStat.get("enchanting").get(7);
-      int newCost = Math.max(2, anvil.getRepairCost() - levelSubtract);
-      anvil.setRepairCost(newCost);
+      int newCost = Math.max(2, e.getView().getRepairCost() - levelSubtract);
+      e.getView().setRepairCost(newCost);
     } catch (IndexOutOfBoundsException error) {
       return;
     }

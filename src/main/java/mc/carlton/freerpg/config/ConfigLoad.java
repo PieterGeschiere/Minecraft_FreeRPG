@@ -10,17 +10,16 @@ import java.util.Map;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.customContainers.OldCustomPotion;
 import mc.carlton.freerpg.customContainers.collections.OldCustomRecipe;
+import mc.carlton.freerpg.utils.globalVariables.EffectTypeCompat;
 import org.apache.logging.log4j.Level;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 public class ConfigLoad {
 
@@ -292,7 +291,7 @@ public class ConfigLoad {
     //Alchemy Info
     for (int i = 1; i <= 5; i++) {
       OldCustomPotion customPotion = new OldCustomPotion();
-      customPotion.setPotionEffectType(PotionEffectType.getByName(
+      customPotion.setPotionEffectType(EffectTypeCompat.parse(
           advancedConfig.getString("alchemy.customPotions.potionType" + i)));
       customPotion.setIngredient(Material.matchMaterial(
           advancedConfig.getString("alchemy.customPotions.potionIngredient" + i)));
@@ -357,7 +356,7 @@ public class ConfigLoad {
       String enchantType = advancedConfig.getString("enchanting.crafting.recipeEnchant" + i);
       if (!enchantType.equalsIgnoreCase("none")) {
         oldCustomRecipe.setEnchantment(
-            EnchantmentWrapper.getByKey(NamespacedKey.minecraft(enchantType)));
+            Registry.ENCHANTMENT.get(NamespacedKey.minecraft(enchantType)));
         oldCustomRecipe.setEnchantmentLevel(
             advancedConfig.getInt("enchanting.crafting.recipeEnchantLevel" + i));
         oldCustomRecipe.setXPcraftCost(

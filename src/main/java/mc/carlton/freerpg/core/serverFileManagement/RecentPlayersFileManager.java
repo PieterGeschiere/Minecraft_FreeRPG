@@ -40,8 +40,7 @@ public class RecentPlayersFileManager {
   public void writeRecentPlayers() {
     File f = recentPlayersDat;
     RecentLogouts recentLogouts = new RecentLogouts();
-    ArrayList<UUID> lastLogouts = (ArrayList<UUID>) recentLogouts.getLastLogouts()
-        .clone(); //We clone here to avoid concurrent modification exception
+    ArrayList<UUID> lastLogouts = new ArrayList<>(recentLogouts.getLastLogouts()); //We copy here to avoid concurrent modification exception
     String path = f.getPath();
     if (f.exists()) {
       try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path, false))) {

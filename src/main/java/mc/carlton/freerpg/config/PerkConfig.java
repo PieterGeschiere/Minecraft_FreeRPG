@@ -37,8 +37,6 @@ public class PerkConfig {
       new String[]{"dropChanges", "changedDrops"});
   private static final List<String> POTION_DATA_LIST_KEYS = Arrays.asList(
       new String[]{"potionDataList", "potionTypeList"});
-  private static final List<String> CUSTOM_POTION_KEYS = Arrays.asList(
-      new String[]{"decreasingTiers", "increasingTiers"});
   private static final List<String> CUSTOM_EFFECTS_GIVEN_KEYS = Arrays.asList(
       new String[]{"effectsGiven", "customEffect"});
   private static final List<String> SPECIAL_KEYS = Arrays.asList(
@@ -116,7 +114,7 @@ public class PerkConfig {
   static private int getMaxPassivePerkLevel(ConfigurationSection configSection) {
     double startingValue = configSection.getDouble("startingValue");
     double changePerLevel = configSection.getDouble("changePerLevel");
-    List<Object> allowedRange = (List<Object>) configSection.getList("allowedRange");
+    List<?> allowedRange = configSection.getList("allowedRange");
     double lowerBound = parseDoubleWithInfinity(allowedRange.get(0).toString());
     double upperBound = parseDoubleWithInfinity(allowedRange.get(1).toString());
     if (changePerLevel > 0) {
@@ -188,8 +186,8 @@ public class PerkConfig {
     } else if (UtilityMethods.stringContainsIgnoreCase(localConfigNodeName,
         CUSTOM_EFFECTS_GIVEN_KEYS)) {
       CustomEffect customEffect = customContainerImporter.getCustomEffect(configInformation);
-      if (configSection.contains("effectChance")) {
-        customEffect.setProbability(configSection.getDouble("effectChance", 1.0));
+      if (configSection.contains(EFFECT_CHANCE)) {
+        customEffect.setProbability(configSection.getDouble(EFFECT_CHANCE, 1.0));
       }
       return customEffect;
     } else if (UtilityMethods.stringContainsIgnoreCase(localConfigNodeName, SPECIAL_KEYS)) {

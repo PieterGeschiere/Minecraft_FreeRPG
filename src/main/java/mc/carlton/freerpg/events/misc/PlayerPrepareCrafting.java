@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
+import mc.carlton.freerpg.utils.PotionTypes;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 public class PlayerPrepareCrafting implements Listener {
 
@@ -51,143 +52,144 @@ public class PlayerPrepareCrafting implements Listener {
       PotionMeta potionMeta = (PotionMeta) contents[5].getItemMeta();
       ItemGroups itemGroups = new ItemGroups();
       ItemStack arrow = new ItemStack(Material.ARROW, 1);
-      PotionData pData = potionMeta.getBasePotionData();
-      switch (pData.getType()) {
+      PotionType pType = potionMeta.getBasePotionType();
+      PotionType baseType = PotionTypes.getBase(pType);
+      switch (baseType == null ? PotionType.WATER : baseType) {
         case LUCK:
           arrow = itemGroups.getArrow("luck");
           break;
         case LEAPING:
           arrow = itemGroups.getArrow("leaping");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_leaping");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_leaping");
           }
           break;
         case REGENERATION:
           arrow = itemGroups.getArrow("regeneration");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_regeneration");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_regeneration");
           }
           break;
         case SWIFTNESS:
           arrow = itemGroups.getArrow("swiftness");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_swiftness");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_swiftness");
           }
           break;
         case POISON:
           arrow = itemGroups.getArrow("poison");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_poison");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_poison");
           }
           break;
         case SLOWNESS:
           arrow = itemGroups.getArrow("slowness");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_slowness");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_slowness");
           }
           break;
         case STRENGTH:
           arrow = itemGroups.getArrow("strength");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_strength");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_strength");
           }
           break;
         case WEAKNESS:
           arrow = itemGroups.getArrow("weakness");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_weakness");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_weakness");
           }
           break;
         case HEALING:
           arrow = itemGroups.getArrow("healing");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_healing");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_healing");
           }
           break;
         case INVISIBILITY:
           arrow = itemGroups.getArrow("invisibility");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_invisibility");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_invisibility");
           }
           break;
         case NIGHT_VISION:
           arrow = itemGroups.getArrow("night_vision");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_night_vision");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_night_vision");
           }
           break;
         case SLOW_FALLING:
           arrow = itemGroups.getArrow("slow_falling");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_slow_falling");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_slow_falling");
           }
           break;
         case TURTLE_MASTER:
           arrow = itemGroups.getArrow("turtle_master");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_turtle_master");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_turtle_master");
           }
           break;
         case HARMING:
           arrow = itemGroups.getArrow("harming");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_harming");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_harming");
           }
           break;
         case FIRE_RESISTANCE:
           arrow = itemGroups.getArrow("fire_resistance");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_fire_resistance");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_fire_resistance");
           }
           break;
         case WATER_BREATHING:
           arrow = itemGroups.getArrow("water_breathing");
-          if (pData.isExtended()) {
+          if (PotionTypes.isExtended(pType)) {
             arrow = itemGroups.getArrow("long_water_breathing");
           }
-          if (pData.isUpgraded()) {
+          if (PotionTypes.isUpgraded(pType)) {
             arrow = itemGroups.getArrow("strong_water_breathing");
           }
           break;

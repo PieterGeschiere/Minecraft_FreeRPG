@@ -763,7 +763,9 @@ public class StringsAndOtherData {
       case WATER:
         return "potionWater";
       default:
-        String tempName = getPotionNameFromEffect(potionType.getEffectType());
+        String tempName = getPotionNameFromEffect(
+            potionType.getPotionEffects().isEmpty() ? null
+                : potionType.getPotionEffects().get(0).getType());
         String id = "potion" + tempName.substring(10).replace(" ", "");
         return id;
     }
@@ -772,7 +774,10 @@ public class StringsAndOtherData {
 
   public String getPotionNameFromEffect(PotionEffectType potionEffectType) {
     String name = "Potion";
-    switch (potionEffectType.getName()) {
+    if (potionEffectType == null) {
+      return name;
+    }
+    switch (EffectTypeCompat.legacyName(potionEffectType)) {
       case "ABSORPTION":
         name = "Potion of Absorption";
         break;

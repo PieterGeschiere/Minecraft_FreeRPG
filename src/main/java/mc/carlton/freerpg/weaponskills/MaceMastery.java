@@ -146,7 +146,8 @@ public class MaceMastery implements Listener {
     }
     WeaponSkillData data = WeaponSkillManager.get(p, SKILL);
     double fallDistance = p.getFallDistance();
-    boolean smash = fallDistance > 1.5 && !p.isOnGround() && !p.isFlying() && !p.isGliding();
+    // Same rule as vanilla's mace smash (fall distance resets on landing, so no ground check)
+    boolean smash = fallDistance > 1.5 && !p.isFlying() && !p.isGliding();
 
     if (smash) {
       double bonus = getSmashBonus(data);

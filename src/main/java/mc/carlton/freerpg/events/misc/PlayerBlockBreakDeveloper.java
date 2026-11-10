@@ -191,7 +191,6 @@ public class PlayerBlockBreakDeveloper implements Listener {
       long miningEXPTime = System.currentTimeMillis() - timer1;
       runTimeData.addTime(miningEXPTime, "changeEXP");
 
-      List<Material> ores = itemGroups.getOres();
       Mining miningClass = new Mining(p);
       if (pAbilities[2] == -2) {
         long timer2 = System.currentTimeMillis();

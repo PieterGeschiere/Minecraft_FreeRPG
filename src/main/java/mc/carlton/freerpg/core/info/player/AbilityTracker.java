@@ -33,7 +33,7 @@ public class AbilityTracker {
   }
 
   public void setAbilities(Map<UUID, Integer[]> abilities) {
-    this.playerAbilities = abilities;
+    AbilityTracker.playerAbilities = abilities;
   }
 
   public void setPlayerAbility(String ability, int taskID) {

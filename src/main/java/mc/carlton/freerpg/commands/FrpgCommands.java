@@ -359,7 +359,6 @@ public class FrpgCommands implements CommandExecutor {
     String nameColor = ChatColor.AQUA.toString() + ChatColor.BOLD.toString();
     String descriptionColor = ChatColor.GRAY.toString() + ChatColor.ITALIC.toString();
     String statisticNameColor = ChatColor.GRAY.toString();
-    String statisticColor = ChatColor.BLUE.toString();
 
     //Menu Options (Items)
     GuiItem global = new GuiItem(Material.NETHER_STAR, 4, gui);
@@ -395,7 +394,6 @@ public class FrpgCommands implements CommandExecutor {
     for (int i = 0; i < guiItems.length; i++) {
       GuiItem item = guiItems[i];
       String translatedLabel = labels[i];
-      String label = labels0[i];
       item.setName(translatedLabel);
       item.setNameColor(nameColor);
       if (i == 0) { //Global
@@ -803,7 +801,6 @@ public class FrpgCommands implements CommandExecutor {
   private void addToggleButton(Player p, GuiWrapper gui, String parseableName,
       Material iconItemType, int iconPosition, boolean toggleCondition) {
     LanguageSelector lang = new LanguageSelector(p);
-    PlayerStats pStatClass = new PlayerStats(p);
 
     GuiItem guiItem = new GuiItem(iconItemType, iconPosition, gui);
     guiItem.setName(lang.translateMessage(parseableName));
@@ -829,117 +826,22 @@ public class FrpgCommands implements CommandExecutor {
     String[] newDescs = descriptionsMap.get(skillName);
     String[] newPassiveTitles = passivePerksMap.get(skillName);
     String[] newPassiveDescs = passiveDescriptionsMap.get(skillName);
-    int i = 0;
-    for (String title : perksMap.get(skillName)) {
-      String id = skillName + "PerkTitle" + i;
-      newTitles[i] = lang.getString(id);
-      i += 1;
+    for (int i = 0; i < newTitles.length; i++) {
+      newTitles[i] = lang.getString(skillName + "PerkTitle" + i);
     }
-    i = 0;
-    for (String desc : descriptionsMap.get(skillName)) {
-      String id = skillName + "PerkDesc" + i;
-      newDescs[i] = lang.getString(id);
-      i += 1;
+    for (int i = 0; i < newDescs.length; i++) {
+      newDescs[i] = lang.getString(skillName + "PerkDesc" + i);
     }
-    i = 0;
-    for (String passiveTitle : passivePerksMap.get(skillName)) {
-      String id = skillName + "PassiveTitle" + i;
-      newPassiveTitles[i] = lang.getString(id);
-      i += 1;
+    for (int i = 0; i < newPassiveTitles.length; i++) {
+      newPassiveTitles[i] = lang.getString(skillName + "PassiveTitle" + i);
     }
-    i = 0;
-    for (String passiveDesc : passiveDescriptionsMap.get(skillName)) {
-      String id = skillName + "PassiveDesc" + i;
-      newPassiveDescs[i] = lang.getString(id);
-      i += 1;
+    for (int i = 0; i < newPassiveDescs.length; i++) {
+      newPassiveDescs[i] = lang.getString(skillName + "PassiveDesc" + i);
     }
     perksMap.put(skillName, newTitles);
     descriptionsMap.put(skillName, newDescs);
     passivePerksMap.put(skillName, newPassiveTitles);
     passiveDescriptionsMap.put(skillName, newPassiveDescs);
-  }
-
-  private void setSkillTreeProgressMainSkill(Player p, String skillName, GuiWrapper gui) {
-    PlayerStats pStatClass = new PlayerStats(p);
-    Map<String, ArrayList<Number>> pStatAll = pStatClass.getPlayerData();
-    ArrayList<Number> pStats = pStatAll.get(skillName);
-    Integer[] indices = {11, 29, 13, 31, 7, 43, 26};
-    int skill_1a_level = (Integer) pStats.get(7);
-    int skill_1b_level = (Integer) pStats.get(8);
-    int skill_2a_level = (Integer) pStats.get(9);
-    int skill_2b_level = (Integer) pStats.get(10);
-    int skill_3a_level = (Integer) pStats.get(11);
-    int skill_3b_level = (Integer) pStats.get(12);
-    int skill_M_level = (Integer) pStats.get(13);
-
-    GuiItem skill_1a = new GuiItem(Material.PINK_TERRACOTTA, 11, gui);
-    GuiItem skill_2a = new GuiItem(Material.RED_TERRACOTTA, 13, gui);
-    GuiItem skill_3a = new GuiItem(Material.RED_TERRACOTTA, 7, gui);
-    GuiItem skill_1b = new GuiItem(Material.PINK_TERRACOTTA, 29, gui);
-    GuiItem skill_2b = new GuiItem(Material.RED_TERRACOTTA, 31, gui);
-    GuiItem skill_3b = new GuiItem(Material.RED_TERRACOTTA, 43, gui);
-    GuiItem skill_M = new GuiItem(Material.RED_TERRACOTTA, 26, gui);
-
-    if (skill_1a_level == 0) {
-      skill_1a.setItemType(Material.PINK_TERRACOTTA);
-    } else if (skill_1a_level > 0 && skill_1a_level < 5) {
-      skill_1a.setItemType(Material.YELLOW_TERRACOTTA);
-    } else {
-      skill_1a.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_1b_level == 0) {
-      skill_1b.setItemType(Material.PINK_TERRACOTTA);
-    } else if (skill_1b_level > 0 && skill_1b_level < 5) {
-      skill_1b.setItemType(Material.YELLOW_TERRACOTTA);
-    } else {
-      skill_1b.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_2a_level == 0) {
-      if (skill_1a_level >= 2) {
-        skill_2a.setItemType(Material.PINK_TERRACOTTA);
-      }
-    } else if (skill_2a_level > 0 && skill_2a_level < 5) {
-      skill_2a.setItemType(Material.YELLOW_TERRACOTTA);
-    } else {
-      skill_2a.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_2b_level == 0) {
-      if (skill_1b_level >= 2) {
-        skill_2b.setItemType(Material.PINK_TERRACOTTA);
-      }
-    } else if (skill_2b_level > 0 && skill_2b_level < 5) {
-      skill_2b.setItemType(Material.YELLOW_TERRACOTTA);
-    } else {
-      skill_2b.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_3a_level == 0) {
-      if (skill_2a_level >= 2) {
-        skill_3a.setItemType(Material.PINK_TERRACOTTA);
-      }
-    } else {
-      skill_3a.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_3b_level == 0) {
-      if (skill_2b_level >= 2) {
-        skill_3b.setItemType(Material.PINK_TERRACOTTA);
-      }
-    } else {
-      skill_3b.setItemType(Material.GREEN_TERRACOTTA);
-    }
-
-    if (skill_M_level == 0) {
-      if (skill_1a_level + skill_1b_level + skill_2a_level + skill_2b_level + skill_3a_level
-          + skill_3b_level >= 10) {
-        skill_M.setItemType(Material.PINK_TERRACOTTA);
-      }
-    } else {
-      skill_M.setItemType(Material.GREEN_TERRACOTTA);
-    }
   }
 
   @Override
@@ -3225,7 +3127,6 @@ public class FrpgCommands implements CommandExecutor {
         double passive = passive1.doubleValue();
         switch (skillName) {
           case "repair":
-            passive = passive;
             //passive = Math.round(passive*1000)/1000.0d;
             lores_line1_2[2] =
                 ChatColor.GRAY + lang.getString("level") + ": " + ChatColor.AQUA + String.valueOf(

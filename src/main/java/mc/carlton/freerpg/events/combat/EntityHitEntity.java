@@ -65,10 +65,10 @@ public class EntityHitEntity implements Listener {
         }
       } else if (e.getDamager() instanceof Projectile) {
         ProjectileSource shooter = ((Projectile) e.getDamager()).getShooter();
-        if (shooter instanceof Player) {
+        if (shooter instanceof Player shooterPlayer) {
           if (!loadConfig.isAllowPvP()) {
             return;
-          } else if (shooter.equals(e.getEntity())) {
+          } else if (shooterPlayer.equals(e.getEntity())) {
             return; //Shooter shot himself
           }
         }

@@ -18,12 +18,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -36,9 +34,7 @@ public class BrewingInventoryClick implements Listener {
     if (e.isCancelled()) {
       return;
     }
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     ConfigLoad configLoad = new ConfigLoad();
@@ -92,7 +88,7 @@ public class BrewingInventoryClick implements Listener {
         Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
         ItemStack awkwardBottle = new ItemStack(Material.POTION, 1);
         PotionMeta awkward = (PotionMeta) awkwardBottle.getItemMeta();
-        awkward.setBasePotionData(new PotionData(PotionType.AWKWARD));
+        awkward.setBasePotionType(PotionType.AWKWARD);
         awkwardBottle.setItemMeta(awkward);
         final ItemStack ingredient = e.getCurrentItem();
         final ItemStack cursorClone = e.getCursor().clone();

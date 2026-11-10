@@ -43,14 +43,12 @@ public class ChangeStats {
   String beginnerLevelUpMessage;
   int maxLevelForBeginnerMessage;
   private Player p;
-  private String pName;
   private UUID uuid;
   private boolean isCommand;
   private boolean isSilent;
 
   public ChangeStats(Player p) {
     this.p = p;
-    this.pName = p.getDisplayName();
     this.uuid = p.getUniqueId();
     ConfigLoad loadConfig = new ConfigLoad();
     maxLevels = loadConfig.getMaxLevels();
@@ -327,32 +325,6 @@ public class ChangeStats {
     }
 
      */
-
-  private int getAutomaticPassiveSkillIncrease(String skillName, int oldLevel, int newLevel,
-      int passiveSkillIndex) {
-
-    //Get current passive tokens
-    ArrayList<Number> pStats = getPlayerSkillStats(skillName);
-    int passiveSkillLevel = (int) pStats.get(3 + passiveSkillIndex); //Get the passive skill level
-
-    //Get automatic passive tokens gained
-    int autoPassivesChange = getAutoPassiveChange(oldLevel, newLevel);
-
-    //Get the max passive skill level
-    MaxPassiveLevels passiveMax = new MaxPassiveLevels();
-    int passiveMaxLevel = passiveMax.findMaxLevel(skillName, passiveSkillIndex);
-
-    //Determine how many tokens to add
-    int automaticPassiveTokensGained;
-    if (passiveSkillLevel + autoPassivesChange >= passiveMaxLevel) {
-      automaticPassiveTokensGained =
-          passiveMaxLevel - passiveSkillLevel; //Reward the player just enough to get them the max
-    } else {
-      automaticPassiveTokensGained = autoPassivesChange; //Reward the player the normal amount
-    }
-
-    return automaticPassiveTokensGained;
-  }
 
   private int getAutoPassiveChange(int oldLevel, int newLevel) {
     double autoPassive = tokensInfo.get(0);

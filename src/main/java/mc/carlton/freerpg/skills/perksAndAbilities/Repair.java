@@ -49,7 +49,6 @@ public class Repair extends Skill {
     }
     Material toolType = itemInHand.getType();
     boolean repaired = false;
-    boolean foundItem = true;
     ItemGroups itemGroups = new ItemGroups();
     Map<Material, Material> repairItems = itemGroups.getRepairItems();
     if (repairItems.containsKey(toolType)) {

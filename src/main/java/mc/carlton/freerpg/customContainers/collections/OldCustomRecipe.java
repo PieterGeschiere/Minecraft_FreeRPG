@@ -2,13 +2,13 @@ package mc.carlton.freerpg.customContainers.collections;
 
 import java.util.ArrayList;
 import mc.carlton.freerpg.customContainers.CustomItem;
+import mc.carlton.freerpg.utils.PotionTypes;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 public class OldCustomRecipe {
@@ -155,7 +155,7 @@ public class OldCustomRecipe {
       }
     } else if (outputIsPotion()) {
       PotionMeta meta = (PotionMeta) item.getItemMeta();
-      meta.setBasePotionData(new PotionData(potionType, isExtended, isUpgraded));
+      meta.setBasePotionType(PotionTypes.of(potionType, isExtended, isUpgraded));
       item.setItemMeta(meta);
     }
     return item;

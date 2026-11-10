@@ -38,8 +38,8 @@ public class LeaderBoardFilesManager {
         allPlayerUUIDs); //Get rid of players no longer stored in player files
     Map<String, ArrayList<PlayerLeaderboardStat>> allLeaderboards = leaderboards.getLeaderboards();
     for (String skillName : allLeaderboards.keySet()) {
-      ArrayList<PlayerLeaderboardStat> leaderboard = (ArrayList<PlayerLeaderboardStat>) allLeaderboards.get(
-          skillName).clone(); //We clone here to avoid concurrent modification exception
+      ArrayList<PlayerLeaderboardStat> leaderboard = new ArrayList<>(allLeaderboards.get(
+          skillName)); //We copy here to avoid concurrent modification exception
       newYamlConfiguration.createSection(skillName);
       if (skillName.equalsIgnoreCase("global")) {
         for (int i = 0; i < leaderboard.size(); i++) {

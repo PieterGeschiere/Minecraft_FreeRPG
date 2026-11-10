@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Random;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
-import mc.carlton.freerpg.core.info.server.MinecraftVersion;
 import mc.carlton.freerpg.utils.game.FurnaceUserTracker;
 import mc.carlton.freerpg.utils.globalVariables.ExpMaps;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
@@ -202,7 +201,7 @@ public class Smelting extends Skill {
           dropAmount *= 2;
         }
       }
-    } else if (itemGroups.getAllLogs().contains(blockType)) {
+    } else if (ItemGroups.getAllLogs().contains(blockType)) {
       if (chanceDoubleLogDrop > rand.nextDouble()) {
         dropAmount *= 2;
       }

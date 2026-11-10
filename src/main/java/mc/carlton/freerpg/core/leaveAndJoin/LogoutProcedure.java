@@ -26,11 +26,9 @@ import org.bukkit.inventory.ItemStack;
 public class LogoutProcedure {
 
   Player p;
-  private String pName;
 
   public LogoutProcedure(Player p) {
     this.p = p;
-    this.pName = p.getDisplayName();
   }
 
   public void playerLogout(boolean disablePlugin) throws IOException {

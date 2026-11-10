@@ -1444,7 +1444,7 @@ public class Fishing extends Skill {
         drop = enchant.enchantItem(drop, rand.nextInt(3) + 28, true);
         break;
       case 5:
-        if (tools.contains(drop)) {
+        if (tools.contains(drop.getType())) {
           int roll = rand.nextInt(2);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.EFFICIENCY, 5);
@@ -1452,7 +1452,7 @@ public class Fishing extends Skill {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
           drop = enchant.addEnchant(drop, 30, true);
-        } else if (swords.contains(drop)) {
+        } else if (swords.contains(drop.getType())) {
           int roll = rand.nextInt(5);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.SHARPNESS, 5);
@@ -1466,7 +1466,7 @@ public class Fishing extends Skill {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
           drop = enchant.addEnchant(drop, 30, true);
-        } else if (boots.contains(drop)) {
+        } else if (boots.contains(drop.getType())) {
           int roll = rand.nextInt(5);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
@@ -1480,7 +1480,7 @@ public class Fishing extends Skill {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
           drop = enchant.addEnchant(drop, 30, true);
-        } else if (chestplate.contains(drop)) {
+        } else if (chestplate.contains(drop.getType())) {
           int roll = rand.nextInt(3);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
@@ -1490,7 +1490,7 @@ public class Fishing extends Skill {
             drop.addUnsafeEnchantment(Enchantment.MENDING, 1);
           }
           drop = enchant.addEnchant(drop, 30, true);
-        } else if (leggings.contains(drop)) {
+        } else if (leggings.contains(drop.getType())) {
           int roll = rand.nextInt(2);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);
@@ -1499,7 +1499,7 @@ public class Fishing extends Skill {
           }
           drop = enchant.addEnchant(drop, 30, true);
 
-        } else if (helmet.contains(drop)) {
+        } else if (helmet.contains(drop.getType())) {
           int roll = rand.nextInt(4);
           if (roll == 1) {
             drop.addUnsafeEnchantment(Enchantment.PROTECTION, 4);

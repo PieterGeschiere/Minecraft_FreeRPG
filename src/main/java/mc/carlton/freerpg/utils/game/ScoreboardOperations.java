@@ -6,6 +6,7 @@ import java.util.UUID;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -35,7 +36,7 @@ public class ScoreboardOperations {
         String displayName = otherPlayer.getDisplayName();
         int takenLength = (int) Math.min(displayName.length(), 11);
         String name = displayName.substring(0, takenLength) + "-frpg";
-        obj = board.registerNewObjective(name, "dummy", "test");
+        obj = board.registerNewObjective(name, Criteria.DUMMY, "test");
       }
       Score score = obj.getScore(pName);
       score.setScore(globalLevel);

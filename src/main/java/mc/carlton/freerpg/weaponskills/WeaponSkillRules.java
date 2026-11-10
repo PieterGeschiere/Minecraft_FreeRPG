@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
-import mc.carlton.freerpg.utils.game.AbilitySounds;
 import mc.carlton.freerpg.utils.game.ActionBarMessages;
 import mc.carlton.freerpg.utils.game.ExpFarmTracker;
 import org.bukkit.Bukkit;

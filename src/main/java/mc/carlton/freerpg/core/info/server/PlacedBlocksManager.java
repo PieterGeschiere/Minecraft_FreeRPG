@@ -38,7 +38,7 @@ public class PlacedBlocksManager {
   }
 
   public void setBlocksMap(HashSet<Location> newblocks) {
-    this.blocks = newblocks;
+    PlacedBlocksManager.blocks = newblocks;
   }
 
   public void addBlock(Block block) {

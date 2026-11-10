@@ -100,21 +100,4 @@ public class CustomEffect {
   public void giveEntityEffect(LivingEntity entity) {
     giveEntityEffect(entity, new Random().nextLong());
   }
-
-  /*
-   This method may not be necessary
-   IT IS ALSO INCOMPLETE AS A RESULT
-   */
-  private boolean shouldAddEffect(LivingEntity entity, CustomEffectPiece customEffectPiece) {
-    if (!entity.hasPotionEffect(customEffectPiece.getEffectType())) {
-      return true;
-    }
-    PotionEffect currentEffect = entity.getPotionEffect(customEffectPiece.getEffectType());
-    int futureCurrentEffectLength = currentEffect.getDuration()
-        - customEffectPiece.getDelay(); //The length of the effect when the effect may be added, in ticks
-    if (futureCurrentEffectLength > customEffectPiece.getDuration()) {
-      return false;
-    }
-    return true;
-  }
 }

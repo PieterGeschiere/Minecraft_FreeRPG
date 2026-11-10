@@ -10,18 +10,19 @@ import mc.carlton.freerpg.customContainers.collections.CustomEffect;
 import mc.carlton.freerpg.customContainers.collections.CustomRecipe;
 import mc.carlton.freerpg.customContainers.collections.DropTable;
 import mc.carlton.freerpg.customContainers.collections.MobDropTable;
+import mc.carlton.freerpg.utils.PotionTypes;
 import mc.carlton.freerpg.utils.UtilityMethods;
+import mc.carlton.freerpg.utils.globalVariables.EffectTypeCompat;
 import org.apache.logging.log4j.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
@@ -54,7 +55,6 @@ public class CustomContainerImporter {
   private static final String INVALID_POTION_LEVEL = "Invalid Potion Level: ";
   private static final String EXPECTED_LIST = "Expected List at config node: ";
   private static final String EXPECTED_LIST_OF_MAPS = "Expected List elements to be Maps/Dictionaries at config node: ";
-  private static final String UNKNOWN_CONFIG_LOCATION = "Unknown Config Location";
   private static final String POTION_EFFECT_TYPE_INVALID = "Potion Effect Type Parameters Invalid";
   private static final String INVALID_POTION_COLOR = "RGB values must be in the range 0 - 255";
   private static final String ITEM_TYPE_REQUIRED = "An Item Type is required for a custom item";
@@ -132,7 +132,7 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<EntityDamageEvent.DamageCause> damageCauseList = new ArrayList<>();
-    for (Object damageCauseString : (List) configDamageCauseList) {
+    for (Object damageCauseString : (List<?>) configDamageCauseList) {
       EntityDamageEvent.DamageCause damageCause = UtilityMethods.matchDamageCause(
           damageCauseString.toString());
       if (damageCause != null) {
@@ -150,7 +150,7 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<Material> materialList = new ArrayList<>();
-    for (Object materialTypeString : (List) configMaterialList) {
+    for (Object materialTypeString : (List<?>) configMaterialList) {
       Material material = Material.matchMaterial(materialTypeString.toString());
       if (material != null) {
         materialList.add(material);
@@ -167,7 +167,7 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<EntityType> entityTypeList = new ArrayList<>();
-    for (Object entityTypeString : (List) configEntityTypeList) {
+    for (Object entityTypeString : (List<?>) configEntityTypeList) {
       EntityType entityType = UtilityMethods.matchEntityType(entityTypeString.toString());
       if (entityType != null) {
         entityTypeList.add(entityType);
@@ -184,9 +184,9 @@ public class CustomContainerImporter {
       return null;
     }
     Map<CustomItem, CustomItem> customItemMap = new HashMap<>();
-    for (Object configCustomItemMap : (List) configCustomItemMapping) {
+    for (Object configCustomItemMap : (List<?>) configCustomItemMapping) {
       if (configCustomItemMap instanceof Map) {
-        Map oldDropNewDropNodes = (Map) configCustomItemMapping;
+        Map<?, ?> oldDropNewDropNodes = (Map<?, ?>) configCustomItemMap;
         if (oldDropNewDropNodes.containsKey(OLD_DROP_KEYWORD) && oldDropNewDropNodes.containsKey(
             NEW_DROP_KEYWORD)) {
           CustomItem oldCustomItem = getCustomItem(oldDropNewDropNodes.get(OLD_DROP_KEYWORD));
@@ -206,29 +206,28 @@ public class CustomContainerImporter {
     return customItemMap;
   }
 
-  public List<PotionData> getPotionDataList(Object configPotionDataList) {
+  public List<PotionType> getPotionDataList(Object configPotionDataList) {
     if (!(configPotionDataList instanceof List)) {
       printReadInError();
       return null;
     }
-    ArrayList<PotionData> potionDataList = new ArrayList<>();
-    for (Object configPotionDataRow : (List) configPotionDataList) {
+    ArrayList<PotionType> potionDataList = new ArrayList<>();
+    for (Object configPotionDataRow : (List<?>) configPotionDataList) {
       Map<String, Object> potionDataRow = convertListedTableRowToMap(configPotionDataRow);
-      PotionData potionData = null;
-      if (potionDataRow.containsKey(EFFECT_KEYWORD) && potionDataRow.containsKey(
-          IS_EXTENDED_KEYWORD)) {
-        potionData = new PotionData(
-            UtilityMethods.matchPotionType(potionDataRow.get(EFFECT_KEYWORD).toString()),
-            Boolean.valueOf(potionDataRow.get(IS_EXTENDED_KEYWORD).toString()), false);
-      } else if (potionDataRow.containsKey(EFFECT_KEYWORD) && potionDataRow.containsKey(
-          IS_EXTENDED_KEYWORD)) {
-        potionData = new PotionData(
-            UtilityMethods.matchPotionType(potionDataRow.get(EFFECT_KEYWORD).toString()), false,
-            Boolean.valueOf(potionDataRow.get(IS_UPGRADED_KEYWORD).toString()));
+      if (potionDataRow == null || !potionDataRow.containsKey(EFFECT_KEYWORD)) {
+        continue;
       }
-      if (potionData != null) {
-        potionDataList.add(potionData);
+      PotionType baseType = UtilityMethods.matchPotionType(
+          potionDataRow.get(EFFECT_KEYWORD).toString());
+      if (baseType == null) {
+        printReadInError(INVALID_POTION_TYPE + potionDataRow.get(EFFECT_KEYWORD));
+        continue;
       }
+      boolean isExtended = potionDataRow.containsKey(IS_EXTENDED_KEYWORD)
+          && Boolean.parseBoolean(potionDataRow.get(IS_EXTENDED_KEYWORD).toString());
+      boolean isUpgraded = potionDataRow.containsKey(IS_UPGRADED_KEYWORD)
+          && Boolean.parseBoolean(potionDataRow.get(IS_UPGRADED_KEYWORD).toString());
+      potionDataList.add(PotionTypes.of(baseType, isExtended, isUpgraded));
     }
     return potionDataList;
 
@@ -252,7 +251,7 @@ public class CustomContainerImporter {
       return null;
     }
     MobDropTable mobdropTable = new MobDropTable();
-    for (Object configRow : (List) configMobDropTable) {
+    for (Object configRow : (List<?>) configMobDropTable) {
       CustomItem dropTableItem = getCustomItem(configRow);
       if (dropTableItem != null) {
         Map<String, Object> row = convertListedTableRowToMap(configRow);
@@ -273,7 +272,7 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<CustomItem> dropTableList = new ArrayList<>();
-    for (Object configItem : (List) configDropTable) {
+    for (Object configItem : (List<?>) configDropTable) {
       CustomItem dropTableItem = getCustomItem(configItem);
       if (dropTableItem != null) {
         dropTableList.add(dropTableItem);
@@ -288,7 +287,7 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<CustomRecipe> customRecipes = new ArrayList<>();
-    List configRecipesList = (List) configRecipes;
+    List<?> configRecipesList = (List<?>) configRecipes;
     for (int i = 0; i < configRecipesList.size(); i++) {
       CustomRecipe newRecipe = getCustomRecipe(configRecipesList.get(i),
           newRecipesBaseId + UtilityMethods.toAlphabetic(i));
@@ -305,8 +304,8 @@ public class CustomContainerImporter {
       return null;
     }
     Map<String, Object> recipeInformation = new HashMap<>();
-    for (Object object : ((Map) configRecipe).keySet()) {
-      recipeInformation.put(object.toString(), ((Map) configRecipe).get(object));
+    for (Object object : ((Map<?, ?>) configRecipe).keySet()) {
+      recipeInformation.put(object.toString(), ((Map<?, ?>) configRecipe).get(object));
     }
     CustomItem output = null;
     ArrayList<Material> recipe = null;
@@ -367,7 +366,7 @@ public class CustomContainerImporter {
       return null;
     }
     CustomEffect customEffect = new CustomEffect();
-    for (Object configEffectPiece : (List) configEffect) {
+    for (Object configEffectPiece : (List<?>) configEffect) {
       CustomEffectPiece customEffectPiece = getCustomEffectPiece(configEffectPiece);
       if (customEffectPiece != null) {
         customEffect.addEffect(customEffectPiece);
@@ -491,7 +490,7 @@ public class CustomContainerImporter {
       customItemContainer.setEnchantmentLevelRange(lowerBound, upperBound);
       customItemContainer.setTreasure(isTreasure);
     } else if (UtilityMethods.stringCollectionContainsIgnoreCase(ENCHANTMENTS_KEYWORDS, mapKey)) {
-      List enchantmentsListUnParsed = getList(value);
+      List<?> enchantmentsListUnParsed = getList(value);
       if (enchantmentsListUnParsed == null) {
         return;
       }
@@ -546,7 +545,7 @@ public class CustomContainerImporter {
       Map<String, Object> minecraftPotionInfo = getMap(value, true);
 
       if (minecraftPotionInfo == null) { //Custom Potion Case
-        List customEffectInfoUnParsed = getList(value);
+        List<?> customEffectInfoUnParsed = getList(value);
         if (customEffectInfoUnParsed == null) {
           return;
         }
@@ -675,7 +674,7 @@ public class CustomContainerImporter {
       printReadInError(INVALID_RECIPE_ARRAYLIST + value.toString());
       return null;
     }
-    List valueList = (List) value;
+    List<?> valueList = (List<?>) value;
     if (valueList.size() != 9) {
       printReadInError(INVALID_RECIPE_ARRAYLIST + value.toString());
       return null;
@@ -696,6 +695,7 @@ public class CustomContainerImporter {
     return getMap(value, false);
   }
 
+  @SuppressWarnings("unchecked") // every key is checked to be a String above the cast
   private Map<String, Object> getMap(Object value, boolean silent) {
     if (!(value instanceof Map)) {
       if (!silent) {
@@ -703,7 +703,7 @@ public class CustomContainerImporter {
       }
       return null;
     }
-    for (Object object : ((Map) value).keySet()) {
+    for (Object object : ((Map<?, ?>) value).keySet()) {
       if (!(object instanceof String)) {
         if (!silent) {
           printReadInError();
@@ -714,16 +714,16 @@ public class CustomContainerImporter {
     return (Map<String, Object>) value;
   }
 
-  private List getList(Object value) {
+  private List<?> getList(Object value) {
     if (!(value instanceof List)) {
       printReadInError();
       return null;
     }
-    return (List) value;
+    return (List<?>) value;
   }
 
   private Enchantment getEnchantment(Object value) {
-    Enchantment enchantment = EnchantmentWrapper.getByKey(
+    Enchantment enchantment = Registry.ENCHANTMENT.get(
         NamespacedKey.minecraft(value.toString().toLowerCase()));
     if (enchantment == null) {
       printReadInError(INVALID_ENCHANTMENT + value.toString());
@@ -742,7 +742,7 @@ public class CustomContainerImporter {
   }
 
   private PotionEffectType getEffectType(Object value) {
-    PotionEffectType effectType = PotionEffectType.getByName(value.toString().toUpperCase());
+    PotionEffectType effectType = EffectTypeCompat.parse(value.toString());
     if (effectType == null) {
       printReadInError(INVALID_EFFECT_TYPE + value.toString());
       return null;
@@ -776,29 +776,6 @@ public class CustomContainerImporter {
     FreeRPG.log(Level.INFO, IMPROPER_CONFIG + configPath + " (" + extraMessage + ")");
   }
 
-  private Object getOnlyKey(Map map) {
-    Object mapKey = null;
-    if (map.keySet().size() > 1) {
-      printReadInError();
-    }
-    for (Object key : map.keySet()) { //We assume the keyset is size one
-      mapKey = key;
-    }
-    return mapKey;
-  }
-
-  private Object getOnlyKey(Map map, String extraErrorMessage) {
-    Object mapKey = null;
-    if (map.keySet().size() > 1) {
-      printReadInError(extraErrorMessage);
-    }
-    for (Object key : map.keySet()) { //We assume the keyset is size one
-      mapKey = key;
-    }
-    return mapKey;
-  }
-
-
   /**
    * Converts a "Table" (which is a list of a list of config nodes) to an easier to read form
    *
@@ -807,7 +784,7 @@ public class CustomContainerImporter {
    * rows.
    */
   public List<Map<String, Object>> getConfigTableInformation(YamlConfiguration config) {
-    List configTable = config.getList(configPath);
+    List<?> configTable = config.getList(configPath);
     if (configTable == null) {
       FreeRPG.log(Level.INFO, EXPECTED_LIST + configPath);
       return null;
@@ -828,24 +805,12 @@ public class CustomContainerImporter {
       return null;
     }
     ArrayList<Map<String, Object>> tableInformation = new ArrayList<>();
-    for (Object tableRow : (List) configTable) {
+    for (Object tableRow : (List<?>) configTable) {
       tableInformation.add(convertListedTableRowToMap(tableRow));
     }
     return tableInformation;
   }
 
-
-  /*
-   * Converts a "Table" (which is a list of a list of config nodes) to an easier to read form
-   * This version will not print where the config is if an errors occurs
-   * @param configTable A "table" from a config file, a list of a list of nodes.
-   * @return A list of maps of config nodes, for each item in the "table" This acts as a list of rows.
-   */
-    /*
-    public List<Map<String,Object>> getConfigTableInformation(List configTable) {
-        return getConfigTableInformation(configTable,UNKNOWN_CONFIG_LOCATION);
-    }
-    */
 
   /**
    * Converts List of config nodes to a Map format (removes extraneous lists used to compact lines
@@ -860,18 +825,18 @@ public class CustomContainerImporter {
       return null;
     }
     Map<String, Object> tableRow = new HashMap<>();
-    if (!UtilityMethods.collectionOnlyContainsOneClass((List) listOfConfigNodes,
+    if (!UtilityMethods.collectionOnlyContainsOneClass((List<?>) listOfConfigNodes,
         Map.class)) { //Checks if the list only contains maps first
       FreeRPG.log(Level.INFO,EXPECTED_LIST_OF_MAPS + configPath);
       return null;
     }
-    for (Object tableElementObject : (List) listOfConfigNodes) {
-      Map tableElement = (Map) tableElementObject;
+    for (Object tableElementObject : (List<?>) listOfConfigNodes) {
+      Map<?, ?> tableElement = (Map<?, ?>) tableElementObject;
       for (Object key : tableElement.keySet()) {
         Object value = tableElement.get(key);
         if (value instanceof List) {
-          if (!((List) value).isEmpty()) {
-            if (UtilityMethods.collectionOnlyContainsOneClass((List) value, Map.class)) {
+          if (!((List<?>) value).isEmpty()) {
+            if (UtilityMethods.collectionOnlyContainsOneClass((List<?>) value, Map.class)) {
               value = convertListedTableRowToMap(value);
             }
           }

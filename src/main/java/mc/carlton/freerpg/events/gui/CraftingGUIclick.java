@@ -13,11 +13,7 @@ public class CraftingGUIclick implements Listener {
 
   @EventHandler
   public void clickEvent(InventoryClickEvent e) {
-    boolean proceed = true;
-    try {
-      InventoryType invType = e.getClickedInventory().getType();
-    } catch (Exception except) {
-      proceed = false;
+    if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
     if (e.getView().getTitle().equalsIgnoreCase("Crafting Recipe")) {

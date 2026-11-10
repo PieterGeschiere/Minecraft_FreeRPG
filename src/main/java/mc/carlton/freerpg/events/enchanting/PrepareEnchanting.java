@@ -27,7 +27,7 @@ public class PrepareEnchanting implements Listener {
     Player p = (Player) e.getEnchanter();
     Enchanting enchantingClass = new Enchanting(p);
     EnchantmentOffer[] oldOffers = e.getOffers();
-    EnchantmentOffer[] newOffers = enchantingClass.enchantmentDiscount(oldOffers);
+    enchantingClass.enchantmentDiscount(oldOffers); //Lowers the offer costs in place
 
   }
 }

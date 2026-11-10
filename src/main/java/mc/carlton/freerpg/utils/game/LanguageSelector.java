@@ -22,7 +22,6 @@ public class LanguageSelector {
       } else {
         this.playerLanguage = languageStat.getPlayerLanguage();
       }
-      StringsAndOtherData stringsAndOtherData = new StringsAndOtherData();
     }
   }
 

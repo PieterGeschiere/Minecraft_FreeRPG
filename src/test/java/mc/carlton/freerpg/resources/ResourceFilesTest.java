@@ -113,7 +113,6 @@ class ResourceFilesTest {
 
   @Test
   void advancedConfigHasNoDuplicateKeysInASection() throws Exception {
-    java.util.List<String> keysByPath = new java.util.ArrayList<>();
     java.util.Deque<String> path = new java.util.ArrayDeque<>();
     java.util.Deque<Integer> indents = new java.util.ArrayDeque<>();
     java.util.Set<String> seen = new java.util.HashSet<>();

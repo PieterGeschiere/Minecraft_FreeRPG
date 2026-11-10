@@ -13,7 +13,6 @@ import mc.carlton.freerpg.skills.perksAndAbilities.Fishing;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -33,7 +32,6 @@ public class PlayerLeftClick implements Listener {
       if (p.getGameMode() == GameMode.CREATIVE) {
         return;
       }
-      World world = p.getWorld();
       Material itemType = p.getInventory().getItemInMainHand().getType();
 
       ItemGroups itemGroups = new ItemGroups();
