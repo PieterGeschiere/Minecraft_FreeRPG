@@ -146,6 +146,15 @@ of Arrow Storm and the bolts of Blast Bolt (a layer for each perk you own, like 
 Volley or a glow for Marked Prey), and rings and floating damage numbers where Blast Bolt and
 Piercing Rush hit.
 
+**Effects for the main skills and perks**: the abilities of the main skills (Big Dig, Timber, Berserk
+Pick, Natural Regeneration, Super Bait, Rapid Fire, Spur Kick, Swift Strikes, Stone Soldier and Great
+Axe) have a burst, an aura while they last and a puff when they end, each fitting the skill. The perks
+you trigger yourself have effects too: Grappling Hook (a rope to the hook), Super Bait's extra catch,
+Rob, Vein Miner, Leaf Blower, Growth Hormones, Roll and Dodge. All of these are played in the world, so
+other players nearby see and hear them (only the "ability ready again" chime is private). They can be
+switched off in the `effects:` section of `weaponSkills.yml` with `skillAbilitySounds`,
+`skillAbilityParticles`, `perkSounds` and `perkParticles`.
+
 
 ## Parties
 

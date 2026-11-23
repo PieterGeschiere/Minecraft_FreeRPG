@@ -15,6 +15,11 @@ import org.bukkit.entity.Player;
  */
 public final class AbilityVisuals {
 
+  /** The main skills that have an ability with effects (the same names as in AbilitySounds). */
+  public static final java.util.List<String> SKILLS = java.util.List.of("digging", "woodcutting",
+      "mining", "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense",
+      "axeMastery");
+
   private AbilityVisuals() {
   }
 
@@ -51,6 +56,9 @@ public final class AbilityVisuals {
 
   /** The burst when an ability starts: a ring on the ground and particles of the skill. */
   public static void burst(Player p, String skill) {
+    if (!EffectSettings.skillAbilityParticles()) {
+      return;
+    }
     World world = p.getWorld();
     Location feet = p.getLocation().add(0, 0.15, 0);
     Location chest = p.getLocation().add(0, 1.0, 0);
@@ -111,6 +119,9 @@ public final class AbilityVisuals {
 
   /** The light effect that repeats while an ability is active (called every 2 ticks). */
   public static void aura(Player p, String skill, int tick) {
+    if (!EffectSettings.skillAbilityParticles()) {
+      return;
+    }
     World world = p.getWorld();
     Location base = p.getLocation();
     Location chest = base.clone().add(0, 1.0, 0);
@@ -167,6 +178,9 @@ public final class AbilityVisuals {
 
   /** The puff when an ability ends. */
   public static void end(Player p, String skill) {
+    if (!EffectSettings.skillAbilityParticles()) {
+      return;
+    }
     p.getWorld().spawnParticle(Particle.CLOUD, p.getLocation().add(0, 1, 0), 12, 0.4, 0.5, 0.4,
         0.02);
   }

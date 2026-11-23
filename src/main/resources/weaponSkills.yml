@@ -24,6 +24,12 @@ effects:
   arrowTrails: true     # Particle trails on the arrows of Arrow Storm and the bolts of Blast Bolt
   impactRings: true     # Rings where Blast Bolt and Piercing Rush hit
   damageNumbers: true   # Floating damage numbers for Blast Bolt and Piercing Rush
+  # The next four are for the main skills (Mining, Fishing, ...), not the weapon skills. They are
+  # read here so that all effect switches are in one place.
+  skillAbilitySounds: true     # Sounds when a main skill ability (Big Dig, Timber, ...) starts and ends
+  skillAbilityParticles: true  # Burst, aura and puff of the main skill abilities
+  perkSounds: true             # Sounds of Grappling Hook, Super Bait, Rob, Vein Miner, Leaf Blower, Growth Hormones, Roll and Dodge
+  perkParticles: true          # Particles of those same perks
 
 mace:
   skillAllowed: true           # Set to false to disable Mace Mastery completely
