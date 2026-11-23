@@ -1,0 +1,59 @@
+# FreeRPG parties. Every value has a default, so you can delete any line you do not need.
+# Reload with /frpg party reload
+
+# Maximum number of members in one party
+maxSize: 5
+
+# Seconds an invite stays valid
+inviteExpirySeconds: 60
+
+# Bonus XP: the player who earns XP keeps 100%. Nearby party members get a share in the same skill.
+xpShare:
+  enabled: true
+  # Percent of the earned XP every nearby member receives
+  percent: 25
+  # Members further away than this many blocks (or in another world) get nothing
+  radius: 30
+  # Members who have not moved for this many seconds are AFK and get nothing
+  afkSeconds: 120
+
+friendlyFire:
+  # Default for new parties. Owners and officers can change it in the party menu.
+  default: false
+
+spawn:
+  # Allow /party setspawn and /party spawn
+  enabled: true
+
+# Teleport requests (/party tpa) and the party spawn (/party spawn)
+tpa:
+  # Seconds a request stays valid
+  expirySeconds: 60
+  # Seconds before the same player can start another teleport
+  cooldownSeconds: 30
+  # Seconds the player has to stand still (turning the head is fine)
+  warmupSeconds: 5
+  # Seconds after taking or dealing damage during which teleporting is blocked
+  combatSeconds: 10
+  allowCrossWorld: true
+  # Worlds nobody can teleport from or to
+  blockedWorlds: []
+  effects:
+    enabled: true
+    # Particles during the warmup, and the burst at both ends (names of org.bukkit.Particle)
+    particle: PORTAL
+    burstParticle: REVERSE_PORTAL
+    # Played at both ends, heard by everyone nearby (name of org.bukkit.Sound)
+    sound: ENTITY_ENDERMAN_TELEPORT
+
+display:
+  # A blue P in front of party members' names in the tab list
+  tablist: true
+  # A blue P in front of party members' names above their heads
+  nameplate: true
+
+inactivity:
+  # An owner offline for this many days hands the party to an active officer or member (0 = off)
+  ownerTransferDays: 30
+  # A party whose members have all been offline for this many days is deleted (0 = off)
+  deleteDays: 60
