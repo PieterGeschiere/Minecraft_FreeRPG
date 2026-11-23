@@ -177,6 +177,15 @@ public class FreeRPGPlaceHolders extends PlaceholderExpansion {
     if (p == null) {
       return "";
     }
+    // Party placeholders: %freerpg_party_name%, _role, _owner, _size, _maxSize, _online, _open,
+    // _friendlyFire. Answered from memory, before any player stats are loaded.
+    if (identifierParts.length == 2 && identifierParts[0].equalsIgnoreCase("party")
+        && mc.carlton.freerpg.party.Parties.manager() != null) {
+      mc.carlton.freerpg.party.PartyManager partyManager = mc.carlton.freerpg.party.Parties.manager();
+      return mc.carlton.freerpg.party.PartyPlaceholderValues.resolve(identifierParts[1],
+          partyManager.partyOf(p.getUniqueId()), p.getUniqueId(),
+          mc.carlton.freerpg.party.Parties::isOnline, partyManager.maxSize());
+    }
     // Weapon skills: %freerpg_maceMastery_Level%, _EXP, _passiveTokens, _skillTokens, _EXPtoNext, _rank
     if (identifierParts.length >= 2) {
       mc.carlton.freerpg.weaponskills.WeaponSkill weaponSkill =

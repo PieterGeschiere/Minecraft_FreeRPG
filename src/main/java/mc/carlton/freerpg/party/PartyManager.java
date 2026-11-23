@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 /** All parties in memory and every change to them. Pure Java; changes are announced as events. */
 public final class PartyManager {
 
-  private final int maxSize;
+  private int maxSize;
   private final Consumer<PartyEvent> sink;
   private final Map<String, Party> parties = new LinkedHashMap<>();
   private final Map<UUID, Party> index = new HashMap<>();
@@ -26,6 +26,10 @@ public final class PartyManager {
 
   public int maxSize() {
     return maxSize;
+  }
+
+  public void setMaxSize(int maxSize) {
+    this.maxSize = maxSize;
   }
 
   // ---------------------------------------------------------------- queries

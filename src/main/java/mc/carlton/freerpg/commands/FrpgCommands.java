@@ -479,6 +479,15 @@ public class FrpgCommands implements CommandExecutor {
     }
     gui.addItem(weapons);
 
+    //Parties
+    if (p.hasPermission("freerpg.party.use")) {
+      GuiItem partyIcon = new GuiItem(Material.WHITE_BANNER, 40, gui);
+      partyIcon.setName(lang.getString("partyMenuMain"));
+      partyIcon.setNameColor(nameColor);
+      partyIcon.setDescription(lang.getString("partyMenuMainDesc"));
+      gui.addItem(partyIcon);
+    }
+
     //Put the items in the inventory
     gui.displayGuiForPlayer();
   }
