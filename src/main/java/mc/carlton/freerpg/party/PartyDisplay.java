@@ -39,8 +39,8 @@ public final class PartyDisplay {
   private static void updateTablist(Player p) {
     if (PartyConfig.displayTablist() && inParty(p)) {
       p.setPlayerListName(PREFIX + p.getName());
-    } else {
-      p.setPlayerListName(null);
+    } else if (p.getPlayerListName().startsWith(PREFIX)) {
+      p.setPlayerListName(null); // only undo our own marker, never another plugin's name
     }
   }
 
@@ -76,7 +76,9 @@ public final class PartyDisplay {
   /** Removes everything again (plugin shutdown). */
   public static void clearAll() {
     for (Player p : Bukkit.getOnlinePlayers()) {
-      p.setPlayerListName(null);
+      if (p.getPlayerListName().startsWith(PREFIX)) {
+        p.setPlayerListName(null);
+      }
       Team team = p.getScoreboard().getTeam(TEAM_NAME);
       if (team != null) {
         team.unregister();
