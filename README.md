@@ -147,6 +147,55 @@ Volley or a glow for Marked Prey), and rings and floating damage numbers where B
 Piercing Rush hit.
 
 
+## Parties
+
+Play together in a party. `/party` opens the party menu (also reachable with the banner icon in the
+`/frpg` main menu) with the party name, its members, and every setting. Parties are saved in
+`plugins/FreeRPG/parties/` and settings live in `party.yml` (reload with `/frpg party reload`).
+
+* **Roles:** *Owner*, *Officer* and *Member*. A party owner who is offline keeps the party. Ownership
+  only moves when the owner leaves (to the longest-standing officer, then member), uses
+  `/party transfer`, or has been offline for 30 days (it goes to an active officer or member and the
+  former owner becomes an officer). A party whose members have all been offline for 60 days is deleted.
+* **Open or invite only:** owners and officers can open a party so anyone can join with
+  `/party join <party name>` or `/party join <owner name>`. Otherwise players need an invite
+  (`/party invite <player>`, with clickable **[Accept] [Deny]** buttons in chat).
+* **Bonus XP:** you keep all your XP. Party members within 30 blocks (same world, online, not AFK)
+  also get 25% of it in the same skill, for the main skills and the weapon skills. Owners and
+  officers can switch it on or off for the party, and every member can switch off receiving it.
+* **Friendly fire:** off by default, owners and officers can turn it on in the menu.
+* **Teleporting:** `/party tpa <member>` asks to teleport to a party member (they answer with the
+  chat buttons or `/party tpaccept` / `/party tpdeny`). Owners and officers can set a party spawn with
+  `/party setspawn` and everyone in the party can use `/party spawn`. You have to stand still for 5
+  seconds (turning your head is fine), with a particle effect and sound everyone nearby sees and
+  hears. Not possible in combat or while riding, and blocked worlds and WorldGuard regions that deny
+  entry are respected. `/party tptoggle` turns teleport requests off.
+* **Tab list and name:** party members get a blue **P** before their name.
+
+| Command | What it does |
+|---|---|
+| `/party` | Opens the party menu |
+| `/party create <name>` | Creates a party (3-16 letters, numbers or `_`) |
+| `/party invite <player>` | Invites a player (owner, officer) |
+| `/party accept [party]` / `deny [party]` | Answers an invite |
+| `/party join <party or owner>` | Joins an open party |
+| `/party leave` / `list` | Leaves your party / shows it |
+| `/party kick <player>` | Kicks a member (officers cannot kick officers) |
+| `/party promote` / `demote <player>` | Makes a member an officer, or back (owner) |
+| `/party transfer <player>` / `disband` | Gives the party away / ends it (owner) |
+| `/party open` / `closed` | Anyone can join / invite only (owner, officer) |
+| `/party xpshare [on/off]` | Bonus XP sharing (owner, officer) |
+| `/party friendlyfire [on/off]` | Friendly fire (owner, officer) |
+| `/party setspawn` / `spawn` | Sets / teleports to the party spawn |
+| `/party tpa <member>`, `tpaccept`, `tpdeny`, `tptoggle` | Teleport requests |
+| `/party receivexp [on/off]` | Receive shared XP or not |
+| `/frpg party disband <party>`, `kick <player>`, `reload`, `info <party>` | Administration |
+
+Permissions: `freerpg.party.use` and `freerpg.party.create` (everyone by default) and
+`freerpg.party.admin` (ops). With PlaceholderAPI you also get `%freerpg_party_name%`, `_role`,
+`_owner`, `_size`, `_maxSize`, `_online`, `_open` and `_friendlyFire`. The texts are in English only
+for now; other languages show the English text.
+
 ## Repair and Salvage Stations
 
 Repairing and salvaging no longer works on every iron or gold block, so you can build freely with

@@ -479,6 +479,15 @@ public class FrpgCommands implements CommandExecutor {
     }
     gui.addItem(weapons);
 
+    //Parties
+    if (p.hasPermission("freerpg.party.use")) {
+      GuiItem partyIcon = new GuiItem(Material.WHITE_BANNER, 40, gui);
+      partyIcon.setName(lang.getString("partyMenuMain"));
+      partyIcon.setNameColor(nameColor);
+      partyIcon.setDescription(lang.getString("partyMenuMainDesc"));
+      gui.addItem(partyIcon);
+    }
+
     //Put the items in the inventory
     gui.displayGuiForPlayer();
   }
@@ -865,6 +874,11 @@ public class FrpgCommands implements CommandExecutor {
       Player p = (Player) sender;
       generateMainMenu(p); //Generates the Main GUI
       return true;
+    }
+
+    //Party administration (/frpg party disband|kick|reload|info)
+    else if (args[0].equalsIgnoreCase("party")) {
+      return mc.carlton.freerpg.party.PartyAdminCommands.handle(sender, args);
     }
 
     //Weapon skills menu (Mace Mastery, ...)

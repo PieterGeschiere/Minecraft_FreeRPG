@@ -8,6 +8,9 @@ description: RPG skill system for Minecraft 26.3 (fork of FreeRPG by Jack Carlto
 website: https://github.com/PieterGeschiere/Minecraft_FreeRPG
 softdepend: [ WorldGuard,PlaceholderAPI ]
 commands:
+  party:
+    description: Parties - play together, share bonus XP and teleport to party members
+    usage: /party [help]
   frpg:
     description: Main FreeRPG command, type /frpg help for more info
     aliases: [ rpgFree ]
@@ -391,3 +394,12 @@ permissions:
   freeRPG.statLookup:
     description: allows player to look up any player's stats
     default: true
+  freerpg.party.use:
+    description: allows the player to use parties (/party)
+    default: true
+  freerpg.party.create:
+    description: allows the player to create a party
+    default: true
+  freerpg.party.admin:
+    description: allows the player to use /frpg party disband, kick, reload and info
+    default: op

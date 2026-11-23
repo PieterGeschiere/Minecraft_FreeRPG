@@ -78,12 +78,35 @@ public class FrpgTabCompleter implements TabCompleter {
           allowed.add(entry.getKey());
         }
       }
+      if (sender.hasPermission("freerpg.party.admin")) {
+        allowed.add("party"); // party administration
+      }
       return filter(allowed, args[0]);
     }
 
     String sub = args[0].toLowerCase(Locale.ROOT);
     String last = args[args.length - 1];
     switch (sub) {
+      case "party":
+        if (!sender.hasPermission("freerpg.party.admin")) {
+          return new ArrayList<>();
+        }
+        if (args.length == 2) {
+          return filter(java.util.List.of("disband", "kick", "reload", "info"), last);
+        }
+        if (args.length == 3 && !args[1].equalsIgnoreCase("reload")) {
+          List<String> names = new ArrayList<>();
+          for (mc.carlton.freerpg.party.Party party
+              : mc.carlton.freerpg.party.Parties.manager().all()) {
+            if (args[1].equalsIgnoreCase("kick")) {
+              party.members().forEach(m -> names.add(String.valueOf(m.lastName())));
+            } else {
+              names.add(party.name());
+            }
+          }
+          return filter(names, last);
+        }
+        return new ArrayList<>();
       // /frpg <command> [skill]
       case "skilltree":
       case "skilltreegui":

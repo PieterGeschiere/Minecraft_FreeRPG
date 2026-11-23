@@ -67,6 +67,20 @@ public class WorldGuardChecks {
     }
   }
 
+  /** Whether the player may enter the region at the location (used by party teleports). */
+  public boolean canEnter(Player p, Location l) {
+    if (!worldGuardPresent || !inRegion(l)) {
+      return true;
+    }
+    RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+    LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+    com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(l);
+    if (hasBypass(localPlayer)) {
+      return true;
+    }
+    return query.testState(loc, localPlayer, Flags.ENTRY);
+  }
+
   public boolean canDamageEntities(Player p, Location l) {
     if (!worldGuardPresent) {
       return true;

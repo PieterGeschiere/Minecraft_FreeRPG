@@ -1,0 +1,7 @@
+package mc.carlton.freerpg.party;
+
+/** Outcome of a party action. */
+public enum PartyResult {
+  OK, NO_PERMISSION, NOT_IN_PARTY, ALREADY_IN_PARTY, NAME_INVALID, NAME_TAKEN, NOT_FOUND,
+  PARTY_FULL, PARTY_CLOSED, TARGET_NOT_MEMBER, TARGET_PROTECTED, ALREADY_ROLE, SELF_TARGET
+}

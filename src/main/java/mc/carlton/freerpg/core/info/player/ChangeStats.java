@@ -118,6 +118,11 @@ public class ChangeStats {
       ArrayList<Number> pStats = pStatAll.get(skillName);
       ArrayList<Number> pGlobalStats = pStatAll.get("global");
 
+      //Party members nearby get a share of the base exp (not shared again when it is a share)
+      if (!isCommand) {
+        mc.carlton.freerpg.party.PartyXpShare.onMainSkillExp(p, skillName, expChange);
+      }
+
       //Multipliers
       if (!isCommand) {
         expChange = (int) Math.ceil(

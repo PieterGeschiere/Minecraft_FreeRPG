@@ -34,6 +34,9 @@ public class MainGUIclick implements Listener {
           case MACE:
             p.performCommand("frpg weapons");
             break;
+          case WHITE_BANNER:
+            p.performCommand("party");
+            break;
           case NETHER_STAR:
             p.performCommand("frpg skillTreeGUI global");
             break;
