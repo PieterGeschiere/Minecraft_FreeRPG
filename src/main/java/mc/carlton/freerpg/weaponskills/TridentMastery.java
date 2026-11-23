@@ -447,7 +447,7 @@ public class TridentMastery implements Listener {
         "ability", SKILL.getAbilityName(), "seconds",
         Double.toString(Math.round(duration * 10) / 10.0), "count",
         Integer.toString(getAbilityCharges())));
-    p.playSound(p.getLocation(), Sound.AMBIENT_UNDERWATER_ENTER, 1f, 1f);
+    AbilityEffects.sound(p.getLocation(), Sound.AMBIENT_UNDERWATER_ENTER, 1f, 1f);
     AbilityEffects.activated(p, SKILL, data);
     UUID uuid = p.getUniqueId();
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {

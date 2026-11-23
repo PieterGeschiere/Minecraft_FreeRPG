@@ -44,15 +44,17 @@ public final class AbilitySounds {
   public static void activate(Player p, String skillName) {
     Cue cue = ACTIVATE.get(skillName);
     if (cue != null && p.isOnline()) {
-      p.playSound(p.getLocation(), cue.sound, 1f, cue.pitch);
-      p.playSound(p.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.4f);
+      p.getWorld().playSound(p.getLocation(), cue.sound, 1f, cue.pitch);
+      p.getWorld().playSound(p.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.4f);
+      AbilityVisuals.burst(p, skillName);
     }
   }
 
   /** Plays the sound for an ability that ran out. */
   public static void end(Player p, String skillName) {
     if (ACTIVATE.containsKey(skillName) && p.isOnline()) {
-      p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 0.5f, 1.2f);
+      p.getWorld().playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 0.5f, 1.2f);
+      AbilityVisuals.end(p, skillName);
     }
   }
 

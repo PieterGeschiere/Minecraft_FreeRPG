@@ -492,6 +492,7 @@ public class Woodcutting extends Skill {
     World world = initialBlock.getWorld();
     ConfigLoad configLoad = new ConfigLoad();
     damageTool(numLeaves, configLoad.getDurabilityModifiers().get("leafBlower"));
+    mc.carlton.freerpg.utils.game.PerkEffects.leafBlower(p, treeLeaves);
     PlacedBlocksManager placedBlocksManager = new PlacedBlocksManager();
     for (Block block : treeLeaves) {
       Location blockLoc = block.getLocation();

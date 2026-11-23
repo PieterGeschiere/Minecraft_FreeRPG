@@ -207,10 +207,16 @@ public class AbilityTimers {
     int refreshTicks = 2;
     UUID taskUUID = UUID.randomUUID();
     int taskID = new BukkitRunnable() { //The outer task is used for Ability time remaining bars and is accurate to 0.1 seconds on default
+      private int auraTick = 0;
+
       @Override
       public void run() {
         int timeRemaining = getPlayerDurationTime(skillName) - refreshTicks;
         durationBarUpdate(skillName, timeRemaining, duration);
+        if (player.isOnline()) {
+          mc.carlton.freerpg.utils.game.AbilityVisuals.aura(player, skillName, auraTick);
+        }
+        auraTick += refreshTicks;
         if (timeRemaining < refreshTicks) {
           new BukkitRunnable() {
             @Override
@@ -240,10 +246,16 @@ public class AbilityTimers {
     int refreshTicks = 2;
     UUID taskUUID = UUID.randomUUID();
     int taskID = new BukkitRunnable() { //The outer task is used for Ability time remaining bars and is accurate to 0.1 seconds on default
+      private int auraTick = 0;
+
       @Override
       public void run() {
         int timeRemaining = getPlayerDurationTime(skillName) - refreshTicks;
         durationBarUpdate(skillName, timeRemaining, duration);
+        if (player.isOnline()) {
+          mc.carlton.freerpg.utils.game.AbilityVisuals.aura(player, skillName, auraTick);
+        }
+        auraTick += refreshTicks;
         if (timeRemaining < refreshTicks) {
           new BukkitRunnable() {
             @Override

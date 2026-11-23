@@ -450,6 +450,7 @@ public class Farming extends Skill {
           int growthHormonesLevel = (int) pStat.get(skillName).get(12);
           if (growthHormonesLevel > 0) {
             ((org.bukkit.entity.Ageable) entity).setAdult();
+            mc.carlton.freerpg.utils.game.PerkEffects.grow(entity);
             int numSugar = itemInHand.getAmount();
             itemInHand.setAmount(numSugar - 1);
           }

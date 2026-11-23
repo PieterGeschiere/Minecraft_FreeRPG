@@ -192,6 +192,7 @@ public class Fishing extends Skill {
     Vector velocity = new Vector(dx * multiplier,
         (dy * multiplier) + (double) Math.sqrt(distance) * 0.10, dz * multiplier);
     p.setVelocity(velocity);
+    mc.carlton.freerpg.utils.game.PerkEffects.grapple(p, location);
   }
 
   public void superBait(FishHook fishhook, Entity hookedEntity, World world) {
@@ -217,6 +218,7 @@ public class Fishing extends Skill {
           Vector velocity = new Vector(dx * multiplier,
               (dy * multiplier) + (double) Math.sqrt(distance) * 0.1, dz * multiplier);
           droppedItem.setVelocity(velocity);
+          mc.carlton.freerpg.utils.game.PerkEffects.superBait(location);
           ((ExperienceOrb) world.spawn(p.getLocation(), ExperienceOrb.class)).setExperience(
               rand.nextInt(6) + 1);
           ItemMeta toolMeta = itemInHand.getItemMeta();
@@ -395,6 +397,7 @@ public class Fishing extends Skill {
     if (robLevel * .15 < rand.nextDouble()) {
       return;
     }
+    mc.carlton.freerpg.utils.game.PerkEffects.rob(hookedEntity);
     ItemStack drop = new ItemStack(Material.DIRT, 1);
     if (hookedEntity.getType() == EntityType.BLAZE) {
       drop.setType(Material.BLAZE_ROD);

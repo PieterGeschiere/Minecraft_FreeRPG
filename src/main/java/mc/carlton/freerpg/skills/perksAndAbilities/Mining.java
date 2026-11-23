@@ -450,6 +450,7 @@ public class Mining extends Skill {
     double chance = 0.0005 * doubleDropsLevel;
 
     damageTool(numOres, configLoad.getDurabilityModifiers().get("veinMiner"));
+    mc.carlton.freerpg.utils.game.PerkEffects.veinMiner(p, veinOres);
 
     boolean didRun = false;
     Smelting smeltingClass = new Smelting(p);

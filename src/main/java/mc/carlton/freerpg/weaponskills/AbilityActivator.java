@@ -50,7 +50,7 @@ final class AbilityActivator {
     bar.sendMessage(ChatColor.GREEN + WeaponSkillRules.text(p, readyKey,
         "ability", skill.getAbilityName(), "seconds",
         Double.toString(Math.round(duration * 10) / 10.0), "count", Integer.toString(charges)));
-    p.playSound(p.getLocation(), sound, 1f, 1f);
+    AbilityEffects.sound(p.getLocation(), sound, 1f, 1f);
     AbilityEffects.activated(p, skill, data);
     UUID uuid = p.getUniqueId();
     Bukkit.getScheduler().runTaskLater(FreeRPG.getPlugin(FreeRPG.class), () -> {

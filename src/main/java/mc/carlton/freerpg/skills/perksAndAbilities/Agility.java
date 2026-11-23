@@ -43,6 +43,7 @@ public class Agility extends Skill {
       increaseStats.changeEXP(skillName, expMap.get("rollBaseEXP") + (int) Math.round(
           finalDamage * expMap.get("roll_EXPperFallDamagePoint")));
       actionMessage.sendMessage(ChatColor.GREEN + ">>>" + lang.getString("roll") + "<<<");
+      mc.carlton.freerpg.utils.game.PerkEffects.roll(p);
     } else {
       if (finalDamage < p.getHealth()) {
         increaseStats.changeEXP(skillName,
@@ -63,6 +64,7 @@ public class Agility extends Skill {
       increaseStats.changeEXP(skillName,
           (int) Math.round(expMap.get("dodge_EXPperDamagePointAvoided") * finalDamage));
       actionMessage.sendMessage(ChatColor.GREEN + ">>>" + lang.getString("dodge") + "<<<");
+      mc.carlton.freerpg.utils.game.PerkEffects.dodge(p);
       return true;
     } else {
       return false;
