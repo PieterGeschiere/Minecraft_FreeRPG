@@ -876,6 +876,11 @@ public class FrpgCommands implements CommandExecutor {
       return true;
     }
 
+    //Party administration (/frpg party disband|kick|reload|info)
+    else if (args[0].equalsIgnoreCase("party")) {
+      return mc.carlton.freerpg.party.PartyAdminCommands.handle(sender, args);
+    }
+
     //Weapon skills menu (Mace Mastery, ...)
     else if (args[0].equalsIgnoreCase("weapons") || args[0].equalsIgnoreCase("weaponSkills")) {
       if (!(sender instanceof Player)) {
