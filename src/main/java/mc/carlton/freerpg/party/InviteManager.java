@@ -14,10 +14,15 @@ public final class InviteManager {
   public record Invite(UUID from, UUID to, String party, long expiresAt) {
   }
 
-  private final long expiryMillis;
+  private long expiryMillis;
   private final Map<UUID, List<Invite>> byTarget = new HashMap<>();
 
   public InviteManager(long expiryMillis) {
+    this.expiryMillis = expiryMillis;
+  }
+
+  /** Changes how long new invites stay valid; pending invites are kept. */
+  public void setExpiryMillis(long expiryMillis) {
     this.expiryMillis = expiryMillis;
   }
 

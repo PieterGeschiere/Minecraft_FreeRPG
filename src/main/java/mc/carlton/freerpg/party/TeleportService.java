@@ -92,9 +92,14 @@ public final class TeleportService {
    * a message key followed by its key/value pairs.
    */
   public static String[] blockReason(Player mover, Location destination) {
+    return blockReason(mover, destination, true);
+  }
+
+  private static String[] blockReason(Player mover, Location destination,
+      boolean checkCooldown) {
     long now = System.currentTimeMillis();
     long cooldown = Parties.teleports().cooldownRemaining(mover.getUniqueId(), now);
-    if (cooldown > 0) {
+    if (checkCooldown && cooldown > 0) {
       return new String[] {"partyTpCooldown", "seconds", String.valueOf((cooldown + 999) / 1000)};
     }
     if (inCombat(mover.getUniqueId())) {
@@ -202,6 +207,12 @@ public final class TeleportService {
     Location destination = a.destination.get();
     if (destination == null || destination.getWorld() == null) {
       cancelWith(a, "partyTpaUnavailable", "player", "?");
+      return;
+    }
+    // The target may have moved somewhere that is not allowed during the warmup
+    String[] reason = blockReason(mover, destination, false);
+    if (reason != null) {
+      cancelWith(a, reason[0], slice(reason));
       return;
     }
     stop(a);

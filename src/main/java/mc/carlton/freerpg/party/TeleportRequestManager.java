@@ -12,13 +12,22 @@ public final class TeleportRequestManager {
   public record Request(UUID from, UUID to, long expiresAt) {
   }
 
-  private final long expiryMillis;
-  private final long cooldownMillis;
+  private long expiryMillis;
+  private long cooldownMillis;
   private final Map<UUID, Request> byTarget = new HashMap<>();
   private final Map<UUID, Long> lastUsed = new HashMap<>();
 
   public TeleportRequestManager(long expiryMillis, long cooldownMillis) {
     this.expiryMillis = expiryMillis;
+    this.cooldownMillis = cooldownMillis;
+  }
+
+  /** Changes the values for new requests and cooldown checks; pending state is kept. */
+  public void setExpiryMillis(long expiryMillis) {
+    this.expiryMillis = expiryMillis;
+  }
+
+  public void setCooldownMillis(long cooldownMillis) {
     this.cooldownMillis = cooldownMillis;
   }
 

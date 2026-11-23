@@ -77,7 +77,9 @@ public final class PartyCommands implements CommandExecutor, TabCompleter {
         if (args.length < 2) {
           return usage(p, "/party join <party|owner>");
         }
-        boolean hasInvite = Parties.invites().pending(id, args[1], now).isPresent();
+        boolean hasInvite = manager.resolve(args[1])
+            .map(target -> Parties.invites().pending(id, target.name(), now).isPresent())
+            .orElse(false);
         PartyResult result = manager.join(id, p.getName(), args[1], hasInvite, now);
         if (result == PartyResult.OK) {
           Parties.invites().clear(id);
@@ -194,6 +196,9 @@ public final class PartyCommands implements CommandExecutor, TabCompleter {
         return;
       case TARGET_PROTECTED:
         PartyMessages.send(p, "partyTargetProtected", "player", name);
+        return;
+      case ALREADY_ROLE:
+        PartyMessages.send(p, "partyAlreadyRole", "player", name);
         return;
       case SELF_TARGET:
         PartyMessages.send(p, "partySelf");

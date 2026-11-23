@@ -15,6 +15,7 @@ lang:
     partyAdminDisbanded: '&aDisbanded the party {party}.'
     partyAdminKicked: '&aRemoved {player} from their party.'
     partyAdminNoSuchMember: '&c{player} is not in any party.'
+    partyAlreadyRole: '&c{player} already has that role.'
     partyUnknown: '&cUnknown party command. Use &e/party help&c.'
     partyUsageLine: '&cUsage: &e{usage}'
     partyHelp: "&9&lParty commands\n&e/party &7- open the party menu\n&e/party create <name> &7- create a party\n&e/party invite <player> &7- invite a player\n&e/party accept [party] &7- accept an invite\n&e/party deny [party] &7- decline an invite\n&e/party join <party|owner> &7- join an open party\n&e/party leave &7- leave your party\n&e/party list &7- show your party\n&e/party kick <player> &7- kick a member\n&e/party promote|demote <player> &7- make a member an officer or back\n&e/party transfer <player> &7- give the party to a member\n&e/party disband &7- disband your party\n&e/party open|closed &7- let anyone join, or invite only\n&e/party xpshare [on|off] &7- bonus XP for nearby members\n&e/party friendlyfire [on|off] &7- members can hurt each other\n&e/party setspawn &7- set the party spawn\n&e/party spawn &7- teleport to the party spawn\n&e/party tpa <member> &7- ask to teleport to a member\n&e/party tpaccept|tpdeny &7- answer a teleport request\n&e/party tptoggle &7- allow or block teleport requests\n&e/party receivexp [on|off] &7- receive shared XP or not"

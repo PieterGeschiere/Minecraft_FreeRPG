@@ -16,6 +16,24 @@ public final class PartyInactivity {
     return isOnline.test(member.uuid()) ? now : member.lastSeen();
   }
 
+  /**
+   * Makes server downtime not count as inactivity: everybody who was last seen before the server
+   * stopped (the last heartbeat) gets their last-seen time moved forward by the downtime.
+   */
+  public static void compensateDowntime(PartyManager manager, long previousHeartbeat, long now) {
+    long downtime = now - previousHeartbeat;
+    if (downtime <= 0) {
+      return;
+    }
+    for (Party party : manager.all()) {
+      for (PartyMember member : party.members()) {
+        if (member.lastSeen() <= previousHeartbeat) {
+          member.setLastSeen(Math.min(now, member.lastSeen() + downtime));
+        }
+      }
+    }
+  }
+
   public static void apply(PartyManager manager, long now, long ownerTransferMillis,
       long deleteMillis, Predicate<UUID> isOnline) {
     for (Party party : manager.all()) {

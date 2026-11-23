@@ -8,8 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -56,8 +61,44 @@ public final class PartyListener implements Listener {
     }
     if (e.getFrom().getBlockX() != e.getTo().getBlockX()
         || e.getFrom().getBlockY() != e.getTo().getBlockY()
-        || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
-      lastMoved.put(e.getPlayer().getUniqueId(), System.currentTimeMillis());
+        || e.getFrom().getBlockZ() != e.getTo().getBlockZ()
+        || e.getFrom().getYaw() != e.getTo().getYaw()
+        || e.getFrom().getPitch() != e.getTo().getPitch()) {
+      touch(e.getPlayer().getUniqueId());
+    }
+  }
+
+  /** Remembers that the player is active (not AFK) right now. */
+  private static void touch(UUID id) {
+    lastMoved.put(id, System.currentTimeMillis());
+  }
+
+  // Mining, farming, fishing and fighting in one spot is activity too, not only walking.
+
+  @EventHandler(ignoreCancelled = true)
+  public void onBreak(BlockBreakEvent e) {
+    touch(e.getPlayer().getUniqueId());
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void onPlace(BlockPlaceEvent e) {
+    touch(e.getPlayer().getUniqueId());
+  }
+
+  @EventHandler
+  public void onInteract(PlayerInteractEvent e) {
+    touch(e.getPlayer().getUniqueId());
+  }
+
+  @EventHandler
+  public void onFish(PlayerFishEvent e) {
+    touch(e.getPlayer().getUniqueId());
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void onAttack(EntityDamageByEntityEvent e) {
+    if (e.getDamager() instanceof Player p) {
+      touch(p.getUniqueId());
     }
   }
 
@@ -70,6 +111,7 @@ public final class PartyListener implements Listener {
 
   @EventHandler
   public void onDeath(PlayerDeathEvent e) {
+    TeleportService.forget(e.getEntity().getUniqueId());
     TeleportService.cancelInvolving(e.getEntity().getUniqueId(), "partyTpCancelOther");
   }
 }

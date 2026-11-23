@@ -1,9 +1,11 @@
 package mc.carlton.freerpg.party;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -32,6 +34,12 @@ public final class Parties {
       manager.register(party);
     }
     PartyNotices.load(plugin);
+    long now = System.currentTimeMillis();
+    long previousHeartbeat = readHeartbeat();
+    if (previousHeartbeat > 0) {
+      PartyInactivity.compensateDowntime(manager, previousHeartbeat, now);
+    }
+    writeHeartbeat(now);
 
     Bukkit.getPluginManager().registerEvents(new PartyListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new PartyFriendlyFire(), plugin);
@@ -51,6 +59,7 @@ public final class Parties {
       return;
     }
     saveAll();
+    writeHeartbeat(System.currentTimeMillis());
     PartyNotices.save();
     TeleportService.cancelAll();
     PartyDisplay.clearAll();
@@ -64,10 +73,40 @@ public final class Parties {
     PartyDisplay.refreshAll();
   }
 
+  /** Creates the invite and request managers, or updates their values (keeping what is pending). */
   private static void applyConfig() {
-    invites = new InviteManager(PartyConfig.inviteExpirySeconds() * 1000L);
-    teleports = new TeleportRequestManager(PartyConfig.tpaExpirySeconds() * 1000L,
-        PartyConfig.tpaCooldownSeconds() * 1000L);
+    long inviteMillis = PartyConfig.inviteExpirySeconds() * 1000L;
+    long requestMillis = PartyConfig.tpaExpirySeconds() * 1000L;
+    long cooldownMillis = PartyConfig.tpaCooldownSeconds() * 1000L;
+    if (invites == null) {
+      invites = new InviteManager(inviteMillis);
+      teleports = new TeleportRequestManager(requestMillis, cooldownMillis);
+    } else {
+      invites.setExpiryMillis(inviteMillis);
+      teleports.setExpiryMillis(requestMillis);
+      teleports.setCooldownMillis(cooldownMillis);
+    }
+  }
+
+  // Server downtime must not count as inactivity: the time the server last ran is remembered.
+
+  private static File stateFile() {
+    return new File(plugin.getDataFolder(), "partyState.yml");
+  }
+
+  private static void writeHeartbeat(long now) {
+    YamlConfiguration yaml = new YamlConfiguration();
+    yaml.set("heartbeat", now);
+    try {
+      yaml.save(stateFile());
+    } catch (IOException e) {
+      plugin.getLogger().warning("Could not save partyState.yml: " + e.getMessage());
+    }
+  }
+
+  private static long readHeartbeat() {
+    File file = stateFile();
+    return file.exists() ? YamlConfiguration.loadConfiguration(file).getLong("heartbeat", 0) : 0;
   }
 
   public static Plugin plugin() {
@@ -90,9 +129,15 @@ public final class Parties {
     return Bukkit.getPlayer(uuid) != null;
   }
 
+  /** Saves a party that still exists. A failing save is logged and never breaks the caller. */
   public static void save(Party party) {
-    if (party.size() > 0) {
+    if (party.size() == 0 || !manager.isRegistered(party)) {
+      return; // a disbanded party must not be written back to disk by a stale menu or command
+    }
+    try {
       storage.save(party);
+    } catch (RuntimeException e) {
+      plugin.getLogger().warning("Could not save party " + party.name() + ": " + e.getMessage());
     }
   }
 
@@ -103,13 +148,22 @@ public final class Parties {
   }
 
   private static void onEvent(PartyEvent event) {
-    PartyNotices.handle(event);
+    try {
+      PartyNotices.handle(event);
+    } catch (RuntimeException e) {
+      plugin.getLogger().warning("Could not tell the party about " + event.type() + ": "
+          + e.getMessage());
+    }
     if (event.type() == PartyEventType.DISBANDED) {
       storage.delete(event.party().name());
     } else {
       save(event.party());
     }
-    PartyDisplay.refreshAll();
+    try {
+      PartyDisplay.refreshAll();
+    } catch (RuntimeException e) {
+      plugin.getLogger().warning("Could not update the party display: " + e.getMessage());
+    }
   }
 
   /** Runs now and then: remembers who is online and applies the inactivity rules. */
@@ -121,5 +175,6 @@ public final class Parties {
     PartyInactivity.apply(manager, now, PartyConfig.ownerTransferDays() * DAY_MILLIS,
         PartyConfig.deleteDays() * DAY_MILLIS, Parties::isOnline);
     saveAll();
+    writeHeartbeat(now);
   }
 }

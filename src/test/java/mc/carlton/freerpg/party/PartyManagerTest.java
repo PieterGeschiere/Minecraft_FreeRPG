@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 class PartyManagerTest {
@@ -201,5 +202,46 @@ class PartyManagerTest {
     assertEquals(PartyResult.OK, manager.adminDisband("dragons"));
     assertNull(manager.partyOf(bob).orElse(null));
     assertEquals(PartyResult.NOT_FOUND, manager.adminDisband("dragons"));
+  }
+
+  @Test
+  void ownerHandoverHappensBeforeEventsSoAThrowingSinkCannotLeaveNoOwner() {
+    boolean[] explode = {false};
+    manager = new PartyManager(5, e -> {
+      if (explode[0]) {
+        throw new IllegalStateException("disk full");
+      }
+      events.add(e);
+    });
+    makeAliceParty();
+    explode[0] = true;
+    assertThrows(IllegalStateException.class, () -> manager.leave(alice, 5000));
+    assertEquals(bob, manager.partyOf(bob).get().ownerUuid());
+  }
+
+  @Test
+  void promotingAnOfficerOrDemotingAMemberSaysAlreadyThatRole() {
+    makeAliceParty();
+    manager.promote(alice, bob);
+    assertEquals(PartyResult.ALREADY_ROLE, manager.promote(alice, bob));
+    assertEquals(PartyResult.ALREADY_ROLE, manager.demote(alice, carol));
+    assertEquals(PartyResult.NO_PERMISSION, manager.promote(bob, carol));
+  }
+
+  @Test
+  void aTargetCanBeResolvedByPartyNameOrOwnerName() {
+    makeAliceParty();
+    assertEquals("Dragons", manager.resolve("dragons").get().name());
+    assertEquals("Dragons", manager.resolve("ALICE").get().name());
+    assertTrue(manager.resolve("nobody").isEmpty());
+  }
+
+  @Test
+  void aDisbandedPartyIsNoLongerRegistered() {
+    makeAliceParty();
+    Party party = manager.partyOf(alice).get();
+    assertTrue(manager.isRegistered(party));
+    manager.disband(alice);
+    assertFalse(manager.isRegistered(party));
   }
 }

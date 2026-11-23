@@ -42,6 +42,29 @@ public final class PartyManager {
     return name == null ? Optional.empty() : Optional.ofNullable(parties.get(key(name)));
   }
 
+  /** A party by its name, or else by the last known name of its owner (case-insensitive). */
+  public Optional<Party> resolve(String target) {
+    if (target == null) {
+      return Optional.empty();
+    }
+    Party party = parties.get(key(target));
+    if (party != null) {
+      return Optional.of(party);
+    }
+    for (Party candidate : parties.values()) {
+      PartyMember owner = candidate.owner();
+      if (owner != null && owner.lastName() != null && owner.lastName().equalsIgnoreCase(target)) {
+        return Optional.of(candidate);
+      }
+    }
+    return Optional.empty();
+  }
+
+  /** Whether this exact party object is still one of the parties (it is not once disbanded). */
+  public boolean isRegistered(Party party) {
+    return parties.get(key(party.name())) == party;
+  }
+
   public Collection<Party> all() {
     return new ArrayList<>(parties.values());
   }
@@ -102,17 +125,7 @@ public final class PartyManager {
     if (index.containsKey(player)) {
       return PartyResult.ALREADY_IN_PARTY;
     }
-    Party party = target == null ? null : parties.get(key(target));
-    if (party == null && target != null) {
-      for (Party candidate : parties.values()) {
-        PartyMember owner = candidate.owner();
-        if (owner != null && owner.lastName() != null
-            && owner.lastName().equalsIgnoreCase(target)) {
-          party = candidate;
-          break;
-        }
-      }
-    }
+    Party party = resolve(target).orElse(null);
     if (party == null) {
       return PartyResult.NOT_FOUND;
     }
@@ -150,13 +163,18 @@ public final class PartyManager {
       emit(PartyEventType.DISBANDED, party, actor, null);
       return;
     }
-    emit(type, party, actor, player);
+    // All state changes are done before the first event, so a failing listener (for example a
+    // disk error while saving) can never leave a party without an owner.
+    PartyMember successor = null;
     if (wasOwner) {
-      PartyMember successor = party.firstWithRole(PartyRole.OFFICER, Long.MIN_VALUE);
+      successor = party.firstWithRole(PartyRole.OFFICER, Long.MIN_VALUE);
       if (successor == null) {
         successor = party.firstWithRole(PartyRole.MEMBER, Long.MIN_VALUE);
       }
       successor.setRole(PartyRole.OWNER);
+    }
+    emit(type, party, actor, player);
+    if (successor != null) {
       emit(PartyEventType.OWNER_CHANGED, party, player, successor.uuid());
     }
   }
@@ -216,8 +234,11 @@ public final class PartyManager {
     if (member == null) {
       return PartyResult.TARGET_NOT_MEMBER;
     }
-    if (member.role() != from) {
+    if (member.role() == PartyRole.OWNER) {
       return PartyResult.TARGET_PROTECTED;
+    }
+    if (member.role() != from) {
+      return PartyResult.ALREADY_ROLE;
     }
     member.setRole(to);
     emit(type, party, actor, target);

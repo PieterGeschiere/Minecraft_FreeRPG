@@ -45,4 +45,14 @@ class InviteManagerTest {
     assertTrue(invites.deny(to, null, 2_000));
     assertFalse(invites.pending(to, null, 2_000).isPresent());
   }
+
+  @Test
+  void changingTheExpiryKeepsPendingInvites() {
+    InviteManager invites = new InviteManager(60_000);
+    invites.invite(from, to, "Dragons", 1_000);
+    invites.setExpiryMillis(10_000);
+    assertTrue(invites.pending(to, "Dragons", 2_000).isPresent());
+    invites.invite(from, to, "Wolves", 2_000);
+    assertFalse(invites.pending(to, "Wolves", 12_001).isPresent());
+  }
 }

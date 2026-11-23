@@ -58,4 +58,15 @@ class TeleportRequestManagerTest {
     manager.markUsed(a, 5_000);
     assertTrue(manager.cooldownRemaining(a, 6_000) > 0);
   }
+
+  @Test
+  void changingTheValuesKeepsCooldownsAndPendingRequests() {
+    TeleportRequestManager manager = new TeleportRequestManager(60_000, 30_000);
+    manager.markUsed(a, 1_000);
+    manager.request(a, b, 1_000);
+    manager.setCooldownMillis(20_000);
+    manager.setExpiryMillis(30_000);
+    assertEquals(20_000, manager.cooldownRemaining(a, 1_000));
+    assertTrue(manager.accept(b, 2_000).isPresent());
+  }
 }

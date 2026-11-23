@@ -119,4 +119,28 @@ class PartyInactivityTest {
     PartyInactivity.apply(manager, NOW, 0, 0, online::contains);
     assertEquals(owner, manager.byName("Dragons").get().ownerUuid());
   }
+
+  @Test
+  void serverDowntimeIsNotCountedAsInactivity() {
+    // the server was down for the last 61 days; everybody was last seen 2 days before it went down
+    long heartbeat = NOW - 61 * DAY;
+    seen(owner, 63);
+    seen(officer, 63);
+    seen(member, 63);
+    PartyInactivity.compensateDowntime(manager, heartbeat, NOW);
+    run();
+    assertTrue(manager.byName("Dragons").isPresent());
+    assertEquals(owner, manager.byName("Dragons").get().ownerUuid());
+  }
+
+  @Test
+  void aPlayerAlreadyAwayBeforeTheDowntimeStillCountsAsAway() {
+    long heartbeat = NOW - 10 * DAY;
+    seen(owner, 50); // away for 40 days before the 10 day downtime, so 40 days of absence
+    seen(officer, 1);
+    seen(member, 1);
+    PartyInactivity.compensateDowntime(manager, heartbeat, NOW);
+    run();
+    assertEquals(officer, manager.byName("Dragons").get().ownerUuid());
+  }
 }

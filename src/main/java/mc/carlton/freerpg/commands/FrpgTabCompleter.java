@@ -62,7 +62,6 @@ public class FrpgTabCompleter implements TabCompleter {
     SUBCOMMANDS.put("resetCooldown", "resetCooldown");
     SUBCOMMANDS.put("createFakePlayers", "createFakePlayers");
     SUBCOMMANDS.put("deleteFakePlayers", "createFakePlayers");
-    SUBCOMMANDS.put("party", null); // administration, permission freerpg.party.admin
   }
 
   @Override
@@ -78,6 +77,9 @@ public class FrpgTabCompleter implements TabCompleter {
         if (permission == null || sender.hasPermission("freeRPG." + permission)) {
           allowed.add(entry.getKey());
         }
+      }
+      if (sender.hasPermission("freerpg.party.admin")) {
+        allowed.add("party"); // party administration
       }
       return filter(allowed, args[0]);
     }
