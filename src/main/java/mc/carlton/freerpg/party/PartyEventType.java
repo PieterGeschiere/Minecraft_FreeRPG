@@ -1,0 +1,7 @@
+package mc.carlton.freerpg.party;
+
+/** What happened in a party. */
+public enum PartyEventType {
+  MEMBER_JOINED, MEMBER_LEFT, MEMBER_KICKED, PROMOTED, DEMOTED, OWNER_CHANGED, OPEN_CHANGED,
+  XP_SHARE_CHANGED, FRIENDLY_FIRE_CHANGED, SPAWN_SET, SPAWN_REMOVED, DISBANDED
+}
