@@ -11,15 +11,15 @@ import java.util.List;
 public final class SkillRegistry {
 
   private static final String GLOBAL = "global";
-  private static final int MAIN_COUNT = 10;
+  private static final int MAIN_COUNT = 9;
 
   private static final List<String> LABELS = Collections.unmodifiableList(Arrays.asList(
-      "digging", "woodcutting", "mining", "farming", "fishing", "archery", "beastMastery",
+      "digging", "woodcutting", "mining", "farming", "fishing", "beastMastery",
       "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy", "smelting",
       "enchanting", "building", "aeronautics"));
 
   private static final List<String> TITLES = Collections.unmodifiableList(Arrays.asList(
-      "Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Archery", "Beast Mastery",
+      "Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Beast Mastery",
       "Swordsmanship", "Defense", "Axe Mastery", "Repair", "Agility", "Alchemy", "Smelting",
       "Enchanting", "Building", "Aeronautics"));
 
@@ -31,7 +31,7 @@ public final class SkillRegistry {
   private static final int GATHERER_COUNT = 5;
   private static final List<String> GATHERER_LABELS =
       Collections.unmodifiableList(new ArrayList<>(LABELS.subList(0, GATHERER_COUNT)));
-  /** The other five main skills are the "Fighter" group. */
+  /** The other four main skills are the "Fighter" group. */
   private static final List<String> FIGHTER_LABELS =
       Collections.unmodifiableList(new ArrayList<>(LABELS.subList(GATHERER_COUNT, MAIN_COUNT)));
 
@@ -47,17 +47,17 @@ public final class SkillRegistry {
     return Collections.unmodifiableList(list);
   }
 
-  /** The 17 skill labels, immutable. */
+  /** The 16 skill labels, immutable. */
   public static List<String> labels() {
     return LABELS;
   }
 
-  /** The 10 main (active-ability) skill labels, immutable. */
+  /** The 9 main (active-ability) skill labels, immutable. */
   public static List<String> mainLabels() {
     return MAIN_LABELS;
   }
 
-  /** The passive skill labels (everything after the 10 main skills), immutable. */
+  /** The passive skill labels (everything after the 9 main skills), immutable. */
   public static List<String> passiveLabels() {
     return PASSIVE_LABELS;
   }
@@ -67,22 +67,22 @@ public final class SkillRegistry {
     return GATHERER_LABELS;
   }
 
-  /** The 5 Fighter skills (archery .. axeMastery), immutable. */
+  /** The 4 Fighter skills (beastMastery .. axeMastery), immutable. */
   public static List<String> fighterLabels() {
     return FIGHTER_LABELS;
   }
 
-  /** The 17 skill labels followed by "global", immutable. */
+  /** The 16 skill labels followed by "global", immutable. */
   public static List<String> labelsWithGlobal() {
     return LABELS_WITH_GLOBAL;
   }
 
-  /** English titles of the 17 skills, immutable. */
+  /** English titles of the 16 skills, immutable. */
   public static List<String> titles() {
     return TITLES;
   }
 
-  /** English titles of the 17 skills followed by "Global", immutable. */
+  /** English titles of the 16 skills followed by "Global", immutable. */
   public static List<String> titlesWithGlobal() {
     return TITLES_WITH_GLOBAL;
   }
@@ -93,7 +93,7 @@ public final class SkillRegistry {
     return index == -1 ? null : TITLES_WITH_GLOBAL.get(index);
   }
 
-  /** Index of the label among the 17 skills, -1 if unknown (including "global"). */
+  /** Index of the label among the 16 skills, -1 if unknown (including "global"). */
   public static int indexOf(String label) {
     return LABELS.indexOf(label);
   }

@@ -54,7 +54,7 @@ public class LeaderboardCommand implements SubCommand {
       return true; //Improper input
     }
     if (!new ConfigLoad().getAllowedSkillsMap().getOrDefault(skillName, true)) {
-      sender.sendMessage(ChatColor.RED + "That skill is disabled (Archery is retired).");
+      sender.sendMessage(ChatColor.RED + "That skill is disabled.");
       return true;
     }
     createLeaderboard(sender, page, skillName);

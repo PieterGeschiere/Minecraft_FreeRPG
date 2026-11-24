@@ -93,7 +93,7 @@ public class SetLevelCommand implements SubCommand {
     }
 
     if (!new ConfigLoad().getAllowedSkillsMap().getOrDefault(skillName, true)) {
-      sender.sendMessage(ChatColor.RED + "That skill is disabled (Archery is retired).");
+      sender.sendMessage(ChatColor.RED + "That skill is disabled.");
       return true;
     }
     increaseStats.set_isCommand(true);

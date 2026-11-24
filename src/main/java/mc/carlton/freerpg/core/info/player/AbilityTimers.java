@@ -72,9 +72,6 @@ public class AbilityTimers {
       case "fishing":
         pTimes[4] = timeRemaining;
         break;
-      case "archery":
-        pTimes[5] = timeRemaining;
-        break;
       case "beastMastery":
         pTimes[6] = timeRemaining;
         break;
@@ -115,8 +112,6 @@ public class AbilityTimers {
         return pTimes[3];
       case "fishing":
         return pTimes[4];
-      case "archery":
-        return pTimes[5];
       case "beastMastery":
         return pTimes[6];
       case "swordsmanship":
@@ -426,8 +421,6 @@ public class AbilityTimers {
   public String getAbilityName(String skillName) {
     LanguageSelector lang = new LanguageSelector(player);
     switch (skillName) {
-      case "archery":
-        return lang.getString("rapidFire");
       case "axeMastery":
         return lang.getString("greatAxe");
       case "beastMastery":

@@ -57,9 +57,6 @@ public class AbilityTracker {
       case "fishing":
         pAbils[4] = taskID;
         break;
-      case "archery":
-        pAbils[5] = taskID;
-        break;
       case "beastMastery":
         pAbils[6] = taskID;
         break;
@@ -77,9 +74,6 @@ public class AbilityTracker {
         break;
       case "diggingToggle":
         pAbils[11] = taskID;
-        break;
-      case "archeryCrossbow":
-        pAbils[12] = taskID;
         break;
       case "swordsSpeed":
         pAbils[13] = taskID;
@@ -110,8 +104,6 @@ public class AbilityTracker {
         return pAbils[3];
       case "fishing":
         return pAbils[4];
-      case "archery":
-        return pAbils[5];
       case "beastMastery":
         return pAbils[6];
       case "swordsmanship":
@@ -124,8 +116,6 @@ public class AbilityTracker {
         return pAbils[10];
       case "diggingToggle":
         return pAbils[11];
-      case "archeryCrossbow":
-        return pAbils[12];
       case "swordsSpeed":
         return pAbils[13];
       case "swordsStrength":

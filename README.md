@@ -121,8 +121,7 @@ mount. It has the same kind of skill tree.
 | Mastery | **Dragoon's Wrath** | More spear damage and a longer pierce |
 
 **Bow Mastery**: earn exp by hitting and killing with a bow, with bonus exp for long shots (up to 50 blocks).
-It has the same kind of skill tree. Bow Mastery and Crossbow Mastery replace the old Archery skill, which is retired (it stays in
-the player files but is always off and no longer shown).
+It has the same kind of skill tree. Bow Mastery and Crossbow Mastery replaced the old Archery skill, which has been removed.
 
 | Tree | Name | Effect |
 |---|---|---|
@@ -166,7 +165,7 @@ Volley or a glow for Marked Prey), and rings and floating damage numbers where B
 Piercing Rush hit.
 
 **Effects for the main skills and perks**: the abilities of the main skills (Big Dig, Timber, Berserk
-Pick, Natural Regeneration, Super Bait, Rapid Fire, Spur Kick, Swift Strikes, Stone Soldier and Great
+Pick, Natural Regeneration, Super Bait, Spur Kick, Swift Strikes, Stone Soldier and Great
 Axe) have a burst, an aura while they last and a puff when they end, each fitting the skill. The perks
 you trigger yourself have effects too: Grappling Hook (a rope to the hook), Super Bait's extra catch,
 Rob, Vein Miner, Leaf Blower, Growth Hormones, Roll and Dodge. All of these are played in the world, so
@@ -370,7 +369,6 @@ FreeRPG provides 10 abilities to the player which can be leveled.
 | **Berserk Pick**         | Mining        | Will increase mining speed drastically.                                         | Right-clicking a pickaxe, then breaking a block.                           | 300 sec             |
 | **Natural Regeneration** | Farming       | Automatically replants all crops at a random growth stage.                      | Right-clicking a hoe, then breaking a crop.                                | 300 sec             |
 | **Super Bait**           | Fishing       | Fish are instantly pulled out of the water, without waiting to get a bite.      | Left-clicking a fishing rod, then fishing.                                 | 300 sec             |
-| **Rapid Fire**           | Archery       | Arrow shots come out at maximum speed no matter how far the bow is pulled back. | Left-clicking a bow.                                                       | 300 sec             |
 | **Spur Kick**            | Beast Mastery | Grants your horse a temporary speed boost.                                      | Right-clicking most items while on a horse, then left-clicking most items. | 300 sec             |
 | **Swift Strikes**        | Swordsmanship | Your swings no longer have a cooldown.                                          | Right-clicking a sword then hitting an entity.                             | 300 sec             |
 | **Stone Solid**          | Defense       | Grants resistance at the cost of being slowed down.                             | Right-clicking with an empty hand, then hitting an entity.                 | 300 sec             |

@@ -34,8 +34,6 @@ public final class AbilityVisuals {
         return Color.fromRGB(90, 220, 90);
       case "fishing":
         return Color.fromRGB(60, 150, 255);
-      case "archery":
-        return Color.fromRGB(255, 225, 90);
       case "beastMastery":
         return Color.fromRGB(200, 150, 90);
       case "swordsmanship":
@@ -88,10 +86,6 @@ public final class AbilityVisuals {
       case "fishing":
         world.spawnParticle(Particle.SPLASH, chest, 50, 0.7, 0.6, 0.7, 0.2);
         world.spawnParticle(Particle.BUBBLE_POP, chest, 20, 0.6, 0.8, 0.6, 0.05);
-        break;
-      case "archery":
-        world.spawnParticle(Particle.CRIT, chest, 35, 0.6, 0.8, 0.6, 0.4);
-        world.spawnParticle(Particle.END_ROD, chest, 12, 0.5, 0.7, 0.5, 0.05);
         break;
       case "beastMastery":
         world.spawnParticle(Particle.CLOUD, feet, 25, 0.7, 0.1, 0.7, 0.08);
@@ -153,9 +147,6 @@ public final class AbilityVisuals {
         break;
       case "fishing":
         world.spawnParticle(Particle.BUBBLE_POP, chest, 2, 0.4, 0.7, 0.4, 0.01);
-        break;
-      case "archery":
-        world.spawnParticle(Particle.CRIT, chest, 2, 0.4, 0.6, 0.4, 0.05);
         break;
       case "beastMastery":
         world.spawnParticle(Particle.CLOUD, base.clone().add(0, 0.1, 0), 1, 0.3, 0.02, 0.3, 0.01);

@@ -148,8 +148,8 @@ class ResourceFilesTest {
   }
 
   @Test
-  void archeryIsRetiredInTheDefaultConfig() throws Exception {
-    assertEquals(false, load("config.yml").getBoolean("archery.skillAllowed", true));
+  void archeryIsGoneFromTheDefaultConfig() throws Exception {
+    assertFalse(load("config.yml").contains("archery"));
   }
 
   @Test

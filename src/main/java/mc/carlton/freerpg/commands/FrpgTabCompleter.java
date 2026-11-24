@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,10 +19,7 @@ import org.bukkit.entity.Player;
  */
 public class FrpgTabCompleter implements TabCompleter {
 
-  private static final List<String> SKILLS = SkillRegistry.labels().stream()
-      // Archery is retired (Bow Mastery and Crossbow Mastery replace it), so it is not offered
-      .filter(label -> !label.equals("archery"))
-      .collect(Collectors.toList());
+  private static final List<String> SKILLS = new ArrayList<>(SkillRegistry.labels());
 
   /** The weapon skills, which the administration commands accept too. */
   private static final List<String> WEAPON_SKILLS = Arrays.asList("maceMastery", "tridentMastery",

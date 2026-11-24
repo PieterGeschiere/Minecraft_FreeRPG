@@ -269,28 +269,6 @@ public class StringsAndOtherData {
     passivePerksMap.put(s_Name, passivePerks);
     passiveDescriptionsMap.put(s_Name, passiveDescriptions);
 
-    //archery
-    s_Name = "archery";
-    perks = new String[]{"Extra Arrows", "Sniper", "Arrow of Light", "Explosive Arrows",
-        "Dragon-less Arrows", "Crossbow Rapid Load", "Deadly Strike"};
-    descriptions = new String[]{"+1 arrow gained from crafting per level",
-        "Arrow speed increases by +2% per level (~4% damage increase/level)",
-        "Spectral arrows get a +5% damage boost per level",
-        "Arrows have a +1% of creating an explosion on hit",
-        "Allows crafting all tipped arrows with regular potions instead of lingering potions",
-        "Ability can now be used with crossbows, making all shots load instantly",
-        "Fireworks shot from crossbows do double damage (up to 16 hearts of damage)"};
-    passivePerks = new String[]{"Passive Tokens", "Back", "Skill Tokens", "Rapid Fire Duration",
-        "Retrieval"};
-    passiveDescriptions = new String[]{"Tokens to invest in passive skills (dyes)",
-        "Takes you back to the main skills menu", "Tokens to invest in skill tree",
-        "Increases duration of Rapid Fire by 0.02s",
-        "Increases chance for arrow shot to not consume arrow by 0.05% per level"};
-    perksMap.put(s_Name, perks);
-    descriptionsMap.put(s_Name, descriptions);
-    passivePerksMap.put(s_Name, passivePerks);
-    passiveDescriptionsMap.put(s_Name, passiveDescriptions);
-
     //beastMastery
     s_Name = "beastMastery";
     perks = new String[]{"Thick Fur", "Sharp Teeth", "Healthy Bites", "Keep Away", "Acro-Dog",
@@ -486,7 +464,7 @@ public class StringsAndOtherData {
     descriptions = new String[]{
         "+20% exp gained in Digging, Woodcutting, Mining, Farming, and Fishing",
         "+20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, Building, and Aeronautics",
-        "+20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense, and Axe Mastery",
+        "+20% exp gained in Beast Mastery, Swordsmanship, Defense, and Axe Mastery",
         "+1 skill token in all Gatherer skills", "+1 skill token in all Scholar skills",
         "+1 skill token in all Fighter skills",
         "On death, 50% chance to keep some of each valuable item in your inventory",

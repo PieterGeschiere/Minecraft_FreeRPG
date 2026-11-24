@@ -14,7 +14,7 @@ class PlayerStatsFilePreparationTest {
 
   // Extend this list when a new skill is added to PlayerStatsFilePreparation.
   private static final List<String> SKILLS = Arrays.asList("digging", "woodcutting", "mining",
-      "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense", "axeMastery",
+      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery",
       "repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics");
 
   private static final List<String> SKILL_KEYS = Arrays.asList("level", "experience",

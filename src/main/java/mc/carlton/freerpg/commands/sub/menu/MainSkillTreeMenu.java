@@ -550,7 +550,6 @@ public class MainSkillTreeMenu implements SkillTreeMenu {
             //Passive 3
             break;
           case "woodcutting":
-          case "archery":
             //Passive 2
             chance1 = chance1 * 0.05;
             chance1 = Math.round(chance1 * 1000) / 1000.0d;
@@ -703,24 +702,6 @@ public class MainSkillTreeMenu implements SkillTreeMenu {
             ArrayList<String> lore = new ArrayList<>();
             ItemMeta craftingMeta = crafting[i].getItemMeta();
             if (animalFarmLevel >= i + 1) {
-              lore.add(ChatColor.GREEN + ChatColor.ITALIC.toString() + lang.getString("unlocked"));
-            } else {
-              lore.add(ChatColor.RED + ChatColor.ITALIC.toString() + lang.getString("locked"));
-            }
-            craftingMeta.setDisplayName(ChatColor.BOLD + craftingNames[i]);
-            craftingMeta.setLore(lore);
-            crafting[i].setItemMeta(craftingMeta);
-            gui.setItem(indices_crafting[i], crafting[i]);
-          }
-        } else if (skillName.equalsIgnoreCase("archery")) {
-          Integer[] indices_crafting = {48, 49, 50, 51, 52};
-          ItemStack[] crafting = {new ItemStack(Material.CRAFTING_TABLE)};
-          String[] craftingNames = {lang.getString("tippedArrows")};
-          int dragonlessArrowsLevel = (int) pStats.get(11);
-          for (int i = 0; i < craftingNames.length; i++) {
-            ArrayList<String> lore = new ArrayList<>();
-            ItemMeta craftingMeta = crafting[i].getItemMeta();
-            if (dragonlessArrowsLevel >= 1) {
               lore.add(ChatColor.GREEN + ChatColor.ITALIC.toString() + lang.getString("unlocked"));
             } else {
               lore.add(ChatColor.RED + ChatColor.ITALIC.toString() + lang.getString("locked"));

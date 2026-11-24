@@ -30,7 +30,6 @@ public final class AbilitySounds {
     ACTIVATE.put("mining", new Cue(Sound.BLOCK_DEEPSLATE_BREAK, 0.8f));
     ACTIVATE.put("farming", new Cue(Sound.ITEM_BONE_MEAL_USE, 1.0f));
     ACTIVATE.put("fishing", new Cue(Sound.ENTITY_FISHING_BOBBER_SPLASH, 1.0f));
-    ACTIVATE.put("archery", new Cue(Sound.ENTITY_ARROW_SHOOT, 1.3f));
     ACTIVATE.put("beastMastery", new Cue(Sound.ENTITY_HORSE_GALLOP, 1.0f));
     ACTIVATE.put("swordsmanship", new Cue(Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f));
     ACTIVATE.put("defense", new Cue(Sound.ITEM_SHIELD_BLOCK, 0.8f));

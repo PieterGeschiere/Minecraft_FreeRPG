@@ -10,7 +10,6 @@ import mc.carlton.freerpg.core.info.player.AbilityTracker;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.core.info.server.WorldGuardChecks;
-import mc.carlton.freerpg.skills.perksAndAbilities.Archery;
 import mc.carlton.freerpg.skills.perksAndAbilities.AxeMastery;
 import mc.carlton.freerpg.skills.perksAndAbilities.BeastMastery;
 import mc.carlton.freerpg.skills.perksAndAbilities.Defense;
@@ -242,24 +241,6 @@ public class PlayerRightClick implements Listener {
       } else if (itemInHandType == Material.BONE_MEAL && a.equals(Action.RIGHT_CLICK_BLOCK)) {
         Farming farmingClass = new Farming(p);
         farmingClass.fertilizerSave(e.getClickedBlock());
-      }
-
-      //Archery
-      else if (itemInHandType == Material.BOW) {
-        if (pAbilities[5] > -1) {
-          Archery archeryClass = new Archery(p);
-          archeryClass.enableAbility();
-        }
-      } else if (itemInHandType == Material.CROSSBOW) {
-        if ((int) pStat.get("archery").get(12) > 0) {
-          Archery archeryClass = new Archery(p);
-          if (pAbilities[5] > -1) {
-            archeryClass.enableAbility();
-            archeryClass.crossbowAbility();
-          } else if (pAbilities[5] == -2) {
-            archeryClass.crossbowAbility();
-          }
-        }
       }
 
       //beastMastery

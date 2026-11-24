@@ -156,7 +156,6 @@ permissions:
       freeRPG.miningEXP: true
       freeRPG.farmingEXP: true
       freeRPG.fishingEXP: true
-      freeRPG.archeryEXP: true
       freeRPG.beastMasteryEXP: true
       freeRPG.swordsmanshipEXP: true
       freeRPG.defenseEXP: true
@@ -182,7 +181,6 @@ permissions:
       freeRPG.miningAbility: true
       freeRPG.farmingAbility: true
       freeRPG.fishingAbility: true
-      freeRPG.archeryAbility: true
       freeRPG.beastMasteryAbility: true
       freeRPG.swordsmanshipAbility: true
       freeRPG.defenseAbility: true
@@ -282,9 +280,6 @@ permissions:
   freeRPG.fishingEXP:
     description: Allows player to get fishing experience
     default: true
-  freeRPG.archeryEXP:
-    description: Allows player to get archery experience
-    default: true
   freeRPG.beastMasteryEXP:
     description: Allows player to get beastMastery experience
     default: true
@@ -332,9 +327,6 @@ permissions:
     default: true
   freeRPG.fishingAbility:
     description: allows the player to use the fishing ability
-    default: true
-  freeRPG.archeryAbility:
-    description: allows the player to use the archery ability
     default: true
   freeRPG.beastMasteryAbility:
     description: allows the player to use the beast mastery ability

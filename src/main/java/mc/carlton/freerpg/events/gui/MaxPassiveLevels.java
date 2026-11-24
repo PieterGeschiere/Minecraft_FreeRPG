@@ -14,7 +14,6 @@ public class MaxPassiveLevels {
             break;
         }
         break;
-      case "archery":
       case "woodcutting":
         switch (index) {
           case 2:

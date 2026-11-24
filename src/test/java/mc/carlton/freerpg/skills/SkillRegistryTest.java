@@ -14,15 +14,15 @@ import org.junit.jupiter.api.Test;
 class SkillRegistryTest {
 
   private static final List<String> LABELS = Arrays.asList("digging", "woodcutting", "mining",
-      "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense", "axeMastery",
+      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery",
       "repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics");
 
   private static final List<String> TITLES = Arrays.asList("Digging", "Woodcutting", "Mining",
-      "Farming", "Fishing", "Archery", "Beast Mastery", "Swordsmanship", "Defense", "Axe Mastery",
+      "Farming", "Fishing", "Beast Mastery", "Swordsmanship", "Defense", "Axe Mastery",
       "Repair", "Agility", "Alchemy", "Smelting", "Enchanting", "Building", "Aeronautics", "Global");
 
   @Test
-  void labelsAreTheSeventeenSkillsInOrder() {
+  void labelsAreTheSixteenSkillsInOrder() {
     assertEquals(LABELS, SkillRegistry.labels());
   }
 
@@ -36,7 +36,7 @@ class SkillRegistryTest {
   @Test
   void titlesWithGlobalAreExact() {
     assertEquals(TITLES, SkillRegistry.titlesWithGlobal());
-    assertEquals(TITLES.subList(0, 17), SkillRegistry.titles());
+    assertEquals(TITLES.subList(0, 16), SkillRegistry.titles());
   }
 
   @Test
@@ -47,12 +47,12 @@ class SkillRegistryTest {
 
   @Test
   void indexOf() {
-    assertEquals(14, SkillRegistry.indexOf("enchanting"));
-    assertEquals(15, SkillRegistry.indexOf("building"));
+    assertEquals(13, SkillRegistry.indexOf("enchanting"));
+    assertEquals(14, SkillRegistry.indexOf("building"));
     assertEquals(-1, SkillRegistry.indexOf("global"));
     assertEquals(-1, SkillRegistry.indexOf("nope"));
-    assertEquals(16, SkillRegistry.indexOf("aeronautics"));
-    assertEquals(17, SkillRegistry.labelsWithGlobal().indexOf("global"));
+    assertEquals(15, SkillRegistry.indexOf("aeronautics"));
+    assertEquals(16, SkillRegistry.labelsWithGlobal().indexOf("global"));
     assertEquals(-1, SkillRegistry.labels().indexOf("global"));
   }
 
@@ -102,16 +102,16 @@ class SkillRegistryTest {
   }
 
   @Test
-  void mainLabelsAreTheFirstTenInOrderAndImmutable() {
-    assertEquals(LABELS.subList(0, 10), SkillRegistry.mainLabels());
+  void mainLabelsAreTheFirstNineInOrderAndImmutable() {
+    assertEquals(LABELS.subList(0, 9), SkillRegistry.mainLabels());
     assertThrows(UnsupportedOperationException.class, () -> SkillRegistry.mainLabels().add("x"));
   }
 
   @Test
-  void gathererAndFighterGroupsAreTheFirstTenMainSkills() {
+  void gathererAndFighterGroupsAreTheNineMainSkills() {
     assertEquals(Arrays.asList("digging", "woodcutting", "mining", "farming", "fishing"),
         SkillRegistry.gathererLabels());
-    assertEquals(Arrays.asList("archery", "beastMastery", "swordsmanship", "defense", "axeMastery"),
+    assertEquals(Arrays.asList("beastMastery", "swordsmanship", "defense", "axeMastery"),
         SkillRegistry.fighterLabels());
     assertThrows(UnsupportedOperationException.class, () -> SkillRegistry.gathererLabels().add("x"));
     assertThrows(UnsupportedOperationException.class, () -> SkillRegistry.fighterLabels().add("x"));

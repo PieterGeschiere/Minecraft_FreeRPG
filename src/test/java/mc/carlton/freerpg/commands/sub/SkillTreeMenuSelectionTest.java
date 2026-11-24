@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 class SkillTreeMenuSelectionTest {
 
   @Test
-  void firstTenLabelsAreMain() {
+  void firstNineLabelsAreMain() {
     List<String> labels = List.of("digging", "woodcutting", "mining", "farming", "fishing",
-        "archery", "beastMastery", "swordsmanship", "defense", "axeMastery");
+        "beastMastery", "swordsmanship", "defense", "axeMastery");
     for (String label : labels) {
       assertEquals(MenuKind.MAIN, SkillTreeCommand.menuKindFor(label), label);
     }

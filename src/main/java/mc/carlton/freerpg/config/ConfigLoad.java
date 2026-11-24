@@ -165,9 +165,6 @@ public class ConfigLoad {
       abilityCooldowns.put(label, config.getInt(label + ".abilityCooldown"));
       allowedSkillGainEXPMap.put(label, expDropsEnabled(advancedConfig, label));
     }
-    // Archery is retired, Bow Mastery and Crossbow Mastery (weapon skills) replace it. Its data
-    // stays in the player files, so the other skills keep their place, but it never does anything.
-    allowedSkillsMap.put("archery", false);
     abilityCooldowns.put("robCooldown", advancedConfig.getInt("fishing.robCooldown"));
 
     durabilityModifiers.put("megaDig",

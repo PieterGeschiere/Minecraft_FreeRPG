@@ -240,7 +240,7 @@ global:
   skill-3: #Fighter
     enabled: true #Change this to false to disable this skill from working
     level-1:
-      expMultiplier: 1.2 #Multiplier for experience in Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
+      expMultiplier: 1.2 #Multiplier for experience in Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
   skill-4: #Hard Work
     enabled: true #Change this to false to disable this skill from working
     level-1:
@@ -254,8 +254,8 @@ global:
   skill-6: #Training
     enabled: true #Change this to false to disable this skill from working
     level-1:
-      skillTokenIncrease: 1 #Number of skill tokens added to Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
-      passiveTokenIncrease: 0 #Number of passive tokens added to Archery, Beast Mastery, swordsmanship, Defense, and Axe Mastery
+      skillTokenIncrease: 1 #Number of skill tokens added to Beast Mastery, swordsmanship, Defense, and Axe Mastery (and Mace, Trident and Spear Mastery)
+      passiveTokenIncrease: 0 #Number of passive tokens added to Beast Mastery, swordsmanship, Defense, and Axe Mastery
   skill-7: #Soul Harvesting
     enabled: true #Change this to false to disable this skill from working
     level-1:
@@ -1660,101 +1660,6 @@ fishing:
         - [ effect: DOLPHINS_GRACE, level: 1, duration: 15, delay: 0.0, prob: 1.0 ] #Example of how to use delay and prob
         - [ effect: NIGHT_VISION,   level: 1, duration: 15 ]
       refreshTimer: 2.0 #Number of seconds to between server checks to give the buff
-archery:
-  passive-1: #Rapid Fire Duration
-    enabled: true #Change this to false to disable this passive skill from working
-    startingValue: 2.0 #Starting duration in seconds
-    allowedRange: [ 0.0, INF ] #The allowed range of durations, (INF or -INF represent positive and negative infinity)
-    changePerLevel: 0.02 #Number of seconds the duration increases each level
-  passive-2: #Retrieval
-    enabled: true #Change this to false to disable this passive skill from working
-    startingValue: 0.00 #Starting probability
-    allowedRange: [ 0.0, 1.0 ] #The allowed range of probabilities, (INF or -INF represent positive and negative infinity)
-    changePerLevel: 0.0005 #Increase in probability each level
-    # Select between ARROW, SPECTRAL_ARROW, TIPPED_ARROW, and FIREWORK
-    affected-itemList: [ ARROW,SPECTRAL_ARROW,TIPPED_ARROW ]
-  skill-1: #Extra Arrows
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      additionalArrows: 1 #Additional arrows given when crafting arrows
-    level-2:
-      additionalArrows: 2 #Additional arrows given when crafting arrows
-    level-3:
-      additionalArrows: 3 #Additional arrows given when crafting arrows
-    level-4:
-      additionalArrows: 4 #Additional arrows given when crafting arrows
-    level-5:
-      additionalArrows: 5 #Additional arrows given when crafting arrows
-  skill-2: #Sniper
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      arrowSpeedMultiplier: 1.02 #Multiplier on arrow speed, damage increases with arrow speed
-    level-2:
-      arrowSpeedMultiplier: 1.04 #Multiplier on arrow speed, damage increases with arrow speed
-    level-3:
-      arrowSpeedMultiplier: 1.06 #Multiplier on arrow speed, damage increases with arrow speed
-    level-4:
-      arrowSpeedMultiplier: 1.08 #Multiplier on arrow speed, damage increases with arrow speed
-    level-5:
-      arrowSpeedMultiplier: 1.10 #Multiplier on arrow speed, damage increases with arrow speed
-  skill-3: #Arrow of Light
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      damageMultiplier: 1.05 #Damage multiplier for spectral arrows on hit
-    level-2:
-      damageMultiplier: 1.10 #Damage multiplier for spectral arrows on hit
-    level-3:
-      damageMultiplier: 1.15 #Damage multiplier for spectral arrows on hit
-    level-4:
-      damageMultiplier: 1.20 #Damage multiplier for spectral arrows on hit
-    level-5:
-      damageMultiplier: 1.25 #Damage multiplier for spectral arrows on hit
-  skill-4: #Explosive Arrows
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      explosionChance: 0.01 #Chance of explosion
-      explosionPower: 3 #Explosion power, affects damage and size
-      setFire: false #Set to true for explosion to cause fire
-      breakBlocks: false #Ste to true for explosion to break blocks
-    level-2:
-      explosionChance: 0.02 #Chance of explosion
-      explosionPower: 3 #Explosion power, affects damage and size
-      setFire: false #Set to true for explosion to cause fire
-      breakBlocks: false #Ste to true for explosion to break blocks
-    level-3:
-      explosionChance: 0.03 #Chance of explosion
-      explosionPower: 3 #Explosion power, affects damage and size
-      setFire: false #Set to true for explosion to cause fire
-      breakBlocks: false #Ste to true for explosion to break blocks
-    level-4:
-      explosionChance: 0.04 #Chance of explosion
-      explosionPower: 3 #Explosion power, affects damage and size
-      setFire: false #Set to true for explosion to cause fire
-      breakBlocks: false #Ste to true for explosion to break blocks
-    level-5:
-      explosionChance: 0.05 #Chance of explosion
-      explosionPower: 3 #Explosion power, affects damage and size
-      setFire: false #Set to true for explosion to cause fire
-      breakBlocks: false #Ste to true for explosion to break blocks
-  skill-5: #Dragon-less Arrows
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      # Disable the perk from working for some tipped arrow types
-      # Select potion effects from this list https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
-      # Format: [{effect name}, {is extended ?}, {is upgraded ?}]
-      uncraftable-potionDataList:
-        - [ effect: SPEED, isExtended: true, isUpgraded: true ] #This is an example. It will have no effect because no tipped arrow effect is extended and upgraded
-  skill-6: #Crossbow Rapid Load
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      # Arrows that the ability applies to
-      # Select between ARROW, SPECTRAL_ARROW, TIPPED_ARROW, and FIREWORK
-      affected-itemList: [ ARROw,SPECTRAL_ARROW,TIPPED_ARROW ]
-  skill-7: #Deadly Strike
-    enabled: true #Change this to false to disable this skill from working
-    level-1:
-      damageMultiplier: 2.0 #Multiplier for damage done by fireworks shot from crossbow
-      maxDamage: 32.0 #Maximum damage done by fireworks shot from crossbow b
 beastMastery:
   passive-1: #Spur Kick Duration
     enabled: true #Change this to false to disable this passive skill from working

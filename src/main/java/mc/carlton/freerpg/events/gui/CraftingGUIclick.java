@@ -32,9 +32,6 @@ public class CraftingGUIclick implements Listener {
       if (e.getCurrentItem() != null) {
         if (e.getCurrentItem().getType() == Material.ARROW) {
           switch (inv.getItem(25).getType()) {
-            case TIPPED_ARROW:
-              p.performCommand("frpg skillTreeGUI archery");
-              break;
             case COW_SPAWN_EGG:
             case BEE_SPAWN_EGG:
             case MOOSHROOM_SPAWN_EGG:

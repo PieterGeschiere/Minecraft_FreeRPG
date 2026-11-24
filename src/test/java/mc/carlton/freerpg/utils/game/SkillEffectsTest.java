@@ -41,9 +41,9 @@ class SkillEffectsTest {
   }
 
   @Test
-  void allTenMainSkillAbilitiesHaveEffects() {
-    assertEquals(10, AbilityVisuals.SKILLS.size());
-    assertEquals(10, new HashSet<>(AbilityVisuals.SKILLS).size());
+  void allNineMainSkillAbilitiesHaveEffects() {
+    assertEquals(9, AbilityVisuals.SKILLS.size());
+    assertEquals(9, new HashSet<>(AbilityVisuals.SKILLS).size());
   }
 
   @Test

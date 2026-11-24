@@ -117,9 +117,6 @@ public class SkillConfigGuiCommand implements SubCommand {
         //hot Rod
         togglePerkSetGuiItem("hotRodToggle", p, gui);
         break;
-      case "archery":
-        skillIcon.setItemType(Material.BOW);
-        break;
       case "beastMastery":
         skillIcon.setItemType(Material.BONE);
         break;

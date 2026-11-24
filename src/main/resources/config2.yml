@@ -129,10 +129,6 @@ fishing:
       - [ drop: NAME_TAG,       amount: 1, exp: 2000, weight: 1 ]
       - [ drop: NAUTILUS_SHELL, amount: 1, exp: 2000, weight: 1 ]
       - [ drop: ROTTEN SADDLE,  amount: 1, exp: 2000, weight: 1 ]
-archery:
-  enabled: true #Setting this to false disables all skill features and EXP drops.
-  startingSkillTokens: 0 #number of skill tokens each player starts with in this skill
-  startingPassiveTokens: 0 #number of passive tokens each player starts with in this skill
 beastMastery:
   enabled: true #Setting this to false disables all skill features and EXP drops.
   startingSkillTokens: 0 #number of skill tokens each player starts with in this skill

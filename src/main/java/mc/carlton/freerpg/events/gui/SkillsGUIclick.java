@@ -62,9 +62,8 @@ public class SkillsGUIclick implements Listener {
       if (e.getCurrentItem() != null) {
         switch (e.getCurrentItem().getType()) {
           case ARROW:
-            // Archery, Swordsmanship and Axe Mastery are part of the Weapon Skills category
-            if (skillName.equals("swordsmanship") || skillName.equals("axeMastery")
-                || skillName.equals("archery")) {
+            // Swordsmanship and Axe Mastery are part of the Weapon Skills category
+            if (skillName.equals("swordsmanship") || skillName.equals("axeMastery")) {
               p.performCommand("frpg weapons");
             } else {
               p.performCommand("frpg skills");
@@ -233,8 +232,6 @@ public class SkillsGUIclick implements Listener {
                 default:
                   break;
               }
-            } else if (skillName.equalsIgnoreCase("archery")) {
-              p.performCommand("frpg craftingGUI " + "archery1");
             } else if (skillName.equalsIgnoreCase("enchanting")) {
               switch (e.getRawSlot()) {
                 case 39:

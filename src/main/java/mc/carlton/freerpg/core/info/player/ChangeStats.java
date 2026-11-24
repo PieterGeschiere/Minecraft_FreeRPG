@@ -380,9 +380,6 @@ public class ChangeStats {
     Map<String, Integer> expTotalMap = new HashMap<>();
     boolean statsNeedToBeChanged = false;
     for (String label : labels_0) {
-      if (label.equals("archery")) {
-        continue; // retired, its data is kept as it is
-      }
       int maxLevel = getMaxLevel(label);
       ArrayList<Number> pStat = pStats.get(label);
       int exp = (int) pStat.get(1);
@@ -397,15 +394,9 @@ public class ChangeStats {
       resetStat("global");
       String[] labels_1 = SkillRegistry.labelArray();
       for (String label : labels_1) {
-        if (label.equals("archery")) {
-          continue;
-        }
         resetStat(label); //Reset all stats
       }
       for (String label : labels_1) { //Might cause global token errors if done in the same loop
-        if (label.equals("archery")) {
-          continue;
-        }
         changeEXP(label, expTotalMap.get(label)); //Increase experience for all stats
       }
       LanguageSelector lang = new LanguageSelector(p);

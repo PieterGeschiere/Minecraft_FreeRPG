@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.party.XpShareGuard;
@@ -26,9 +25,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 /** Everything that touches the server for wheel prizes: handing them out, icons and names. */
 public final class PrizeGiver {
 
-  /** Main skills the wheel can give exp in (archery is retired). */
-  private static final List<String> MAIN_SKILLS = SkillRegistry.labels().stream()
-      .filter(label -> !label.equals("archery")).collect(Collectors.toUnmodifiableList());
+  /** Main skills the wheel can give exp in. */
+  private static final List<String> MAIN_SKILLS = SkillRegistry.labels();
 
   private static final Map<String, Material> SKILL_ICONS = Map.ofEntries(
       Map.entry("digging", Material.IRON_SHOVEL),

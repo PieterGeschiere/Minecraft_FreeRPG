@@ -58,9 +58,6 @@ public class MainGUIclick implements Listener {
           case FISHING_ROD:
             p.performCommand("frpg skillTreeGUI fishing");
             break;
-          case BOW:
-            p.performCommand("frpg skillTreeGUI archery");
-            break;
           case BONE:
             p.performCommand("frpg skillTreeGUI beastMastery");
             break;

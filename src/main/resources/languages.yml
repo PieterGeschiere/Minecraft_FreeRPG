@@ -334,7 +334,6 @@ lang:
     mining: Mining
     farming: Farming
     fishing: Fishing
-    archery: Archery
     beastMastery: Beast Mastery
     swordsmanship: Swordsmanship
     defense: Defense
@@ -494,34 +493,6 @@ lang:
     fishingPassiveDesc4: Increases chance to receive a double drop by 0.05%
     fishingPassiveDesc5: Decreases chance of finding junk by 0.005%, increases chance
       of finding treasure by 0.005%
-    archeryPerkTitle0: Extra Arrows
-    archeryPerkTitle1: Sniper
-    archeryPerkTitle2: Arrow of Light
-    archeryPerkTitle3: Explosive Arrows
-    archeryPerkTitle4: Dragon-less Arrows
-    archeryPerkTitle5: Crossbow Rapid Load
-    archeryPerkTitle6: Deadly Strike
-    archeryPerkDesc0: +1 arrow gained from crafting per level
-    archeryPerkDesc1: Arrow speed increases by +2% per level (~4% damage increase/level)
-    archeryPerkDesc2: Spectral arrows get a +5% damage boost per level
-    archeryPerkDesc3: Arrows have a +1% of creating an explosion on hit
-    archeryPerkDesc4: Allows crafting all tipped arrows with regular potions instead
-      of lingering potions
-    archeryPerkDesc5: Ability can now be used with crossbows, making all shots load
-      instantly
-    archeryPerkDesc6: Fireworks shot from crossbows do double damage (up to 16 hearts
-      of damage)
-    archeryPassiveTitle0: Passive Tokens
-    archeryPassiveTitle1: Back
-    archeryPassiveTitle2: Skill Tokens
-    archeryPassiveTitle3: Rapid Fire Duration
-    archeryPassiveTitle4: Retrieval
-    archeryPassiveDesc0: Tokens to invest in passive skills (dyes)
-    archeryPassiveDesc1: Takes you back to the main skills menu
-    archeryPassiveDesc2: Tokens to invest in skill tree
-    archeryPassiveDesc3: Increases duration of Rapid Fire by 0.02s
-    archeryPassiveDesc4: Increases chance for arrow shot to not consume arrow by 0.05%
-      per level
     beastMasteryPerkTitle0: Thick Fur
     beastMasteryPerkTitle1: Sharp Teeth
     beastMasteryPerkTitle2: Healthy Bites
@@ -731,7 +702,7 @@ lang:
     globalPerkDesc0: +20% exp gained in Digging, Woodcutting, Mining, Farming, and
       Fishing
     globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, Building, and Aeronautics
-    globalPerkDesc2: +20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense,
+    globalPerkDesc2: +20% exp gained in Beast Mastery, Swordsmanship, Defense,
       and Axe Mastery
     globalPerkDesc3: +1 skill token in all Gatherer skills
     globalPerkDesc4: +1 skill token in all Scholar skills
@@ -915,7 +886,6 @@ lang:
     abilityDescription_mining: Temporarily adds 5 levels of effiency to your pickaxe. Activated by right-clicking a pickaxe then breaking block.
     abilityDescription_farming: Temporarily makes crops broken with a hoe automatically replant. Activated by right-clicking a hoe then breaking a crop.
     abilityDescription_fishing: Temporarily makes fishing rods instantly catch a fish. Activated by left-clicking a fishing rod then fishing in water.
-    abilityDescription_archery: Temporarily makes all arrows fired at max speed. Activated by left-clicking a bow then shooting an arrow.
     abilityDescription_beastMastery: Temporarily gives your horse a speed buff. Activated by right-clicking while on a horse then left-clicking.
     abilityDescription_swordsmanship: Temporarily removes swinging cooldown on swords. Activated by right-clicking a sword then hitting a mob.
     abilityDescription_defense: Temporarily gives the user Resistance and Slowness effects. Activated by right-clicking with an empty hand then hitting a mob.
@@ -1139,7 +1109,6 @@ lang:
     mining: Bányászat
     farming: Földművelés
     fishing: Horgászás
-    archery: Íjászat
     beastMastery: Uralom a természet felett
     swordsmanship: Kardforgatás
     defense: Védelem
@@ -1284,30 +1253,6 @@ lang:
     fishingPassiveDesc3: Megnöveli a Szupercsali időtartamát 0.01 másodperccel
     fishingPassiveDesc4: 0.05%-kal megnöveli az esélyét, hogy a játékos dupla annyi tárgyat fog ki
     fishingPassiveDesc5: Csökkenti a 0.00%5-kal azt, hogy a játékos szemetet fogjon ki, és megnöveli 0.005%-kal, hogy értékes tárgyra leljen
-    archeryPerkTitle0: Extra nyilak
-    archeryPerkTitle1: Mesterlövész
-    archeryPerkTitle2: A Fény Nyila
-    archeryPerkTitle3: Robbanó Nyíl
-    archeryPerkTitle4: Sárkány Nélküli Barkácsolgatás
-    archeryPerkTitle5: Gyorskezű Íjász
-    archeryPerkTitle6: Halálos Csapás
-    archeryPerkDesc0: Minden szinttel plusz egy nyilat kapsz, hogyha barkácsolsz egyet
-    archeryPerkDesc1: A nyíl sebessége megnő 2%-kal minden szinttel
-    archeryPerkDesc2: Szintenként 5%-kal többet sebez a Spectral nyíl
-    archeryPerkDesc3: Szintenként 1%-kkal nő az esélye, hogy robban a nyíl, amit kilő a játékos
-    archeryPerkDesc4: Egyszerű bájitalokból is tud különleges nyilakat kraftolni a játékos ezzel a képeséggel
-    archeryPerkDesc5: A számszeríjakat is rögtön felhúzza a játékos ezzel a képességgel
-    archeryPerkDesc6: A tüzijátékok, amiket számszeríjból lő ki a játékos dupla annyit sebeznek
-    archeryPassiveTitle0: Passzív Zsetonok
-    archeryPassiveTitle1: Vissza
-    archeryPassiveTitle2: Képesség Zsetonok
-    archeryPassiveTitle3: Gyors Tüzelés időtartama
-    archeryPassiveTitle4: Varázsnyíl
-    archeryPassiveDesc0: Ezeket a Zsetonokat a passzív képességekre tudod elhasználni (színezékek)
-    archeryPassiveDesc1: Visszamész a főmenübe
-    archeryPassiveDesc2: Ezeket a Zsetonokat a képesség fában tudod elhasználni
-    archeryPassiveDesc3: 0.02 másodperccel megnöveli a Gyors Tüzelés képesség időtartamát
-    archeryPassiveDesc4: 0.05%-kal nő szintenként az esélye annak, hogy nem használódik el a nyíl, amikor íjat használ a játékos
     beastMasteryPerkTitle0: Páncélos Kutyus
     beastMasteryPerkTitle1: Harcieb
     beastMasteryPerkTitle2: Egészséges Falatok
@@ -1689,7 +1634,6 @@ lang:
     abilityDescription_mining: Temporarily adds 5 levels of effiency to your pickaxe. Activated by right-clicking a pickaxe then breaking block.
     abilityDescription_farming: Temporarily makes crops broken with a hoe automatically replant. Activated by right-clicking a hoe then breaking a crop.
     abilityDescription_fishing: Temporarily makes fishing rods instantly catch a fish. Activated by left-clicking a fishing rod then fishing in water.
-    abilityDescription_archery: Temporarily makes all arrows fired at max speed. Activated by left-clicking a bow then shooting an arrow.
     abilityDescription_beastMastery: Temporarily gives your horse a speed buff. Activated by right-clicking while on a horse then left-clicking.
     abilityDescription_swordsmanship: Temporarily removes swinging cooldown on swords. Activated by right-clicking a sword then hitting a mob.
     abilityDescription_defense: Temporarily gives the user Resistance and Slowness effects. Activated by right-clicking with an empty hand then hitting a mob.
@@ -2092,7 +2036,6 @@ lang:
     mining: Minage
     farming: Agriculture
     fishing: Pêche
-    archery: Archerie
     beastMastery: Maîtrise des bêtes
     swordsmanship: Maniement de l'épée
     defense: Défense
@@ -2236,30 +2179,6 @@ lang:
     fishingPassiveDesc3: Augmente la durée du Super Appât de 0.01s
     fishingPassiveDesc4: Augmente la chance d'obtenir un double drop de 0.05%
     fishingPassiveDesc5: Diminue la chance de pêcher des déchets de 0.005%, augmente la chance d'obtenir un loot de 0.005%
-    archeryPerkTitle0: Flèches supplémentaires
-    archeryPerkTitle1: Sniper
-    archeryPerkTitle2: Flèche de lumière
-    archeryPerkTitle3: Flèches explosives
-    archeryPerkTitle4: Flèches magiques
-    archeryPerkTitle5: Recharge rapide d'arbalète
-    archeryPerkTitle6: Tir meurtrier
-    archeryPerkDesc0: +1 flèche obtenue par fabrication pour chaque niveau
-    archeryPerkDesc1: Augmente la vitesse des flèches de +2% par niveau (augmente les dommages de ~4%/niveau)
-    archeryPerkDesc2: Augmente les dégâts de Flèche Spectrale de +5% par niveau
-    archeryPerkDesc3: Les flèches ont +1% de produire une explosion au toucher
-    archeryPerkDesc4: Permet la fabrication de toutes les flèches à effet avec des potions jetables a la place des potions persistantes
-    archeryPerkDesc5: L'abilité peut désormais être utilisé avec les arbalettes et permet de faire des tirs instantanés
-    archeryPerkDesc6: Les dégâts des feux d'artifice tirés avec les flèches sont doublés (jusqu'â 16 coeurs de dégâts)
-    archeryPassiveTitle0: Jetons passif
-    archeryPassiveTitle1: Retour
-    archeryPassiveTitle2: Jetons compétence
-    archeryPassiveTitle3: Durée de Tir Rapide
-    archeryPassiveTitle4: Retraite
-    archeryPassiveDesc0: Jetons a investir dans les passifs (teintures)
-    archeryPassiveDesc1: Retourner au menu principal des compétences
-    archeryPassiveDesc2: Jetons a investir dans les compétences
-    archeryPassiveDesc3: Augmente la durée de Tir Rapide de 0.02s
-    archeryPassiveDesc4: Augmente les chances de tirer une flèche sans en consommer de 0.05% par niveau
     beastMasteryPerkTitle0: Fourrure épaisse
     beastMasteryPerkTitle1: Crocs aiguisés
     beastMasteryPerkTitle2: Morsure regénérante
@@ -2637,7 +2556,6 @@ lang:
     abilityDescription_mining: Temporarily adds 5 levels of effiency to your pickaxe. Activated by right-clicking a pickaxe then breaking block.
     abilityDescription_farming: Temporarily makes crops broken with a hoe automatically replant. Activated by right-clicking a hoe then breaking a crop.
     abilityDescription_fishing: Temporarily makes fishing rods instantly catch a fish. Activated by left-clicking a fishing rod then fishing in water.
-    abilityDescription_archery: Temporarily makes all arrows fired at max speed. Activated by left-clicking a bow then shooting an arrow.
     abilityDescription_beastMastery: Temporarily gives your horse a speed buff. Activated by right-clicking while on a horse then left-clicking.
     abilityDescription_swordsmanship: Temporarily removes swinging cooldown on swords. Activated by right-clicking a sword then hitting a mob.
     abilityDescription_defense: Temporarily gives the user Resistance and Slowness effects. Activated by right-clicking with an empty hand then hitting a mob.
@@ -3040,7 +2958,6 @@ lang:
     mining: Bergbau
     farming: Ackerbau
     fishing: Fischen
-    archery: Bogenschießen
     beastMastery: Tamer
     swordsmanship: Schwertkunst
     defense: Verteidigung
@@ -3185,30 +3102,6 @@ lang:
     fishingPassiveDesc3: Erhöht die Dauer des Superköders um 0,01 Sekunden
     fishingPassiveDesc4: Erhöht die Chance auf einen doppelten Drop um 0,05%
     fishingPassiveDesc5: Verringert die Wahrscheinlichkeit Müll zu finden um 0,005% und erhöht die Wahrscheinlichkeit einen Schatz zu finden um 0,005%
-    archeryPerkTitle0: Zusätzliche Pfeile
-    archeryPerkTitle1: Sniper
-    archeryPerkTitle2: Pfeil des Lichts
-    archeryPerkTitle3: Explosive Pfeile
-    archeryPerkTitle4: Drachenlose Pfeile
-    archeryPerkTitle5: Armbrust-Schnelllader
-    archeryPerkTitle6: Tödlicher Schlag
-    archeryPerkDesc0: +1 Pfeil aus der Herstellung pro Level
-    archeryPerkDesc1: Die Pfeilgeschwindigkeit erhöht sich um + 2% pro Level (~ 4% Schadenszunahme / Level)
-    archeryPerkDesc2: Spektralpfeile erhalten pro Level einen Schadensschub von + 5%
-    archeryPerkDesc3: Pfeile verursachen +1% bei einem Treffer eine Explosion zu erzeugen
-    archeryPerkDesc4: Ermöglicht die Herstellung aller Pfeile mit normalen Tränken anstelle von verweilenden Tränken
-    archeryPerkDesc5: Die Fähigkeit kann jetzt mit Armbrüsten verwendet werden, sodass alle Schüsse sofort geladen werden
-    archeryPerkDesc6: Von Armbrüsten abgefeuerte Feuerwerke verursachen doppelten Schaden (bis zu 16 Herzen Schaden)
-    archeryPassiveTitle0: Passive Token
-    archeryPassiveTitle1: Zurück
-    archeryPassiveTitle2: Skill Token
-    archeryPassiveTitle3: Schnellfeuer Dauer
-    archeryPassiveTitle4: Abruf
-    archeryPassiveDesc0: Token zur Investition in passive Fähigkeiten (Farbstoffe)
-    archeryPassiveDesc1: Bringt dich zurück zum Hauptmenü der Skills
-    archeryPassiveDesc2: Token, um in den Skillbaum zu investieren
-    archeryPassiveDesc3: Erhöht die Dauer des Schnellfeuers um 0,02 Sekunden
-    archeryPassiveDesc4: Erhöht die Wahrscheinlichkeit, dass ein Pfeilschuss keinen Pfeil verbraucht, um 0,05% pro Level
     beastMasteryPerkTitle0: Dickes Fell
     beastMasteryPerkTitle1: Scharfe Zähne
     beastMasteryPerkTitle2: Gesunde Bisse
@@ -3596,9 +3489,6 @@ lang:
     abilityDescription_fishing: Lässt vorübergehend Angelruten sofort einen Fisch
       fangen. Aktivierung durch Links-Klick auf eine Angelrute und anschließendes
       Angeln im Wasser.
-    abilityDescription_archery: Lässt vorübergehend alle Pfeile mit maximaler Geschwindigkeit
-      abfeuern. Aktivierung durch Links-Klick auf einen Bogen und dann einen Pfeil
-      abschießen.
     abilityDescription_beastMastery: Verleiht deinem Pferd vorübergehend einen Geschwindigkeitsschub.
       Aktivierung durch Rechts-Klick auf einem Pferd und anschließendes Klicken mit
       der linken Maustaste.
@@ -4008,7 +3898,6 @@ lang:
     mining: Górnictwo
     farming: Rolnictwo
     fishing: Łowienie ryb
-    archery: Łucznictwo
     beastMastery: Mistrzostwo Bestii
     swordsmanship: Mistrzostwo Miecza
     defense: Obrona
@@ -4162,34 +4051,6 @@ lang:
     fishingPassiveDesc4: Zwiększa szansę na otrzymanie podwójnego dropu o 0.05%
     fishingPassiveDesc5: Zmniejsza szansę znalezienia śmieci o 0,005%, zwiększa szansę
       znalezienia skarbu o 0,005%
-    archeryPerkTitle0: Dodatkowe strzały
-    archeryPerkTitle1: Snajper
-    archeryPerkTitle2: Strzała światła
-    archeryPerkTitle3: Wybuchowe Strzały
-    archeryPerkTitle4: Smocze Strzały
-    archeryPerkTitle5: Szybkie ładowanie kuszy
-    archeryPerkTitle6: Śmiertelne uderzenie
-    archeryPerkDesc0: +1 strzała uzyskana z wytwarzania na poziom
-    archeryPerkDesc1: Szybkość strzały wzrasta o + 2% na poziom (~ 4% wzrost obrażeń / poziom)
-    archeryPerkDesc2: Widmowe strzały zwiększają obrażenia o + 5% na poziom
-    archeryPerkDesc3: Strzały mają + 1% do wywołania eksplozji przy trafieniu
-    archeryPerkDesc4: Pozwala na tworzenie wszystkich strzał z końcówkami za pomocą zwykłych mikstur
-      zamiast trwałych mikstur
-    archeryPerkDesc5: Umiejętności można teraz używać z kuszami, dzięki czemu wszystkie strzały będą się ładować
-      natychmiast
-    archeryPerkDesc6: Fajerwerki wystrzeliwane z kuszy zadają podwójne obrażenia (do 16 serc
-      uszkodzeń)
-    archeryPassiveTitle0: Tokeny umiejętności pasywnych
-    archeryPassiveTitle1: Powrót
-    archeryPassiveTitle2: Tokeny umiejętności
-    archeryPassiveTitle3: Szybki Ostrzał
-    archeryPassiveTitle4: Odzyskiwanie
-    archeryPassiveDesc0: Tokeny do inwestowania w umiejętności pasywne
-    archeryPassiveDesc1: Przenosi cię z powrotem do głównego menu umiejętności
-    archeryPassiveDesc2: Tokeny do zainwestowania w drzewko umiejętności
-    archeryPassiveDesc3: Zwiększa czas trwania Szybkiego Ostrzału o 0.02sek
-    archeryPassiveDesc4: Zwiększa szansę, że wystrzał strzały nie pochłonie strzały o 0,05%
-      na poziom
     beastMasteryPerkTitle0: Grube futro
     beastMasteryPerkTitle1: Ostre zęby
     beastMasteryPerkTitle2: Zdrowe ukąszenia
@@ -4582,7 +4443,6 @@ lang:
     abilityDescription_mining: Temporarily adds 5 levels of effiency to your pickaxe. Activated by right-clicking a pickaxe then breaking block.
     abilityDescription_farming: Temporarily makes crops broken with a hoe automatically replant. Activated by right-clicking a hoe then breaking a crop.
     abilityDescription_fishing: Temporarily makes fishing rods instantly catch a fish. Activated by left-clicking a fishing rod then fishing in water.
-    abilityDescription_archery: Temporarily makes all arrows fired at max speed. Activated by left-clicking a bow then shooting an arrow.
     abilityDescription_beastMastery: Temporarily gives your horse a speed buff. Activated by right-clicking while on a horse then left-clicking.
     abilityDescription_swordsmanship: Temporarily removes swinging cooldown on swords. Activated by right-clicking a sword then hitting a mob.
     abilityDescription_defense: Temporarily gives the user Resistance and Slowness effects. Activated by right-clicking with an empty hand then hitting a mob.
@@ -4985,7 +4845,6 @@ lang:
     mining: Minería
     farming: Agricultura
     fishing: Pesca
-    archery: Tiro con arco
     beastMastery: Dominio de las bestias
     swordsmanship: Manejo de la espada
     defense: Defensa
@@ -5159,36 +5018,6 @@ lang:
       0.05%
     fishingPassiveDesc5: Disminuye la probabilidad de encontrar basura en un 0.005%,
       aumenta la probabilidad de encontrar tesoros en un 0,005%
-    archeryPerkTitle0: Flechas adicionales
-    archeryPerkTitle1: Francotirador
-    archeryPerkTitle2: Flecha de luz
-    archeryPerkTitle3: Flechas explosivas
-    archeryPerkTitle4: Flechas sin dragón
-    archeryPerkTitle5: Ballesta de carga rápida
-    archeryPerkTitle6: Golpe mortal
-    archeryPerkDesc0: +1 flecha obtenida de la elaboración por nivel
-    archeryPerkDesc1: La velocidad de la flecha aumenta en un + 2% por nivel (~ 4%
-      de aumento de daño / nivel)
-    archeryPerkDesc2: Las flechas espectrales obtienen un aumento de daño de + 5%
-      por nivel
-    archeryPerkDesc3: Las flechas tienen un + 1% de crear una explosión al golpear
-    archeryPerkDesc4: permite crear todas las flechas con puntas con pociones regulares
-      en su lugar de pociones persistentes
-    archeryPerkDesc5: la habilidad ahora se puede usar con ballestas, lo que hace
-      que todos los disparos se carguen instantáneamente
-    archeryPerkDesc6: Los fuegos artificiales disparados con ballestas hacen el doble
-      de daño (hasta 16 corazones de daño)
-    archeryPassiveTitle0: Fichas pasivas
-    archeryPassiveTitle1: Atrás
-    archeryPassiveTitle2: Fichas de habilidad
-    archeryPassiveTitle3: Duración de disparo rápido
-    archeryPassiveTitle4: Recuperación
-    archeryPassiveDesc0: Fichas para invertir en habilidades pasivas (tintes)
-    archeryPassiveDesc1: te lleva de regreso al menú principal de habilidades
-    archeryPassiveDesc2: Fichas para invertir en árbol de habilidades
-    archeryPassiveDesc3: aumenta la duración del disparo rápido en 0.02s
-    archeryPassiveDesc4: aumenta la probabilidad de que el disparo de flecha no consuma
-      flecha en un 0.05% por nivel
     beastMasteryPerkTitle0: Piel gruesa
     beastMasteryPerkTitle1: Dientes afilados
     beastMasteryPerkTitle2: Bocados saludables
@@ -5619,9 +5448,6 @@ lang:
     abilityDescription_fishing: Temporalmente hace que las cañas de pescar capturen
       un pez al instante. Se activa haciendo clic con el botón izquierdo en una caña
       de pescar y luego pescando en el agua.
-    abilityDescription_archery: Hace que todas las flechas se disparen temporalmente
-      a la velocidad máxima. Se activa haciendo clic con el botón izquierdo en un
-      arco y luego disparando una flecha.
     abilityDescription_beastMastery: Le otorga temporalmente a tu caballo una mejora
       de velocidad. Se activa haciendo clic con el botón derecho en un caballo y luego
       haciendo clic con el botón izquierdo.
@@ -6032,7 +5858,6 @@ lang:
     mining: Шахтерство
     farming: Фермество
     fishing: Рыбаловство
-    archery: Стрельба из лука
     beastMastery: Повелитель зверей
     swordsmanship: Фехтование
     defense: Защита
@@ -6176,30 +6001,6 @@ lang:
     fishingPassiveDesc3: Увеличивает длительность "Супер приманки" на 0.01с
     fishingPassiveDesc4: Увеличивает шанс получить двойной дроп на 0.05%
     fishingPassiveDesc5: Уменьшает шанс найти мусор на 0.005%, увеличивает шанс поиска сокровище на 0.005%
-    archeryPerkTitle0: Дополнительные стрелы
-    archeryPerkTitle1: Снайпер
-    archeryPerkTitle2: Стрелы света
-    archeryPerkTitle3: Взрывные стрелы
-    archeryPerkTitle4: Стрелы без дракона
-    archeryPerkTitle5: Быстрая зарядка арбалета
-    archeryPerkTitle6: Смертельный удар
-    archeryPerkDesc0: +1 стрела, получаемая от крафта, за уровень
-    archeryPerkDesc1: Скорость стрелы увеличивается на +2% за уровень (прибавка к урону на ~4% за уровень)
-    archeryPerkDesc2: Спектральные стрелы получают +5% к урону за уровень
-    archeryPerkDesc3: Стрелы имеют +1% шанса взорваться при попадании
-    archeryPerkDesc4: Позволяет создавать все стрелы с наконечниками из обычных зелий вместо туманных зелий
-    archeryPerkDesc5: Теперь способность можно использовать с арбалетами, чтобы все выстрелы производились мгновенно
-    archeryPerkDesc6: Выстрел фейерверком из арбалетов наносит двойной урон (до 16 урона)
-    archeryPassiveTitle0: Пассивные жетоны
-    archeryPassiveTitle1: Назад
-    archeryPassiveTitle2: Жетоны умений
-    archeryPassiveTitle3: Длительность "Быстрого Огня"
-    archeryPassiveTitle4: Кешбэк
-    archeryPassiveDesc0: Жетоны для прокачки пассивных умений (красители)
-    archeryPassiveDesc1: Возвращает вас в главное меню навыков
-    archeryPassiveDesc2: Жетоны для прокачки дерева умений
-    archeryPassiveDesc3: Увеличивает длительность "Быстрого Огня" на 0.02с
-    archeryPassiveDesc4: Увеличивает шанс для выстрела стрелы не потратив стрелу на 0.05% за уровень
     beastMasteryPerkTitle0: Густой мех
     beastMasteryPerkTitle1: Острые зубы
     beastMasteryPerkTitle2: Полезные закуски
@@ -6577,7 +6378,6 @@ lang:
     abilityDescription_mining: Временно увеличивает эффективность вашей кирки на 5 уровней. Активируется щелчком правой кнопкой мыши по кирке, затем разрушением блока.
     abilityDescription_farming: Временно заставляет посевы, сломанные мотыгой, автоматически пересаживать. Активируется щелчком правой кнопкой мыши по мотыге, затем разрушением посева.
     abilityDescription_fishing: Временно заставляет удочки мгновенно ловить рыбу. Активируется щелчком левой кнопки мыши удочкой по блоку, затем ловлей рыбы.
-    abilityDescription_archery: Временно заставляет все стрелы стрелять на максимальной скорости. Активируется щелчком левой кнопки мыши по луку, затем выстрелом.
     abilityDescription_beastMastery: Временно увеличивает скорость вашей лошади. Активируется щелчком правой кнопкой мыши по лошади, а затем щелчком левой кнопкой мыши.
     abilityDescription_swordsmanship: Временно убирает перезарядку атаки на мечах. Активируется щелчком правой кнопки мыши по мечу, затем ударом мечом по мобу.
     abilityDescription_defense: Временно дает пользователю эффекты сопротивления к урону и замедления. Активируется щелчком правой кнопкой мыши пустой рукой, затем ударом по мобу.
@@ -6979,7 +6779,6 @@ lang:
     mining: Mineração
     farming: Agricultura
     fishing: Pescaria
-    archery: Tiro com arco
     beastMastery: Domínio da Besta
     swordsmanship: Esgrima
     defense: Defesa
@@ -7139,34 +6938,6 @@ lang:
     fishingPassiveDesc4: Aumenta a chance de receber uma queda dupla em 0,05%
     fishingPassiveDesc5: Diminui a chance de encontrar lixo em 0,005%, aumenta a chance
       de encontrar tesouros em 0,005%
-    archeryPerkTitle0: Flechas extras
-    archeryPerkTitle1: Franco-atirador
-    archeryPerkTitle2: Flecha de luz
-    archeryPerkTitle3: Flehas Explosivas
-    archeryPerkTitle4: Flecha Dragon-less
-    archeryPerkTitle5: Carga rápida de besta
-    archeryPerkTitle6: Golpe Mortal
-    archeryPerkDesc0: +1 flecha obtida na fabricação por nível
-    archeryPerkDesc1: A velocidade da flecha aumenta em + 2% por nível (~ 4% de aumento de dano / nível)
-    archeryPerkDesc2: Flechas espectrais recebem um aumento de dano de + 5% por nível
-    archeryPerkDesc3: As flechas têm + 1% de criação de uma explosão ao acertar
-    archeryPerkDesc4: Permite a fabricação de todas as flechas com pontas com poções regulares
-      de poções persistentes
-    archeryPerkDesc5: A habilidade agora pode ser usada com bestas, fazendo com que todos os tiros sejam carregados
-      imediatamente
-    archeryPerkDesc6: Fogos de artifício disparados de bestas causam dano duplo (até 16 corações
-      de dano)
-    archeryPassiveTitle0: Tokens passivos
-    archeryPassiveTitle1: Voltar
-    archeryPassiveTitle2: Tokens de habilidade
-    archeryPassiveTitle3: Duração rápida do fogo
-    archeryPassiveTitle4: Recuperação
-    archeryPassiveDesc0: Tokens para investir em habilidades passivas (corantes)
-    archeryPassiveDesc1: Leva você de volta ao menu principal de habilidades
-    archeryPassiveDesc2: Tokens para investir na árvore de habilidades
-    archeryPassiveDesc3: Aumenta a duração do Fogo Rápido em 0,02s
-    archeryPassiveDesc4: Aumenta a chance de o tiro de flecha não consumir a flecha em 0,05%
-      por nível
     beastMasteryPerkTitle0: Pelo Grosso
     beastMasteryPerkTitle1: Dentes afiados
     beastMasteryPerkTitle2: Mordidas saudáveis
@@ -7560,7 +7331,6 @@ lang:
     abilityDescription_mining: Adiciona temporariamente 5 níveis de eficiência à sua picareta. Ativado clicando com o botão direito em uma picareta e depois quebrando o bloco.
     abilityDescription_farming: Faz safras temporariamente quebradas com uma enxada e replanta automaticamente. Ativado ao clicar com o botão direito do mouse em uma enxada e quebrar uma colheita.
     abilityDescription_fishing: Faz com que as varas de pesca capturem um peixe temporariamente. Ativado ao clicar com o botão esquerdo em uma vara de pescar e pescar na água.
-    abilityDescription_archery: Faz temporariamente todas as flechas serem disparadas na velocidade máxima. Ativado clicando com o botão esquerdo em um arco e depois atirando uma flecha.
     abilityDescription_beastMastery: Temporariamente dá ao seu cavalo um buff de velocidade. Ativado ao clicar com o botão direito do mouse em um cavalo e depois clicar com o botão esquerdo.
     abilityDescription_swordsmanship: Remove temporariamente o cooldown oscilante em espadas. Ativado ao clicar com o botão direito do mouse em uma espada e acertar um mob.
     abilityDescription_defense: Fornece temporariamente ao usuário efeitos de resistência e lentidão. Ativado ao clicar com o botão direito com a mão vazia e acertar um mob.
@@ -7963,7 +7733,6 @@ lang:
     mining: Těžba
     farming: Zemědělství
     fishing: Rybaření
-    archery: Lukostřelba
     beastMastery: Krocení zvěře
     swordsmanship: Mistrovství mečů
     defense: Obrana
@@ -8107,30 +7876,6 @@ lang:
     fishingPassiveDesc3: Zvýšení času trvání Super návnady o 0.01s
     fishingPassiveDesc4: Zvýšení šancí dvojitých úlovků o 0.05%
     fishingPassiveDesc5: Snížení nálezů šrotu o 0.005%, zvýšení nálezu pokladu o 0.005%
-    archeryPerkTitle0: Extra šípy
-    archeryPerkTitle1: Sniper
-    archeryPerkTitle2: Žhavé šípy
-    archeryPerkTitle3: Bouchající včeličky
-    archeryPerkTitle4: Zhasínač draků
-    archeryPerkTitle5: Rychlonabíječ
-    archeryPerkTitle6: Smrtící dávka
-    archeryPerkDesc0: +1 šíp navíc k vycraftěné na level
-    archeryPerkDesc1: Rychlost šípů zvýšena o +2% na level (~4% poškození navíc/level)
-    archeryPerkDesc2: Spektrální šípy získájí +5% poškození navíc na level
-    archeryPerkDesc3: Šípy mají +1% šanci na explodující zásah
-    archeryPerkDesc4: Možnost craftit všechny šípy z běžných lektvarů namísto pokročilých
-    archeryPerkDesc5: Dovednost lze použít k okamžitému nabíjení šípů
-    archeryPerkDesc6: Ohňostroj vystřelený z luku má dvojité poškození (až 16 srdíček)
-    archeryPassiveTitle0: Pasivní Tokeny
-    archeryPassiveTitle1: Zpět
-    archeryPassiveTitle2: Dovednostní Tokeny
-    archeryPassiveTitle3: Čas Rychlonabíječe
-    archeryPassiveTitle4: Obnova
-    archeryPassiveDesc0: Tokeny k rozvoji pasivních dovedností (barviva)
-    archeryPassiveDesc1: Vrátí tě zpět do hlavního menu dovedností
-    archeryPassiveDesc2: Tokeny k rozvoji v seznamu dovedností
-    archeryPassiveDesc3: Zvýšení času Rychlonabíjení o 0.02s
-    archeryPassiveDesc4: Zvýšení šance že šíp nebude ztracen o 0.05% na level
     beastMasteryPerkTitle0: Hustá srst
     beastMasteryPerkTitle1: Ostré zuby
     beastMasteryPerkTitle2: Zdravé kousnutí
@@ -8508,7 +8253,6 @@ lang:
     abilityDescription_mining: Dočasně přidá 5 levelů účinnosti tvého krumpáče. Aktivace pravým kliknutím krumpáče o blok
     abilityDescription_farming: Dočasně vytvoření motyky schopné při sklizni rovnou zasít. Aktivace pravým kliknutím o blok políčka
     abilityDescription_fishing: Dočasně vytvoří rybářské pruty schopné okamžitého úlovku. Aktivace pravým kliknutím prutu o vodu
-    abilityDescription_archery: Dočasně vytvoří všechny šípy o maximální rychlosti. Aktivace levým kliknutím na luk a vystřelením šípu
     abilityDescription_beastMastery: Dočasně dá tvému koni maximální zrychlení. Aktivuje se pravým kliknutím na koně s následným levým kliknutím
     abilityDescription_swordsmanship: Dočasně odstraní prodlevy švihu meče. Aktivace pravým kliknutím o moba (hitnutí pravým)
     abilityDescription_defense: Dočasně dá uživateli efekt odporu a spomalení. Aktivace pravým kliknutím prázdné ruky a následně hitnutím moba
@@ -8910,7 +8654,6 @@ lang:
     mining: 채광
     farming: 농사
     fishing: 낚시
-    archery: 궁술
     beastMastery: 야수 마스터리
     swordsmanship: 검술
     defense: 방어
@@ -9068,34 +8811,6 @@ lang:
     fishingPassiveDesc4: double drop의 확률이 0.05% 증가합니다
     fishingPassiveDesc5: Junk 를 찾을 확률이 0.005% 감소하고
       보물을 찾을 확률이 0.005% 증가합니다
-    archeryPerkTitle0: Extra Arrows [ 추가 화살 ]
-    archeryPerkTitle1: Sniper [ 저격수 ]
-    archeryPerkTitle2: Arrow of Light [ 빛의 화살 ]
-    archeryPerkTitle3: Explosive Arrows [ 폭발 화살 ]
-    archeryPerkTitle4: Dragon-less Arrows
-    archeryPerkTitle5: Crossbow Rapid Load
-    archeryPerkTitle6: Deadly Strike [ 치명적인 공격 ]
-    archeryPerkDesc0: 화살 제작시 레벨당 +1개 만큼 제작합니다
-    archeryPerkDesc1: 화살 발사속도가 레벨당 2% 씩 증가합니다. (레벨당 ~4% 데미지 증가)
-    archeryPerkDesc2: 분광 화살은 레벨당 5% 씩 추가 데미지를 가합니다.
-    archeryPerkDesc3: 화살을 명중 시 +1%의 폭발을 일으킨다.
-    archeryPerkDesc4: 물약과 화살을 조합하여 모든 "왜곡된"
-      화살을 만들 수 있습니다.
-    archeryPerkDesc5: 이제 능력을 석궁에서도 사용할수있고, 빠른 속도로
-      재장전 합니다.
-    archeryPerkDesc6: 석궁으로 화상효과 부여시, 데미지가 2배로 늘어납니다 (최대 중첩
-      피해는 16의 체력까지만 )
-    archeryPassiveTitle0: 패시브 토큰
-    archeryPassiveTitle1: 뒤로
-    archeryPassiveTitle2: 스킬 토큰
-    archeryPassiveTitle3: Rapid Fire 지속시간
-    archeryPassiveTitle4: Retrieval [ 검색 or 되찾기 ]
-    archeryPassiveDesc0: Tokens to invest in passive skills (염료 아이콘 스킬)
-    archeryPassiveDesc1: 주요 스킬 메뉴로 돌아가기
-    archeryPassiveDesc2: 스킬 트리에 투자할 토큰
-    archeryPassiveDesc3: Rapid Fire 의 지속시간이 0.02초 증가합니다.
-    archeryPassiveDesc4: 활 공격시 레벨당 0.05% 확률로 화살을화살 발사시 레벨당 0.05% 확률로 소모하지않습니다.
-      소모하지 않습니다
     beastMasteryPerkTitle0: Thick Fur [ 두꺼운 털 ]
     beastMasteryPerkTitle1: Sharp Teeth [  날카로운 이빨 ]
     beastMasteryPerkTitle2: Healthy Bites [ 건강에 좋은 물어뜯기 ]
@@ -9491,8 +9206,6 @@ lang:
       괭이를 들고 우클릭후 작물을 캐면 능력이 적용됨.
     abilityDescription_fishing: 일시적으로 낚싯대에 물고기만 걸리게 됩니다.
       낚시대를 들고 우클릭후 낚시를 시작하면 활성화됨.
-    abilityDescription_archery: 일시적으로 모든 화살이 최대속도로 발사됨.
-      활을 들고 우클릭후 화살을 쏘면 능력이 적용됨.
     abilityDescription_beastMastery: 말에게 임시로 스피드 버프를 준다.
       말을 탄상태로 좌클릭 유지상태로 우클릭을 하면 활성화됨.
     abilityDescription_swordsmanship: 검을 휘두를때 최대피해 쿨타임을 없애준다.
@@ -10108,7 +9821,6 @@ lang:
     mining: 'Mijnbouw'
     farming: 'Landbouw'
     fishing: 'Vissen'
-    archery: 'Boogschieten'
     beastMastery: 'Dierenmeester'
     swordsmanship: 'Zwaardvechten'
     defense: 'Verdediging'
@@ -10250,30 +9962,6 @@ lang:
     fishingPassiveDesc3: 'Verlengt de duur van Superaas met 0,01 s'
     fishingPassiveDesc4: 'Vergroot de kans op dubbele buit met 0,05%'
     fishingPassiveDesc5: 'Verlaagt de kans op afval met 0,005% en vergroot de kans op een schat met 0,005%'
-    archeryPerkTitle0: 'Extra pijlen'
-    archeryPerkTitle1: 'Scherpschutter'
-    archeryPerkTitle2: 'Pijl van licht'
-    archeryPerkTitle3: 'Explosieve pijlen'
-    archeryPerkTitle4: 'Drakenloze pijlen'
-    archeryPerkTitle5: 'Snel laden met kruisboog'
-    archeryPerkTitle6: 'Dodelijke slag'
-    archeryPerkDesc0: '+1 pijl extra bij het maken, per level'
-    archeryPerkDesc1: 'De snelheid van pijlen stijgt met +2% per level (~4% meer schade per level)'
-    archeryPerkDesc2: 'Spectrale pijlen krijgen per level +5% meer schade'
-    archeryPerkDesc3: 'Pijlen hebben +1% kans om bij een treffer een explosie te veroorzaken'
-    archeryPerkDesc4: 'Je kunt alle tipped arrows maken met gewone drankjes in plaats van lingering potions'
-    archeryPerkDesc5: 'Je vermogen werkt nu ook met kruisbogen, waardoor alle schoten direct laden'
-    archeryPerkDesc6: 'Vuurwerk afgeschoten met een kruisboog doet dubbele schade (tot 16 hartjes schade)'
-    archeryPassiveTitle0: 'Passieve tokens'
-    archeryPassiveTitle1: 'Terug'
-    archeryPassiveTitle2: 'Vaardigheidstokens'
-    archeryPassiveTitle3: 'Duur van Snelvuur'
-    archeryPassiveTitle4: 'Terugvinden'
-    archeryPassiveDesc0: 'Tokens om te investeren in passieve vaardigheden (kleurstoffen)'
-    archeryPassiveDesc1: 'Brengt je terug naar het hoofdmenu van de vaardigheden'
-    archeryPassiveDesc2: 'Tokens om te investeren in de vaardigheidsboom'
-    archeryPassiveDesc3: 'Verlengt de duur van Snelvuur met 0,02 s'
-    archeryPassiveDesc4: 'Vergroot de kans dat een afgeschoten pijl niet wordt verbruikt met 0,05% per level'
     beastMasteryPerkTitle0: 'Dikke vacht'
     beastMasteryPerkTitle1: 'Scherpe tanden'
     beastMasteryPerkTitle2: 'Gezonde beten'
@@ -10624,7 +10312,6 @@ lang:
     abilityDescription_mining: 'Geeft je pikhouweel tijdelijk 5 levels Efficiëntie. Activeren door met rechts op een pikhouweel te klikken en dan een blok te breken.'
     abilityDescription_farming: 'Laat gewassen die je met een schoffel breekt tijdelijk automatisch opnieuw planten. Activeren door met rechts op een schoffel te klikken en dan een gewas te breken.'
     abilityDescription_fishing: 'Laat hengels tijdelijk direct een vis vangen. Activeren door met links op een hengel te klikken en dan in water te vissen.'
-    abilityDescription_archery: 'Laat alle pijlen tijdelijk op maximale snelheid vliegen. Activeren door met links op een boog te klikken en dan een pijl af te schieten.'
     abilityDescription_beastMastery: 'Geeft je paard tijdelijk een snelheidsboost. Activeren door met rechts te klikken terwijl je op een paard zit en dan met links te klikken.'
     abilityDescription_swordsmanship: 'Haalt tijdelijk de afkoeltijd van zwaardzwaaien weg. Activeren door met rechts op een zwaard te klikken en dan een mob te raken.'
     abilityDescription_defense: 'Geeft de gebruiker tijdelijk Weerstand en Traagheid. Activeren door met rechts te klikken met een lege hand en dan een mob te raken.'
@@ -10702,7 +10389,6 @@ lang:
     mining: Mining
     farming: Farming
     fishing: Fishing
-    archery: Archery
     beastMastery: Beast Mastery
     swordsmanship: Swordsmanship
     defense: Defense
@@ -10862,34 +10548,6 @@ lang:
     fishingPassiveDesc4: Increases chance to receive a double drop by 0.05%
     fishingPassiveDesc5: Decreases chance of finding junk by 0.005%, increases chance
       of finding treasure by 0.005%
-    archeryPerkTitle0: Extra Arrows
-    archeryPerkTitle1: Sniper
-    archeryPerkTitle2: Arrow of Light
-    archeryPerkTitle3: Explosive Arrows
-    archeryPerkTitle4: Dragon-less Arrows
-    archeryPerkTitle5: Crossbow Rapid Load
-    archeryPerkTitle6: Deadly Strike
-    archeryPerkDesc0: +1 arrow gained from crafting per level
-    archeryPerkDesc1: Arrow speed increases by +2% per level (~4% damage increase/level)
-    archeryPerkDesc2: Spectral arrows get a +5% damage boost per level
-    archeryPerkDesc3: Arrows have a +1% of creating an explosion on hit
-    archeryPerkDesc4: Allows crafting all tipped arrows with regular potions instead
-      of lingering potions
-    archeryPerkDesc5: Ability can now be used with crossbows, making all shots load
-      instantly
-    archeryPerkDesc6: Fireworks shot from crossbows do double damage (up to 16 hearts
-      of damage)
-    archeryPassiveTitle0: Passive Tokens
-    archeryPassiveTitle1: Back
-    archeryPassiveTitle2: Skill Tokens
-    archeryPassiveTitle3: Rapid Fire Duration
-    archeryPassiveTitle4: Retrieval
-    archeryPassiveDesc0: Tokens to invest in passive skills (dyes)
-    archeryPassiveDesc1: Takes you back to the main skills menu
-    archeryPassiveDesc2: Tokens to invest in skill tree
-    archeryPassiveDesc3: Increases duration of Rapid Fire by 0.02s
-    archeryPassiveDesc4: Increases chance for arrow shot to not consume arrow by 0.05%
-      per level
     beastMasteryPerkTitle0: Thick Fur
     beastMasteryPerkTitle1: Sharp Teeth
     beastMasteryPerkTitle2: Healthy Bites
@@ -11099,7 +10757,7 @@ lang:
     globalPerkDesc0: +20% exp gained in Digging, Woodcutting, Mining, Farming, and
       Fishing
     globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, and Enchanting
-    globalPerkDesc2: +20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense,
+    globalPerkDesc2: +20% exp gained in Beast Mastery, Swordsmanship, Defense,
       and Axe Mastery
     globalPerkDesc3: +1 skill token in all Gatherer skills
     globalPerkDesc4: +1 skill token in all Scholar skills
@@ -11283,7 +10941,6 @@ lang:
     abilityDescription_mining: Temporarily adds 5 levels of effiency to your pickaxe. Activated by right-clicking a pickaxe then breaking block.
     abilityDescription_farming: Temporarily makes crops broken with a hoe automatically replant. Activated by right-clicking a hoe then breaking a crop.
     abilityDescription_fishing: Temporarily makes fishing rods instantly catch a fish. Activated by left-clicking a fishing rod then fishing in water.
-    abilityDescription_archery: Temporarily makes all arrows fired at max speed. Activated by left-clicking a bow then shooting an arrow.
     abilityDescription_beastMastery: Temporarily gives your horse a speed buff. Activated by right-clicking while on a horse then left-clicking.
     abilityDescription_swordsmanship: Temporarily removes swinging cooldown on swords. Activated by right-clicking a sword then hitting a mob.
     abilityDescription_defense: Temporarily gives the user Resistance and Slowness effects. Activated by right-clicking with an empty hand then hitting a mob.

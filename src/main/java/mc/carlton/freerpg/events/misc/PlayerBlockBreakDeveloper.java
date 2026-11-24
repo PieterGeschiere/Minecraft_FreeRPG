@@ -220,7 +220,6 @@ public class PlayerBlockBreakDeveloper implements Listener {
       if (blockType == Material.SPAWNER) {
         increaseStats.changeEXP("defense", miningEXP.get(blockType));
         increaseStats.changeEXP("swordsmanship", miningEXP.get(blockType));
-        increaseStats.changeEXP("archery", miningEXP.get(blockType));
         increaseStats.changeEXP("axeMastery", miningEXP.get(blockType));
       }
     } else if (configLoad.getVeinMinerBlocks().contains(blockType)) {

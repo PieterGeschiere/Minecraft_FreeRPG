@@ -64,7 +64,7 @@ public class Global extends Skill {
     }
     String[] gatherer0 = SkillRegistry.gathererLabels().toArray(new String[0]);
     String[] scholar0 = SkillRegistry.passiveLabels().toArray(new String[0]);
-    String[] fighter0 = SkillRegistry.fighterLabels().stream().filter(l -> !l.equals("archery")).toArray(String[]::new);
+    String[] fighter0 = SkillRegistry.fighterLabels().toArray(new String[0]);
     List<String> gatherer = Arrays.asList(gatherer0);
     List<String> scholar = Arrays.asList(scholar0);
     List<String> fighter = Arrays.asList(fighter0);

@@ -105,9 +105,6 @@ public class ConfirmGuiCommand implements SubCommand {
       case "fishing":
         skillIcon.setItemType(Material.FISHING_ROD);
         break;
-      case "archery":
-        skillIcon.setItemType(Material.BOW);
-        break;
       case "beastMastery":
         skillIcon.setItemType(Material.BONE);
         break;

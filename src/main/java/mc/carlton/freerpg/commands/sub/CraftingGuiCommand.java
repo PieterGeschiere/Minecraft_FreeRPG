@@ -40,7 +40,7 @@ public class CraftingGuiCommand implements SubCommand {
     }
     Player p = (Player) sender;
     LanguageSelector lang = new LanguageSelector(p);
-    String[] labels_0 = {"archery1", "farming1", "farming2", "farming3", "farming4", "farming5",
+    String[] labels_0 = {"farming1", "farming2", "farming3", "farming4", "farming5",
         "enchanting1", "enchanting2", "enchanting3", "enchanting4", "enchanting5",
         "enchanting6", "enchanting7", "enchanting8", "enchanting9", "enchanting10",
         "alchemy1", "alchemy2", "alchemy3", "alchemy4", "alchemy5"};
@@ -55,14 +55,8 @@ public class CraftingGuiCommand implements SubCommand {
     Map<String, OldCustomRecipe> craftingRecipes = configLoad.getCraftingRecipes();
     ArrayList<Material> recipe;
     ItemStack output;
-    if (identifier.equalsIgnoreCase("archery1")) {
-      CraftingRecipes craftingRecipesClass = new CraftingRecipes();
-      recipe = craftingRecipesClass.getTippedArrowRecipe();
-      output = new ItemStack(Material.TIPPED_ARROW, 8);
-    } else {
-      recipe = craftingRecipes.get(identifier).getRecipe();
-      output = craftingRecipes.get(identifier).getItemStack();
-    }
+    recipe = craftingRecipes.get(identifier).getRecipe();
+    output = craftingRecipes.get(identifier).getItemStack();
 
     GuiWrapper gui = new GuiWrapper(p, Bukkit.createInventory(p, 54, "Crafting Recipe"));
 

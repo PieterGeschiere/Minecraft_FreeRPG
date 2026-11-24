@@ -10,26 +10,21 @@ import mc.carlton.freerpg.core.info.player.AbilityTracker;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.skills.perksAndAbilities.Agility;
-import mc.carlton.freerpg.skills.perksAndAbilities.Archery;
 import mc.carlton.freerpg.skills.perksAndAbilities.AxeMastery;
 import mc.carlton.freerpg.skills.perksAndAbilities.BeastMastery;
 import mc.carlton.freerpg.skills.perksAndAbilities.Defense;
 import mc.carlton.freerpg.skills.perksAndAbilities.Swordsmanship;
-import mc.carlton.freerpg.utils.game.FireworkShotByPlayerTracker;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attributable;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Animals;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.SpectralArrow;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -166,63 +161,6 @@ public class EntityHitEntity implements Listener {
 
       }
 
-    }
-    //Arrow of Light
-    else if (e.getDamager() instanceof Arrow || e.getDamager() instanceof SpectralArrow) {
-      ProjectileSource shooter;
-      if (e.getDamager() instanceof SpectralArrow) {
-        shooter = ((SpectralArrow) e.getDamager()).getShooter();
-      } else {
-        shooter = ((Arrow) e.getDamager()).getShooter();
-      }
-      if (shooter instanceof Player) {
-        ConfigLoad configLoad = new ConfigLoad();
-        if (!configLoad.getAllowedSkillsMap().get("archery")) {
-          return;
-        }
-        Player p = (Player) shooter;
-        PlayerStats pStatClass = new PlayerStats(p);
-        Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
-        Archery archeryClass = new Archery(p);
-        archeryClass.explosiveArrows(e.getDamager(), e.getEntity().getLocation());
-        Material arrowType = archeryClass.getArrowType();
-        if (arrowType == Material.SPECTRAL_ARROW) {
-          int arrowOfLightLevel = (int) pStat.get("archery").get(10);
-          double multiplier = Math.min(arrowOfLightLevel * 0.05 + 1.0, 2.0);
-          e.setDamage(Math.min(e.getDamage() * multiplier, 32));
-        }
-        archeryClass.giveHitEXP(e.getFinalDamage(), e.getEntity());
-        if (e.getEntity() instanceof LivingEntity) {
-          if (e.getFinalDamage() > ((LivingEntity) e.getEntity()).getHealth()) {
-            archeryClass.giveKillEXP(e.getEntity());
-          }
-        }
-      }
-    }
-    //Crossbow Strike
-    else if (e.getDamager() instanceof Firework) {
-      ConfigLoad configLoad = new ConfigLoad();
-      Entity firework = e.getDamager();
-      FireworkShotByPlayerTracker fireworkTracker = new FireworkShotByPlayerTracker();
-      Player p = fireworkTracker.getPlayer(firework);
-      fireworkTracker.removeFireWork(firework); // always forget it, even if Archery is off
-      if (!configLoad.getAllowedSkillsMap().get("archery")) {
-        return;
-      }
-      if (p != null) {
-        Archery archeryClass = new Archery(p);
-        PlayerStats pStatClass = new PlayerStats(p);
-        Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
-        if ((int) pStat.get("archery").get(13) > 0) {
-          e.setDamage(Math.min(e.getDamage() * 2, 32));
-          archeryClass.giveHitEXP(e.getFinalDamage(), e.getEntity());
-        }
-        if (e.getEntity() instanceof LivingEntity) {
-          if (e.getFinalDamage() > ((LivingEntity) e.getEntity()).getHealth()) {
-            archeryClass.giveKillEXP(e.getEntity());
-          }
-        }
-      }
     }
     //Sharp Teeth and Keep Away
     else if (e.getDamager() instanceof Entity) {

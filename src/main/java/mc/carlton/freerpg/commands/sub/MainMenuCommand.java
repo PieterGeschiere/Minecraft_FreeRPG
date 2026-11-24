@@ -128,8 +128,7 @@ public class MainMenuCommand implements SubCommand {
     List<String> menuLabels = new ArrayList<>();
     menuLabels.add("global");
     for (String skill : SkillRegistry.labels()) {
-      if (!skill.equals("archery") && !skill.equals("swordsmanship")
-          && !skill.equals("axeMastery")) {
+      if (!skill.equals("swordsmanship") && !skill.equals("axeMastery")) {
         menuLabels.add(skill);
       }
     }
