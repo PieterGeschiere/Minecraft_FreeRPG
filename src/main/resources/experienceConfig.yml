@@ -909,3 +909,9 @@ building:
     #The experience for placing blocks is in advancedConfig.yml (building.expDrops)
     basicBlock: 2 #Experience for placing a basic block (flat, no per-material tiers)
     decorativeBlock: 5 #Experience for placing a decorative block (flat, no per-material tiers)
+aeronautics:
+  maxLevel: -1 #The maximum level allowed for this skill, set to -1 for no limit
+  expMultiplier: 1.0 #Multiplier for all experience drops in this skill, STACKS with global.EXP_Multiplier
+  exp:
+    #The experience for gliding is in advancedConfig.yml (aeronautics.expDrops)
+    glideStep: 3 #Experience for each step of distance glided (see aeronautics.stepBlocks in advancedConfig.yml)

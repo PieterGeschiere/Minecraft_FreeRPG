@@ -91,6 +91,9 @@ public class MainGUIclick implements Listener {
           case BRICKS:
             p.performCommand("frpg skillTreeGUI building");
             break;
+          case ELYTRA:
+            p.performCommand("frpg skillTreeGUI aeronautics");
+            break;
           case REDSTONE:
             p.performCommand("frpg configurationGUI");
             break;

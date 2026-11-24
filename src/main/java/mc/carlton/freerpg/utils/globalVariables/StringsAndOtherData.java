@@ -463,13 +463,29 @@ public class StringsAndOtherData {
     passivePerksMap.put(s_Name, passivePerks);
     passiveDescriptionsMap.put(s_Name, passiveDescriptions);
 
+    //Aeronautics
+    s_Name = "aeronautics";
+    perks = new String[]{"Soft Landing", "Long Burn", "Tailwind"};
+    descriptions = new String[]{
+        "You take 10% less damage per level when you fly into a wall",
+        "Firework rockets you boost with last longer (+1 to +3 flight power depending on level)",
+        "The first firework rocket after you take off is stronger (+1 flight power)"};
+    passivePerks = new String[]{"Back", "Skill Tokens", "Glide Efficiency"};
+    passiveDescriptions = new String[]{"Takes you back to the main skills menu",
+        "Tokens to invest in skill tree",
+        "Your elytra lose 0.5% less durability per level while you fly (max 50%)"};
+    perksMap.put(s_Name, perks);
+    descriptionsMap.put(s_Name, descriptions);
+    passivePerksMap.put(s_Name, passivePerks);
+    passiveDescriptionsMap.put(s_Name, passiveDescriptions);
+
     //Global
     s_Name = "global";
     perks = new String[]{"Gatherer", "Scholar", "Fighter", "Hard Work", "Research", "Training",
         "Reincarnation+", "Soul Harvesting", "Avatar", "Master of the Arts"};
     descriptions = new String[]{
         "+20% exp gained in Digging, Woodcutting, Mining, Farming, and Fishing",
-        "+20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, and Building",
+        "+20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, Building, and Aeronautics",
         "+20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense, and Axe Mastery",
         "+1 skill token in all Gatherer skills", "+1 skill token in all Scholar skills",
         "+1 skill token in all Fighter skills",

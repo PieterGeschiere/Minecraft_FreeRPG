@@ -1347,6 +1347,14 @@ building:
     basicBlock: 2 #EXP for placing a basic block (flat, no per-material tiers)
     decorativeBlock: 5 #EXP for placing a decorative block (flat, no per-material tiers)
 
+aeronautics:
+  stepBlocks: 50 #Blocks glided per experience step (only distance travelled while gliding counts)
+  maxStepsPerMinute: 30 #Maximum steps that give EXP per minute, so looping cannot be farmed
+  glideEfficiencyCap: 0.5 #Maximum proportion of elytra durability loss the Glide Efficiency passive can remove
+  expDrops:
+    enableEXPDrops: true
+    glideStep: 3 #EXP for each step of distance glided
+
 stations:
   # When true, only crafted Repair/Salvage Stations work (right-click while sneaking). Ordinary iron and gold
   # blocks stay normal building blocks. When false, every iron block repairs and every gold block salvages.

@@ -117,11 +117,12 @@ public class MainMenuCommand implements SubCommand {
     GuiItem smelting = new GuiItem(Material.COAL, 32, gui);
     GuiItem enchanting = new GuiItem(Material.ENCHANTING_TABLE, 33, gui);
     GuiItem building = new GuiItem(Material.BRICKS, 34, gui);
+    GuiItem aeronautics = new GuiItem(Material.ELYTRA, 35, gui);
     GuiItem info = new GuiItem(Material.MAP, 36, gui);
     GuiItem configuration = new GuiItem(Material.REDSTONE, 44, gui);
 
     GuiItem[] guiItems = {global, digging, woodcutting, mining, farming, fishing,
-        beastMastery, armor, repair, agility, alchemy, smelting, enchanting, building,
+        beastMastery, armor, repair, agility, alchemy, smelting, enchanting, building, aeronautics,
         info, configuration};
     // Weapon skills have their own menu, so they are not part of this one.
     List<String> menuLabels = new ArrayList<>();
@@ -164,7 +165,7 @@ public class MainMenuCommand implements SubCommand {
           item.addEnchantmentGlow();
         }
 
-      } else if (i < 14) { //Skills
+      } else if (i < 15) { //Skills
         String skillName = labels0[i];
         int passiveTokens = (int) pStat.get(labels0[i]).get(2);
         int skillTokens = (int) pStat.get(labels0[i]).get(3);
@@ -196,7 +197,7 @@ public class MainMenuCommand implements SubCommand {
           item.addEnchantmentGlow();
         }
 
-      } else if (i == 14) { //Information
+      } else if (i == 15) { //Information
         int totalSkillTokens = getTotalSkillTokens(p);
         int totalPassiveTokens = getTotalPassiveTokens(p);
         int globalTokens = pStat.get("global").get(1).intValue();
@@ -211,7 +212,7 @@ public class MainMenuCommand implements SubCommand {
         item.addStatistic(lang.getString("diggingPassiveTitle2"), totalSkillTokens);
         item.addStatistic(lang.getString("diggingPassiveTitle0"), totalPassiveTokens);
         item.addStatistic(UtilityMethods.capitalizeString(lang.getString("souls")), souls);
-      } else if (i == 15) {//Configuration
+      } else if (i == 16) {//Configuration
         item.setDescription(lang.getString("clickForOptions"));
       }
       gui.addItem(item);

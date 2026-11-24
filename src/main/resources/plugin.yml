@@ -64,6 +64,9 @@ commands:
   building:
     description: Opens the skill tree of building (same as /frpg skillTree building)
     usage: /building
+  aeronautics:
+    description: Opens the skill tree of aeronautics (same as /frpg skillTree aeronautics)
+    usage: /aeronautics
   macemastery:
     description: Opens the skill tree of maceMastery (same as /frpg weapons, then the skill)
     usage: /macemastery
@@ -169,6 +172,7 @@ permissions:
       freeRPG.smeltingEXP: true
       freeRPG.enchantingEXP: true
       freeRPG.buildingEXP: true
+      freeRPG.aeronauticsEXP: true
   freeRPG.useAbilities:
     description: allows the player to use all skill abilities
     default: true
@@ -310,6 +314,9 @@ permissions:
     default: true
   freeRPG.buildingEXP:
     description: Allows player to get building experience
+    default: true
+  freeRPG.aeronauticsEXP:
+    description: Allows player to get aeronautics experience
     default: true
   freeRPG.diggingAbility:
     description: allows the player to use the digging ability

@@ -138,6 +138,9 @@ public class ConfirmGuiCommand implements SubCommand {
       case "building":
         skillIcon.setItemType(Material.BRICKS);
         break;
+      case "aeronautics":
+        skillIcon.setItemType(Material.ELYTRA);
+        break;
       default:
         break;
     }

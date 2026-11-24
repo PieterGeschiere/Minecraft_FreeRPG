@@ -160,7 +160,7 @@ class ResourceFilesTest {
     for (WeaponSkill skill : WeaponSkill.values()) {
       names.add(skill.getId());
     }
-    assertEquals(20, names.size());
+    assertEquals(21, names.size());
     for (String name : names) {
       assertNotNull(plugin.get("commands." + name.toLowerCase()), "no /" + name + " command");
     }
@@ -198,5 +198,37 @@ class ResourceFilesTest {
     assertTrue(config.getBoolean("building.skillAllowed"));
     assertEquals(-1, config.getInt("building.maxLevel"));
     assertTrue(load("advancedConfig.yml").getBoolean("building.expDrops.enableEXPDrops"));
+  }
+
+  @Test
+  void aeronauticsHasEveryLanguageKeySmeltingHas() throws Exception {
+    ConfigurationSection english = load("languages.yml").getConfigurationSection("lang.enUs");
+    assertNotNull(english);
+    for (String key : english.getKeys(false)) {
+      if (key.matches("smelting(Perk|Passive)(Title|Desc)[0-9]")) {
+        String aeronautics = "aeronautics" + key.substring("smelting".length());
+        assertTrue(english.contains(aeronautics), "languages.yml has no " + aeronautics);
+      }
+    }
+    assertTrue(english.contains("aeronautics"), "languages.yml has no skill name 'aeronautics'");
+    assertTrue(english.contains("aeronauticsEfficiencyLabel"));
+    assertTrue(english.getString("globalPerkDesc1").contains("Aeronautics"),
+        "the Scholar description does not list Aeronautics");
+  }
+
+  @Test
+  void aeronauticsExperiencePermissionIsDeclaredAndGranted() throws Exception {
+    YamlConfiguration plugin = load("plugin.yml");
+    assertNotNull(plugin.get("permissions.freeRPG.aeronauticsEXP"));
+    assertTrue(plugin.getBoolean("permissions.freeRPG.getEXP.children.freeRPG.aeronauticsEXP"));
+    assertNotNull(plugin.get("commands.aeronautics"));
+  }
+
+  @Test
+  void aeronauticsIsEnabledByDefaultInTheBundledConfigs() throws Exception {
+    YamlConfiguration config = load("config.yml");
+    assertTrue(config.getBoolean("aeronautics.skillAllowed"));
+    assertEquals(-1, config.getInt("aeronautics.maxLevel"));
+    assertTrue(load("advancedConfig.yml").getBoolean("aeronautics.expDrops.enableEXPDrops"));
   }
 }

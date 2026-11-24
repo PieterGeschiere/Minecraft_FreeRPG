@@ -17,7 +17,7 @@ class PlayerStatsLoadInTest {
 
   private static final List<String> SKILLS = Arrays.asList("digging", "woodcutting", "mining",
       "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense", "axeMastery",
-      "repair", "agility", "alchemy", "smelting", "enchanting", "building");
+      "repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics");
 
   private static Map<String, ArrayList<Number>> read(FileConfiguration cfg) {
     PlayerStatsLoadIn in = new PlayerStatsLoadIn(cfg);
@@ -28,7 +28,7 @@ class PlayerStatsLoadInTest {
   @Test
   void defaultYamlReadsExpectedShape() {
     Map<String, ArrayList<Number>> stats = read(PlayerYamlTestSupport.newDefaultPlayerYaml());
-    assertEquals(17, stats.size());
+    assertEquals(18, stats.size());
     assertEquals(31, stats.get("global").size());
     for (String skill : SKILLS) {
       assertEquals(14, stats.get(skill).size(), skill);

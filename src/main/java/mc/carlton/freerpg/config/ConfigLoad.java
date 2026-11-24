@@ -11,6 +11,7 @@ import java.util.Map;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.customContainers.OldCustomPotion;
 import mc.carlton.freerpg.customContainers.collections.OldCustomRecipe;
+import mc.carlton.freerpg.skills.aeronautics.AeronauticsConfig;
 import mc.carlton.freerpg.skills.building.BuildingConfig;
 import mc.carlton.freerpg.utils.globalVariables.EffectTypeCompat;
 import org.apache.logging.log4j.Level;
@@ -85,6 +86,14 @@ public class ConfigLoad {
   static long buildingXpGraceMillis = BuildingConfig.DEFAULT_XP_GRACE_SECONDS * 1000L;
   static int buildingXpPerMaterialPerMinute = BuildingConfig.DEFAULT_XP_PER_MATERIAL_PER_MINUTE;
   static int buildingTrackerMaxBlocks = BuildingConfig.DEFAULT_TRACKER_MAX_BLOCKS;
+  static double[] aeronauticsSoftLandingReductions =
+      AeronauticsConfig.DEFAULT_SOFT_LANDING.clone();
+  static int[] aeronauticsLongBurnPower = AeronauticsConfig.DEFAULT_LONG_BURN.clone();
+  static int aeronauticsTailwindPower = AeronauticsConfig.DEFAULT_TAILWIND_POWER;
+  static double aeronauticsEfficiencyPerPoint = AeronauticsConfig.DEFAULT_EFFICIENCY_PER_POINT;
+  static double aeronauticsEfficiencyCap = AeronauticsConfig.DEFAULT_EFFICIENCY_CAP;
+  static double aeronauticsStepBlocks = AeronauticsConfig.DEFAULT_STEP_BLOCKS;
+  static int aeronauticsMaxStepsPerMinute = AeronauticsConfig.DEFAULT_MAX_STEPS_PER_MINUTE;
   Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
 
   public void initializeConfig() {
@@ -329,6 +338,14 @@ public class ConfigLoad {
     buildingXpGraceMillis = BuildingConfig.xpGraceMillis(advancedConfig);
     buildingXpPerMaterialPerMinute = BuildingConfig.xpPerMaterialPerMinute(advancedConfig);
     buildingTrackerMaxBlocks = BuildingConfig.trackerMaxBlocks(advancedConfig);
+    //Aeronautics (same files as Building, same fallbacks when a server's config has no section)
+    aeronauticsSoftLandingReductions = AeronauticsConfig.softLandingReductions(perkConfig);
+    aeronauticsLongBurnPower = AeronauticsConfig.longBurnPower(perkConfig);
+    aeronauticsTailwindPower = AeronauticsConfig.tailwindPower(perkConfig);
+    aeronauticsEfficiencyPerPoint = AeronauticsConfig.efficiencyPerPoint(perkConfig);
+    aeronauticsEfficiencyCap = AeronauticsConfig.efficiencyCap(advancedConfig);
+    aeronauticsStepBlocks = AeronauticsConfig.stepBlocks(advancedConfig);
+    aeronauticsMaxStepsPerMinute = AeronauticsConfig.maxStepsPerMinute(advancedConfig);
 
     //Special Multipliers
     specialMultiplier.put("megaDigEXPMultiplier",
@@ -588,6 +605,9 @@ public class ConfigLoad {
       skillExpMap.put("basicBlock", BuildingConfig.DEFAULT_BASIC_BLOCK_EXP);
       skillExpMap.put("decorativeBlock", BuildingConfig.DEFAULT_DECORATIVE_BLOCK_EXP);
     }
+    if (label.equals("aeronautics")) {
+      skillExpMap.put("glideStep", AeronauticsConfig.DEFAULT_GLIDE_STEP_EXP);
+    }
     ConfigurationSection skillExpDrops = advancedConfig.getConfigurationSection(
         label + ".expDrops");
     if (skillExpDrops != null) {
@@ -634,6 +654,34 @@ public class ConfigLoad {
 
   public int getBuildingTrackerMaxBlocks() {
     return buildingTrackerMaxBlocks;
+  }
+
+  public double[] getAeronauticsSoftLandingReductions() {
+    return aeronauticsSoftLandingReductions.clone();
+  }
+
+  public int[] getAeronauticsLongBurnPower() {
+    return aeronauticsLongBurnPower.clone();
+  }
+
+  public int getAeronauticsTailwindPower() {
+    return aeronauticsTailwindPower;
+  }
+
+  public double getAeronauticsEfficiencyPerPoint() {
+    return aeronauticsEfficiencyPerPoint;
+  }
+
+  public double getAeronauticsEfficiencyCap() {
+    return aeronauticsEfficiencyCap;
+  }
+
+  public double getAeronauticsStepBlocks() {
+    return aeronauticsStepBlocks;
+  }
+
+  public int getAeronauticsMaxStepsPerMinute() {
+    return aeronauticsMaxStepsPerMinute;
   }
 
   public Map<String, Double> getSpecialMultiplier() {

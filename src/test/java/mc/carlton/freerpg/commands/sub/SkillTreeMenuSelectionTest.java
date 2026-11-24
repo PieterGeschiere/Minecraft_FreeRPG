@@ -19,8 +19,8 @@ class SkillTreeMenuSelectionTest {
   }
 
   @Test
-  void lastSixLabelsArePassive() {
-    for (String label : List.of("repair", "agility", "alchemy", "smelting", "enchanting", "building")) {
+  void lastSevenLabelsArePassive() {
+    for (String label : List.of("repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics")) {
       assertEquals(MenuKind.PASSIVE, SkillTreeCommand.menuKindFor(label), label);
     }
   }

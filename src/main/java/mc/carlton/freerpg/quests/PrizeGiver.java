@@ -45,7 +45,8 @@ public final class PrizeGiver {
       Map.entry("alchemy", Material.BREWING_STAND),
       Map.entry("smelting", Material.FURNACE),
       Map.entry("enchanting", Material.ENCHANTING_TABLE),
-      Map.entry("building", Material.BRICKS));
+      Map.entry("building", Material.BRICKS),
+      Map.entry("aeronautics", Material.ELYTRA));
 
   private PrizeGiver() {
   }

@@ -16,12 +16,12 @@ public final class SkillRegistry {
   private static final List<String> LABELS = Collections.unmodifiableList(Arrays.asList(
       "digging", "woodcutting", "mining", "farming", "fishing", "archery", "beastMastery",
       "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy", "smelting",
-      "enchanting", "building"));
+      "enchanting", "building", "aeronautics"));
 
   private static final List<String> TITLES = Collections.unmodifiableList(Arrays.asList(
       "Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Archery", "Beast Mastery",
       "Swordsmanship", "Defense", "Axe Mastery", "Repair", "Agility", "Alchemy", "Smelting",
-      "Enchanting", "Building"));
+      "Enchanting", "Building", "Aeronautics"));
 
   private static final List<String> MAIN_LABELS =
       Collections.unmodifiableList(new ArrayList<>(LABELS.subList(0, MAIN_COUNT)));
@@ -40,7 +40,7 @@ public final class SkillRegistry {
     return Collections.unmodifiableList(list);
   }
 
-  /** The 16 skill labels, immutable. */
+  /** The 17 skill labels, immutable. */
   public static List<String> labels() {
     return LABELS;
   }
@@ -55,17 +55,17 @@ public final class SkillRegistry {
     return PASSIVE_LABELS;
   }
 
-  /** The 16 skill labels followed by "global", immutable. */
+  /** The 17 skill labels followed by "global", immutable. */
   public static List<String> labelsWithGlobal() {
     return LABELS_WITH_GLOBAL;
   }
 
-  /** English titles of the 16 skills, immutable. */
+  /** English titles of the 17 skills, immutable. */
   public static List<String> titles() {
     return TITLES;
   }
 
-  /** English titles of the 16 skills followed by "Global", immutable. */
+  /** English titles of the 17 skills followed by "Global", immutable. */
   public static List<String> titlesWithGlobal() {
     return TITLES_WITH_GLOBAL;
   }
@@ -76,7 +76,7 @@ public final class SkillRegistry {
     return index == -1 ? null : TITLES_WITH_GLOBAL.get(index);
   }
 
-  /** Index of the label among the 16 skills, -1 if unknown (including "global"). */
+  /** Index of the label among the 17 skills, -1 if unknown (including "global"). */
   public static int indexOf(String label) {
     return LABELS.indexOf(label);
   }

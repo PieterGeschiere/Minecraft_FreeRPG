@@ -15,14 +15,14 @@ class SkillRegistryTest {
 
   private static final List<String> LABELS = Arrays.asList("digging", "woodcutting", "mining",
       "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense", "axeMastery",
-      "repair", "agility", "alchemy", "smelting", "enchanting", "building");
+      "repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics");
 
   private static final List<String> TITLES = Arrays.asList("Digging", "Woodcutting", "Mining",
       "Farming", "Fishing", "Archery", "Beast Mastery", "Swordsmanship", "Defense", "Axe Mastery",
-      "Repair", "Agility", "Alchemy", "Smelting", "Enchanting", "Building", "Global");
+      "Repair", "Agility", "Alchemy", "Smelting", "Enchanting", "Building", "Aeronautics", "Global");
 
   @Test
-  void labelsAreTheSixteenSkillsInOrder() {
+  void labelsAreTheSeventeenSkillsInOrder() {
     assertEquals(LABELS, SkillRegistry.labels());
   }
 
@@ -36,7 +36,7 @@ class SkillRegistryTest {
   @Test
   void titlesWithGlobalAreExact() {
     assertEquals(TITLES, SkillRegistry.titlesWithGlobal());
-    assertEquals(TITLES.subList(0, 16), SkillRegistry.titles());
+    assertEquals(TITLES.subList(0, 17), SkillRegistry.titles());
   }
 
   @Test
@@ -51,7 +51,8 @@ class SkillRegistryTest {
     assertEquals(15, SkillRegistry.indexOf("building"));
     assertEquals(-1, SkillRegistry.indexOf("global"));
     assertEquals(-1, SkillRegistry.indexOf("nope"));
-    assertEquals(16, SkillRegistry.labelsWithGlobal().indexOf("global"));
+    assertEquals(16, SkillRegistry.indexOf("aeronautics"));
+    assertEquals(17, SkillRegistry.labelsWithGlobal().indexOf("global"));
     assertEquals(-1, SkillRegistry.labels().indexOf("global"));
   }
 
@@ -63,6 +64,8 @@ class SkillRegistryTest {
     assertFalse(SkillRegistry.isMain("repair"));
     assertTrue(SkillRegistry.isPassive("smelting"));
     assertTrue(SkillRegistry.isPassive("building"));
+    assertTrue(SkillRegistry.isPassive("aeronautics"));
+    assertFalse(SkillRegistry.isMain("aeronautics"));
     assertFalse(SkillRegistry.isMain("building"));
     assertFalse(SkillRegistry.isPassive("digging"));
     assertFalse(SkillRegistry.isMain("global"));
@@ -105,8 +108,8 @@ class SkillRegistryTest {
   }
 
   @Test
-  void passiveLabelsAreTheLastSixInOrderAndImmutable() {
-    assertEquals(Arrays.asList("repair", "agility", "alchemy", "smelting", "enchanting", "building"),
+  void passiveLabelsAreTheLastSevenInOrderAndImmutable() {
+    assertEquals(Arrays.asList("repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics"),
         SkillRegistry.passiveLabels());
     assertThrows(UnsupportedOperationException.class,
         () -> SkillRegistry.passiveLabels().add("x"));

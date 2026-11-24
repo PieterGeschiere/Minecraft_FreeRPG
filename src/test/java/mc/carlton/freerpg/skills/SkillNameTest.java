@@ -43,4 +43,12 @@ class SkillNameTest {
     assertNull(SkillName.matchSkillName(""));
     assertNull(SkillName.matchSkillName("maceMastery")); // a weapon skill, not a main skill
   }
+
+  @Test
+  void aeronauticsIsAPassiveSkillWithoutGlobal() {
+    assertEquals(SkillName.AERONAUTICS, SkillName.matchSkillName("aeronautics"));
+    assertTrue(SkillName.getPassiveSkillValues().contains(SkillName.AERONAUTICS));
+    assertTrue(SkillName.getValuesWithoutGlobal().contains(SkillName.AERONAUTICS));
+    assertFalse(SkillName.getMainSkillValues().contains(SkillName.AERONAUTICS));
+  }
 }

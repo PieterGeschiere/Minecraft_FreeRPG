@@ -2753,6 +2753,40 @@ building:
     level-1:
       breakSpeedBonus: 0.25 #Blocks you placed break this proportion faster
       durabilityMultiplier: 0.5 #Multiplier for the durability tools lose breaking blocks you placed
+aeronautics:
+  passive-1: #Glide Efficiency
+    enabled: true #Change this to false to disable this skill from working
+    startingValue: 0.00 #Starting proportion of elytra durability loss that is removed
+    allowedRange: [ 0.0, INF ] #The allowed range of durability loss removed, (INF or -INF represent positive and negative infinity)
+    changePerLevel: 0.005 #Proportion of elytra durability loss removed per level; the total is capped by aeronautics.glideEfficiencyCap in advancedConfig.yml
+  skill-1: #Soft Landing
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      damageReduction: 0.10 #Proportion of damage removed when you fly into a wall
+    level-2:
+      damageReduction: 0.20 #Proportion of damage removed when you fly into a wall
+    level-3:
+      damageReduction: 0.30 #Proportion of damage removed when you fly into a wall
+    level-4:
+      damageReduction: 0.40 #Proportion of damage removed when you fly into a wall
+    level-5:
+      damageReduction: 0.50 #Proportion of damage removed when you fly into a wall
+  skill-2: #Long Burn
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      extraPower: 1 #Extra flight power (duration) added to every firework rocket you boost with
+    level-2:
+      extraPower: 1 #Extra flight power (duration) added to every firework rocket you boost with
+    level-3:
+      extraPower: 2 #Extra flight power (duration) added to every firework rocket you boost with
+    level-4:
+      extraPower: 2 #Extra flight power (duration) added to every firework rocket you boost with
+    level-5:
+      extraPower: 3 #Extra flight power (duration) added to every firework rocket you boost with
+  skill-3: #Tailwind
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      extraPower: 1 #Extra flight power added to the first rocket after you take off
 enchanting:
   passive-1: #Quicker Development
     enabled: true #Change this to false to disable this skill from working

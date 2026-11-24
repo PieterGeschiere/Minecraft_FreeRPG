@@ -192,6 +192,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     getServer().getPluginManager().registerEvents(new ConfigurationGUIClick(), this);
     getServer().getPluginManager().registerEvents(new PlayerBlockPlace(), this);
     getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.events.building.BuildingListener(), this);
+    getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.events.aeronautics.AeronauticsListener(), this);
     getServer().getPluginManager().registerEvents(new PlayerRightClick(), this);
     getServer().getPluginManager().registerEvents(new PlayerTakeDamage(), this);
     getServer().getPluginManager().registerEvents(new PlayerCraft(), this);

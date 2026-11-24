@@ -326,6 +326,7 @@ lang:
     smelting: Smelting
     enchanting: Enchanting
     building: Building
+    aeronautics: Aeronautics
     information: Information
     configuration: Configuration
     level: Level
@@ -685,6 +686,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Gatherer
     globalPerkTitle1: Scholar
     globalPerkTitle2: Fighter
@@ -697,7 +711,7 @@ lang:
     globalPerkTitle9: Master of the Arts
     globalPerkDesc0: +20% exp gained in Digging, Woodcutting, Mining, Farming, and
       Fishing
-    globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, and Building
+    globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, Building, and Aeronautics
     globalPerkDesc2: +20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense,
       and Axe Mastery
     globalPerkDesc3: +1 skill token in all Gatherer skills
@@ -1117,6 +1131,7 @@ lang:
     smelting: Olvasztás
     enchanting: Bűvölés
     building: Building
+    aeronautics: Aeronautics
     information: Információk
     configuration: Beállítások
     level: Szint
@@ -1450,6 +1465,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Gyűjtögető
     globalPerkTitle1: Diák
     globalPerkTitle2: Harcos
@@ -1877,6 +1905,7 @@ lang:
     smelting: Cuisson
     enchanting: Enchantement
     building: Building
+    aeronautics: Aeronautics
     information: Information
     configuration: Configuration
     level: Niveau
@@ -2205,6 +2234,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Récolteur
     globalPerkTitle1: Erudit
     globalPerkTitle2: Combattant
@@ -2632,6 +2674,7 @@ lang:
     smelting: Schmelzen
     enchanting: Verzaubern
     building: Building
+    aeronautics: Aeronautics
     information: Information
     configuration: Aufbau
     level: Level
@@ -2961,6 +3004,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Sammler
     globalPerkTitle1: Gelehrte
     globalPerkTitle2: Kämpfer
@@ -3407,6 +3463,7 @@ lang:
     smelting: Wytapianie
     enchanting: Zaklinanie
     building: Building
+    aeronautics: Aeronautics
     information: Informacja
     configuration: Konfiguracja
     level: Poziom
@@ -3759,6 +3816,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Zbieracz
     globalPerkTitle1: Uczony
     globalPerkTitle2: Wojownik
@@ -4191,6 +4261,7 @@ lang:
     smelting: Fundición
     enchanting: Encantador
     building: Building
+    aeronautics: Aeronautics
     information: Información
     configuration: Configuración
     level: Nivel
@@ -4579,6 +4650,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Recolector
     globalPerkTitle1: Académico
     globalPerkTitle2: Luchador
@@ -5045,6 +5129,7 @@ lang:
     smelting: Выплавка
     enchanting: Зачарование
     building: Building
+    aeronautics: Aeronautics
     information: Информация
     configuration: Конфигурация
     level: Уровень
@@ -5373,6 +5458,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Собиратель
     globalPerkTitle1: Ученый
     globalPerkTitle2: Боец
@@ -5799,6 +5897,7 @@ lang:
     smelting: Fundição
     enchanting: Encantadora
     building: Building
+    aeronautics: Aeronautics
     information: Em formação
     configuration: Configuração
     level: Level
@@ -6158,6 +6257,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Coletor
     globalPerkTitle1: Estudioso
     globalPerkTitle2: Lutador
@@ -6590,6 +6702,7 @@ lang:
     smelting: Tavení
     enchanting: Čarování
     building: Building
+    aeronautics: Aeronautics
     information: Informace
     configuration: Nastavení
     level: Level
@@ -6918,6 +7031,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Sběrač
     globalPerkTitle1: Učenec
     globalPerkTitle2: Bojovník
@@ -7344,6 +7470,7 @@ lang:
     smelting: 제련
     enchanting: 인첸트
     building: Building
+    aeronautics: Aeronautics
     information: 정보
     configuration: 설정
     level: 레벨
@@ -7699,6 +7826,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Gatherer [ 채집가 ]
     globalPerkTitle1: Scholar [ 학자 ]
     globalPerkTitle2: Fighter [ 파이터 ]
@@ -7997,6 +8137,7 @@ lang:
     smelting: Smelting
     enchanting: Enchanting
     building: Building
+    aeronautics: Aeronautics
     information: Information
     configuration: Configuration
     level: Level
@@ -8356,6 +8497,19 @@ lang:
     buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
     buildingReachLabel: Reach
     buildingReachUnit: blocks
+    aeronauticsPerkTitle0: Soft Landing
+    aeronauticsPerkTitle1: Long Burn
+    aeronauticsPerkTitle2: Tailwind
+    aeronauticsPerkDesc0: You take 10% less damage per level when you fly into a wall
+    aeronauticsPerkDesc1: Firework rockets you boost with last longer (+1 to +3 flight power depending on level)
+    aeronauticsPerkDesc2: The first firework rocket after you take off is stronger (+1 flight power)
+    aeronauticsPassiveTitle0: Back
+    aeronauticsPassiveTitle1: Skill Tokens
+    aeronauticsPassiveTitle2: Glide Efficiency
+    aeronauticsPassiveDesc0: Takes you back to the main skills menu
+    aeronauticsPassiveDesc1: Tokens to invest in skill tree
+    aeronauticsPassiveDesc2: Your elytra lose 0.5% less durability per level while you fly (max 50%)
+    aeronauticsEfficiencyLabel: Durability saved
     globalPerkTitle0: Gatherer
     globalPerkTitle1: Scholar
     globalPerkTitle2: Fighter

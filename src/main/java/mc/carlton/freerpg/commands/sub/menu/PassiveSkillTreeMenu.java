@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
+import mc.carlton.freerpg.skills.aeronautics.AeronauticsRules;
 import mc.carlton.freerpg.skills.building.BuildingMenu;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import mc.carlton.freerpg.utils.UtilityMethods;
@@ -262,6 +263,13 @@ public class PassiveSkillTreeMenu implements SkillTreeMenu {
                     + BuildingMenu.reachLore(passive1.intValue(),
                     configLoad.getBuildingReachPerPoint(), configLoad.getBuildingReachCap())
                     + " " + lang.getString("buildingReachUnit");
+            break;
+          case "aeronautics":
+            lores_line1_2[2] =
+                ChatColor.GRAY + lang.getString("aeronauticsEfficiencyLabel") + ": "
+                    + ChatColor.AQUA + AeronauticsRules.efficiencyLore(passive1.intValue(),
+                    configLoad.getAeronauticsEfficiencyPerPoint(),
+                    configLoad.getAeronauticsEfficiencyCap());
             break;
           case "alchemy":
             passive = passive * 0.1;
