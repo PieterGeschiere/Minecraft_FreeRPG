@@ -1,0 +1,119 @@
+# FreeRPG elite mobs and the Blood Moon. Every value has a default, so you can delete any line you
+# do not need. Reload with /frpg elites reload
+
+enabled: true
+
+# The chance (0.03 = 3%) that a naturally spawned hostile mob becomes an elite.
+# Mobs from spawners, eggs, breeding, commands and raids are never elites.
+chance: 0.03
+
+# How many affixes an elite gets: the weights for 1, 2 and 3 affixes
+affixCountWeights: [60, 30, 10]
+
+# Elites are this many times as tough as the normal mob (the same for every player)
+healthMultiplier: 3.0
+damageMultiplier: 1.5
+
+# The most elites in one chunk. At the limit no new elites spawn there.
+chunkCap: 20
+
+# No elites in these worlds
+disabledWorlds: []
+
+# These mobs are never elites
+excludedTypes: [WARDEN, ENDER_DRAGON, WITHER, ELDER_GUARDIAN, GIANT, ILLUSIONER]
+
+# What killing an elite gives. Nothing extra is given for mobs from spawners, mob farms,
+# or the minions of Splitting and Summoner.
+rewards:
+  # FRPG exp of the kill is multiplied by this
+  expMultiplier: 3.0
+  # A chunk gives these rewards at most once per this many seconds (0 = no limit). This stops a
+  # farm from turning elites into a steady source of drops.
+  chunkCooldownSeconds: 120
+  # Extra drops: each entry rolls once. material, min, max, chance (0 to 1)
+  drops:
+    - material: DIAMOND
+      min: 1
+      max: 2
+      chance: 0.15
+    - material: EMERALD
+      min: 1
+      max: 3
+      chance: 0.25
+    - material: GOLD_INGOT
+      min: 2
+      max: 5
+      chance: 0.40
+
+# The numbers of each affix
+affixes:
+  volatile:
+    radius: 3.0
+    damage: 6.0
+  vampiric:
+    healFraction: 0.5
+  swift:
+    speedBonus: 0.4
+  armored:
+    reduction: 0.3
+  splitting:
+    copies: 2
+    healthFraction: 0.25
+  thorns:
+    reflect: 0.25
+  summoner:
+    intervalSeconds: 10
+    minions: 2
+    maxAlive: 6
+  frostbound:
+    seconds: 3
+  burning:
+    seconds: 4
+  teleporter:
+    intervalSeconds: 8
+    range: 12.0
+
+# The Blood Moon: a small chance every night. Mobs that spawn are stronger, wear random gear and
+# are more often elites.
+bloodMoon:
+  # false = no Blood Moon by itself (admins can still use /frpg bloodmoon start)
+  enabled: true
+  # 0.0625 = 1 in 16 nights
+  chance: 0.0625
+  # Only these worlds can have a Blood Moon
+  worlds: [world]
+  # Time of day (ticks) of the nightly roll and of the end of the Blood Moon
+  startTick: 13000
+  endTick: 23000
+  # The elite chance is multiplied by this during a Blood Moon
+  eliteChanceMultiplier: 4.0
+  # Blood Moon mobs: extra health and damage on top of the normal mob
+  healthBonus: 0.5
+  damageBonus: 0.25
+  # What players see and hear
+  effects:
+    title: true
+    sound: true
+    bossBar: true
+    redEdge: true
+    particles: true
+    thunder: false
+  # Random gear for Blood Moon mobs. Each slot has a chance and a list of materials.
+  # Gear is damaged and almost never drops.
+  gear:
+    helmet:
+      chance: 0.35
+      materials: [LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, GOLDEN_HELMET]
+    chestplate:
+      chance: 0.35
+      materials: [LEATHER_CHESTPLATE, CHAINMAIL_CHESTPLATE, IRON_CHESTPLATE, GOLDEN_CHESTPLATE]
+    leggings:
+      chance: 0.35
+      materials: [LEATHER_LEGGINGS, CHAINMAIL_LEGGINGS, IRON_LEGGINGS, GOLDEN_LEGGINGS]
+    boots:
+      chance: 0.35
+      materials: [LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLDEN_BOOTS]
+    weapon:
+      chance: 0.35
+      materials: [STONE_SWORD, IRON_SWORD, STONE_AXE, IRON_AXE]
