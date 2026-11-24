@@ -10,6 +10,7 @@ import mc.carlton.freerpg.skills.SkillRegistry;
 import mc.carlton.freerpg.utils.UtilityMethods;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
 import mc.carlton.freerpg.utils.globalVariables.StringsAndOtherData;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import mc.carlton.freerpg.utils.gui.GuiItem;
 import mc.carlton.freerpg.utils.gui.GuiWrapper;
 import org.bukkit.Bukkit;
@@ -56,6 +57,12 @@ public class ConfirmGuiCommand implements SubCommand {
     ConfigLoad loadConfig = new ConfigLoad();
     ArrayList<Integer> soulsInfo = loadConfig.getSoulsInfo();
     String refundCost = Integer.toString(soulsInfo.get(1));
+
+    //Back button
+    GuiItem backButton = new GuiItem(Material.ARROW, BackButton.SLOT_LARGE, gui);
+    backButton.setName(lang.getString("diggingPassiveTitle1"));
+    backButton.setDescription(lang.getString("diggingPassiveDesc1"));
+    gui.addItem(backButton);
 
     //Information
     GuiItem info = new GuiItem(Material.PAPER, 22, gui);

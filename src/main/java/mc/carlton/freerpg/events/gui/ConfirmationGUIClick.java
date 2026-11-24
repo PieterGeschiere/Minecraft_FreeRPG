@@ -1,6 +1,5 @@
 package mc.carlton.freerpg.events.gui;
 
-import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -41,60 +40,58 @@ public class ConfirmationGUIClick implements Listener {
       Inventory inv = e.getClickedInventory();
       if (e.getCurrentItem() != null) {
         String skillName = "";
-        String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
         Material indicator = inv.getItem(4).getType();
         switch (indicator) {
           case IRON_SHOVEL:
-            skillName = labels_0[0];
+            skillName = "digging";
             break;
           case IRON_AXE:
-            skillName = labels_0[1];
+            skillName = "woodcutting";
             break;
           case IRON_PICKAXE:
-            skillName = labels_0[2];
+            skillName = "mining";
             break;
           case IRON_HOE:
-            skillName = labels_0[3];
+            skillName = "farming";
             break;
           case FISHING_ROD:
-            skillName = labels_0[4];
-            break;
-          case BOW:
-            skillName = labels_0[5];
+            skillName = "fishing";
             break;
           case BONE:
-            skillName = labels_0[6];
+            skillName = "beastMastery";
             break;
           case IRON_SWORD:
-            skillName = labels_0[7];
+            skillName = "swordsmanship";
             break;
           case IRON_CHESTPLATE:
-            skillName = labels_0[8];
+            skillName = "defense";
             break;
           case GOLDEN_AXE:
-            skillName = labels_0[9];
+            skillName = "axeMastery";
             break;
           case ANVIL:
-            skillName = labels_0[10];
+            skillName = "repair";
             break;
           case LEATHER_LEGGINGS:
-            skillName = labels_0[11];
+            skillName = "agility";
             break;
           case POTION:
-            skillName = labels_0[12];
+            skillName = "alchemy";
             break;
           case COAL:
-            skillName = labels_0[13];
+            skillName = "smelting";
             break;
           case ENCHANTING_TABLE:
-            skillName = labels_0[14];
+            skillName = "enchanting";
             break;
           case BRICKS:
-            skillName = labels_0[15];
+            skillName = "building";
+            break;
+          case ELYTRA:
+            skillName = "aeronautics";
             break;
           default:
             break;
-
         }
         if (e.getCurrentItem().getType() == Material.LIME_TERRACOTTA) {
           UUID uuid = p.getUniqueId();
@@ -126,7 +123,8 @@ public class ConfirmationGUIClick implements Listener {
           }
 
           p.performCommand("frpg skillTreeGUI " + skillName);
-        } else if (e.getCurrentItem().getType() == Material.RED_TERRACOTTA) {
+        } else if (e.getCurrentItem().getType() == Material.RED_TERRACOTTA
+            || e.getCurrentItem().getType() == Material.ARROW) {
           p.performCommand("frpg skillTreeGUI " + skillName);
         }
       }

@@ -7,6 +7,7 @@ import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,7 +37,7 @@ public class WeaponSkillTreeMenu implements Listener {
   private static final Material[] PASSIVE_MATERIALS = {Material.RED_DYE, Material.GREEN_DYE,
       Material.BLUE_DYE};
   private static final String[] PASSIVE_KEYS = {"p1", "p2", "p3"};
-  private static final int BACK_SLOT = 45;
+  private static final int BACK_SLOT = BackButton.SLOT_LARGE;
   private static final int REFUND_SLOT = 47;
   private static final int CONFIG_SLOT = 53;
   private static final int[] CONNECTOR_SLOTS = {6, 12, 14, 24, 25, 30, 32, 42};
@@ -134,11 +135,7 @@ public class WeaponSkillTreeMenu implements Listener {
     }
 
     // Back, refund and configuration
-    ItemStack back = new ItemStack(Material.ARROW);
-    ItemMeta backMeta = back.getItemMeta();
-    backMeta.setDisplayName(ChatColor.BOLD + lang.getString("diggingPassiveTitle1"));
-    back.setItemMeta(backMeta);
-    gui.setItem(BACK_SLOT, back);
+    gui.setItem(BACK_SLOT, BackButton.create(lang));
     gui.setItem(REFUND_SLOT, refundItem(p, lang));
     gui.setItem(CONFIG_SLOT, configItem(skill, data));
 

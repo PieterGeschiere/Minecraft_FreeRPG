@@ -9,6 +9,7 @@ import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.core.info.player.Leaderboards;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -34,7 +35,7 @@ public class WeaponSkillsMenu implements Listener {
   private static final int AXE_MASTERY_SLOT = 11;
   /** Slots of the weapon skills of this module, in the order of {@link WeaponSkill#values()}. */
   private static final int[] SKILL_SLOTS = {12, 13, 14, 15, 16};
-  private static final int BACK_SLOT = 22;
+  private static final int BACK_SLOT = BackButton.SLOT_SMALL;
 
   /** Marks the inventory as the weapon skills menu and remembers which slot runs which command. */
   private static class MenuHolder implements InventoryHolder {
@@ -69,11 +70,7 @@ public class WeaponSkillsMenu implements Listener {
       holder.actions.put(SKILL_SLOTS[i], pl -> WeaponSkillTreeMenu.open(pl, skill));
     }
 
-    ItemStack back = new ItemStack(Material.ARROW);
-    ItemMeta backMeta = back.getItemMeta();
-    backMeta.setDisplayName(ChatColor.GRAY + lang.getString("diggingPassiveDesc1"));
-    back.setItemMeta(backMeta);
-    inventory.setItem(BACK_SLOT, back);
+    inventory.setItem(BACK_SLOT, BackButton.create(lang));
     holder.actions.put(BACK_SLOT, pl -> pl.performCommand("frpg"));
 
     p.openInventory(inventory);

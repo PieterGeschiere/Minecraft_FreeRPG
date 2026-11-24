@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
+import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -35,7 +37,7 @@ public final class PartyMenu implements Listener {
   private static final int SPAWN_SLOT = 41;
   private static final int RECEIVE_XP_SLOT = 42;
   private static final int TP_REQUESTS_SLOT = 43;
-  private static final int BACK_SLOT = 45;
+  private static final int BACK_SLOT = BackButton.SLOT_LARGE;
   private static final int LEAVE_SLOT = 53;
 
   /** Marks an inventory as a party menu and remembers what each slot does. */
@@ -87,7 +89,7 @@ public final class PartyMenu implements Listener {
   }
 
   private static ItemStack backItem(Player p) {
-    return item(Material.ARROW, "§7" + PartyMessages.text(p, "partyMenuBack"));
+    return BackButton.create(new LanguageSelector(p));
   }
 
   private static void openNoParty(Player p) {
@@ -101,8 +103,8 @@ public final class PartyMenu implements Listener {
         PartyMessages.text(p, "partyMenuJoinHelp")));
     holder.inventory.setItem(15, item(Material.PAPER, "§e/party accept",
         PartyMessages.text(p, "partyMenuAcceptHelp")));
-    holder.inventory.setItem(22, backItem(p));
-    holder.actions.put(22, pl -> pl.performCommand("frpg"));
+    holder.inventory.setItem(BackButton.SLOT_SMALL, backItem(p));
+    holder.actions.put(BackButton.SLOT_SMALL, pl -> pl.performCommand("frpg"));
     p.openInventory(holder.inventory);
   }
 
@@ -312,8 +314,8 @@ public final class PartyMenu implements Listener {
       holder.actions.put(slot, pl -> openConfirm(pl, name + ": " + target.lastName(), run));
       slot += 2;
     }
-    holder.inventory.setItem(22, backItem(p));
-    holder.actions.put(22, PartyMenu::open);
+    holder.inventory.setItem(BackButton.SLOT_SMALL, backItem(p));
+    holder.actions.put(BackButton.SLOT_SMALL, PartyMenu::open);
     p.openInventory(holder.inventory);
   }
 
@@ -333,6 +335,8 @@ public final class PartyMenu implements Listener {
       reopenLater(pl);
     });
     holder.actions.put(15, PartyMenu::open);
+    holder.inventory.setItem(BackButton.SLOT_SMALL, backItem(p));
+    holder.actions.put(BackButton.SLOT_SMALL, PartyMenu::open);
     p.openInventory(holder.inventory);
   }
 

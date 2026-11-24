@@ -1,6 +1,8 @@
 package mc.carlton.freerpg.core.info.server;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import mc.carlton.freerpg.FreeRPG;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -9,8 +11,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlacedBlocksManager {
 
-  private static HashSet<Location> blocks = new HashSet<>(); //The set of all tracked blocks on the server
-  private static HashSet<Location> temporaryBlocks = new HashSet<>();  //Temporary blocks to be added to blocks later, but are still checked to see if tracked
+  // Thread-safe sets: the periodic save copies these from an async task while the main thread mutates them.
+  private static Set<Location> blocks = ConcurrentHashMap.newKeySet(); //The set of all tracked blocks on the server
+  private static Set<Location> temporaryBlocks = ConcurrentHashMap.newKeySet();  //Temporary blocks to be added to blocks later, but are still checked to see if tracked
   private static boolean isFileMangerMakingCopy = false;
   private static int copiesBeingMade = 0;
 
@@ -38,7 +41,9 @@ public class PlacedBlocksManager {
   }
 
   public void setBlocksMap(HashSet<Location> newblocks) {
-    PlacedBlocksManager.blocks = newblocks;
+    Set<Location> replacement = ConcurrentHashMap.newKeySet();
+    replacement.addAll(newblocks);
+    PlacedBlocksManager.blocks = replacement;
   }
 
   public void addBlock(Block block) {

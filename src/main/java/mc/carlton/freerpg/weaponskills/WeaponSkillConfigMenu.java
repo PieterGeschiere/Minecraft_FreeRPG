@@ -3,6 +3,7 @@ package mc.carlton.freerpg.weaponskills;
 import java.util.ArrayList;
 import java.util.List;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,7 +27,7 @@ public class WeaponSkillConfigMenu implements Listener {
   private static final int ICON_SLOT = 4;
   private static final int EXP_BAR_SLOT = 10;
   private static final int ABILITY_SLOT = 11;
-  private static final int BACK_SLOT = 45;
+  private static final int BACK_SLOT = BackButton.SLOT_LARGE;
 
   /** Marks the inventory as a weapon skill configuration menu. */
   private static class ConfigHolder implements InventoryHolder {
@@ -59,8 +60,7 @@ public class WeaponSkillConfigMenu implements Listener {
     gui.setItem(ABILITY_SLOT, item(skill.getIcon(),
         ChatColor.BOLD + lang.translateMessage("::triggerAbilities::"), null));
     gui.setItem(ABILITY_SLOT + 9, toggle(lang, data.isAbilityEnabled()));
-    gui.setItem(BACK_SLOT, item(Material.ARROW, ChatColor.BOLD + lang.getString(
-        "diggingPassiveTitle1"), lang.getString("diggingPassiveDesc1")));
+    gui.setItem(BACK_SLOT, BackButton.create(lang));
     p.openInventory(gui);
   }
 

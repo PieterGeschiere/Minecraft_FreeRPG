@@ -2,6 +2,7 @@ package mc.carlton.freerpg.utils.game;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -13,10 +14,12 @@ public final class AbilitySounds {
 
   private static final class Cue {
 
-    private final Sound sound;
+    // Looked up when the cue plays: the Sound constants need a running server to load, and the
+    // list of skills with a sound should be readable without one (tests).
+    private final Supplier<Sound> sound;
     private final float pitch;
 
-    private Cue(Sound sound, float pitch) {
+    private Cue(Supplier<Sound> sound, float pitch) {
       this.sound = sound;
       this.pitch = pitch;
     }
@@ -25,15 +28,15 @@ public final class AbilitySounds {
   private static final Map<String, Cue> ACTIVATE = new HashMap<>();
 
   static {
-    ACTIVATE.put("digging", new Cue(Sound.BLOCK_GRAVEL_BREAK, 0.7f));
-    ACTIVATE.put("woodcutting", new Cue(Sound.ITEM_AXE_STRIP, 0.9f));
-    ACTIVATE.put("mining", new Cue(Sound.BLOCK_DEEPSLATE_BREAK, 0.8f));
-    ACTIVATE.put("farming", new Cue(Sound.ITEM_BONE_MEAL_USE, 1.0f));
-    ACTIVATE.put("fishing", new Cue(Sound.ENTITY_FISHING_BOBBER_SPLASH, 1.0f));
-    ACTIVATE.put("beastMastery", new Cue(Sound.ENTITY_HORSE_GALLOP, 1.0f));
-    ACTIVATE.put("swordsmanship", new Cue(Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f));
-    ACTIVATE.put("defense", new Cue(Sound.ITEM_SHIELD_BLOCK, 0.8f));
-    ACTIVATE.put("axeMastery", new Cue(Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK, 0.9f));
+    ACTIVATE.put("digging", new Cue(() -> Sound.BLOCK_GRAVEL_BREAK, 0.7f));
+    ACTIVATE.put("woodcutting", new Cue(() -> Sound.ITEM_AXE_STRIP, 0.9f));
+    ACTIVATE.put("mining", new Cue(() -> Sound.BLOCK_DEEPSLATE_BREAK, 0.8f));
+    ACTIVATE.put("farming", new Cue(() -> Sound.ITEM_BONE_MEAL_USE, 1.0f));
+    ACTIVATE.put("fishing", new Cue(() -> Sound.ENTITY_FISHING_BOBBER_SPLASH, 1.0f));
+    ACTIVATE.put("beastMastery", new Cue(() -> Sound.ENTITY_HORSE_GALLOP, 1.0f));
+    ACTIVATE.put("swordsmanship", new Cue(() -> Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f));
+    ACTIVATE.put("defense", new Cue(() -> Sound.ITEM_SHIELD_BLOCK, 0.8f));
+    ACTIVATE.put("axeMastery", new Cue(() -> Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK, 0.9f));
   }
 
   private AbilitySounds() {
@@ -49,7 +52,7 @@ public final class AbilitySounds {
     Cue cue = ACTIVATE.get(skillName);
     if (cue != null && p.isOnline()) {
       if (EffectSettings.skillAbilitySounds()) {
-        p.getWorld().playSound(p.getLocation(), cue.sound, 1f, cue.pitch);
+        p.getWorld().playSound(p.getLocation(), cue.sound.get(), 1f, cue.pitch);
         p.getWorld().playSound(p.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.4f);
       }
       AbilityVisuals.burst(p, skillName);

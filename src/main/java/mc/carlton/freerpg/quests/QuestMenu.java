@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.gui.BackButton;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,7 +28,7 @@ public final class QuestMenu implements Listener {
 
   private static final int INFO_SLOT = 4;
   private static final int WHEEL_SLOT = 22;
-  private static final int BACK_SLOT = 18;
+  private static final int BACK_SLOT = BackButton.SLOT_SMALL;
   private static final int[] TAB_SLOTS = {24, 25, 26};
   private static final int BAR_LENGTH = 10;
 
@@ -99,8 +101,7 @@ public final class QuestMenu implements Listener {
       }
     });
     addTabs(p, holder, period);
-    inv.setItem(BACK_SLOT, item(Material.ARROW, "§7" + QuestMessages.text(p, "questBack"),
-        List.of(), false));
+    inv.setItem(BACK_SLOT, BackButton.create(new LanguageSelector(p)));
     holder.actions.put(BACK_SLOT, pl -> pl.performCommand("frpg"));
     p.openInventory(inv);
   }
