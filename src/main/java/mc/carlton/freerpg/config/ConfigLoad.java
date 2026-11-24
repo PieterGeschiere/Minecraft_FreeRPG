@@ -113,7 +113,7 @@ public class ConfigLoad {
 
     //Useful Label Groups:
     String[] labels = SkillRegistry.labelArray();
-    String[] combatLabels = {"archery", "beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] combatLabels = SkillRegistry.fighterLabels().toArray(new String[0]);
 
     //General Config and Config that has no real category
     defaultLanguage = config.getString("general.defaultLanguage");

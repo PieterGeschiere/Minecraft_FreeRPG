@@ -1,6 +1,8 @@
 package mc.carlton.freerpg.core.info.player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import mc.carlton.freerpg.FreeRPG;
@@ -70,9 +72,8 @@ public class AbilityLogoutTracker {
   }
 
   public void initializePlayer() {
-    String[] names = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense",
-        "axeMastery", "woodcuttingHaste", "swordSpeed", "swordStrength"};
+    List<String> names = new ArrayList<>(mc.carlton.freerpg.skills.SkillRegistry.mainLabels());
+    names.addAll(List.of("woodcuttingHaste", "swordSpeed", "swordStrength"));
     Map<String, Integer> player_Tasks = new HashMap<>();
     Map<String, NamespacedKey> player_Keys = new HashMap<>();
     for (String name : names) {

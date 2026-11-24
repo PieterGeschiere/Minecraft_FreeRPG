@@ -20,7 +20,9 @@ public final class QuestListener implements Listener {
   @EventHandler
   public void onJoin(PlayerJoinEvent e) {
     try {
-      Quests.manager().today(e.getPlayer().getUniqueId());
+      for (QuestManager m : Quests.activeManagers()) {
+        m.today(e.getPlayer().getUniqueId());
+      }
     } catch (RuntimeException ex) {
       Quests.plugin().getLogger().warning("Could not load quests of " + e.getPlayer().getName()
           + ": " + ex.getMessage());
@@ -29,7 +31,9 @@ public final class QuestListener implements Listener {
 
   @EventHandler
   public void onQuit(PlayerQuitEvent e) {
-    Quests.manager().forget(e.getPlayer().getUniqueId());
+    for (QuestPeriod period : QuestPeriod.values()) {
+      Quests.manager(period).forget(e.getPlayer().getUniqueId());
+    }
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

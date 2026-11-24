@@ -14,4 +14,12 @@ package mc.carlton.freerpg.quests;
  */
 public record QuestDefinition(String id, QuestType type, String filter, int minTarget,
                               int maxTarget, int weight, String name) {
+
+  /** The same quest asking for {@code factor} times as much (a factor below 1 counts as 1). */
+  public QuestDefinition scaled(int factor) {
+    int f = Math.max(1, factor);
+    return new QuestDefinition(id, type, filter, (int) Math.min(Integer.MAX_VALUE,
+        (long) minTarget * f), (int) Math.min(Integer.MAX_VALUE, (long) maxTarget * f), weight,
+        name);
+  }
 }

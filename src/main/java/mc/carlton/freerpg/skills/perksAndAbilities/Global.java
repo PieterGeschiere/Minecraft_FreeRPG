@@ -41,9 +41,9 @@ public class Global extends Skill {
     }
     double boost = 1.0;
     Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
-    String[] gatherer0 = {"digging", "woodcutting", "mining", "farming", "fishing"};
+    String[] gatherer0 = SkillRegistry.gathererLabels().toArray(new String[0]);
     String[] scholar0 = SkillRegistry.passiveLabels().toArray(new String[0]);
-    String[] fighter0 = {"archery", "beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] fighter0 = SkillRegistry.fighterLabels().toArray(new String[0]);
     List<String> gatherer = Arrays.asList(gatherer0);
     List<String> scholar = Arrays.asList(scholar0);
     List<String> fighter = Arrays.asList(fighter0);
@@ -62,9 +62,9 @@ public class Global extends Skill {
     if (!runMethods) {
       return;
     }
-    String[] gatherer0 = {"digging", "woodcutting", "mining", "farming", "fishing"};
+    String[] gatherer0 = SkillRegistry.gathererLabels().toArray(new String[0]);
     String[] scholar0 = SkillRegistry.passiveLabels().toArray(new String[0]);
-    String[] fighter0 = {"beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] fighter0 = SkillRegistry.fighterLabels().stream().filter(l -> !l.equals("archery")).toArray(String[]::new);
     List<String> gatherer = Arrays.asList(gatherer0);
     List<String> scholar = Arrays.asList(scholar0);
     List<String> fighter = Arrays.asList(fighter0);
@@ -90,8 +90,7 @@ public class Global extends Skill {
   }
 
   public void passiveTokenBoost() { //Old skill_3b perk
-    String[] abilities0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] abilities0 = SkillRegistry.mainLabels().toArray(new String[0]);
     String[] nonAbilities0 = SkillRegistry.passiveLabels().toArray(new String[0]);
     List<String> abilities = Arrays.asList(abilities0);
     List<String> nonAbilities = Arrays.asList(nonAbilities0);

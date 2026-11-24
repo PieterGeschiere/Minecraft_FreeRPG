@@ -37,7 +37,18 @@ public final class QuestAdminCommands {
               args[2]));
           return true;
         }
-        Quests.manager().resetPlayer(target.getUniqueId());
+        // /frpg quests reset <player> [daily|weekly|seasonal|all], daily when no period is given
+        String which = args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "daily";
+        QuestPeriod period = QuestPeriod.parse(which);
+        if (period == null && !which.equals("all")) {
+          sender.sendMessage(QuestMessages.prefixed(null, "questAdminUsage"));
+          return true;
+        }
+        for (QuestPeriod each : QuestPeriod.values()) {
+          if (period == null || period == each) {
+            Quests.manager(each).resetPlayer(target.getUniqueId());
+          }
+        }
         sender.sendMessage(QuestMessages.prefixed(null, "questResetDone", "player",
             target.getName()));
       }

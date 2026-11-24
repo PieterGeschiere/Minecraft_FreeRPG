@@ -42,9 +42,25 @@ public final class QuestManager {
   private final Consumer<QuestEvent> listener;
   private final Map<UUID, PlayerQuests> cache = new HashMap<>();
 
+  private final QuestPeriod period;
+
+  /** A manager for daily quests. */
   public QuestManager(QuestStorage storage, Supplier<List<QuestDefinition>> pool,
                       IntSupplier questsPerDay, LongSupplier clock, Supplier<ZoneId> zone,
                       IntSupplier resetHour, Random random, Consumer<QuestEvent> listener) {
+    this(QuestPeriod.DAILY, storage, pool, questsPerDay, clock, zone, resetHour, random,
+        listener);
+  }
+
+  /**
+   * A manager for the quests of one period. {@code questsPerDay} is simply how many quests are
+   * dealt for each new period, whatever its length.
+   */
+  public QuestManager(QuestPeriod period, QuestStorage storage,
+                      Supplier<List<QuestDefinition>> pool, IntSupplier questsPerDay,
+                      LongSupplier clock, Supplier<ZoneId> zone, IntSupplier resetHour,
+                      Random random, Consumer<QuestEvent> listener) {
+    this.period = period;
     this.storage = storage;
     this.pool = pool;
     this.questsPerDay = questsPerDay;
@@ -56,7 +72,11 @@ public final class QuestManager {
   }
 
   private String todayKey() {
-    return QuestDay.keyFor(clock.getAsLong(), zone.get(), resetHour.getAsInt());
+    return QuestDay.keyFor(period, clock.getAsLong(), zone.get(), resetHour.getAsInt());
+  }
+
+  public QuestPeriod period() {
+    return period;
   }
 
   /** The player's quests of today. Deals a new set when the saved one is from an earlier day. */

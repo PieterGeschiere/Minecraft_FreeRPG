@@ -303,6 +303,11 @@ public class ChangeStats {
       statAll.put(uuid, pStatAll);
       pStatClass.setData(statAll);
 
+      //Builder's Reach grows with the Building level, so refresh it the moment the level changes
+      if (skillName.equals("building") && level != oldLevel) {
+        mc.carlton.freerpg.events.building.BuildingListener.refreshReach(p);
+      }
+
       //Update Player Leaderboard
       ConfigLoad configLoad = new ConfigLoad();
       if (configLoad.isLeaderboardDyanmicUpdate()) {
@@ -361,7 +366,8 @@ public class ChangeStats {
     String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
     List<String> labels_arr = Arrays.asList(labels_0);
     return ((double) pGlobalStats.get(23) * multipliers.get(0)) * (multipliers.get(
-        labels_arr.indexOf(skillName) + 1)) * (globalClass.expBoost(skillName));
+        labels_arr.indexOf(skillName) + 1)) * (globalClass.expBoost(skillName))
+        * mc.carlton.freerpg.party.PartyBuffs.xpMultiplier(p);
   }
 
   public void checkPlayerLevelEXPCurveConsistency() {
@@ -479,8 +485,7 @@ public class ChangeStats {
   }
 
   private void resetPassiveTokens(String skillName) {
-    String[] mainSkills_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery"};
+    String[] mainSkills_0 = SkillRegistry.mainLabels().toArray(new String[0]);
     List<String> mainSkills = Arrays.asList(mainSkills_0);
     ArrayList<Number> pStats = getPlayerSkillStats(skillName);
     if (mainSkills.contains(skillName)) {

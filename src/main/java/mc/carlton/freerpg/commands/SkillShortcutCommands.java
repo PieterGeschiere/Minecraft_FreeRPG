@@ -22,6 +22,7 @@ public class SkillShortcutCommands implements CommandExecutor {
 
   /** The skills of the original FreeRPG, by the name their skill tree command expects. */
   public static final List<String> SKILLS = SkillRegistry.labels().stream()
+      // Archery is retired (Bow Mastery and Crossbow Mastery replace it), so it has no shortcut
       .filter(label -> !label.equals("archery"))
       .collect(Collectors.toList());
 

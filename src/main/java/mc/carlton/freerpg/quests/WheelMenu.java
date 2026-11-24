@@ -40,20 +40,26 @@ public final class WheelMenu implements Listener {
 
   /** Uses the player's spin (if they have one), gives the prize and plays the wheel. */
   public static void start(Player p) {
+    start(p, QuestPeriod.DAILY);
+  }
+
+  /** The same for the spin earned by finishing the quests of a period; bigger periods pay more. */
+  public static void start(Player p, QuestPeriod period) {
     if (!QuestConfig.enabled()) {
       QuestMessages.send(p, "questDisabled");
       return;
     }
-    if (!Quests.manager().claimSpin(p.getUniqueId())) {
+    if (!Quests.manager(period).claimSpin(p.getUniqueId())) {
       QuestMessages.send(p, "questNoSpin");
       return;
     }
     Random random = new Random();
     int size = WheelAnimation.RING_SLOTS.length;
+    int multiplier = QuestConfig.rewardMultiplier(period);
     List<WheelPrize> ring = WheelRoller.rollRing(random, PrizeGiver.enchantChoices(),
         PrizeGiver.skillNames(), QuestConfig.weightBook(), QuestConfig.weightMinecraftExp(),
-        QuestConfig.weightFrpgExp(), QuestConfig.minecraftExpRange(), QuestConfig.frpgExpRange(),
-        size);
+        QuestConfig.weightFrpgExp(), scaled(QuestConfig.minecraftExpRange(), multiplier),
+        scaled(QuestConfig.frpgExpRange(), multiplier), size);
     int landing = WheelRoller.pickLanding(random, size);
     WheelPrize prize = ring.get(landing);
     try {
@@ -82,6 +88,13 @@ public final class WheelMenu implements Listener {
 
     int[] sequence = WheelAnimation.stepSequence(size, landing, MIN_STEPS + random.nextInt(size));
     spin(p, holder, icons, sequence, 0, -1, prize);
+  }
+
+  /** An exp range with both ends multiplied (a multiplier below 1 counts as 1). */
+  static int[] scaled(int[] range, int multiplier) {
+    int m = Math.max(1, multiplier);
+    return new int[] {(int) Math.min(Integer.MAX_VALUE, (long) range[0] * m),
+        (int) Math.min(Integer.MAX_VALUE, (long) range[1] * m)};
   }
 
   private static void spin(Player p, WheelHolder holder, List<ItemStack> icons, int[] sequence,

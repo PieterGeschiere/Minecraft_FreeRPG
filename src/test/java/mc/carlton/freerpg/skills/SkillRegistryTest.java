@@ -108,6 +108,16 @@ class SkillRegistryTest {
   }
 
   @Test
+  void gathererAndFighterGroupsAreTheFirstTenMainSkills() {
+    assertEquals(Arrays.asList("digging", "woodcutting", "mining", "farming", "fishing"),
+        SkillRegistry.gathererLabels());
+    assertEquals(Arrays.asList("archery", "beastMastery", "swordsmanship", "defense", "axeMastery"),
+        SkillRegistry.fighterLabels());
+    assertThrows(UnsupportedOperationException.class, () -> SkillRegistry.gathererLabels().add("x"));
+    assertThrows(UnsupportedOperationException.class, () -> SkillRegistry.fighterLabels().add("x"));
+  }
+
+  @Test
   void passiveLabelsAreTheLastSevenInOrderAndImmutable() {
     assertEquals(Arrays.asList("repair", "agility", "alchemy", "smelting", "enchanting", "building", "aeronautics"),
         SkillRegistry.passiveLabels());

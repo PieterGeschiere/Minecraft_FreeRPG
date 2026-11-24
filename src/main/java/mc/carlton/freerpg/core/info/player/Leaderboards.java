@@ -363,6 +363,14 @@ public class Leaderboards {
     return leaderboard.get(position - 1);
   }
 
+  /** The total level of a player on the global leaderboard, 0 when the player is not on it. */
+  public int getGlobalLevel(UUID playerUUID) {
+    Map<String, PlayerLeaderboardStat> profile =
+        playerUUID_to_personalSkillLeaderboards.get(playerUUID);
+    PlayerLeaderboardStat stat = profile == null ? null : profile.get("global");
+    return stat == null || stat.get_sortedStat() == null ? 0 : stat.get_sortedStat().intValue();
+  }
+
   public int getLeaderboardPosition(Player p, String leaderboardName) {
     UUID playerUUID = p.getUniqueId();
     return getLeaderboardPosition(playerUUID, leaderboardName);

@@ -24,7 +24,15 @@ Download the latest jar from the [GitHub Releases](https://github.com/PieterGesc
 server's `plugins` folder.
 
 > **Upgrading from an older FreeRPG version?** Back up your `plugins/FreeRPG` folder first. Old
-> config files are not updated automatically, so new settings fall back to built-in defaults.
+> config files are not updated automatically, so new settings fall back to built-in defaults. This
+> includes the Building and Aeronautics skills: a config without their sections still works, with
+> the default numbers from this README. `perkConfig.yml` is now copied to your plugin folder the
+> first time the plugin starts (an existing file is never overwritten), so you can edit the perk
+> numbers there.
+>
+> **Saved toggles may swap once.** An older version saved each skill's exp-bar toggle and ability
+> toggle into each other's slot. They are saved correctly now, so a player whose two toggles
+> differed may find them swapped one time after updating. They stay correct afterwards.
 
 ## What's new in 2.0.0
 
@@ -39,10 +47,20 @@ server's `plugins` folder.
   abilities (see below), configured in `weaponSkills.yml` and opened with `/frpg weapons`. The Fighter
   and Training global perks apply to them too.
 * **Repair and Salvage Stations** (see below).
-* **Daily Quests** with a reward wheel (see below).
+* **Daily, weekly and seasonal Quests** with a reward wheel (see below).
+* **Building**, a new skill that levels by placing blocks and protects your own builds (see below).
+* **Aeronautics**, a new skill that levels by gliding with an elytra (see below).
+* **Parties** with bonus XP sharing, an XP buff for nearby members, shared party quests, a party
+  leaderboard, teleporting and more (see below).
+* **Dutch** added as a language, and every language now has a text for everything (see Language Support).
+* The `/frpg` command code was split into one small class per command, with a single skill
+  registry, so adding a skill no longer means editing a dozen hard-coded lists.
 * Many bug fixes, among them wrong playtime display, missing exp for deepslate and copper ores,
   raw metals smelting into themselves, Luck and Turtle Master potions without an effect and an
-  error when killing glow squids.
+  error when killing glow squids. Also fixed: a player's exp-bar and ability toggles swapping places
+  every time their stats were saved, a player standing exactly on a level's exp threshold being
+  counted one level too low, `/frpg top playTime` and `/frpg setTokens` failing from the console,
+  and `/frpg skillTreeGUI` ignoring skill names typed with capitals (`Smelting`, `Global`).
 
 ## Weapon Skills
 
@@ -173,6 +191,14 @@ Play together in a party. `/party` opens the party menu (also reachable with the
 * **Bonus XP:** you keep all your XP. Party members within 30 blocks (same world, online, not AFK)
   also get 25% of it in the same skill, for the main skills and the weapon skills. Owners and
   officers can switch it on or off for the party, and every member can switch off receiving it.
+* **XP buff:** for every party member within 40 blocks of you (same world, online, not AFK) you earn 3%
+  more experience, up to 15% extra in total. This is on top of the bonus XP sharing above and can be
+  changed or switched off under `buffs` in `party.yml`.
+* **Party quests:** every party gets its own daily quests, and the progress of all members adds up.
+  `/party quests` shows them. When the party finishes all of them, every member who is online gets a
+  prize rolled like a reward wheel prize. Settings are under `party:` in `quests.yml`.
+* **Party leaderboard:** `/party top` lists the best 10 parties by the combined total level of their
+  members and tells you where your own party stands.
 * **Friendly fire:** off by default, owners and officers can turn it on in the menu.
 * **Teleporting:** `/party tpa <member>` asks to teleport to a party member (they answer with the
   chat buttons or `/party tpaccept` / `/party tpdeny`). Owners and officers can set a party spawn with
@@ -199,12 +225,14 @@ Play together in a party. `/party` opens the party menu (also reachable with the
 | `/party setspawn` / `spawn` | Sets / teleports to the party spawn |
 | `/party tpa <member>`, `tpaccept`, `tpdeny`, `tptoggle` | Teleport requests |
 | `/party receivexp [on/off]` | Receive shared XP or not |
+| `/party top` | The best parties by combined total level |
+| `/party quests` | The shared daily quests of your party |
 | `/frpg party disband <party>`, `kick <player>`, `reload`, `info <party>` | Administration |
 
 Permissions: `freerpg.party.use` and `freerpg.party.create` (everyone by default) and
 `freerpg.party.admin` (ops). With PlaceholderAPI you also get `%freerpg_party_name%`, `_role`,
-`_owner`, `_size`, `_maxSize`, `_online`, `_open` and `_friendlyFire`. The texts are in English only
-for now; other languages show the English text.
+`_owner`, `_size`, `_maxSize`, `_online`, `_open` and `_friendlyFire`. The texts are translated into all
+the languages (see Language Support).
 
 ## Repair and Salvage Stations
 
@@ -242,8 +270,77 @@ quests per day, the reset time and time zone, how often each prize type shows up
 worlds where quests are off and the sound and particle effects. Admins can give a player new quests with
 `/frpg quests reset <player>`.
 
+### Weekly and seasonal quests
+
+Besides the daily quests there are **weekly quests** (a new set every Monday, at the reset hour) and
+**seasonal quests** (a new set every calendar quarter: January, April, July and October). They count
+the same things at the same time as the daily ones, but ask for more (5 times as much for weekly, 20 times
+for seasonal, by default) and give one wheel spin with **bigger prizes** (3 times and 8 times the exp) when
+all of them are done. Open them with the clock, compass and sapling tabs in the `/quests` menu, or with
+`/quests weekly` and `/quests seasonal`. Set the number of quests, the scale and the prize multiplier
+under `weekly:` and `seasonal:` in `quests.yml`, or give them a quest pool of their own with
+`weekly.pool` / `seasonal.pool` (same format as `quests`). Admins can reset them with
+`/frpg quests reset <player> [daily|weekly|seasonal|all]`.
+
+Party quests are described under Parties.
+
 Permissions: `freerpg.quests.use` (everyone by default) and `freerpg.quests.admin` (ops). The quest texts
-are in English only for now; other languages show the English text.
+are translated into all the languages (see Language Support).
+
+## Building
+
+Building is a passive skill, like Smelting or Enchanting. It has no ability to activate. Open its skill tree with
+`/building` or the bricks icon in the `/frpg` menu. You earn Building exp by **placing blocks**: a flat amount per
+block (more for decorative blocks such as stairs, slabs, walls and glass), never based on how valuable the block is.
+You get no exp for placing a block where you just broke one, and each material only counts a limited number
+of times per minute, so place-and-break loops do not pay.
+
+| Skill tree entry | Levels | What it does |
+|------------------|--------|--------------|
+| **Builder's Reach** (passive) | rises with your level | Your block reach grows by 0.01 blocks per level, up to +3. |
+| **Weatherproof** | 5 | Blocks *you placed* survive burning (fire, lava, lightning) with 20% / 40% / 60% / 80% / 100% chance. |
+| **Fortified Blocks** | 5 | Blocks you placed survive creeper and TNT explosions with 10% / 20% / 30% / 40% / 50% chance. Needs Weatherproof level 2. |
+| **Demolition Expert** | 1 | Blocks you placed break 25% faster and your tools lose 50% less durability breaking them. Needs 10 points in the two perks above. |
+
+Building never gives you items, drops or free blocks. The game remembers who placed which block in
+`plugins/FreeRPG/ServerData/buildingBlocks.dat` (up to 2,000,000 blocks; after that new blocks are no longer
+protected). Blocks moved by pistons lose their protection. Numbers are in `perkConfig.yml` (perks and reach)
+and `advancedConfig.yml` under `building:` (exp, limits). The skill can be turned off with `building.skillAllowed`
+in `config.yml`. Permission: `freeRPG.buildingEXP`.
+
+## Aeronautics
+
+Aeronautics is a passive skill for elytra flying, opened with `/aeronautics` or the elytra icon in the `/frpg`
+menu. You earn exp for the **distance you actually glide** (3 exp per 50 blocks by default, up to 30 steps per
+minute so flying in circles cannot be farmed). Firework rockets themselves give no exp.
+
+| Skill tree entry | Levels | What it does |
+|------------------|--------|--------------|
+| **Glide Efficiency** (passive) | rises with your level | Your elytra lose 0.5% less durability per level, up to 50% less. |
+| **Soft Landing** | 5 | You take 10% less damage per level (up to 50%) when you fly into a wall. This is separate from Agility's Roll. |
+| **Long Burn** | 5 | Firework rockets you boost with last longer: +1, +1, +2, +2, +3 flight power. The rocket is still used up. |
+| **Tailwind** | 1 | The first rocket after you take off is stronger (+1 flight power). Needs 10 points in the two perks above. |
+
+There is no perk that saves rockets, on purpose: that would be free items. A rocket boost is recognised
+as a rocket launched straight ahead by a gliding player, so rockets shot from a crossbow do not count.
+Numbers are in `perkConfig.yml` and `advancedConfig.yml` under `aeronautics:`. Permission: `freeRPG.aeronauticsEXP`.
+
+## Configuration files
+
+Everything lives in `plugins/FreeRPG/`:
+
+| File | What it holds |
+|------|---------------|
+| `config.yml` | Small, simple settings: default language, which skills are on, maximum levels, exp multipliers. |
+| `advancedConfig.yml` | The detailed settings: ability durations and cooldowns, exp values for placing, gliding and so on. |
+| `experienceConfig.yml` | The experience curve and per-skill exp settings. |
+| `perkConfig.yml` | Skill tree and passive numbers (for example the Building and Aeronautics perks). Created on first start, never overwritten. |
+| `languages.yml` | All texts, one block per language. |
+| `weaponSkills.yml`, `party.yml`, `quests.yml` | Settings of the weapon skills, parties and daily quests. |
+
+`config.yml` and `advancedConfig.yml` repair themselves when a setting is missing (this removes their comments);
+`general.autoUpdateConfig: false` in `config.yml` turns that off. The bundled `config2.yml` is an unused draft of a
+planned split of the config files and is not read by the plugin.
 
 ## Getting Started
 
@@ -296,6 +393,11 @@ FreeRPG fully/partially supports the following languages by default:
 - 🇵🇹 Portuguese (Translated by: gbuueno)
 - 🇨🇿 Czech (Translated by: Pieck444 and Fractvival)
 - 🇰🇷 Korean (Translated by: Re_Oh)
+- 🇳🇱 Dutch (Translated by: Claude, not yet checked by a native speaker)
+
+Every language has a text for everything (a test checks this), including Parties, Quests, the Weapon Skills,
+Building and Aeronautics. The newest texts (Parties, Quests, Building, Aeronautics, and the whole Dutch
+translation) were written without a native speaker, so corrections are very welcome.
 
 The default server language can be set in config.yml. Additionally, each player can pick which
 language they want the plugin to be represented in. Server administrators can add their own

@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 public class FrpgTabCompleter implements TabCompleter {
 
   private static final List<String> SKILLS = SkillRegistry.labels().stream()
+      // Archery is retired (Bow Mastery and Crossbow Mastery replace it), so it is not offered
       .filter(label -> !label.equals("archery"))
       .collect(Collectors.toList());
 

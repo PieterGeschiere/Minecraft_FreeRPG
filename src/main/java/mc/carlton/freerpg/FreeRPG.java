@@ -109,6 +109,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     saveDefaultConfig();
     saveResource("languages.yml", false);
     saveResource("advancedConfig.yml", false);
+    saveResource("perkConfig.yml", false); //Perk numbers (Building, Aeronautics); never overwrites a server's own copy
 
     //Checks config.yml and languages.yml for updates, and update them if needed (while trying to keep any edits)
     log(Level.INFO, "Checking for config and language files");

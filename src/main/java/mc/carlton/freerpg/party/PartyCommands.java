@@ -133,6 +133,10 @@ public final class PartyCommands implements CommandExecutor, TabCompleter {
         return tpaccept(p);
       case "tpdeny":
         return tpdeny(p);
+      case "top":
+        return PartyExtras.top(p);
+      case "quests":
+        return PartyExtras.quests(p);
       case "tptoggle":
       case "receivexp":
         return personalToggle(p, sub, args);

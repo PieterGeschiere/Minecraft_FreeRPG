@@ -46,6 +46,18 @@ tpa:
     # Played at both ends, heard by everyone nearby (name of org.bukkit.Sound)
     sound: ENTITY_ENDERMAN_TELEPORT
 
+
+buffs:
+  # Party buffs. For now there is one: more experience while other party members are close by.
+  xp:
+    enabled: true
+    # Extra experience for every party member within the radius (0.03 = 3%)
+    perMember: 0.03
+    # The most this can add in total (0.15 = 15%)
+    max: 0.15
+    # How close (in blocks, same world) a member has to be. Members who are away from the
+    # keyboard or spectating do not count.
+    radius: 40
 display:
   # A blue P in front of party members' names in the tab list
   tablist: true

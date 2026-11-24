@@ -34,6 +34,36 @@ wheel:
 effects:
   enabled: true
 
+
+# Weekly and seasonal quests. They work like the daily ones (same quest types, same wheel) but last
+# longer: a week (Monday to Sunday, changing at the reset hour above) or a season (a calendar
+# quarter: Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec). Finishing all of them gives one wheel spin with
+# bigger prizes. Open them with /quests weekly and /quests seasonal, or the tabs in the /quests menu.
+#   quests:           how many quests are dealt for each new week or season
+#   targetScale:      without an own "pool" below, the daily quest pool is used with every amount
+#                     multiplied by this number
+#   rewardMultiplier: the wheel's exp prizes are this many times bigger than the daily ones
+#   pool:             optional, same format as "quests" above, to give them quests of their own
+weekly:
+  enabled: true
+  quests: 4
+  targetScale: 5
+  rewardMultiplier: 3
+seasonal:
+  enabled: true
+  quests: 3
+  targetScale: 20
+  rewardMultiplier: 8
+
+# Party quests: every party gets its own daily quests, and the progress of all members adds up
+# (see /party quests). When the party finishes all of them, every member who is online gets a prize
+# rolled like a wheel prize. Without an own "pool" (same format as "quests" below) the daily quest
+# pool is used with every amount multiplied by targetScale.
+party:
+  enabled: true
+  quests: 2
+  targetScale: 4
+  rewardMultiplier: 2
 # The quest pool. Each player gets questsPerDay random quests from here every day.
 #   type:   BREAK_BLOCKS, KILL_MOBS, CATCH_FISH, CRAFT_ITEMS, BREED_ANIMALS or EARN_SKILL_EXP
 #   filter: ANY, ORES, LOGS, RIPE_CROPS (blocks), HOSTILE or a mob name like ZOMBIE (mobs),

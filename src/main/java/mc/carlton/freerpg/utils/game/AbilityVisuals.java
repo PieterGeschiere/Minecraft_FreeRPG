@@ -16,9 +16,8 @@ import org.bukkit.entity.Player;
 public final class AbilityVisuals {
 
   /** The main skills that have an ability with effects (the same names as in AbilitySounds). */
-  public static final java.util.List<String> SKILLS = java.util.List.of("digging", "woodcutting",
-      "mining", "farming", "fishing", "archery", "beastMastery", "swordsmanship", "defense",
-      "axeMastery");
+  public static final java.util.List<String> SKILLS =
+      mc.carlton.freerpg.skills.SkillRegistry.mainLabels();
 
   private AbilityVisuals() {
   }

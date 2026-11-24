@@ -53,6 +53,96 @@ public final class QuestConfig {
     return pool;
   }
 
+  // ------------------------------------------------------------------ party quests
+
+  /** Whether parties get shared daily quests (everyone's progress adds up). */
+  public static boolean partyQuestsEnabled() {
+    return enabled() && config.getBoolean("party.enabled", true);
+  }
+
+  public static int partyQuestsPerDay() {
+    return Math.max(1, config.getInt("party.quests", 2));
+  }
+
+  /** The party pool is the daily pool with every amount multiplied by this. */
+  public static int partyTargetScale() {
+    return Math.max(1, config.getInt("party.targetScale", 4));
+  }
+
+  /** The prize every online member gets is this many times bigger than a daily wheel prize. */
+  public static int partyRewardMultiplier() {
+    return Math.max(1, config.getInt("party.rewardMultiplier", 2));
+  }
+
+  public static List<QuestDefinition> partyPool() {
+    List<QuestDefinition> own = parsePool(config.getConfigurationSection("party.pool"));
+    if (!own.isEmpty()) {
+      return own;
+    }
+    List<QuestDefinition> scaled = new ArrayList<>();
+    for (QuestDefinition def : pool) {
+      scaled.add(def.scaled(partyTargetScale()));
+    }
+    return scaled;
+  }
+
+  // ------------------------------------------------------------------ weekly and seasonal quests
+
+  /** Whether quests of this period are dealt. Daily follows {@code enabled}; the rest their own. */
+  public static boolean periodEnabled(QuestPeriod period) {
+    if (period == QuestPeriod.DAILY) {
+      return enabled();
+    }
+    return enabled() && config.getBoolean(period.id() + ".enabled", true);
+  }
+
+  /** How many quests are dealt for each new period. */
+  public static int questsPer(QuestPeriod period) {
+    return switch (period) {
+      case DAILY -> questsPerDay();
+      case WEEKLY -> Math.max(1, config.getInt("weekly.quests", 4));
+      case SEASONAL -> Math.max(1, config.getInt("seasonal.quests", 3));
+    };
+  }
+
+  /** How much bigger the quest amounts are than the daily ones when no own pool is given. */
+  public static int targetScale(QuestPeriod period) {
+    return switch (period) {
+      case DAILY -> 1;
+      case WEEKLY -> Math.max(1, config.getInt("weekly.targetScale", 5));
+      case SEASONAL -> Math.max(1, config.getInt("seasonal.targetScale", 20));
+    };
+  }
+
+  /** The wheel prizes of this period are this many times bigger than the daily ones. */
+  public static int rewardMultiplier(QuestPeriod period) {
+    return switch (period) {
+      case DAILY -> 1;
+      case WEEKLY -> Math.max(1, config.getInt("weekly.rewardMultiplier", 3));
+      case SEASONAL -> Math.max(1, config.getInt("seasonal.rewardMultiplier", 8));
+    };
+  }
+
+  /**
+   * The quest pool of a period: its own {@code <period>.pool} section from quests.yml when there is
+   * one, otherwise the daily pool with every amount multiplied by the period's target scale.
+   */
+  public static List<QuestDefinition> pool(QuestPeriod period) {
+    if (period == QuestPeriod.DAILY) {
+      return pool;
+    }
+    List<QuestDefinition> own = parsePool(config.getConfigurationSection(period.id() + ".pool"));
+    if (!own.isEmpty()) {
+      return own;
+    }
+    int scale = targetScale(period);
+    List<QuestDefinition> scaled = new ArrayList<>();
+    for (QuestDefinition def : pool) {
+      scaled.add(def.scaled(scale));
+    }
+    return scaled;
+  }
+
   public static List<String> disabledWorlds() {
     return config.getStringList("disabledWorlds");
   }

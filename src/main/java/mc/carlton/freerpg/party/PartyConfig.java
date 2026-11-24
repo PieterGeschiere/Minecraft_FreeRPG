@@ -113,4 +113,25 @@ public final class PartyConfig {
   public static int deleteDays() {
     return config.getInt("inactivity.deleteDays", 60);
   }
+
+  // ------------------------------------------------------------------ buffs
+
+  public static boolean buffXpEnabled() {
+    return config.getBoolean("buffs.xp.enabled", true);
+  }
+
+  /** Extra experience per nearby party member, as a fraction (0.03 = 3%). */
+  public static double buffXpPerMember() {
+    return Math.max(0.0, config.getDouble("buffs.xp.perMember", 0.03));
+  }
+
+  /** The most the buff can add in total, as a fraction (0.15 = 15%). */
+  public static double buffXpMax() {
+    return Math.max(0.0, config.getDouble("buffs.xp.max", 0.15));
+  }
+
+  /** How close (in blocks) a member has to be to count. */
+  public static double buffRadius() {
+    return Math.max(1.0, config.getDouble("buffs.xp.radius", 40.0));
+  }
 }

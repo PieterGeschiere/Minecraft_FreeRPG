@@ -16,7 +16,7 @@
 #
 
 general:
-  defaultLanguage: enUs #Choices: enUs, huHU, frFR, deDE, plPL, esCl, ruRU, ptBR, csCZ, koKR and custom
+  defaultLanguage: enUs #Choices: enUs, huHU, frFR, deDE, plPL, esCl, ruRU, ptBR, csCZ, koKR, nlNL and custom
   forceLanguage: false #Forces players to use the server's default langauge
 leveling:
   # This is a global maxLevel, but is overridden by skillName.maxLevel
