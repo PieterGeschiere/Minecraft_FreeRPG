@@ -83,8 +83,8 @@ class WeaponSkillLanguagesTest {
       java.util.Set<String> keys = lang.getConfigurationSection(language).getKeys(false);
       java.util.Set<String> missing = new TreeSet<>(english);
       missing.removeAll(keys);
-      // The party texts are English only for now; other languages fall back to English
-      missing.removeIf(key -> key.startsWith("party"));
+      // The party and quest texts are English only for now; other languages fall back to English
+      missing.removeIf(key -> key.startsWith("party") || key.startsWith("quest"));
       java.util.Set<String> extra = new TreeSet<>(keys);
       extra.removeAll(english);
       assertTrue(missing.isEmpty(), language + " is missing " + missing);

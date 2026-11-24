@@ -155,6 +155,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
 
     initializeGlobalVariables();
     mc.carlton.freerpg.party.Parties.initialize(this);
+    mc.carlton.freerpg.quests.Quests.initialize(this);
 
     //Initializes Player Leaderboard (and may create a file)
     Leaderboards playerLeaderboard = new Leaderboards();
@@ -316,6 +317,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     log(Level.INFO, "Shutting down FreeRPG");
     mc.carlton.freerpg.weaponskills.WeaponSkills.shutdown();
     mc.carlton.freerpg.party.Parties.shutdown();
+    mc.carlton.freerpg.quests.Quests.shutdown();
 
     //Does everything that would normally be done if a player were to log out
     for (Player p : Bukkit.getOnlinePlayers()) {

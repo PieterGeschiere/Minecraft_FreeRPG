@@ -11,6 +11,9 @@ commands:
   party:
     description: Parties - play together, share bonus XP and teleport to party members
     usage: /party [help]
+  quests:
+    description: Daily quests - finish them and spin the reward wheel
+    usage: /quests
   frpg:
     description: Main FreeRPG command, type /frpg help for more info
     aliases: [ rpgFree ]
@@ -402,4 +405,10 @@ permissions:
     default: true
   freerpg.party.admin:
     description: allows the player to use /frpg party disband, kick, reload and info
+    default: op
+  freerpg.quests.use:
+    description: allows the player to do daily quests (/quests)
+    default: true
+  freerpg.quests.admin:
+    description: allows the player to use /frpg quests reload and reset
     default: op

@@ -488,6 +488,15 @@ public class FrpgCommands implements CommandExecutor {
       gui.addItem(partyIcon);
     }
 
+    //Daily quests
+    if (p.hasPermission("freerpg.quests.use")) {
+      GuiItem questIcon = new GuiItem(Material.CLOCK, 41, gui);
+      questIcon.setName(lang.getString("questMenuMain"));
+      questIcon.setNameColor(nameColor);
+      questIcon.setDescription(lang.getString("questMenuMainDesc"));
+      gui.addItem(questIcon);
+    }
+
     //Put the items in the inventory
     gui.displayGuiForPlayer();
   }
@@ -879,6 +888,11 @@ public class FrpgCommands implements CommandExecutor {
     //Party administration (/frpg party disband|kick|reload|info)
     else if (args[0].equalsIgnoreCase("party")) {
       return mc.carlton.freerpg.party.PartyAdminCommands.handle(sender, args);
+    }
+
+    //Quest administration (/frpg quests reload|reset)
+    else if (args[0].equalsIgnoreCase("quests")) {
+      return mc.carlton.freerpg.quests.QuestAdminCommands.handle(sender, args);
     }
 
     //Weapon skills menu (Mace Mastery, ...)

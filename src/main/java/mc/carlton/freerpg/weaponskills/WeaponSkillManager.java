@@ -252,6 +252,10 @@ public final class WeaponSkillManager {
     }
     // Party members nearby get a share of the base exp (not shared again when it is a share)
     mc.carlton.freerpg.party.PartyXpShare.onWeaponSkillExp(p, skill, (int) Math.round(rawExp));
+    if (!mc.carlton.freerpg.party.XpShareGuard.isSharing()) {
+      mc.carlton.freerpg.quests.Quests.onSkillExp(p, skill.getConfigKey(),
+          (int) Math.round(rawExp));
+    }
     int maxLevel = WeaponSkillConfig.getInt(key + ".maxLevel", -1);
     if (maxLevel < 0) {
       maxLevel = Integer.MAX_VALUE;

@@ -37,6 +37,9 @@ public class MainGUIclick implements Listener {
           case WHITE_BANNER:
             p.performCommand("party");
             break;
+          case CLOCK:
+            p.performCommand("quests");
+            break;
           case NETHER_STAR:
             p.performCommand("frpg skillTreeGUI global");
             break;

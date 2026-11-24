@@ -90,6 +90,7 @@ public class PlayerBlockBreak implements Listener {
     //Tracked Blocks
     PlacedBlocksManager placedBlocksManager = new PlacedBlocksManager();
     boolean natural = !placedBlocksManager.isBlockTracked(block);
+    mc.carlton.freerpg.quests.Quests.onBlockBreak(p, block, natural);
 
     //EXP drops
     if (flamePickEXP.containsKey(blockType) && pickaxes.contains(itemInHand.getType())

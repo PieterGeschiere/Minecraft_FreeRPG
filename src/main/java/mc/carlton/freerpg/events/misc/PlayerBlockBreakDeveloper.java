@@ -93,6 +93,7 @@ public class PlayerBlockBreakDeveloper implements Listener {
     //Tracked Blocks
     PlacedBlocksManager placedBlocksManager = new PlacedBlocksManager();
     boolean natural = !placedBlocksManager.isBlockTracked(block);
+    mc.carlton.freerpg.quests.Quests.onBlockBreak(p, block, natural);
 
     long getTrackedBlocks = System.currentTimeMillis() - timer;
     runTimeData.addTime(getTrackedBlocks, "BreakBlocktrackedBlocks");

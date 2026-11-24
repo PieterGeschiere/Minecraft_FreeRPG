@@ -1,0 +1,128 @@
+# FreeRPG daily quests. Every value has a default, so you can delete any line you do not need.
+# Reload with /frpg quests reload
+
+enabled: true
+
+# How many quests each player gets per day
+questsPerDay: 3
+
+# When a new day of quests starts. An empty timezone means the server's own time zone,
+# otherwise use a name like Europe/Brussels.
+reset:
+  hour: 0
+  timezone: ""
+
+# Quests do not progress in these worlds
+disabledWorlds: []
+
+# The reward wheel (spun once after all quests of the day are done).
+# The weights decide how often each kind of prize shows up. Enchanted books are fully random:
+# any enchantment at a random level up to its maximum.
+wheel:
+  weights:
+    book: 1
+    minecraftExp: 1
+    frpgExp: 1
+  minecraftExp:
+    min: 100
+    max: 1000
+  frpgExp:
+    min: 200
+    max: 2000
+
+# Sounds and particles when quests are finished and the wheel stops
+effects:
+  enabled: true
+
+# The quest pool. Each player gets questsPerDay random quests from here every day.
+#   type:   BREAK_BLOCKS, KILL_MOBS, CATCH_FISH, CRAFT_ITEMS, BREED_ANIMALS or EARN_SKILL_EXP
+#   filter: ANY, ORES, LOGS, RIPE_CROPS (blocks), HOSTILE or a mob name like ZOMBIE (mobs),
+#           ANY or a skill name like MINING (exp)
+#   min/max: the amount a player is asked for is picked between these
+#   weight: higher means dealt more often, 0 turns the quest off
+#   name:   text in the menu, {target} becomes the amount
+quests:
+  mineBlocks:
+    type: BREAK_BLOCKS
+    filter: ANY
+    min: 100
+    max: 300
+    weight: 2
+    name: "Break {target} blocks"
+  mineOres:
+    type: BREAK_BLOCKS
+    filter: ORES
+    min: 20
+    max: 60
+    weight: 2
+    name: "Mine {target} ores"
+  chopLogs:
+    type: BREAK_BLOCKS
+    filter: LOGS
+    min: 40
+    max: 120
+    weight: 2
+    name: "Chop {target} logs"
+  harvestCrops:
+    type: BREAK_BLOCKS
+    filter: RIPE_CROPS
+    min: 60
+    max: 200
+    weight: 2
+    name: "Harvest {target} fully grown crops"
+  killHostile:
+    type: KILL_MOBS
+    filter: HOSTILE
+    min: 15
+    max: 40
+    weight: 2
+    name: "Kill {target} hostile mobs"
+  killZombies:
+    type: KILL_MOBS
+    filter: ZOMBIE
+    min: 10
+    max: 30
+    weight: 1
+    name: "Kill {target} zombies"
+  killSkeletons:
+    type: KILL_MOBS
+    filter: SKELETON
+    min: 10
+    max: 25
+    weight: 1
+    name: "Kill {target} skeletons"
+  catchFish:
+    type: CATCH_FISH
+    filter: ANY
+    min: 5
+    max: 15
+    weight: 2
+    name: "Catch {target} fish"
+  craftItems:
+    type: CRAFT_ITEMS
+    filter: ANY
+    min: 20
+    max: 80
+    weight: 1
+    name: "Craft {target} items"
+  breedAnimals:
+    type: BREED_ANIMALS
+    filter: ANY
+    min: 4
+    max: 10
+    weight: 1
+    name: "Breed {target} animals"
+  earnExp:
+    type: EARN_SKILL_EXP
+    filter: ANY
+    min: 500
+    max: 2000
+    weight: 2
+    name: "Earn {target} skill exp"
+  earnMiningExp:
+    type: EARN_SKILL_EXP
+    filter: MINING
+    min: 300
+    max: 1200
+    weight: 1
+    name: "Earn {target} Mining exp"

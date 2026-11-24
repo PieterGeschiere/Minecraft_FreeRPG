@@ -121,6 +121,9 @@ public class ChangeStats {
       //Party members nearby get a share of the base exp (not shared again when it is a share)
       if (!isCommand) {
         mc.carlton.freerpg.party.PartyXpShare.onMainSkillExp(p, skillName, expChange);
+        if (!mc.carlton.freerpg.party.XpShareGuard.isSharing()) {
+          mc.carlton.freerpg.quests.Quests.onSkillExp(p, skillName, expChange);
+        }
       }
 
       //Multipliers

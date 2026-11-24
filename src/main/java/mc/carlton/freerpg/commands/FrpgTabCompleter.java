@@ -81,12 +81,28 @@ public class FrpgTabCompleter implements TabCompleter {
       if (sender.hasPermission("freerpg.party.admin")) {
         allowed.add("party"); // party administration
       }
+      if (sender.hasPermission("freerpg.quests.admin")) {
+        allowed.add("quests"); // quest administration
+      }
       return filter(allowed, args[0]);
     }
 
     String sub = args[0].toLowerCase(Locale.ROOT);
     String last = args[args.length - 1];
     switch (sub) {
+      case "quests":
+        if (!sender.hasPermission("freerpg.quests.admin")) {
+          return new ArrayList<>();
+        }
+        if (args.length == 2) {
+          return filter(java.util.List.of("reload", "reset"), last);
+        }
+        if (args.length == 3 && args[1].equalsIgnoreCase("reset")) {
+          List<String> names = new ArrayList<>();
+          org.bukkit.Bukkit.getOnlinePlayers().forEach(online -> names.add(online.getName()));
+          return filter(names, last);
+        }
+        return new ArrayList<>();
       case "party":
         if (!sender.hasPermission("freerpg.party.admin")) {
           return new ArrayList<>();

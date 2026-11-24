@@ -39,6 +39,7 @@ server's `plugins` folder.
   abilities (see below), configured in `weaponSkills.yml` and opened with `/frpg weapons`. The Fighter
   and Training global perks apply to them too.
 * **Repair and Salvage Stations** (see below).
+* **Daily Quests** with a reward wheel (see below).
 * Many bug fixes, among them wrong playtime display, missing exp for deepslate and copper ores,
   raw metals smelting into themselves, Luck and Turtle Master potions without an effect and an
   error when killing glow squids.
@@ -219,6 +220,30 @@ Both recipes show up in the recipe book. Stations drop themselves when broken, c
 pistons and survive explosions. The recipes and the on/off switch live in the `stations:` section of
 `advancedConfig.yml`. Setting `enabled: false` restores the old behaviour (every iron block repairs,
 every gold block salvages).
+
+## Daily Quests
+
+Every day each player gets 3 random quests, for example "mine 40 ores", "kill 25 hostile mobs" or "earn
+800 Mining exp". Open them with `/quests` (or the clock icon in the `/frpg` main menu). Progress counts
+while you play in survival or adventure mode; blocks you placed yourself do not count.
+
+When all 3 quests are done you get **one spin of the reward wheel**. Click the glowing wheel button in the
+quest menu: a ring of prizes spins, slows down and stops on your prize, which you receive at once. The
+prize is completely random:
+
+* an **enchanted book** with any enchantment (Mending and the other treasure enchantments included) at
+  a random level up to its maximum, or
+* **Minecraft exp**, or
+* **FRPG skill exp** in a random skill.
+
+A spin you do not use stays until the next daily reset. New quests are dealt at midnight server time.
+Everything is set in `quests.yml` (reload with `/frpg quests reload`): the quest pool and amounts, how many
+quests per day, the reset time and time zone, how often each prize type shows up, the exp ranges, the
+worlds where quests are off and the sound and particle effects. Admins can give a player new quests with
+`/frpg quests reset <player>`.
+
+Permissions: `freerpg.quests.use` (everyone by default) and `freerpg.quests.admin` (ops). The quest texts
+are in English only for now; other languages show the English text.
 
 ## Getting Started
 
