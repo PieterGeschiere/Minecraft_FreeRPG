@@ -1,10 +1,12 @@
 package mc.carlton.freerpg.commands;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,9 +20,9 @@ import org.bukkit.entity.Player;
  */
 public class FrpgTabCompleter implements TabCompleter {
 
-  private static final List<String> SKILLS = Arrays.asList("digging", "woodcutting", "mining",
-      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery",
-      "repair", "agility", "alchemy", "smelting", "enchanting");
+  private static final List<String> SKILLS = SkillRegistry.labels().stream()
+      .filter(label -> !label.equals("archery"))
+      .collect(Collectors.toList());
 
   /** The weapon skills, which the administration commands accept too. */
   private static final List<String> WEAPON_SKILLS = Arrays.asList("maceMastery", "tridentMastery",

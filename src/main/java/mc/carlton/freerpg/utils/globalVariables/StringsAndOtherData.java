@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.utils.globalVariables;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,14 +62,10 @@ public class StringsAndOtherData {
   }
 
   public void initializeSkillNames() {
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting", "global"};
+    String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
     List<String> labels_arr = Arrays.asList(labels_0);
     skillNamesWithGlobal = new ArrayList<>(labels_arr);
-    String[] labels_1 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels_1 = SkillRegistry.labelArray();
     List<String> labels_arr1 = Arrays.asList(labels_1);
     skillNames = new ArrayList<>(labels_arr1);
   }
@@ -450,13 +447,29 @@ public class StringsAndOtherData {
     passivePerksMap.put(s_Name, passivePerks);
     passiveDescriptionsMap.put(s_Name, passiveDescriptions);
 
-    //Enchanting
+    //Building
+    s_Name = "building";
+    perks = new String[]{"Weatherproof", "Fortified Blocks", "Demolition Expert"};
+    descriptions = new String[]{
+        "Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)",
+        "Your placed blocks have a +10% chance per level to survive creeper and TNT explosions",
+        "Blocks you placed break 25% faster and tools lose 50% less durability breaking them"};
+    passivePerks = new String[]{"Back", "Skill Tokens", "Builder's Reach"};
+    passiveDescriptions = new String[]{"Takes you back to the main skills menu",
+        "Tokens to invest in skill tree",
+        "Increases block interaction range by 0.01 blocks per level (max +3)"};
+    perksMap.put(s_Name, perks);
+    descriptionsMap.put(s_Name, descriptions);
+    passivePerksMap.put(s_Name, passivePerks);
+    passiveDescriptionsMap.put(s_Name, passiveDescriptions);
+
+    //Global
     s_Name = "global";
     perks = new String[]{"Gatherer", "Scholar", "Fighter", "Hard Work", "Research", "Training",
         "Reincarnation+", "Soul Harvesting", "Avatar", "Master of the Arts"};
     descriptions = new String[]{
         "+20% exp gained in Digging, Woodcutting, Mining, Farming, and Fishing",
-        "+20% exp gained in Repair, Agility, Brewing, Smelting, and Enchanting",
+        "+20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, and Building",
         "+20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense, and Axe Mastery",
         "+1 skill token in all Gatherer skills", "+1 skill token in all Scholar skills",
         "+1 skill token in all Fighter skills",

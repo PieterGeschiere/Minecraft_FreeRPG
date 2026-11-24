@@ -61,6 +61,9 @@ commands:
   enchanting:
     description: Opens the skill tree of enchanting (same as /frpg skillTree enchanting)
     usage: /enchanting
+  building:
+    description: Opens the skill tree of building (same as /frpg skillTree building)
+    usage: /building
   macemastery:
     description: Opens the skill tree of maceMastery (same as /frpg weapons, then the skill)
     usage: /macemastery
@@ -165,6 +168,7 @@ permissions:
       freeRPG.alchemyEXP: true
       freeRPG.smeltingEXP: true
       freeRPG.enchantingEXP: true
+      freeRPG.buildingEXP: true
   freeRPG.useAbilities:
     description: allows the player to use all skill abilities
     default: true
@@ -303,6 +307,9 @@ permissions:
     default: true
   freeRPG.enchantingEXP:
     description: Allows player to get enchanting experience
+    default: true
+  freeRPG.buildingEXP:
+    description: Allows player to get building experience
     default: true
   freeRPG.diggingAbility:
     description: allows the player to use the digging ability

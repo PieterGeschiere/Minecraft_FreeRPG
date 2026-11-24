@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.events.gui;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -40,9 +41,7 @@ public class ConfirmationGUIClick implements Listener {
       Inventory inv = e.getClickedInventory();
       if (e.getCurrentItem() != null) {
         String skillName = "";
-        String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-            "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility",
-            "alchemy", "smelting", "enchanting", "global"};
+        String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
         Material indicator = inv.getItem(4).getType();
         switch (indicator) {
           case IRON_SHOVEL:
@@ -89,6 +88,9 @@ public class ConfirmationGUIClick implements Listener {
             break;
           case ENCHANTING_TABLE:
             skillName = labels_0[14];
+            break;
+          case BRICKS:
+            skillName = labels_0[15];
             break;
           default:
             break;

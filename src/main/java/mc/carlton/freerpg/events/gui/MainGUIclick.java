@@ -88,6 +88,9 @@ public class MainGUIclick implements Listener {
           case ENCHANTING_TABLE:
             p.performCommand("frpg skillTreeGUI enchanting");
             break;
+          case BRICKS:
+            p.performCommand("frpg skillTreeGUI building");
+            break;
           case REDSTONE:
             p.performCommand("frpg configurationGUI");
             break;

@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.core.info.player;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
@@ -44,6 +45,14 @@ public class PlayerStatsLoadIn {
     this.playerData = YamlConfiguration.loadConfiguration(f);
   }
 
+  PlayerStatsLoadIn(FileConfiguration playerData) {
+    this.playerData = playerData;
+  }
+
+  Map<String, ArrayList<Number>> getStatsMap() {
+    return statsMap;
+  }
+
   public long getLoginTime() {
     long loginTime = 0;
     if (f.exists()) {
@@ -75,9 +84,7 @@ public class PlayerStatsLoadIn {
 
   public Map<String, Integer> getSkillExpBarToggles() {
     Map<String, Integer> skillExpBarToggleMap = new HashMap<>();
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels = SkillRegistry.labelArray();
     for (String label : labels) {
       skillExpBarToggleMap.put(label, (Integer) getStat(label + ".showEXPBarToggle", 1));
     }
@@ -86,9 +93,7 @@ public class PlayerStatsLoadIn {
 
   public Map<String, Integer> getSkillAbilityToggles() {
     Map<String, Integer> skillAbilityToggleMap = new HashMap<>();
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels = SkillRegistry.labelArray();
     for (String label : labels) {
       skillAbilityToggleMap.put(label, (Integer) getStat(label + ".triggerAbilityToggle", 1));
     }
@@ -122,9 +127,7 @@ public class PlayerStatsLoadIn {
   }
 
   public void readInPlayerStats() {
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels = SkillRegistry.labelArray();
     ArrayList<Number> globalStats = new ArrayList<Number>();
     addStat(globalStats, "globalStats.totalLevel", 0);                   //0
     addStat(globalStats, "globalStats.globalTokens", 0);                 //1
@@ -234,58 +237,7 @@ public class PlayerStatsLoadIn {
       String playerLanguage = pStatClass.getPlayerLanguage();
       playerData.set("general.language", playerLanguage);
 
-      for (String i : pStatAll.keySet()) {
-        if (i.equalsIgnoreCase("global")) {
-          playerData.set("globalStats.totalLevel", pStatAll.get(i).get(0));
-          playerData.set("globalStats.globalTokens", pStatAll.get(i).get(1));
-          playerData.set("globalStats.skill_1a", pStatAll.get(i).get(2));
-          playerData.set("globalStats.skill_1b", pStatAll.get(i).get(3));
-          playerData.set("globalStats.skill_1c", pStatAll.get(i).get(4));
-          playerData.set("globalStats.skill_2a", pStatAll.get(i).get(5));
-          playerData.set("globalStats.skill_2b", pStatAll.get(i).get(6));
-          playerData.set("globalStats.skill_2c", pStatAll.get(i).get(7));
-          playerData.set("globalStats.skill_3a", pStatAll.get(i).get(8));
-          playerData.set("globalStats.skill_3b", pStatAll.get(i).get(9));
-          playerData.set("globalStats.skill_3c", pStatAll.get(i).get(10));
-          playerData.set("globalStats.skill_M", pStatAll.get(i).get(11));
-          playerData.set("globalStats.flintToggle", pStatAll.get(i).get(12));
-          playerData.set("globalStats.oreToggle", pStatAll.get(i).get(13));
-          playerData.set("globalStats.speedToggle", pStatAll.get(i).get(14));
-          playerData.set("globalStats.potionToggle", pStatAll.get(i).get(15));
-          playerData.set("globalStats.grappleToggle", pStatAll.get(i).get(16));
-          playerData.set("globalStats.hotRodToggle", pStatAll.get(i).get(17));
-          playerData.set("globalStats.veinMinerToggle", pStatAll.get(i).get(18));
-          playerData.set("globalStats.megaDigToggle", pStatAll.get(i).get(19));
-          playerData.set("globalStats.souls", pStatAll.get(i).get(20));
-          playerData.set("globalStats.levelUpMessageToggle", pStatAll.get(i).get(21));
-          playerData.set("globalStats.abilityPrepareMessageToggle", pStatAll.get(i).get(22));
-          playerData.set("globalStats.personalEXPMultiplier", pStatAll.get(i).get(23));
-          playerData.set("globalStats.triggerAbilitiesToggle", pStatAll.get(i).get(24));
-          playerData.set("globalStats.showEXPBarToggle", pStatAll.get(i).get(25));
-          playerData.set("globalStats.leafBlowerToggle", pStatAll.get(i).get(26));
-          playerData.set("globalStats.holyAxeToggle", pStatAll.get(i).get(27));
-          playerData.set("globalStats.numberOfCooldownBars", pStatAll.get(i).get(28));
-          playerData.set("globalStats.totalExperience", pStatAll.get(i).get(29));
-          playerData.set("globalStats.heartyToggle", pStatAll.get(i).get(30));
-        } else {
-          playerData.set(i + ".level", pStatAll.get(i).get(0));
-          playerData.set(i + ".experience", pStatAll.get(i).get(1));
-          playerData.set(i + ".passiveTokens", pStatAll.get(i).get(2));
-          playerData.set(i + ".skillTokens", pStatAll.get(i).get(3));
-          playerData.set(i + ".passive1", pStatAll.get(i).get(4));
-          playerData.set(i + ".passive2", pStatAll.get(i).get(5));
-          playerData.set(i + ".passive3", pStatAll.get(i).get(6));
-          playerData.set(i + ".skill_1a", pStatAll.get(i).get(7));
-          playerData.set(i + ".skill_1b", pStatAll.get(i).get(8));
-          playerData.set(i + ".skill_2a", pStatAll.get(i).get(9));
-          playerData.set(i + ".skill_2b", pStatAll.get(i).get(10));
-          playerData.set(i + ".skill_3a", pStatAll.get(i).get(11));
-          playerData.set(i + ".skill_3b", pStatAll.get(i).get(12));
-          playerData.set(i + ".skill_M", pStatAll.get(i).get(13));
-          playerData.set(i + ".triggerAbilityToggle", expBarToggles.get(i));
-          playerData.set(i + ".showEXPBarToggle", abilityToggles.get(i));
-        }
-      }
+      applyStatsToYaml(pStatAll, playerData, expBarToggles, abilityToggles);
       playerData.save(f);
       PlayerStats playerStats = new PlayerStats(pUUID);
       playerStats.setPlayerAreStatsSaved(true);
@@ -296,6 +248,68 @@ public class PlayerStatsLoadIn {
             "[FreeRPG] Saved player UUID " + pUUID.toString() + " stats successfully");
       }
     }
+  }
+
+  static void applyStatsToYaml(Map<String, ArrayList<Number>> stats,
+      FileConfiguration playerData) {
+    applyStatsToYaml(stats, playerData, new HashMap<>(), new HashMap<>());
+  }
+
+  static void applyStatsToYaml(Map<String, ArrayList<Number>> pStatAll,
+      FileConfiguration playerData, Map<String, Integer> expBarToggles,
+      Map<String, Integer> abilityToggles) {
+  for (String i : pStatAll.keySet()) {
+    if (i.equalsIgnoreCase("global")) {
+      playerData.set("globalStats.totalLevel", pStatAll.get(i).get(0));
+      playerData.set("globalStats.globalTokens", pStatAll.get(i).get(1));
+      playerData.set("globalStats.skill_1a", pStatAll.get(i).get(2));
+      playerData.set("globalStats.skill_1b", pStatAll.get(i).get(3));
+      playerData.set("globalStats.skill_1c", pStatAll.get(i).get(4));
+      playerData.set("globalStats.skill_2a", pStatAll.get(i).get(5));
+      playerData.set("globalStats.skill_2b", pStatAll.get(i).get(6));
+      playerData.set("globalStats.skill_2c", pStatAll.get(i).get(7));
+      playerData.set("globalStats.skill_3a", pStatAll.get(i).get(8));
+      playerData.set("globalStats.skill_3b", pStatAll.get(i).get(9));
+      playerData.set("globalStats.skill_3c", pStatAll.get(i).get(10));
+      playerData.set("globalStats.skill_M", pStatAll.get(i).get(11));
+      playerData.set("globalStats.flintToggle", pStatAll.get(i).get(12));
+      playerData.set("globalStats.oreToggle", pStatAll.get(i).get(13));
+      playerData.set("globalStats.speedToggle", pStatAll.get(i).get(14));
+      playerData.set("globalStats.potionToggle", pStatAll.get(i).get(15));
+      playerData.set("globalStats.grappleToggle", pStatAll.get(i).get(16));
+      playerData.set("globalStats.hotRodToggle", pStatAll.get(i).get(17));
+      playerData.set("globalStats.veinMinerToggle", pStatAll.get(i).get(18));
+      playerData.set("globalStats.megaDigToggle", pStatAll.get(i).get(19));
+      playerData.set("globalStats.souls", pStatAll.get(i).get(20));
+      playerData.set("globalStats.levelUpMessageToggle", pStatAll.get(i).get(21));
+      playerData.set("globalStats.abilityPrepareMessageToggle", pStatAll.get(i).get(22));
+      playerData.set("globalStats.personalEXPMultiplier", pStatAll.get(i).get(23));
+      playerData.set("globalStats.triggerAbilitiesToggle", pStatAll.get(i).get(24));
+      playerData.set("globalStats.showEXPBarToggle", pStatAll.get(i).get(25));
+      playerData.set("globalStats.leafBlowerToggle", pStatAll.get(i).get(26));
+      playerData.set("globalStats.holyAxeToggle", pStatAll.get(i).get(27));
+      playerData.set("globalStats.numberOfCooldownBars", pStatAll.get(i).get(28));
+      playerData.set("globalStats.totalExperience", pStatAll.get(i).get(29));
+      playerData.set("globalStats.heartyToggle", pStatAll.get(i).get(30));
+    } else {
+      playerData.set(i + ".level", pStatAll.get(i).get(0));
+      playerData.set(i + ".experience", pStatAll.get(i).get(1));
+      playerData.set(i + ".passiveTokens", pStatAll.get(i).get(2));
+      playerData.set(i + ".skillTokens", pStatAll.get(i).get(3));
+      playerData.set(i + ".passive1", pStatAll.get(i).get(4));
+      playerData.set(i + ".passive2", pStatAll.get(i).get(5));
+      playerData.set(i + ".passive3", pStatAll.get(i).get(6));
+      playerData.set(i + ".skill_1a", pStatAll.get(i).get(7));
+      playerData.set(i + ".skill_1b", pStatAll.get(i).get(8));
+      playerData.set(i + ".skill_2a", pStatAll.get(i).get(9));
+      playerData.set(i + ".skill_2b", pStatAll.get(i).get(10));
+      playerData.set(i + ".skill_3a", pStatAll.get(i).get(11));
+      playerData.set(i + ".skill_3b", pStatAll.get(i).get(12));
+      playerData.set(i + ".skill_M", pStatAll.get(i).get(13));
+      playerData.set(i + ".triggerAbilityToggle", abilityToggles.get(i));
+      playerData.set(i + ".showEXPBarToggle", expBarToggles.get(i));
+    }
+  }
   }
 
   public void asyncStatSave() {

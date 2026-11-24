@@ -100,4 +100,7 @@ enchanting:
   skillAllowed: true #Setting this to false disables all skill features and EXP drops.
   maxLevel: -1
   EXP_Multiplier: 1.0
-
+building:
+  skillAllowed: true #Setting this to false disables all skill features and EXP drops.
+  maxLevel: -1
+  EXP_Multiplier: 1.0

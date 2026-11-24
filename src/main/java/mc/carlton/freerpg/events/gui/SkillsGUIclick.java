@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.events.gui;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +31,8 @@ public class SkillsGUIclick implements Listener {
       return;
     }
 
-    String[] titles_0 = {"Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Archery",
-        "Beast Mastery", "Swordsmanship", "Defense", "Axe Mastery", "Repair", "Agility", "Alchemy",
-        "Smelting", "Enchanting"};
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] titles_0 = SkillRegistry.titleArray();
+    String[] labels = SkillRegistry.labelArray();
     List<String> titles = Arrays.asList(titles_0);
     String title = e.getView().getTitle();
     int titleIndex = titles.indexOf(title);

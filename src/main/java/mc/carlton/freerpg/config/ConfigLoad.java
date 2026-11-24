@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.config;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.Map;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.customContainers.OldCustomPotion;
 import mc.carlton.freerpg.customContainers.collections.OldCustomRecipe;
+import mc.carlton.freerpg.skills.building.BuildingConfig;
 import mc.carlton.freerpg.utils.globalVariables.EffectTypeCompat;
 import org.apache.logging.log4j.Level;
 import org.bukkit.Color;
@@ -73,6 +75,16 @@ public class ConfigLoad {
   static Map<String, Double> spawnerEXPMultipliers = new HashMap<>();
   static Map<String, Double> mobFarmEXPMultipliers = new HashMap<>();
   static Map<String, Double> durabilityModifiers = new HashMap<>();
+  static double[] buildingWeatherproofChances = BuildingConfig.DEFAULT_WEATHERPROOF.clone();
+  static double[] buildingFortifiedChances = BuildingConfig.DEFAULT_FORTIFIED.clone();
+  static double buildingDemolitionSpeedBonus = BuildingConfig.DEFAULT_DEMOLITION_SPEED_BONUS;
+  static double buildingDemolitionDurabilityMultiplier =
+      BuildingConfig.DEFAULT_DEMOLITION_DURABILITY_MULTIPLIER;
+  static double buildingReachPerPoint = BuildingConfig.DEFAULT_REACH_PER_POINT;
+  static double buildingReachCap = BuildingConfig.DEFAULT_REACH_CAP;
+  static long buildingXpGraceMillis = BuildingConfig.DEFAULT_XP_GRACE_SECONDS * 1000L;
+  static int buildingXpPerMaterialPerMinute = BuildingConfig.DEFAULT_XP_PER_MATERIAL_PER_MINUTE;
+  static int buildingTrackerMaxBlocks = BuildingConfig.DEFAULT_TRACKER_MAX_BLOCKS;
   Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
 
   public void initializeConfig() {
@@ -91,9 +103,7 @@ public class ConfigLoad {
     FileConfiguration advancedConfig = YamlConfiguration.loadConfiguration(f1);
 
     //Useful Label Groups:
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels = SkillRegistry.labelArray();
     String[] combatLabels = {"archery", "beastMastery", "swordsmanship", "defense", "axeMastery"};
 
     //General Config and Config that has no real category
@@ -141,11 +151,10 @@ public class ConfigLoad {
     maxLevels.put("global", Integer.valueOf(config.getString("leveling.maxLevel")));
     allowedSkillsMap.put("global", config.getBoolean("global.skillAllowed"));
     for (String label : labels) {
-      maxLevels.put(label, Integer.valueOf(config.getString(label + ".maxLevel")));
-      allowedSkillsMap.put(label, config.getBoolean(label + ".skillAllowed"));
+      maxLevels.put(label, maxLevel(config, label));
+      allowedSkillsMap.put(label, skillAllowed(config, label));
       abilityCooldowns.put(label, config.getInt(label + ".abilityCooldown"));
-      allowedSkillGainEXPMap.put(label,
-          advancedConfig.getBoolean(label + ".expDrops.enableEXPDrops"));
+      allowedSkillGainEXPMap.put(label, expDropsEnabled(advancedConfig, label));
     }
     // Archery is retired, Bow Mastery and Crossbow Mastery (weapon skills) replace it. Its data
     // stays in the player files, so the other skills keep their place, but it never does anything.
@@ -175,7 +184,7 @@ public class ConfigLoad {
 
     multipliers.add(Double.valueOf(config.getString("global.EXP_Multiplier")));
     for (String label : labels) {
-      multipliers.add(config.getDouble(label + ".EXP_Multiplier"));
+      multipliers.add(expMultiplier(config, label));
     }
 
     tokensInfo.add(
@@ -305,16 +314,21 @@ public class ConfigLoad {
 
     //EXP Info
     for (String label : labels) {
-      Map<String, Integer> skillExpMap = new HashMap<>();
-      ConfigurationSection skillExpDrops = advancedConfig.getConfigurationSection(
-          label + ".expDrops");
-      for (String id : skillExpDrops.getKeys(false)) {
-        if (!id.equalsIgnoreCase("enableEXPDrops")) {
-          skillExpMap.put(id, advancedConfig.getInt(label + ".expDrops." + id));
-        }
-      }
-      expMap.put(label, skillExpMap);
+      expMap.put(label, readExpDrops(advancedConfig, label));
     }
+
+    //Building (perkConfig.yml is read straight from the data folder, or the bundled copy)
+    FileConfiguration perkConfig = loadPerkConfig();
+    buildingWeatherproofChances = BuildingConfig.weatherproofChances(perkConfig);
+    buildingFortifiedChances = BuildingConfig.fortifiedChances(perkConfig);
+    buildingDemolitionSpeedBonus = BuildingConfig.demolitionSpeedBonus(perkConfig);
+    buildingDemolitionDurabilityMultiplier = BuildingConfig.demolitionDurabilityMultiplier(
+        perkConfig);
+    buildingReachPerPoint = BuildingConfig.reachPerPoint(perkConfig);
+    buildingReachCap = BuildingConfig.reachCap(advancedConfig);
+    buildingXpGraceMillis = BuildingConfig.xpGraceMillis(advancedConfig);
+    buildingXpPerMaterialPerMinute = BuildingConfig.xpPerMaterialPerMinute(advancedConfig);
+    buildingTrackerMaxBlocks = BuildingConfig.trackerMaxBlocks(advancedConfig);
 
     //Special Multipliers
     specialMultiplier.put("megaDigEXPMultiplier",
@@ -530,6 +544,96 @@ public class ConfigLoad {
       return expMap.get(skillName);
     }
     return null;
+  }
+
+  /** perkConfig.yml from the data folder when the server has one, otherwise the bundled copy. */
+  private FileConfiguration loadPerkConfig() {
+    File file = new File(plugin.getDataFolder(), "perkConfig.yml");
+    if (file.isFile()) {
+      return YamlConfiguration.loadConfiguration(file);
+    }
+    try (java.io.InputStream stream = plugin.getResource("perkConfig.yml")) {
+      if (stream != null) {
+        return YamlConfiguration.loadConfiguration(
+            new java.io.InputStreamReader(stream, java.nio.charset.StandardCharsets.UTF_8));
+      }
+    } catch (java.io.IOException e) {
+      FreeRPG.log(Level.ERROR, e.getMessage());
+    }
+    return new YamlConfiguration();
+  }
+
+  // A skill missing from an older config file counts as enabled, with no level limit and a x1
+  // experience multiplier, instead of failing to load.
+  public static boolean skillAllowed(FileConfiguration config, String label) {
+    return config.getBoolean(label + ".skillAllowed", true);
+  }
+
+  public static int maxLevel(FileConfiguration config, String label) {
+    return Integer.parseInt(config.getString(label + ".maxLevel", "-1"));
+  }
+
+  public static double expMultiplier(FileConfiguration config, String label) {
+    return config.getDouble(label + ".EXP_Multiplier", 1.0);
+  }
+
+  public static boolean expDropsEnabled(FileConfiguration advancedConfig, String label) {
+    return advancedConfig.getBoolean(label + ".expDrops.enableEXPDrops", true);
+  }
+
+  /** The exp values of a skill (every key under expDrops except the on/off switch). */
+  public static Map<String, Integer> readExpDrops(FileConfiguration advancedConfig, String label) {
+    Map<String, Integer> skillExpMap = new HashMap<>();
+    if (label.equals("building")) {
+      skillExpMap.put("basicBlock", BuildingConfig.DEFAULT_BASIC_BLOCK_EXP);
+      skillExpMap.put("decorativeBlock", BuildingConfig.DEFAULT_DECORATIVE_BLOCK_EXP);
+    }
+    ConfigurationSection skillExpDrops = advancedConfig.getConfigurationSection(
+        label + ".expDrops");
+    if (skillExpDrops != null) {
+      for (String id : skillExpDrops.getKeys(false)) {
+        if (!id.equalsIgnoreCase("enableEXPDrops")) {
+          skillExpMap.put(id, advancedConfig.getInt(label + ".expDrops." + id));
+        }
+      }
+    }
+    return skillExpMap;
+  }
+
+  public double[] getBuildingWeatherproofChances() {
+    return buildingWeatherproofChances.clone();
+  }
+
+  public double[] getBuildingFortifiedChances() {
+    return buildingFortifiedChances.clone();
+  }
+
+  public double getBuildingDemolitionSpeedBonus() {
+    return buildingDemolitionSpeedBonus;
+  }
+
+  public double getBuildingDemolitionDurabilityMultiplier() {
+    return buildingDemolitionDurabilityMultiplier;
+  }
+
+  public double getBuildingReachPerPoint() {
+    return buildingReachPerPoint;
+  }
+
+  public double getBuildingReachCap() {
+    return buildingReachCap;
+  }
+
+  public long getBuildingXpGraceMillis() {
+    return buildingXpGraceMillis;
+  }
+
+  public int getBuildingXpPerMaterialPerMinute() {
+    return buildingXpPerMaterialPerMinute;
+  }
+
+  public int getBuildingTrackerMaxBlocks() {
+    return buildingTrackerMaxBlocks;
   }
 
   public Map<String, Double> getSpecialMultiplier() {

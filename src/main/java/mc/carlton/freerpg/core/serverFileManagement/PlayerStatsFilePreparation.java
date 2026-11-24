@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.core.serverFileManagement;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class PlayerStatsFilePreparation {
 
   FileConfiguration playerData;
+
+  public PlayerStatsFilePreparation() {
+  }
+
+  PlayerStatsFilePreparation(FileConfiguration playerData) {
+    this.playerData = playerData;
+  }
 
   public void initializePlayerDataBase() {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
@@ -56,16 +64,17 @@ public class PlayerStatsFilePreparation {
   public void createPlayerYAML(String pName) {
     //Load some file creation config
     ConfigLoad loadConfig = new ConfigLoad();
-    String defaultLanguage = loadConfig.getDefaultLanguage();
-    ArrayList<Double> tokensInfo = loadConfig.getTokensInfo();
-    ArrayList<Integer> soulsInfo = loadConfig.getSoulsInfo();
+    createPlayerYAML(pName, loadConfig.getDefaultLanguage(), loadConfig.getTokensInfo(),
+        loadConfig.getSoulsInfo());
+  }
+
+  void createPlayerYAML(String pName, String defaultLanguage, ArrayList<Double> tokensInfo,
+      ArrayList<Integer> soulsInfo) {
     int passiveTokens0 = (int) Math.round(tokensInfo.get(4));
     int skillTokens0 = (int) Math.round(tokensInfo.get(5));
     int globalTokens0 = (int) Math.round(tokensInfo.get(6));
     int souls0 = (int) soulsInfo.get(0);
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels = SkillRegistry.labelArray();
     long unixTime = Instant.now().getEpochSecond();
     Date now = new Date();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -136,9 +145,11 @@ public class PlayerStatsFilePreparation {
   }
 
   public void updatePlayerYAML(String pName, boolean isRealLogin) {
-    String[] labels = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    updatePlayerYAML(pName, isRealLogin, new ConfigLoad().getDefaultLanguage());
+  }
+
+  void updatePlayerYAML(String pName, boolean isRealLogin, String defaultLanguage) {
+    String[] labels = SkillRegistry.labelArray();
     long unixTime = Instant.now().getEpochSecond();
     Date now = new Date();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -169,8 +180,6 @@ public class PlayerStatsFilePreparation {
     addIfMissing("general.playTime", 0);
 
     if (!playerData.contains("general.language")) {
-      ConfigLoad loadConfig = new ConfigLoad();
-      String defaultLanguage = loadConfig.getDefaultLanguage();
       playerData.set("general.language", defaultLanguage);
     }
 

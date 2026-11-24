@@ -134,6 +134,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     PlacedBlockFileManager placedBlockFileManager = new PlacedBlockFileManager();
     placedBlockFileManager.initializePlacedBlocksFile(); //Creates blockLocations.dat if not already made
     placedBlockFileManager.initializePlacedBlocks(); //Imports data from blockLocations.dat into a hashamp
+    new mc.carlton.freerpg.core.serverFileManagement.BuildingBlocksFileManager().load(); //Who placed which block (Building skill)
 
     //Initializes RecentLogouts List
     RecentPlayersFileManager recentPlayersFileManager = new RecentPlayersFileManager();
@@ -190,6 +191,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     getServer().getPluginManager().registerEvents(new ConfirmationGUIClick(), this);
     getServer().getPluginManager().registerEvents(new ConfigurationGUIClick(), this);
     getServer().getPluginManager().registerEvents(new PlayerBlockPlace(), this);
+    getServer().getPluginManager().registerEvents(new mc.carlton.freerpg.events.building.BuildingListener(), this);
     getServer().getPluginManager().registerEvents(new PlayerRightClick(), this);
     getServer().getPluginManager().registerEvents(new PlayerTakeDamage(), this);
     getServer().getPluginManager().registerEvents(new PlayerCraft(), this);
@@ -331,6 +333,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
 
     PlacedBlockFileManager saveBlocks = new PlacedBlockFileManager();
     saveBlocks.writePlacedBlocks();
+    new mc.carlton.freerpg.core.serverFileManagement.BuildingBlocksFileManager().save();
     RecentPlayersFileManager recentPlayersFileManager = new RecentPlayersFileManager();
     recentPlayersFileManager.writeRecentPlayers();
     LeaderBoardFilesManager leaderBoardFilesManager = new LeaderBoardFilesManager();

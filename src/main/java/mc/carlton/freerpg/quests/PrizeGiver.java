@@ -1,9 +1,11 @@
 package mc.carlton.freerpg.quests;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.party.XpShareGuard;
@@ -25,9 +27,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public final class PrizeGiver {
 
   /** Main skills the wheel can give exp in (archery is retired). */
-  private static final List<String> MAIN_SKILLS = List.of("digging", "woodcutting", "mining",
-      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery", "repair",
-      "agility", "alchemy", "smelting", "enchanting");
+  private static final List<String> MAIN_SKILLS = SkillRegistry.labels().stream()
+      .filter(label -> !label.equals("archery")).collect(Collectors.toUnmodifiableList());
 
   private static final Map<String, Material> SKILL_ICONS = Map.ofEntries(
       Map.entry("digging", Material.IRON_SHOVEL),
@@ -43,7 +44,8 @@ public final class PrizeGiver {
       Map.entry("agility", Material.LEATHER_BOOTS),
       Map.entry("alchemy", Material.BREWING_STAND),
       Map.entry("smelting", Material.FURNACE),
-      Map.entry("enchanting", Material.ENCHANTING_TABLE));
+      Map.entry("enchanting", Material.ENCHANTING_TABLE),
+      Map.entry("building", Material.BRICKS));
 
   private PrizeGiver() {
   }

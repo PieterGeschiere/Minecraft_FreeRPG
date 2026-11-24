@@ -1,8 +1,9 @@
 package mc.carlton.freerpg.commands;
 
-import java.util.Arrays;
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 import mc.carlton.freerpg.weaponskills.WeaponSkill;
 import mc.carlton.freerpg.weaponskills.WeaponSkillConfig;
 import mc.carlton.freerpg.weaponskills.WeaponSkillRules;
@@ -20,9 +21,9 @@ import org.bukkit.entity.Player;
 public class SkillShortcutCommands implements CommandExecutor {
 
   /** The skills of the original FreeRPG, by the name their skill tree command expects. */
-  public static final List<String> SKILLS = Arrays.asList("digging", "woodcutting", "mining",
-      "farming", "fishing", "beastMastery", "swordsmanship", "defense", "axeMastery", "repair",
-      "agility", "alchemy", "smelting", "enchanting");
+  public static final List<String> SKILLS = SkillRegistry.labels().stream()
+      .filter(label -> !label.equals("archery"))
+      .collect(Collectors.toList());
 
   private final FrpgCommands frpgCommands;
 

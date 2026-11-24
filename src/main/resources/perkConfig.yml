@@ -2718,6 +2718,41 @@ smelting:
     level-1:
       giveMinecraftEXP: true #Whether or not flame pick smelted items give equivalent minecraft exp for smelting
       durabilityModifier: 1.0 #Average durability points removed per block broken using flame pickaxe (without unbreaking)
+building:
+  passive-1: #Builder's Reach
+    enabled: true #Change this to false to disable this skill from working
+    startingValue: 0.00 #Starting extra block interaction range (in blocks)
+    allowedRange: [ 0.0, INF ] #The allowed range of extra block interaction range, (INF or -INF represent positive and negative infinity)
+    changePerLevel: 0.01 #Extra block interaction range (in blocks) per level; the total is capped by building.reachCap in advancedConfig.yml
+  skill-1: #Weatherproof
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      surviveChance: 0.20 #Chance a block you placed survives burning (fire, lava, lightning)
+    level-2:
+      surviveChance: 0.40 #Chance a block you placed survives burning (fire, lava, lightning)
+    level-3:
+      surviveChance: 0.60 #Chance a block you placed survives burning (fire, lava, lightning)
+    level-4:
+      surviveChance: 0.80 #Chance a block you placed survives burning (fire, lava, lightning)
+    level-5:
+      surviveChance: 1.00 #Chance a block you placed survives burning (fire, lava, lightning)
+  skill-2: #Fortified Blocks
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      surviveChance: 0.10 #Chance a block you placed survives creeper and TNT explosions
+    level-2:
+      surviveChance: 0.20 #Chance a block you placed survives creeper and TNT explosions
+    level-3:
+      surviveChance: 0.30 #Chance a block you placed survives creeper and TNT explosions
+    level-4:
+      surviveChance: 0.40 #Chance a block you placed survives creeper and TNT explosions
+    level-5:
+      surviveChance: 0.50 #Chance a block you placed survives creeper and TNT explosions
+  skill-3: #Demolition Expert
+    enabled: true #Change this to false to disable this skill from working
+    level-1:
+      breakSpeedBonus: 0.25 #Blocks you placed break this proportion faster
+      durabilityMultiplier: 0.5 #Multiplier for the durability tools lose breaking blocks you placed
 enchanting:
   passive-1: #Quicker Development
     enabled: true #Change this to false to disable this skill from working

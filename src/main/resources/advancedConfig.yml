@@ -1337,6 +1337,16 @@ enchanting:
     XPcostToCraft10: 2
     recipe10: [ AIR,AIR,AIR,AIR,PAPER,PAPER,AIR,PAPER,GOLD_BLOCK ]
 
+building:
+  reachCap: 3.0 #Maximum extra block interaction range (in blocks) the Builder's Reach passive can give
+  xpGraceSeconds: 30 #Seconds a block you placed stays "yours" for the placing-EXP anti-farming rules
+  xpPerMaterialPerMinute: 40 #Maximum blocks of one material that give EXP per minute
+  trackerMaxBlocks: 2000000 #Maximum number of placed blocks remembered for Weatherproof, Fortified Blocks and Demolition Expert
+  expDrops:
+    enableEXPDrops: true
+    basicBlock: 2 #EXP for placing a basic block (flat, no per-material tiers)
+    decorativeBlock: 5 #EXP for placing a decorative block (flat, no per-material tiers)
+
 stations:
   # When true, only crafted Repair/Salvage Stations work (right-click while sneaking). Ordinary iron and gold
   # blocks stay normal building blocks. When false, every iron block repairs and every gold block salvages.

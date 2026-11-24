@@ -325,6 +325,7 @@ lang:
     agility: Agility
     smelting: Smelting
     enchanting: Enchanting
+    building: Building
     information: Information
     configuration: Configuration
     level: Level
@@ -670,6 +671,20 @@ lang:
     enchantingPassiveDesc0: Takes you back to the main skills menu
     enchantingPassiveDesc1: Tokens to invest in skill tree
     enchantingPassiveDesc2: All xp received increased
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Gatherer
     globalPerkTitle1: Scholar
     globalPerkTitle2: Fighter
@@ -682,7 +697,7 @@ lang:
     globalPerkTitle9: Master of the Arts
     globalPerkDesc0: +20% exp gained in Digging, Woodcutting, Mining, Farming, and
       Fishing
-    globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, and Enchanting
+    globalPerkDesc1: +20% exp gained in Repair, Agility, Brewing, Smelting, Enchanting, and Building
     globalPerkDesc2: +20% exp gained in Archery, Beast Mastery, Swordsmanship, Defense,
       and Axe Mastery
     globalPerkDesc3: +1 skill token in all Gatherer skills
@@ -1101,6 +1116,7 @@ lang:
     alchemy: Aranycsinálás
     smelting: Olvasztás
     enchanting: Bűvölés
+    building: Building
     information: Információk
     configuration: Beállítások
     level: Szint
@@ -1420,6 +1436,20 @@ lang:
     enchantingPassiveDesc0: Visszamész a főmenübe
     enchantingPassiveDesc1: Ezeket a Zsetonokat a képesség fában tudod elhasználni
     enchantingPassiveDesc2: Megnő a tapasztalatpontok száma, amit a játékos szerezhet
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Gyűjtögető
     globalPerkTitle1: Diák
     globalPerkTitle2: Harcos
@@ -1846,6 +1876,7 @@ lang:
     agility: Agilité
     smelting: Cuisson
     enchanting: Enchantement
+    building: Building
     information: Information
     configuration: Configuration
     level: Niveau
@@ -2160,6 +2191,20 @@ lang:
     enchantingPassiveDesc0: Retourner au menu principal des compétences
     enchantingPassiveDesc1: Jetons à investir dans les compétences
     enchantingPassiveDesc2: L'expérience (Minecraft) reçue est augmentée
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Récolteur
     globalPerkTitle1: Erudit
     globalPerkTitle2: Combattant
@@ -2586,6 +2631,7 @@ lang:
     agility: Beweglichkeit
     smelting: Schmelzen
     enchanting: Verzaubern
+    building: Building
     information: Information
     configuration: Aufbau
     level: Level
@@ -2901,6 +2947,20 @@ lang:
     enchantingPassiveDesc0: Bringt dich zurück zum Hauptmenü der Skills
     enchantingPassiveDesc1: Token, um in den Skillbaum zu investieren
     enchantingPassiveDesc2: Alle erhaltenen EXP erhöht
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Sammler
     globalPerkTitle1: Gelehrte
     globalPerkTitle2: Kämpfer
@@ -3346,6 +3406,7 @@ lang:
     agility: Zwinność
     smelting: Wytapianie
     enchanting: Zaklinanie
+    building: Building
     information: Informacja
     configuration: Konfiguracja
     level: Poziom
@@ -3684,6 +3745,20 @@ lang:
     enchantingPassiveDesc0: Przenosi cię z powrotem do głównego menu umiejętności
     enchantingPassiveDesc1: Tokeny do zainwestowania w drzewko umiejętności
     enchantingPassiveDesc2: Zwiększone wszystkie otrzymane PD
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Zbieracz
     globalPerkTitle1: Uczony
     globalPerkTitle2: Wojownik
@@ -4115,6 +4190,7 @@ lang:
     agility: Agilidad
     smelting: Fundición
     enchanting: Encantador
+    building: Building
     information: Información
     configuration: Configuración
     level: Nivel
@@ -4489,6 +4565,20 @@ lang:
     enchantingPassiveDesc0: te lleva de regreso al menú principal de habilidades
     enchantingPassiveDesc1: Fichas para invertir en árbol de habilidades
     enchantingPassiveDesc2: Todos los XP recibidos aumentaron
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Recolector
     globalPerkTitle1: Académico
     globalPerkTitle2: Luchador
@@ -4954,6 +5044,7 @@ lang:
     agility: Ловкость
     smelting: Выплавка
     enchanting: Зачарование
+    building: Building
     information: Информация
     configuration: Конфигурация
     level: Уровень
@@ -5268,6 +5359,20 @@ lang:
     enchantingPassiveDesc0: Возвращает вас в главное меню навыков
     enchantingPassiveDesc1: Жетоны для прокачки дерева умений
     enchantingPassiveDesc2: Весь получаемый опыт увеличен
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Собиратель
     globalPerkTitle1: Ученый
     globalPerkTitle2: Боец
@@ -5693,6 +5798,7 @@ lang:
     agility: Agilidade
     smelting: Fundição
     enchanting: Encantadora
+    building: Building
     information: Em formação
     configuration: Configuração
     level: Level
@@ -6038,6 +6144,20 @@ lang:
     enchantingPassiveDesc0: Leva você de volta ao menu principal de habilidades
     enchantingPassiveDesc1: Tokens para investir na árvore de habilidades
     enchantingPassiveDesc2: Todos os XP recebidos aumentaram
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Coletor
     globalPerkTitle1: Estudioso
     globalPerkTitle2: Lutador
@@ -6469,6 +6589,7 @@ lang:
     agility: Obratnost
     smelting: Tavení
     enchanting: Čarování
+    building: Building
     information: Informace
     configuration: Nastavení
     level: Level
@@ -6783,6 +6904,20 @@ lang:
     enchantingPassiveDesc0: Vrátí tě zpět do hlavního menu dovedností
     enchantingPassiveDesc1: Tokeny k rozvoji v seznamu dovedností
     enchantingPassiveDesc2: Všechny přijaté XP zvýšeny
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Sběrač
     globalPerkTitle1: Učenec
     globalPerkTitle2: Bojovník
@@ -7208,6 +7343,7 @@ lang:
     agility: 민첩
     smelting: 제련
     enchanting: 인첸트
+    building: Building
     information: 정보
     configuration: 설정
     level: 레벨
@@ -7549,6 +7685,20 @@ lang:
     enchantingPassiveDesc0: 주요 스킬 메뉴로 돌아가기
     enchantingPassiveDesc1: 스킬 트리에 투자할 토큰
     enchantingPassiveDesc2: 받는 모든 경험치량 증가
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Gatherer [ 채집가 ]
     globalPerkTitle1: Scholar [ 학자 ]
     globalPerkTitle2: Fighter [ 파이터 ]
@@ -7846,6 +7996,7 @@ lang:
     agility: Agility
     smelting: Smelting
     enchanting: Enchanting
+    building: Building
     information: Information
     configuration: Configuration
     level: Level
@@ -8191,6 +8342,20 @@ lang:
     enchantingPassiveDesc0: Takes you back to the main skills menu
     enchantingPassiveDesc1: Tokens to invest in skill tree
     enchantingPassiveDesc2: All xp received increased
+    buildingPerkTitle0: Weatherproof
+    buildingPerkTitle1: Fortified Blocks
+    buildingPerkTitle2: Demolition Expert
+    buildingPerkDesc0: Your placed blocks have a +20% chance per level to survive burning (fire, lava, lightning)
+    buildingPerkDesc1: Your placed blocks have a +10% chance per level to survive creeper and TNT explosions
+    buildingPerkDesc2: Blocks you placed break 25% faster and tools lose 50% less durability breaking them
+    buildingPassiveTitle0: Back
+    buildingPassiveTitle1: Skill Tokens
+    buildingPassiveTitle2: Builder's Reach
+    buildingPassiveDesc0: Takes you back to the main skills menu
+    buildingPassiveDesc1: Tokens to invest in skill tree
+    buildingPassiveDesc2: Increases block interaction range by 0.01 blocks per level (max +3)
+    buildingReachLabel: Reach
+    buildingReachUnit: blocks
     globalPerkTitle0: Gatherer
     globalPerkTitle1: Scholar
     globalPerkTitle2: Fighter

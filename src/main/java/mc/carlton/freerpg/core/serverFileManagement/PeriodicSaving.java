@@ -65,6 +65,7 @@ public class PeriodicSaving {
     leaderBoardFilesManager.writeOutPlayerLeaderBoardFile();
     PlacedBlockFileManager saveBlocks = new PlacedBlockFileManager();
     saveBlocks.writePlacedBlocks();
+    new mc.carlton.freerpg.core.serverFileManagement.BuildingBlocksFileManager().save();
   }
 
   public void savePlayer(Player p) {

@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.events.gui;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.Arrays;
 import java.util.List;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
@@ -18,13 +19,9 @@ public class SkillsConfigGUIClick implements Listener {
     if (e.getClickedInventory() == null) { //Clicked outside the inventory
       return;
     }
-    String[] titles_0 = {"Digging", "Woodcutting", "Mining", "Farming", "Fishing", "Archery",
-        "Beast Mastery", "Swordsmanship", "Defense", "Axe Mastery", "Repair", "Agility", "Alchemy",
-        "Smelting", "Enchanting"};
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
-    String[] passiveLabels_0 = {"repair", "agility", "alchemy", "smelting", "enchanting"};
+    String[] titles_0 = SkillRegistry.titleArray();
+    String[] labels_0 = SkillRegistry.labelArray();
+    String[] passiveLabels_0 = SkillRegistry.passiveLabels().toArray(new String[0]);
     List<String> labels = Arrays.asList(labels_0);
     List<String> skillTitles = Arrays.asList(titles_0);
     List<String> passiveLabels = Arrays.asList(passiveLabels_0);

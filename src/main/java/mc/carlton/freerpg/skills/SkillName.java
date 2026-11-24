@@ -20,6 +20,7 @@ public enum SkillName {
   ALCHEMY,
   SMELTING,
   ENCHANTING,
+  BUILDING,
   GLOBAL;
 
   /**
@@ -104,7 +105,8 @@ public enum SkillName {
         AGILITY,
         ALCHEMY,
         SMELTING,
-        ENCHANTING,};
+        ENCHANTING,
+        BUILDING,};
   }
 
   /**
@@ -129,6 +131,7 @@ public enum SkillName {
         ALCHEMY,
         SMELTING,
         ENCHANTING,
+        BUILDING,
     };
   }
 

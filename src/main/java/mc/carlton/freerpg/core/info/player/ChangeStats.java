@@ -1,5 +1,6 @@
 package mc.carlton.freerpg.core.info.player;
 
+import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -94,15 +95,9 @@ public class ChangeStats {
     }
     if (!skillName.equals("global")) {
       LanguageSelector lang = new LanguageSelector(p);
-      String[] titles_0 = {lang.getString("digging"), lang.getString("woodcutting"),
-          lang.getString("mining"), lang.getString("farming"), lang.getString("fishing"),
-          lang.getString("archery"), lang.getString("beastMastery"),
-          lang.getString("swordsmanship"), lang.getString("defense"), lang.getString("axeMastery"),
-          lang.getString("repair"), lang.getString("agility"), lang.getString("alchemy"),
-          lang.getString("smelting"), lang.getString("enchanting"), lang.getString("global")};
-      String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-          "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-          "smelting", "enchanting", "global"};
+      String[] titles_0 = SkillRegistry.labelsWithGlobal().stream().map(lang::getString)
+          .toArray(String[]::new);
+      String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
       List<String> labels_arr = Arrays.asList(labels_0);
       String skillTitle = titles_0[labels_arr.indexOf(skillName)];
 
@@ -179,12 +174,9 @@ public class ChangeStats {
       int levelChange = level - oldLevel;
       int globalLevel = oldGlobalLevel + levelChange;
       if (levelChange > 0) {
-        int oldLevel_s = (int) Math.floor(oldLevel / levelsPerSkill);
-        int level_s = (int) Math.floor(level / levelsPerSkill);
-        int oldLevel_g = (int) Math.floor(oldGlobalLevel / levelsPerGlobal);
-        int level_g = (int) Math.floor(globalLevel / levelsPerGlobal);
-        newTokens_S = level_s - oldLevel_s;
-        newTokens_G = level_g - oldLevel_g;
+        newTokens_S = LevelCurve.tokensGained(oldLevel, level, levelsPerSkill);
+        newTokens_G = LevelCurve.tokensGained(oldGlobalLevel, globalLevel, levelsPerGlobal);
+
         int extraSkillTokens = -100;
         int extraGlobalTokens = -100;
         boolean gainedGlobalToken = false;
@@ -205,11 +197,9 @@ public class ChangeStats {
             changeStat("global", 23, multiplierIncrease);
           }
         }
-        if (!skillName.equals("repair") && !skillName.equals("agility") && !skillName.equals(
-            "alchemy") && !skillName.equals("smelting") && !skillName.equals("enchanting")) {
-          int oldLevel_p = (int) Math.floor(oldLevel / levelsPerPassive);
-          int level_p = (int) Math.floor(level / levelsPerPassive);
-          newTokens_P = level_p - oldLevel_p;
+        if (!SkillRegistry.isPassive(skillName)) {
+          newTokens_P = LevelCurve.tokensGained(oldLevel, level, levelsPerPassive);
+
           if (extraSkillTokens > 0) {
             ConfigLoad loadConfig = new ConfigLoad();
             newTokens_P += (int) (extraSkillTokens * loadConfig.getTokensInfo().get(7));
@@ -335,11 +325,8 @@ public class ChangeStats {
      */
 
   private int getAutoPassiveChange(int oldLevel, int newLevel) {
-    double autoPassive = tokensInfo.get(0);
-    int oldLevel_auto_p = (int) Math.floor(oldLevel / autoPassive);
-    int level_auto_p = (int) Math.floor(newLevel / autoPassive);
-    int autoPassivesChange = level_auto_p - oldLevel_auto_p;
-    return autoPassivesChange;
+    return LevelCurve.tokensGained(oldLevel, newLevel, tokensInfo.get(0));
+
   }
 
     /* CURRENTLY BROKEN
@@ -371,18 +358,14 @@ public class ChangeStats {
     PlayerStats pStatClass = new PlayerStats(p);
     ArrayList<Number> pGlobalStats = pStatClass.getPlayerData().get("global");
     Global globalClass = new Global(p);
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting", "global"};
+    String[] labels_0 = SkillRegistry.labelArrayWithGlobal();
     List<String> labels_arr = Arrays.asList(labels_0);
     return ((double) pGlobalStats.get(23) * multipliers.get(0)) * (multipliers.get(
         labels_arr.indexOf(skillName) + 1)) * (globalClass.expBoost(skillName));
   }
 
   public void checkPlayerLevelEXPCurveConsistency() {
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels_0 = SkillRegistry.labelArray();
     set_silent(true);
     set_isCommand(true);
     PlayerStats pStatClass = new PlayerStats(p);
@@ -406,9 +389,7 @@ public class ChangeStats {
     }
     if (statsNeedToBeChanged) {
       resetStat("global");
-      String[] labels_1 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-          "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-          "smelting", "enchanting"};
+      String[] labels_1 = SkillRegistry.labelArray();
       for (String label : labels_1) {
         if (label.equals("archery")) {
           continue;
@@ -570,7 +551,7 @@ public class ChangeStats {
   }
 
   public int areSkillsMaxed(String skillName, int skillTokensGained) {
-    String[] passive_skills_0 = {"repair", "agility", "alchemy", "smelting", "enchanting"};
+    String[] passive_skills_0 = SkillRegistry.passiveLabels().toArray(new String[0]);
     List<String> passiveSkills = Arrays.asList(passive_skills_0);
     int maxSkillTokens = 23;
     int currentSkillTotal = 0;
@@ -615,39 +596,20 @@ public class ChangeStats {
     return maxLevel;
   }
 
+  private LevelCurve levelCurve() {
+    return new LevelCurve(levelingInfo.get(1),
+        (int) Math.round(levelingInfo.get(2)),
+        (int) Math.round(levelingInfo.get(3)),
+        (int) Math.round(levelingInfo.get(4)),
+        (int) Math.round(levelingInfo.get(5)));
+  }
+
   public int getEXPfromLevel(int level) {
-    double B = levelingInfo.get(1);
-    int referenceLevel = (int) Math.round(levelingInfo.get(2));
-    int referenceEXP = (int) Math.round(levelingInfo.get(3));
-    int linearStartingLevel = (int) Math.round(levelingInfo.get(4));
-    int linearEXP = (int) Math.round(levelingInfo.get(5));
-    int EXP = 0;
-    if (level > linearStartingLevel) {
-      int exponentialMaxEXP = getEXPfromLevel(linearStartingLevel);
-      EXP = exponentialMaxEXP + linearEXP * (level - linearStartingLevel);
-    } else {
-      EXP = (int) Math.floor(
-          referenceEXP * ((Math.pow(B, level) - 1) / (Math.pow(B, referenceLevel) - 1)));
-    }
-    return EXP;
+    return levelCurve().expFromLevel(level);
   }
 
   public int getLevelfromEXP(int exp) {
-    double B = levelingInfo.get(1);
-    int referenceLevel = (int) Math.round(levelingInfo.get(2));
-    int referenceEXP = (int) Math.round(levelingInfo.get(3));
-    int linearStartingLevel = (int) Math.round(levelingInfo.get(4));
-    int linearEXP = (int) Math.round(levelingInfo.get(5));
-    int exponentialMaxEXP = getEXPfromLevel(linearStartingLevel);
-    int level = 0;
-    if (exp <= exponentialMaxEXP) {
-      level = (int) Math.floor(
-          ((Math.log((exp * (1.0 / referenceEXP) * (Math.pow(B, referenceLevel) - 1)) + 1)
-              / Math.log(B))));
-    } else {
-      level = (int) Math.floor((exp - exponentialMaxEXP) / linearEXP) + linearStartingLevel;
-    }
-    return level;
+    return levelCurve().levelFromExp(exp);
   }
 
   public void increaseTokens(String skillName, String type, int amount) {
@@ -678,8 +640,7 @@ public class ChangeStats {
         int extraSkillTokens = areSkillsMaxed(skillName, amount);
         if (extraSkillTokens > 0) {
           amount -= extraSkillTokens;
-          if (!skillName.equals("repair") && !skillName.equals("agility") && !skillName.equals(
-              "alchemy") && !skillName.equals("smelting") && !skillName.equals("enchanting")) {
+          if (!SkillRegistry.isPassive(skillName)) {
             int newTokens_P = 0;
             if (extraSkillTokens > 0) {
               ConfigLoad loadConfig = new ConfigLoad();
@@ -756,9 +717,7 @@ public class ChangeStats {
 
   public int setTotalLevel() {
     int totalLevel = 0;
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels_0 = SkillRegistry.labelArray();
     //Get stats
     PlayerStats pStatClass = new PlayerStats(p);
     Map<UUID, Map<String, ArrayList<Number>>> statAll = pStatClass.getData();
@@ -783,9 +742,7 @@ public class ChangeStats {
 
   public int setTotalExperience() {
     int totalExperience = 0;
-    String[] labels_0 = {"digging", "woodcutting", "mining", "farming", "fishing", "archery",
-        "beastMastery", "swordsmanship", "defense", "axeMastery", "repair", "agility", "alchemy",
-        "smelting", "enchanting"};
+    String[] labels_0 = SkillRegistry.labelArray();
     //Get stats
     PlayerStats pStatClass = new PlayerStats(p);
     Map<UUID, Map<String, ArrayList<Number>>> statAll = pStatClass.getData();

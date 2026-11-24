@@ -160,10 +160,43 @@ class ResourceFilesTest {
     for (WeaponSkill skill : WeaponSkill.values()) {
       names.add(skill.getId());
     }
-    assertEquals(19, names.size());
+    assertEquals(20, names.size());
     for (String name : names) {
       assertNotNull(plugin.get("commands." + name.toLowerCase()), "no /" + name + " command");
     }
     assertFalse(names.contains("archery"));
+  }
+
+  @Test
+  void buildingHasEveryLanguageKeySmeltingHas() throws Exception {
+    ConfigurationSection english = load("languages.yml").getConfigurationSection("lang.enUs");
+    assertNotNull(english);
+    int checked = 0;
+    for (String key : english.getKeys(false)) {
+      if (key.matches("smelting(Perk|Passive)(Title|Desc)\\d")) {
+        String building = "building" + key.substring("smelting".length());
+        assertTrue(english.contains(building), "languages.yml has no " + building);
+        checked++;
+      }
+    }
+    assertEquals(12, checked);
+    assertTrue(english.contains("building"), "languages.yml has no skill name 'building'");
+    assertTrue(english.getString("globalPerkDesc1").contains("Building"),
+        "the Scholar description does not list Building");
+  }
+
+  @Test
+  void buildingExperiencePermissionIsDeclaredAndGranted() throws Exception {
+    YamlConfiguration plugin = load("plugin.yml");
+    assertNotNull(plugin.get("permissions.freeRPG.buildingEXP"));
+    assertTrue(plugin.getBoolean("permissions.freeRPG.getEXP.children.freeRPG.buildingEXP"));
+  }
+
+  @Test
+  void buildingIsEnabledByDefaultInTheBundledConfigs() throws Exception {
+    YamlConfiguration config = load("config.yml");
+    assertTrue(config.getBoolean("building.skillAllowed"));
+    assertEquals(-1, config.getInt("building.maxLevel"));
+    assertTrue(load("advancedConfig.yml").getBoolean("building.expDrops.enableEXPDrops"));
   }
 }

@@ -29,14 +29,11 @@ public class PlacedBlockFileManager {
       try (BufferedReader fileReader = new BufferedReader(new FileReader(path))) {
         String line = fileReader.readLine();
         while (line != null) {
-          String[] coords_string = line.split(",");
-          String worldName = coords_string[0];
-          double x = Integer.parseInt(coords_string[1]);
-          double y = Integer.parseInt(coords_string[2]);
-          double z = Integer.parseInt(coords_string[3]);
-          World world = Bukkit.getWorld(worldName);
-          Location location = new Location(world, x, y, z);
-          blocks.add(location);
+          PlacedBlockLine.Parsed parsed = PlacedBlockLine.parse(line).orElse(null);
+          if (parsed != null) {
+            World world = Bukkit.getWorld(parsed.world());
+            blocks.add(new Location(world, parsed.x(), parsed.y(), parsed.z()));
+          }
           line = fileReader.readLine();
         }
         placedBlocksManager.setBlocksMap(blocks);
@@ -59,11 +56,8 @@ public class PlacedBlockFileManager {
           }
           World world = location.getWorld();
           if (world != null) {
-            String worldName = world.getName();
-            String x = Integer.toString(location.getBlockX());
-            String y = Integer.toString(location.getBlockY());
-            String z = Integer.toString(location.getBlockZ());
-            fileWriter.write(worldName + "," + x + "," + y + "," + z);
+            fileWriter.write(PlacedBlockLine.format(world.getName(), location.getBlockX(),
+                location.getBlockY(), location.getBlockZ()));
             fileWriter.write("\n");
           }
         }

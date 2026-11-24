@@ -902,3 +902,10 @@ alchemy:
                                                                                                                                                                                                                 spendLevelOnAnvil: 500 #Experience rewarded for each level used on an anvil
                                                                                                                                                                                                                 enchantItem: 250 #Experience rewarded for for each level of the "cost" of an enchantment, where the cost in the level on the right side of the encahntment offer, NOT the XP levels used.
                                                                                                                                                                                                                 gainMinecraftXP: 25 #FreeRPG experience given for each minecraft XP gained
+building:
+  maxLevel: -1 #The maximum level allowed for this skill, set to -1 for no limit
+  expMultiplier: 1.0 #Multiplier for all experience drops in this skill, STACKS with global.EXP_Multiplier
+  exp:
+    #The experience for placing blocks is in advancedConfig.yml (building.expDrops)
+    basicBlock: 2 #Experience for placing a basic block (flat, no per-material tiers)
+    decorativeBlock: 5 #Experience for placing a decorative block (flat, no per-material tiers)
