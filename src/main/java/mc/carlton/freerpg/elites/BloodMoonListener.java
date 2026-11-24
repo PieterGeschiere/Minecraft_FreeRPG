@@ -26,6 +26,7 @@ public class BloodMoonListener implements Listener {
             mob.hasMetadata("frpgSpawnerMob"), EliteConfig.excludedTypes())) {
       return;
     }
+    EliteData.markBloodMoonMob(mob);
     boost(mob, Attribute.MAX_HEALTH, EliteConfig.bloodMoonHealthBonus());
     boost(mob, Attribute.ATTACK_DAMAGE, EliteConfig.bloodMoonDamageBonus());
     AttributeInstance health = mob.getAttribute(Attribute.MAX_HEALTH);

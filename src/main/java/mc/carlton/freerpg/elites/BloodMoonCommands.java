@@ -14,6 +14,14 @@ public final class BloodMoonCommands {
   private BloodMoonCommands() {
   }
 
+  /** The text to answer start / stop with, depending on whether anything changed. */
+  static String replyKey(String action, boolean changed) {
+    if (action.equals("start")) {
+      return changed ? "bloodMoonStarted" : "bloodMoonAlreadyActive";
+    }
+    return changed ? "bloodMoonStopped" : "bloodMoonNotActive";
+  }
+
   /** Handles {@code /frpg bloodmoon ...}; args[0] is "bloodmoon". */
   public static boolean handle(CommandSender sender, String[] args) {
     Player player = sender instanceof Player p ? p : null;
@@ -42,16 +50,10 @@ public final class BloodMoonCommands {
       world = player != null ? player.getWorld() : Bukkit.getWorlds().get(0);
     }
     switch (action) {
-      case "start" -> {
-        BloodMoonManager.start(world);
-        sender.sendMessage(EliteMessages.prefixed(player, "bloodMoonStarted", "world",
-            world.getName()));
-      }
-      case "stop" -> {
-        BloodMoonManager.stop(world);
-        sender.sendMessage(EliteMessages.prefixed(player, "bloodMoonStopped", "world",
-            world.getName()));
-      }
+      case "start" -> sender.sendMessage(EliteMessages.prefixed(player,
+          replyKey("start", BloodMoonManager.start(world)), "world", world.getName()));
+      case "stop" -> sender.sendMessage(EliteMessages.prefixed(player,
+          replyKey("stop", BloodMoonManager.stop(world)), "world", world.getName()));
       default -> sender.sendMessage(EliteMessages.prefixed(player,
           BloodMoonManager.isActive(world) ? "bloodMoonStatusActive" : "bloodMoonStatusInactive",
           "world", world.getName()));

@@ -54,6 +54,17 @@ public final class EliteData {
         encode(affixIds));
   }
 
+  /** A mob that spawned during a Blood Moon (its ranged damage is raised too). */
+  public static void markBloodMoonMob(Entity entity) {
+    entity.getPersistentDataContainer().set(key("bloodmoon_mob"), PersistentDataType.BYTE,
+        (byte) 1);
+  }
+
+  public static boolean isBloodMoonMob(Entity entity) {
+    return entity.getPersistentDataContainer().has(key("bloodmoon_mob"),
+        PersistentDataType.BYTE);
+  }
+
   /** A minion made by Splitting or Summoner: never an elite, never gives rewards. */
   public static void markMinion(Entity entity) {
     entity.getPersistentDataContainer().set(key("elite_minion"), PersistentDataType.BYTE,

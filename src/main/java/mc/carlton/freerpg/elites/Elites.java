@@ -15,6 +15,7 @@ public final class Elites {
     Bukkit.getPluginManager().registerEvents(new BloodMoonListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new EliteListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new AffixListener(), plugin);
+    Bukkit.getPluginManager().registerEvents(new DamageScalingListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new EliteKillListener(), plugin);
     EliteTracker.start(plugin);
     BloodMoonManager.begin(plugin);

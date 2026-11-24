@@ -22,7 +22,12 @@ public final class BloodMoonManager {
   /** A Blood Moon never outlasts a day of server time, even when the world time is frozen. */
   private static final int MAX_BEATS = 2400; // 10 ticks per beat
 
-  private record Moon(long startFull, long endFull, int startBeat) {
+  private record Moon(long startFull, long endFull, int startBeat, boolean madeStorm) {
+  }
+
+  /** Whether the end of a Blood Moon should clear the weather: only when it made the storm. */
+  static boolean shouldClearWeather(boolean thunderEffectOn, boolean wasAlreadyStorming) {
+    return thunderEffectOn && !wasAlreadyStorming;
   }
 
   private static final Map<UUID, Moon> ACTIVE = new HashMap<>();
@@ -95,8 +100,11 @@ public final class BloodMoonManager {
       return false;
     }
     long now = world.getFullTime();
-    ACTIVE.put(world.getUID(), new Moon(now, nextEnd(now, EliteConfig.bloodMoonEndTick()), beat));
-    if (EliteConfig.bloodMoonEffect("thunder", false)) {
+    boolean thunder = EliteConfig.bloodMoonEffect("thunder", false);
+    boolean madeStorm = shouldClearWeather(thunder, world.hasStorm() || world.isThundering());
+    ACTIVE.put(world.getUID(),
+        new Moon(now, nextEnd(now, EliteConfig.bloodMoonEndTick()), beat, madeStorm));
+    if (thunder) {
       world.setStorm(true);
       world.setThundering(true);
     }
@@ -106,8 +114,13 @@ public final class BloodMoonManager {
 
   /** Ends the Blood Moon in the world. Returns false when there was none. */
   public static boolean stop(World world) {
-    if (ACTIVE.remove(world.getUID()) == null) {
+    Moon ended = ACTIVE.remove(world.getUID());
+    if (ended == null) {
       return false;
+    }
+    if (ended.madeStorm()) {
+      world.setThundering(false);
+      world.setStorm(false);
     }
     for (Player player : world.getPlayers()) {
       player.sendMessage(EliteMessages.text(player, "bloodMoonEnded"));
