@@ -98,3 +98,62 @@ events:
       topSouls: [10, 6, 3]
       topMcExp: [300, 200, 100]
       topBonusSpins: [1, 1, 1]
+
+  # Woodcutting and axe mastery give more exp, and logs sometimes drop twice
+  lumberjacksDay:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    skills: [woodcutting, axeMastery]
+    dropChance: 0.25
+    dropBlocks: [OAK_LOG, SPRUCE_LOG, BIRCH_LOG, JUNGLE_LOG, ACACIA_LOG, DARK_OAK_LOG, CHERRY_LOG,
+      MANGROVE_LOG, PALE_OAK_LOG, CRIMSON_STEM, WARPED_STEM]
+
+  # Smelting and repair give more exp, and flame pick smelts a double drop more often
+  # (only for players who have the flame pick perk)
+  forgeFever:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    xpMultiplier: 1.5
+    skills: [smelting, repair]
+    # Added to the flame pick's chance of a double drop (0.25 = 25 percentage points)
+    flamePickBonus: 0.25
+
+  # A night for the indoor skills: enchanting and alchemy give more exp, and enchanting costs
+  # fewer levels (the levels are given back right after the enchant)
+  scholarsMoon:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    xpMultiplier: 1.5
+    skills: [enchanting, alchemy]
+    # The share of the levels that is still paid. 0.5 = half, rounded down: the 1 level
+    # button is free, 2 levels cost 1, 3 levels cost 1. 1.0 = no discount, 0.0 = all free.
+    levelCostMultiplier: 0.5
+
+  # For explorers: agility and aeronautics give more exp, everyone is a little faster and
+  # gliding players get a small push (up to a speed limit)
+  adventurersWind:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    skills: [agility, aeronautics]
+    # The speed effect: 0 = Speed I, 1 = Speed II, up to 4. Never replaces a stronger effect.
+    speedAmplifier: 0
+    # The push per half second for a gliding player (blocks per tick), and the glide speed
+    # above which the push stops
+    glideBoost: 0.12
+    maxGlideSpeed: 1.6

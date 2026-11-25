@@ -23,6 +23,11 @@ public final class WorldEvents {
     Bukkit.getPluginManager().registerEvents(new EclipseSpawnListener(), plugin);
     WorldEventManager.register(new FishingFestivalEvent());
     Bukkit.getPluginManager().registerEvents(new FestivalListener(), plugin);
+    WorldEventManager.register(new LumberjackEvent());
+    WorldEventManager.register(new ForgeFeverEvent());
+    WorldEventManager.register(new ScholarsMoonEvent());
+    Bukkit.getPluginManager().registerEvents(new ScholarEnchantListener(), plugin);
+    WorldEventManager.register(new AdventurersWindEvent());
     WorldEventManager.begin(plugin);
   }
 
@@ -37,6 +42,14 @@ public final class WorldEvents {
 
   public static boolean isActive(WorldEventType type, World world) {
     return WorldEventManager.isActive(type, world);
+  }
+
+  /** The extra double-smelt chance flame pick gets from the running event (0 when none). */
+  public static double flamePickBonus(Player p) {
+    return WorldEventManager.current()
+        .filter(event -> event.appliesTo(p.getWorld()))
+        .map(event -> WorldEventManager.eventOf(event.type()).flamePickBonus())
+        .orElse(0.0);
   }
 
   /** The exp multiplier of the running event for this player and skill (1.0 when none applies). */

@@ -22,7 +22,19 @@ public enum WorldEventType {
       "worldEventEclipseEnded"),
   FISHING_FESTIVAL("fishingFestival", "fishing_festival", Scope.SERVER, BarColor.BLUE,
       "worldEventFestivalTitle", "worldEventFestivalSubtitle", "worldEventFestivalBossBar",
-      "worldEventFestivalEnded");
+      "worldEventFestivalEnded"),
+  LUMBERJACKS_DAY("lumberjacksDay", "lumberjacks_day", Scope.WORLD, BarColor.GREEN,
+      "worldEventLumberjackTitle", "worldEventLumberjackSubtitle", "worldEventLumberjackBossBar",
+      "worldEventLumberjackEnded"),
+  FORGE_FEVER("forgeFever", "forge_fever", Scope.WORLD, BarColor.PINK,
+      "worldEventForgeTitle", "worldEventForgeSubtitle", "worldEventForgeBossBar",
+      "worldEventForgeEnded"),
+  SCHOLARS_MOON("scholarsMoon", "scholars_moon", Scope.WORLD, BarColor.WHITE,
+      "worldEventScholarTitle", "worldEventScholarSubtitle", "worldEventScholarBossBar",
+      "worldEventScholarEnded"),
+  ADVENTURERS_WIND("adventurersWind", "adventurers_wind", Scope.WORLD, BarColor.BLUE,
+      "worldEventWindTitle", "worldEventWindSubtitle", "worldEventWindBossBar",
+      "worldEventWindEnded");
 
   /** Whether an event happens in one world or everywhere on the server. */
   public enum Scope { WORLD, SERVER }

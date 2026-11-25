@@ -365,7 +365,7 @@ set in `elites.yml`.
 
 ## World Events
 
-The Blood Moon is one of five **world events**. Only one event runs at a time on the whole server. Every
+The Blood Moon is one of nine **world events**. Only one event runs at a time on the whole server. Every
 Minecraft day each event rolls once for its chance, inside its own time window, and after any event ends
 nothing starts by itself for 2 Minecraft days (`minGapDays`). Every event shows a title, a sound and a boss
 bar with the time left.
@@ -377,6 +377,10 @@ bar with the time left.
 | **Gold Rush** | any time, 4% per day, 10 minutes | 1.5x mining exp and ore sometimes drops twice, but breaking natural ore is loud and can draw a few mobs |
 | **Eclipse** | night, 5% per day | 60% of the natural hostile spawns do not happen (elites and spawner mobs are kept) |
 | **Fishing Festival** | any time, 4% per day, 10 minutes | Everyone fishes for points. Needs 2 players online to start by itself |
+| **Lumberjack's Day** | daytime, 5% per day | 1.5x exp for woodcutting and axe mastery, and logs sometimes drop twice |
+| **Forge Fever** | any time, 4% per day, 10 minutes | 1.5x exp for smelting and repair, and flame pick smelts a double drop 25 points more often (only with the flame pick perk) |
+| **Scholar's Moon** | night, 5% per day | 1.5x exp for enchanting and alchemy, and enchanting costs half the levels (given back right after the enchant) |
+| **Adventurer's Wind** | daytime, 5% per day | 1.5x exp for agility and aeronautics, a Speed I effect, and a small push for gliding players |
 
 Extra drops and mining noise only count for natural blocks and ripe crops, never for blocks players placed.
 
@@ -386,8 +390,8 @@ Players who caught nothing, or are offline at the end, get nothing. An admin sto
 
 Admins can use `/frpg event start <type> [world]`, `/frpg event stop`, `/frpg event status` and
 `/frpg event list` (permission `freerpg.events.admin`, ops by default; an admin start ignores the chance, the gap
-and the 2 player rule). The types are `blood_moon`, `bountiful_harvest`, `gold_rush`, `eclipse` and
-`fishing_festival`. Everything except the Blood Moon is set in `worldevents.yml`; `/frpg elites reload` reloads it.
+and the 2 player rule). The types are `blood_moon`, `bountiful_harvest`, `gold_rush`, `eclipse`,
+`fishing_festival`, `lumberjacks_day`, `forge_fever`, `scholars_moon` and `adventurers_wind`. Everything except the Blood Moon is set in `worldevents.yml`; `/frpg elites reload` reloads it.
 
 ## Configuration files
 
@@ -402,7 +406,7 @@ Everything lives in `plugins/FreeRPG/`:
 | `languages.yml` | All texts, one block per language. |
 | `weaponSkills.yml`, `party.yml`, `quests.yml` | Settings of the weapon skills, parties and daily quests. |
 | `elites.yml` | Elite chance and strength, the affix numbers, rewards and the Blood Moon. |
-| `worldevents.yml` | The other world events: Bountiful Harvest, Gold Rush, Eclipse, Fishing Festival, and the gap between events. |
+| `worldevents.yml` | The other world events and the gap between events. |
 
 `config.yml` and `advancedConfig.yml` repair themselves when a setting is missing (this removes their comments);
 `general.autoUpdateConfig: false` in `config.yml` turns that off. The bundled `config2.yml` is an unused draft of a

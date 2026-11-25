@@ -179,7 +179,8 @@ public class Smelting extends Skill {
     int doubleDropWoodcuttingLevel = (int) pStat.get("woodcutting").get(5);
     int doubleSmeltLevel = (int) pStat.get(skillName).get(9);
     double chanceDoubleOreDrop = 0.0005 * doubleDropLevel;
-    double chanceDoubleSmelt = doubleSmeltLevel * 0.05;
+    double chanceDoubleSmelt = doubleSmeltLevel * 0.05
+        + mc.carlton.freerpg.worldevents.WorldEvents.flamePickBonus(p);
     double chanceDoubleLogDrop = 0.0005 * doubleDropWoodcuttingLevel;
     int dropAmount = 1;
     if (chanceDoubleSmelt > rand.nextDouble()) {

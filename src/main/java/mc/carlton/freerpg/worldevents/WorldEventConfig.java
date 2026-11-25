@@ -154,24 +154,27 @@ public final class WorldEventConfig {
   private static double defaultChance(WorldEventType type) {
     return switch (type) {
       case BLOOD_MOON -> 0.0625;
-      case BOUNTIFUL_HARVEST, ECLIPSE -> 0.05;
-      case GOLD_RUSH, FISHING_FESTIVAL -> 0.04;
+      case BOUNTIFUL_HARVEST, ECLIPSE, LUMBERJACKS_DAY, SCHOLARS_MOON, ADVENTURERS_WIND -> 0.05;
+      case GOLD_RUSH, FISHING_FESTIVAL, FORGE_FEVER -> 0.04;
     };
   }
 
   private static int defaultStart(WorldEventType type) {
     return switch (type) {
-      case BLOOD_MOON, ECLIPSE -> 13000;
-      case BOUNTIFUL_HARVEST, GOLD_RUSH, FISHING_FESTIVAL -> 0;
+      case BLOOD_MOON, ECLIPSE, SCHOLARS_MOON -> 13000;
+      case BOUNTIFUL_HARVEST, GOLD_RUSH, FISHING_FESTIVAL, LUMBERJACKS_DAY, FORGE_FEVER,
+          ADVENTURERS_WIND -> 0;
     };
   }
 
   private static int defaultEnd(WorldEventType type) {
-    return type == WorldEventType.BOUNTIFUL_HARVEST ? 12000 : 23000;
+    return type == WorldEventType.BOUNTIFUL_HARVEST || type == WorldEventType.LUMBERJACKS_DAY
+        || type == WorldEventType.ADVENTURERS_WIND ? 12000 : 23000;
   }
 
   private static boolean defaultRandomStart(WorldEventType type) {
-    return type == WorldEventType.GOLD_RUSH || type == WorldEventType.FISHING_FESTIVAL;
+    return type == WorldEventType.GOLD_RUSH || type == WorldEventType.FISHING_FESTIVAL
+        || type == WorldEventType.FORGE_FEVER;
   }
 
   private static int defaultDuration(WorldEventType type) {

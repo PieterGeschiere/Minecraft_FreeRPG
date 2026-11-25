@@ -21,6 +21,10 @@ final class EventDefaults {
       "DEEPSLATE_LAPIS_ORE", "DIAMOND_ORE", "DEEPSLATE_DIAMOND_ORE", "EMERALD_ORE",
       "DEEPSLATE_EMERALD_ORE", "NETHER_GOLD_ORE", "NETHER_QUARTZ_ORE", "ANCIENT_DEBRIS");
 
+  static final List<String> LUMBERJACK_BLOCKS = List.of("OAK_LOG", "SPRUCE_LOG", "BIRCH_LOG",
+      "JUNGLE_LOG", "ACACIA_LOG", "DARK_OAK_LOG", "CHERRY_LOG", "MANGROVE_LOG", "PALE_OAK_LOG",
+      "CRIMSON_STEM", "WARPED_STEM");
+
   static final List<String> NOISE_MOBS = List.of("ZOMBIE", "SKELETON", "SPIDER", "CAVE_SPIDER",
       "CREEPER");
 
@@ -34,13 +38,27 @@ final class EventDefaults {
 
   /** The skills that get the event's exp multiplier. */
   static Set<String> skills(WorldEventType type) {
-    List<String> defaults = type == WorldEventType.GOLD_RUSH ? GOLD_RUSH_SKILLS : HARVEST_SKILLS;
-    return Set.copyOf(list(type, "skills", defaults));
+    return Set.copyOf(list(type, "skills", defaultSkills(type)));
+  }
+
+  private static List<String> defaultSkills(WorldEventType type) {
+    return switch (type) {
+      case GOLD_RUSH -> GOLD_RUSH_SKILLS;
+      case LUMBERJACKS_DAY -> List.of("woodcutting", "axeMastery");
+      case FORGE_FEVER -> List.of("smelting", "repair");
+      case SCHOLARS_MOON -> List.of("enchanting", "alchemy");
+      case ADVENTURERS_WIND -> List.of("agility", "aeronautics");
+      default -> HARVEST_SKILLS;
+    };
   }
 
   /** The blocks whose drops can come twice. Names that are not materials are ignored. */
   static Set<Material> dropBlocks(WorldEventType type) {
-    List<String> defaults = type == WorldEventType.GOLD_RUSH ? GOLD_RUSH_BLOCKS : HARVEST_BLOCKS;
+    List<String> defaults = switch (type) {
+      case GOLD_RUSH -> GOLD_RUSH_BLOCKS;
+      case LUMBERJACKS_DAY -> LUMBERJACK_BLOCKS;
+      default -> HARVEST_BLOCKS;
+    };
     return materials(list(type, "dropBlocks", defaults));
   }
 

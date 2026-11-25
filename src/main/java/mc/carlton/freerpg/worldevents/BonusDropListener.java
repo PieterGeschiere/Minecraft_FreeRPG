@@ -42,7 +42,7 @@ public final class BonusDropListener implements Listener {
         .filter(event -> event.appliesTo(world))
         .map(ActiveEvent::type)
         .filter(type -> type == WorldEventType.BOUNTIFUL_HARVEST
-            || type == WorldEventType.GOLD_RUSH);
+            || type == WorldEventType.GOLD_RUSH || type == WorldEventType.LUMBERJACKS_DAY);
   }
 
   @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

@@ -29,6 +29,11 @@ public interface WorldEvent {
     return 1.0;
   }
 
+  /** Extra chance (0 to 1) that flame pick smelts a double drop while the event runs. */
+  default double flamePickBonus() {
+    return 0.0;
+  }
+
   default Sound announceSound() {
     return Sound.UI_TOAST_CHALLENGE_COMPLETE;
   }
