@@ -20,7 +20,7 @@ class FrpgCommandNamesGuardTest {
   // grep -o 'args\[0\].equalsIgnoreCase("[^"]*")' plus the alias literals on wrapped continuation
   // lines of those conditions (read by hand), covering all 43 args[0] branches and their aliases.
   private static final List<String> PINNED = List.of(
-      "party", "quests", "weapons", "weaponSkills", "reloadWeapons", "help", "?",
+      "party", "quests", "elites", "bloodmoon", "weapons", "weaponSkills", "reloadWeapons", "help", "?",
       "saveStats", "statSave", "info", "use", "enchantItem", "enchant",
       "leaderboard", "statLeaders", "top", "statLookup", "lookupStats", "stats",
       "resetCooldown", "cooldownReset", "createFakePlayers", "createFakeProfiles",

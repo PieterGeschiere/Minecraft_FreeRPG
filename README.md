@@ -50,6 +50,8 @@ server's `plugins` folder.
 * **Daily, weekly and seasonal Quests** with a reward wheel (see below).
 * **Building**, a new skill that levels by placing blocks and protects your own builds (see below).
 * **Aeronautics**, a new skill that levels by gliding with an elytra (see below).
+* **Elite mobs and the Blood Moon**: hostile mobs now and then spawn as elites with random affixes,
+  and some nights turn into a Blood Moon (see below).
 * **Parties** with bonus XP sharing, an XP buff for nearby members, shared party quests, a party
   leaderboard, teleporting and more (see below).
 * **Dutch** added as a language, and every language now has a text for everything (see Language Support).
@@ -324,6 +326,43 @@ There is no perk that saves rockets, on purpose: that would be free items. A roc
 as a rocket launched straight ahead by a gliding player, so rockets shot from a crossbow do not count.
 Numbers are in `perkConfig.yml` and `advancedConfig.yml` under `aeronautics:`. Permission: `freeRPG.aeronauticsEXP`.
 
+## Elite Mobs and the Blood Moon
+
+**Elites.** Every naturally spawned hostile mob has a small chance (3% by default) to be an **elite**. An
+elite has a red name, a glow, a boss bar for players within 30 blocks, 3 times the health and 1.5 times
+the damage, a quarter bigger body (`sizeScale`), and 1 to 3 random **affixes**. The chance and the strength are the same for every player: there
+is no scaling with level or distance. Elites despawn like any other mob. Mobs from spawners, eggs, breeding,
+commands and raids are never elites, and at most 20 elites live in one chunk.
+
+| Affix | What it does |
+|-------|--------------|
+| **Volatile** | Explodes when it dies and hurts players nearby (no block damage) |
+| **Vampiric** | Heals itself with part of the damage it deals |
+| **Swift** | Moves faster and lunges at its target |
+| **Armored** | Takes 30% less damage |
+| **Splitting** | Splits into weaker copies when it dies |
+| **Thorns** | Reflects part of the melee damage back at you |
+| **Summoner** | Calls minions to its side while it fights (never more than 6 alive) |
+| **Frostbound** | Slows whoever it hits |
+| **Burning** | Sets whoever it hits on fire |
+| **Teleporter** | Blinks behind its target |
+
+Killing an elite gives extra FRPG exp in the skill of your weapon (Defense when you hold neither a sword nor
+an axe) and extra drops. Nothing extra is given for mobs from spawners or mob farms (exp farm detection), and a
+chunk pays these rewards at most once every 2 minutes (`rewards.chunkCooldownSeconds`). The copies and minions
+of Splitting and Summoner drop nothing and give no vanilla exp.
+
+**Blood Moon.** Every night of the configured worlds (the overworld by default) has a small chance (1 in 16 by
+default) to become a Blood Moon, until the end of the night. Players get a big title and a sound, a red boss bar
+with the time left, red particles and a **red screen edge** (the warning of a world border that only you can
+see; it never blocks or hurts you). A Blood Moon is not a red sky: Minecraft has no server side way to tint the
+sky. While it lasts, naturally spawned hostile mobs have 50% more health and 25% more damage, zombies and
+skeletons wear random damaged gear that almost never drops, and the elite chance is 4 times as high.
+
+Admins can use `/frpg bloodmoon start|stop|status [world]` and `/frpg elites reload` or
+`/frpg elites spawn <mob> <affix[,affix]>` (permission `freerpg.elites.admin`, ops by default). Everything is
+set in `elites.yml`.
+
 ## Configuration files
 
 Everything lives in `plugins/FreeRPG/`:
@@ -336,6 +375,7 @@ Everything lives in `plugins/FreeRPG/`:
 | `perkConfig.yml` | Skill tree and passive numbers (for example the Building and Aeronautics perks). Created on first start, never overwritten. |
 | `languages.yml` | All texts, one block per language. |
 | `weaponSkills.yml`, `party.yml`, `quests.yml` | Settings of the weapon skills, parties and daily quests. |
+| `elites.yml` | Elite chance and strength, the affix numbers, rewards and the Blood Moon. |
 
 `config.yml` and `advancedConfig.yml` repair themselves when a setting is missing (this removes their comments);
 `general.autoUpdateConfig: false` in `config.yml` turns that off. The bundled `config2.yml` is an unused draft of a

@@ -83,12 +83,41 @@ public class FrpgTabCompleter implements TabCompleter {
       if (sender.hasPermission("freerpg.quests.admin")) {
         allowed.add("quests"); // quest administration
       }
+      if (sender.hasPermission("freerpg.elites.admin")) {
+        allowed.add("elites"); // elite mob administration
+        allowed.add("bloodmoon");
+      }
       return filter(allowed, args[0]);
     }
 
     String sub = args[0].toLowerCase(Locale.ROOT);
     String last = args[args.length - 1];
     switch (sub) {
+      case "bloodmoon":
+        if (!sender.hasPermission("freerpg.elites.admin")) {
+          return new ArrayList<>();
+        }
+        if (args.length == 2) {
+          return filter(java.util.List.of("start", "stop", "status"), last);
+        }
+        if (args.length == 3) {
+          return filter(mc.carlton.freerpg.elites.BloodMoonCommands.worldNames(), last);
+        }
+        return new ArrayList<>();
+      case "elites":
+        if (!sender.hasPermission("freerpg.elites.admin")) {
+          return new ArrayList<>();
+        }
+        if (args.length == 2) {
+          return filter(java.util.List.of("reload", "spawn"), last);
+        }
+        if (args.length == 3 && args[1].equalsIgnoreCase("spawn")) {
+          return filter(mc.carlton.freerpg.elites.EliteAdminCommands.mobNames(), last);
+        }
+        if (args.length == 4 && args[1].equalsIgnoreCase("spawn")) {
+          return filter(mc.carlton.freerpg.elites.AffixRegistry.allIds(), last);
+        }
+        return new ArrayList<>();
       case "quests":
         if (!sender.hasPermission("freerpg.quests.admin")) {
           return new ArrayList<>();

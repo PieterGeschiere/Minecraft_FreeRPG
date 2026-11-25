@@ -418,3 +418,6 @@ permissions:
   freerpg.quests.admin:
     description: allows the player to use /frpg quests reload and reset
     default: op
+  freerpg.elites.admin:
+    description: allows the player to use /frpg elites and /frpg bloodmoon
+    default: op
