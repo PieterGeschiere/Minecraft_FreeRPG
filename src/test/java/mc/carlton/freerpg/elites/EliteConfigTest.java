@@ -42,6 +42,22 @@ class EliteConfigTest {
   }
 
   @Test
+  void elitesAreAQuarterBiggerByDefault() throws Exception {
+    loadYaml("");
+    assertEquals(1.25, EliteConfig.sizeScale(), 1e-9);
+  }
+
+  @Test
+  void sizeScaleStaysBetweenNormalAndDouble() throws Exception {
+    loadYaml("sizeScale: 9\n");
+    assertEquals(2.0, EliteConfig.sizeScale(), 1e-9);
+    loadYaml("sizeScale: 0.2\n");
+    assertEquals(1.0, EliteConfig.sizeScale(), 1e-9);
+    loadYaml("sizeScale: big\n");
+    assertEquals(1.25, EliteConfig.sizeScale(), 1e-9);
+  }
+
+  @Test
   void chanceIsClampedBetween0And1() throws Exception {
     loadYaml("chance: 7\nbloodMoon:\n  chance: -2\n");
     assertEquals(1.0, EliteConfig.chance(), 1e-9);

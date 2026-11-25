@@ -14,6 +14,9 @@ affixCountWeights: [60, 30, 10]
 healthMultiplier: 3.0
 damageMultiplier: 1.5
 
+# How much bigger an elite looks (1.25 = a quarter bigger, 1.0 = normal size, at most 2.0)
+sizeScale: 1.25
+
 # The most elites in one chunk. At the limit no new elites spawn there.
 chunkCap: 20
 

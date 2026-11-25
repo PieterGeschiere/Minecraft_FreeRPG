@@ -330,7 +330,7 @@ Numbers are in `perkConfig.yml` and `advancedConfig.yml` under `aeronautics:`. P
 
 **Elites.** Every naturally spawned hostile mob has a small chance (3% by default) to be an **elite**. An
 elite has a red name, a glow, a boss bar for players within 30 blocks, 3 times the health and 1.5 times
-the damage, and 1 to 3 random **affixes**. The chance and the strength are the same for every player: there
+the damage, a quarter bigger body (`sizeScale`), and 1 to 3 random **affixes**. The chance and the strength are the same for every player: there
 is no scaling with level or distance. Elites despawn like any other mob. Mobs from spawners, eggs, breeding,
 commands and raids are never elites, and at most 20 elites live in one chunk.
 

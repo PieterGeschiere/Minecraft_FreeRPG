@@ -52,6 +52,7 @@ public final class EliteManager {
     EliteData.mark(mob, affixIds);
     scale(mob, Attribute.MAX_HEALTH, EliteConfig.healthMultiplier());
     scale(mob, Attribute.ATTACK_DAMAGE, EliteConfig.damageMultiplier());
+    scale(mob, Attribute.SCALE, EliteConfig.sizeScale());
     AttributeInstance health = mob.getAttribute(Attribute.MAX_HEALTH);
     if (health != null) {
       mob.setHealth(health.getValue());

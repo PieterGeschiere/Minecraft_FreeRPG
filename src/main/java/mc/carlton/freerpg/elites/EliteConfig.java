@@ -89,6 +89,11 @@ public final class EliteConfig {
     return Math.max(1.0, config.getDouble("damageMultiplier", 1.5));
   }
 
+  /** How much bigger an elite looks than a normal mob (1.25 = a quarter bigger). */
+  public static double sizeScale() {
+    return Math.max(1.0, Math.min(2.0, config.getDouble("sizeScale", 1.25)));
+  }
+
   public static int chunkCap() {
     return Math.max(0, config.getInt("chunkCap", 20));
   }
