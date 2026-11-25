@@ -53,9 +53,26 @@ public final class WheelMenu implements Listener {
       QuestMessages.send(p, "questNoSpin");
       return;
     }
+    play(p, QuestConfig.rewardMultiplier(period));
+  }
+
+  /** Uses one of the player's won (bonus) spins and plays the wheel. */
+  public static void startBonus(Player p) {
+    if (!QuestConfig.enabled()) {
+      QuestMessages.send(p, "questDisabled");
+      return;
+    }
+    if (!Quests.bonusSpins().consume(p.getUniqueId())) {
+      QuestMessages.send(p, "questNoBonusSpin");
+      return;
+    }
+    play(p, 1);
+  }
+
+  /** Rolls and gives the prize, then plays the wheel. The spin itself is already paid for. */
+  private static void play(Player p, int multiplier) {
     Random random = new Random();
     int size = WheelAnimation.RING_SLOTS.length;
-    int multiplier = QuestConfig.rewardMultiplier(period);
     List<WheelPrize> ring = WheelRoller.rollRing(random, PrizeGiver.enchantChoices(),
         PrizeGiver.skillNames(), QuestConfig.weightBook(), QuestConfig.weightMinecraftExp(),
         QuestConfig.weightFrpgExp(), scaled(QuestConfig.minecraftExpRange(), multiplier),

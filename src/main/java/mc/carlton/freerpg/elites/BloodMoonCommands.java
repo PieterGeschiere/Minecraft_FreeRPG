@@ -3,6 +3,9 @@ package mc.carlton.freerpg.elites;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import mc.carlton.freerpg.worldevents.WorldEventManager;
+import mc.carlton.freerpg.worldevents.WorldEventType;
+import mc.carlton.freerpg.worldevents.WorldEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -49,14 +52,15 @@ public final class BloodMoonCommands {
     } else {
       world = player != null ? player.getWorld() : Bukkit.getWorlds().get(0);
     }
+    boolean active = WorldEvents.isActive(WorldEventType.BLOOD_MOON, world);
     switch (action) {
-      case "start" -> sender.sendMessage(EliteMessages.prefixed(player,
-          replyKey("start", BloodMoonManager.start(world)), "world", world.getName()));
+      case "start" -> sender.sendMessage(EliteMessages.prefixed(player, replyKey("start",
+          WorldEventManager.start(WorldEventType.BLOOD_MOON, world, true)
+              == WorldEventManager.StartResult.STARTED), "world", world.getName()));
       case "stop" -> sender.sendMessage(EliteMessages.prefixed(player,
-          replyKey("stop", BloodMoonManager.stop(world)), "world", world.getName()));
+          replyKey("stop", active && WorldEventManager.stop(true)), "world", world.getName()));
       default -> sender.sendMessage(EliteMessages.prefixed(player,
-          BloodMoonManager.isActive(world) ? "bloodMoonStatusActive" : "bloodMoonStatusInactive",
-          "world", world.getName()));
+          active ? "bloodMoonStatusActive" : "bloodMoonStatusInactive", "world", world.getName()));
     }
     return true;
   }

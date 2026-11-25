@@ -1,0 +1,100 @@
+# FreeRPG world events: Bountiful Harvest, Gold Rush, Eclipse and the Fishing Festival.
+# (The Blood Moon is also a world event, but its settings stay in elites.yml.)
+# Every value has a default, so you can delete any line you do not need.
+# Reload with /frpg elites reload
+#
+# Only one event runs at a time on the whole server. Every Minecraft day each event rolls once
+# for its chance, inside its time window. Admins can start one with /frpg event start <type>.
+
+# false = none of the events below start by themselves
+enabled: true
+
+# After any event ends, no event starts by itself for this many Minecraft days (admins ignore it)
+minGapDays: 2
+
+events:
+  # Farming, fishing and woodcutting give more exp, ripe crops, logs and fish sometimes drop more
+  bountifulHarvest:
+    enabled: true
+    # The chance (0.05 = 5%) that it happens on a day
+    chance: 0.05
+    worlds: [world]
+    # Time of day (ticks) at which it starts, and at which it ends (0 = sunrise, 12000 = dusk)
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    # Skills that get the multiplier
+    skills: [farming, fishing, woodcutting]
+    # The chance that a drop from the blocks below (or a caught fish) comes twice
+    dropChance: 0.25
+    dropBlocks: [WHEAT, CARROTS, POTATOES, BEETROOTS, NETHER_WART, MELON, PUMPKIN,
+      SWEET_BERRY_BUSH, COCOA, OAK_LOG, BIRCH_LOG, SPRUCE_LOG, JUNGLE_LOG,
+      ACACIA_LOG, DARK_OAK_LOG, CHERRY_LOG, MANGROVE_LOG]
+
+  # Mining gives more exp and ore sometimes drops twice, but mining is loud: it can draw mobs
+  goldRush:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    # It starts at a random time of day between startTick and endTick, and lasts durationSeconds
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    xpMultiplier: 1.5
+    skills: [mining]
+    dropChance: 0.25
+    dropBlocks: [COAL_ORE, DEEPSLATE_COAL_ORE, IRON_ORE, DEEPSLATE_IRON_ORE, COPPER_ORE,
+      DEEPSLATE_COPPER_ORE, GOLD_ORE, DEEPSLATE_GOLD_ORE, REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE,
+      LAPIS_ORE, DEEPSLATE_LAPIS_ORE, DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, EMERALD_ORE,
+      DEEPSLATE_EMERALD_ORE, NETHER_GOLD_ORE, NETHER_QUARTZ_ORE, ANCIENT_DEBRIS]
+    # Breaking a natural ore can spawn mobs close to the miner
+    noise:
+      chance: 0.15
+      minMobs: 1
+      maxMobs: 3
+      # A player causes noise at most once per this many seconds (vein miner cannot flood the area)
+      cooldownSeconds: 5
+      mobTypes: [ZOMBIE, SKELETON, SPIDER, CAVE_SPIDER, CREEPER]
+
+  # A quiet night: part of the natural hostile spawns is cancelled (elites and spawners are kept)
+  eclipse:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    # 0.6 = 60% of the natural hostile spawns do not happen
+    spawnReduction: 0.6
+
+  # Everyone fishes for points. Needs minPlayers online to start by itself. Everyone who scored
+  # gets souls and exp, the top 3 get more and a free spin of the quest wheel.
+  fishingFestival:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    minPlayers: 2
+    # Points per caught item. Anything not listed gives no points.
+    points:
+      COD: 1
+      SALMON: 2
+      TROPICAL_FISH: 3
+      PUFFERFISH: 3
+      ENCHANTED_BOOK: 6
+      NAME_TAG: 6
+      SADDLE: 6
+      NAUTILUS_SHELL: 6
+    # Players who scored nothing get nothing. Players who are offline at the end get nothing.
+    rewards:
+      participationSouls: 3
+      participationMcExp: 50
+      # Fishing exp = points x this
+      fishingExpPerPoint: 20
+      # Extra for place 1, 2 and 3
+      topSouls: [10, 6, 3]
+      topMcExp: [300, 200, 100]
+      topBonusSpins: [1, 1, 1]

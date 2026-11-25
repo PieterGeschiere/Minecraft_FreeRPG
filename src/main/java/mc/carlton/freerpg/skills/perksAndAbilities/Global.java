@@ -152,6 +152,21 @@ public class Global extends Skill {
     pStatClass.setData(statAll);
   }
 
+  /** Gives souls. Unlike {@link #gainSoul}, this needs neither the Soul Harvest perk nor a kill. */
+  public void addSouls(int amount) {
+    if (!runMethods || amount <= 0) {
+      return;
+    }
+    UUID uuid = p.getUniqueId();
+    PlayerStats pStatClass = new PlayerStats(p);
+    Map<UUID, Map<String, ArrayList<Number>>> statAll = pStatClass.getData();
+    Map<String, ArrayList<Number>> pStatAll = statAll.get(uuid);
+    int souls = (int) pStatAll.get("global").get(20);
+    pStatAll.get("global").set(20, souls + amount);
+    statAll.put(uuid, pStatAll);
+    pStatClass.setData(statAll);
+  }
+
   public void betterResurrectionDeath(List<ItemStack> drops) {
     if (!runMethods) {
       return;

@@ -29,6 +29,7 @@ public final class Quests {
   private static Plugin plugin;
   private static QuestManager manager;
   private static QuestManager partyManager;
+  private static BonusSpins bonusSpins;
   private static final Map<UUID, String> partyNames = new HashMap<>();
   private static final Map<QuestPeriod, QuestManager> managers = new EnumMap<>(QuestPeriod.class);
   private static final Map<UUID, Long> lastActionBar = new HashMap<>();
@@ -48,6 +49,7 @@ public final class Quests {
           QuestConfig::resetHour, new Random(), event -> onEvent(period, event)));
     }
     manager = managers.get(QuestPeriod.DAILY);
+    bonusSpins = new BonusSpins(new File(plugin.getDataFolder(), "bonus-spins.yml"));
     // Party quests: one set of quests per party, found by a key made from the party's name
     partyManager = new QuestManager(QuestPeriod.DAILY,
         new QuestStorage(new File(plugin.getDataFolder(), "quests-party")),
@@ -79,6 +81,11 @@ public final class Quests {
   /** The manager of today's (daily) quests. */
   public static QuestManager manager() {
     return manager;
+  }
+
+  /** The wheel spins that were won, for example at a world event. */
+  public static BonusSpins bonusSpins() {
+    return bonusSpins;
   }
 
   /** The manager of one period's quests. */

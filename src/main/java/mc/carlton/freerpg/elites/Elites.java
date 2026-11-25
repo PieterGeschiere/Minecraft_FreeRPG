@@ -18,15 +18,14 @@ public final class Elites {
     Bukkit.getPluginManager().registerEvents(new DamageScalingListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new EliteKillListener(), plugin);
     EliteTracker.start(plugin);
-    BloodMoonManager.begin(plugin);
   }
 
   public static void reload(Plugin plugin) {
     EliteConfig.reload(plugin);
+    mc.carlton.freerpg.worldevents.WorldEvents.reload(plugin);
   }
 
   public static void shutdown() {
     EliteTracker.stop();
-    BloodMoonManager.shutdown();
   }
 }

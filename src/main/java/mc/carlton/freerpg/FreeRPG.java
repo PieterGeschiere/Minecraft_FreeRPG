@@ -157,6 +157,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     mc.carlton.freerpg.party.Parties.initialize(this);
     mc.carlton.freerpg.quests.Quests.initialize(this);
     mc.carlton.freerpg.elites.Elites.initialize(this);
+    mc.carlton.freerpg.worldevents.WorldEvents.initialize(this);
 
     //Initializes Player Leaderboard (and may create a file)
     Leaderboards playerLeaderboard = new Leaderboards();
@@ -319,6 +320,7 @@ public final class FreeRPG extends JavaPlugin implements Listener {
     mc.carlton.freerpg.weaponskills.WeaponSkills.shutdown();
     mc.carlton.freerpg.party.Parties.shutdown();
     mc.carlton.freerpg.quests.Quests.shutdown();
+    mc.carlton.freerpg.worldevents.WorldEvents.shutdown();
     mc.carlton.freerpg.elites.Elites.shutdown();
 
     //Does everything that would normally be done if a player were to log out

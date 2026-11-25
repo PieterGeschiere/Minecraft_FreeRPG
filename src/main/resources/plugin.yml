@@ -421,3 +421,6 @@ permissions:
   freerpg.elites.admin:
     description: allows the player to use /frpg elites and /frpg bloodmoon
     default: op
+  freerpg.events.admin:
+    description: allows the player to use /frpg event (start and stop world events)
+    default: op

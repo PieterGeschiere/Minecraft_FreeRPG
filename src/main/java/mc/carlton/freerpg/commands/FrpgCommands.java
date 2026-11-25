@@ -59,6 +59,7 @@ public class FrpgCommands implements CommandExecutor {
     r.register(new QuestsCommand());
     r.register(new mc.carlton.freerpg.commands.sub.ElitesCommand());
     r.register(new mc.carlton.freerpg.commands.sub.BloodMoonCommand());
+    r.register(new mc.carlton.freerpg.commands.sub.WorldEventCommand());
     r.register(new WeaponsCommand());
     r.register(new ReloadWeaponsCommand());
     r.register(new LeaderboardCommand());

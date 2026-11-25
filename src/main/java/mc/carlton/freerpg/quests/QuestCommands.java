@@ -18,6 +18,10 @@ public final class QuestCommands implements CommandExecutor {
       QuestMessages.send(p, "questNoPermission");
       return true;
     }
+    if (args.length > 0 && args[0].equalsIgnoreCase("bonus")) {
+      WheelMenu.startBonus(p);
+      return true;
+    }
     QuestPeriod period = args.length > 0 ? QuestPeriod.parse(args[0]) : QuestPeriod.DAILY;
     QuestMenu.open(p, period == null ? QuestPeriod.DAILY : period);
     return true;
