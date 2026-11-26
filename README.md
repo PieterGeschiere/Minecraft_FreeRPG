@@ -504,7 +504,9 @@ please open a pull request with the added language. For further information chec
 
 ## Wiki
 
-The [original project wiki](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16/wiki) provides you with detailed information about the abilities, skill trees and plugin configuration.
+The [FreeRPG Reborn wiki](https://github.com/PieterGeschiere/Minecraft_FreeRPG/wiki) lists every skill with its ability, passives and perks, and covers weapon skills, parties, quests, world events, configuration, commands and permissions.
+
+The [original project wiki](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16/wiki) is for the older versions.
 
 ## Compatibility
 
