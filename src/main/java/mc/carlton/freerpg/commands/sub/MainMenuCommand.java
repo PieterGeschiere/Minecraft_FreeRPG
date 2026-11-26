@@ -111,13 +111,13 @@ public class MainMenuCommand implements SubCommand {
     GuiItem fishing = new GuiItem(Material.FISHING_ROD, 15, gui);
     GuiItem beastMastery = new GuiItem(Material.BONE, 21, gui);
     GuiItem armor = new GuiItem(Material.IRON_CHESTPLATE, 23, gui);
-    GuiItem repair = new GuiItem(Material.ANVIL, 29, gui);
-    GuiItem agility = new GuiItem(Material.LEATHER_LEGGINGS, 30, gui);
-    GuiItem alchemy = new GuiItem(Material.POTION, 31, gui);
-    GuiItem smelting = new GuiItem(Material.COAL, 32, gui);
-    GuiItem enchanting = new GuiItem(Material.ENCHANTING_TABLE, 33, gui);
-    GuiItem building = new GuiItem(Material.BRICKS, 34, gui);
-    GuiItem aeronautics = new GuiItem(Material.ELYTRA, 35, gui);
+    GuiItem repair = new GuiItem(Material.ANVIL, 28, gui);
+    GuiItem agility = new GuiItem(Material.LEATHER_LEGGINGS, 29, gui);
+    GuiItem alchemy = new GuiItem(Material.POTION, 30, gui);
+    GuiItem smelting = new GuiItem(Material.COAL, 31, gui);
+    GuiItem enchanting = new GuiItem(Material.ENCHANTING_TABLE, 32, gui);
+    GuiItem building = new GuiItem(Material.BRICKS, 33, gui);
+    GuiItem aeronautics = new GuiItem(Material.ELYTRA, 34, gui);
     GuiItem info = new GuiItem(Material.MAP, 36, gui);
     GuiItem configuration = new GuiItem(Material.REDSTONE, 44, gui);
 
@@ -230,7 +230,7 @@ public class MainMenuCommand implements SubCommand {
 
     //Parties
     if (p.hasPermission("freerpg.party.use")) {
-      GuiItem partyIcon = new GuiItem(Material.WHITE_BANNER, 40, gui);
+      GuiItem partyIcon = new GuiItem(Material.WHITE_BANNER, 39, gui);
       partyIcon.setName(lang.getString("partyMenuMain"));
       partyIcon.setNameColor(nameColor);
       partyIcon.setDescription(lang.getString("partyMenuMainDesc"));

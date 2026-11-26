@@ -10,37 +10,38 @@ import org.bukkit.boss.BarColor;
  */
 public enum WorldEventType {
   BLOOD_MOON("bloodMoon", "blood_moon", Scope.WORLD, BarColor.RED,
-      "bloodMoonTitle", "bloodMoonSubtitle", "bloodMoonBossBar", "bloodMoonEnded"),
+      "bloodMoonTitle", "bloodMoonSubtitle", "bloodMoonBossBar", "bloodMoonEnded",
+      "bloodMoonInfo"),
   BOUNTIFUL_HARVEST("bountifulHarvest", "bountiful_harvest", Scope.WORLD, BarColor.GREEN,
       "worldEventHarvestTitle", "worldEventHarvestSubtitle", "worldEventHarvestBossBar",
-      "worldEventHarvestEnded"),
+      "worldEventHarvestEnded", "worldEventHarvestInfo"),
   GOLD_RUSH("goldRush", "gold_rush", Scope.WORLD, BarColor.YELLOW,
       "worldEventGoldRushTitle", "worldEventGoldRushSubtitle", "worldEventGoldRushBossBar",
-      "worldEventGoldRushEnded"),
+      "worldEventGoldRushEnded", "worldEventGoldRushInfo"),
   ECLIPSE("eclipse", "eclipse", Scope.WORLD, BarColor.PURPLE,
       "worldEventEclipseTitle", "worldEventEclipseSubtitle", "worldEventEclipseBossBar",
-      "worldEventEclipseEnded"),
+      "worldEventEclipseEnded", "worldEventEclipseInfo"),
   FISHING_FESTIVAL("fishingFestival", "fishing_festival", Scope.SERVER, BarColor.BLUE,
       "worldEventFestivalTitle", "worldEventFestivalSubtitle", "worldEventFestivalBossBar",
-      "worldEventFestivalEnded"),
+      "worldEventFestivalEnded", "worldEventFestivalInfo"),
   LUMBERJACKS_DAY("lumberjacksDay", "lumberjacks_day", Scope.WORLD, BarColor.GREEN,
       "worldEventLumberjackTitle", "worldEventLumberjackSubtitle", "worldEventLumberjackBossBar",
-      "worldEventLumberjackEnded"),
+      "worldEventLumberjackEnded", "worldEventLumberjackInfo"),
   FORGE_FEVER("forgeFever", "forge_fever", Scope.WORLD, BarColor.PINK,
       "worldEventForgeTitle", "worldEventForgeSubtitle", "worldEventForgeBossBar",
-      "worldEventForgeEnded"),
+      "worldEventForgeEnded", "worldEventForgeInfo"),
   SCHOLARS_MOON("scholarsMoon", "scholars_moon", Scope.WORLD, BarColor.WHITE,
       "worldEventScholarTitle", "worldEventScholarSubtitle", "worldEventScholarBossBar",
-      "worldEventScholarEnded"),
+      "worldEventScholarEnded", "worldEventScholarInfo"),
   ADVENTURERS_WIND("adventurersWind", "adventurers_wind", Scope.WORLD, BarColor.BLUE,
       "worldEventWindTitle", "worldEventWindSubtitle", "worldEventWindBossBar",
-      "worldEventWindEnded"),
+      "worldEventWindEnded", "worldEventWindInfo"),
   TITAN_NIGHT("titanNight", "titan_night", Scope.WORLD, BarColor.YELLOW,
       "worldEventTitanTitle", "worldEventTitanSubtitle", "worldEventTitanBossBar",
-      "worldEventTitanEnded"),
+      "worldEventTitanEnded", "worldEventTitanInfo"),
   MUTATOR_NIGHT("mutatorNight", "mutator_night", Scope.WORLD, BarColor.PINK,
       "worldEventMutatorTitle", "worldEventMutatorSubtitle", "worldEventMutatorBossBar",
-      "worldEventMutatorEnded");
+      "worldEventMutatorEnded", "worldEventMutatorInfo");
 
   /** Whether an event happens in one world or everywhere on the server. */
   public enum Scope { WORLD, SERVER }
@@ -53,9 +54,10 @@ public enum WorldEventType {
   private final String subtitleKey;
   private final String barKey;
   private final String endedKey;
+  private final String infoKey;
 
   WorldEventType(String configKey, String commandName, Scope scope, BarColor barColor,
-      String titleKey, String subtitleKey, String barKey, String endedKey) {
+      String titleKey, String subtitleKey, String barKey, String endedKey, String infoKey) {
     this.configKey = configKey;
     this.commandName = commandName;
     this.scope = scope;
@@ -64,6 +66,7 @@ public enum WorldEventType {
     this.subtitleKey = subtitleKey;
     this.barKey = barKey;
     this.endedKey = endedKey;
+    this.infoKey = infoKey;
   }
 
   public String configKey() {
@@ -96,6 +99,11 @@ public enum WorldEventType {
 
   public String endedKey() {
     return endedKey;
+  }
+
+  /** The chat text that says what the event does. */
+  public String infoKey() {
+    return infoKey;
   }
 
   public static Optional<WorldEventType> fromCommandName(String name) {

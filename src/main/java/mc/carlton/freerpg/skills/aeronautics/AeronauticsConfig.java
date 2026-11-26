@@ -18,8 +18,8 @@ public final class AeronauticsConfig {
   public static final double DEFAULT_EFFICIENCY_PER_POINT = 0.005;
   public static final double DEFAULT_EFFICIENCY_CAP = 0.5;
   public static final double DEFAULT_STEP_BLOCKS = 50.0;
-  public static final int DEFAULT_MAX_STEPS_PER_MINUTE = 30;
-  public static final int DEFAULT_GLIDE_STEP_EXP = 3;
+  public static final int DEFAULT_MAX_STEPS_PER_MINUTE = 60;
+  public static final int DEFAULT_GLIDE_STEP_EXP = 100;
 
   private AeronauticsConfig() {
   }

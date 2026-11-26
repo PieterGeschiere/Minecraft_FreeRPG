@@ -94,6 +94,14 @@ public final class EliteConfig {
     return Math.max(1.0, Math.min(2.0, config.getDouble("sizeScale", 1.25)));
   }
 
+  /**
+   * How many degrees a bigger-than-normal archer (an elite or a Titan) misses by; a negative value
+   * switches the help off. Vanilla skeletons miss by about 10 degrees on easy, 6 on normal and 2 on hard.
+   */
+  public static double bigShooterSpread() {
+    return config.getDouble("bigShooterAim", 2.0);
+  }
+
   public static int chunkCap() {
     return Math.max(0, config.getInt("chunkCap", 20));
   }

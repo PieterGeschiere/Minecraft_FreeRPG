@@ -21,8 +21,8 @@ public final class BuildingConfig {
   public static final int DEFAULT_XP_GRACE_SECONDS = 30;
   public static final int DEFAULT_XP_PER_MATERIAL_PER_MINUTE = 40;
   public static final int DEFAULT_TRACKER_MAX_BLOCKS = 2_000_000;
-  public static final int DEFAULT_BASIC_BLOCK_EXP = 2;
-  public static final int DEFAULT_DECORATIVE_BLOCK_EXP = 5;
+  public static final int DEFAULT_BASIC_BLOCK_EXP = 15;
+  public static final int DEFAULT_DECORATIVE_BLOCK_EXP = 40;
 
   private BuildingConfig() {
   }

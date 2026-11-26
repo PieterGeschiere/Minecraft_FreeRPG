@@ -3,6 +3,7 @@ package mc.carlton.freerpg.utils.globalVariables;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.potion.PotionEffectType;
@@ -54,7 +55,9 @@ public final class EffectTypeCompat {
    * @return the legacy Bukkit name of an effect type (e.g. FAST_DIGGING for haste)
    */
   public static String legacyName(PotionEffectType effectType) {
-    String key = effectType.getKeyOrThrow().getKey();
+    // Via Keyed: PotionEffectType is a class on Spigot but an interface on Paper, so calling
+    // getKeyOrThrow on it directly throws a linkage error on one of them.
+    String key = ((Keyed) effectType).getKey().getKey();
     return MODERN_TO_LEGACY.getOrDefault(key, key.toUpperCase(Locale.ROOT));
   }
 }

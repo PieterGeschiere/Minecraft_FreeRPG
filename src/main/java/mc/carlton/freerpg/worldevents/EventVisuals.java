@@ -66,6 +66,11 @@ public final class EventVisuals {
     if (WorldEventConfig.effect(type, "sound", true)) {
       player.playSound(player.getLocation(), logic.announceSound(), 0.6f, 0.6f);
     }
+    if (WorldEventConfig.effect(type, "chat", true)) {
+      player.sendMessage(WorldEventMessages.text(player, type.titleKey()));
+      player.sendMessage(WorldEventMessages.text(player, type.infoKey(),
+          EventInfo.placeholders(type)));
+    }
   }
 
   private static void updateBar(Player player, ActiveEvent event, WorldEvent logic) {

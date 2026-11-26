@@ -36,8 +36,8 @@ class AeronauticsLogicTest {
     assertEquals(0.005, AeronauticsConfig.efficiencyPerPoint(perk), 1e-12);
     assertEquals(0.5, AeronauticsConfig.efficiencyCap(advanced), 1e-12);
     assertEquals(50.0, AeronauticsConfig.stepBlocks(advanced), 1e-12);
-    assertEquals(30, AeronauticsConfig.maxStepsPerMinute(advanced));
-    assertEquals(3, advanced.getInt("aeronautics.expDrops.glideStep"));
+    assertEquals(60, AeronauticsConfig.maxStepsPerMinute(advanced));
+    assertEquals(100, advanced.getInt("aeronautics.expDrops.glideStep"));
   }
 
   @Test

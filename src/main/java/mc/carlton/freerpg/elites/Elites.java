@@ -17,6 +17,7 @@ public final class Elites {
     Bukkit.getPluginManager().registerEvents(new AffixListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new DamageScalingListener(), plugin);
     Bukkit.getPluginManager().registerEvents(new EliteKillListener(), plugin);
+    Bukkit.getPluginManager().registerEvents(new BigShooterListener(), plugin);
     EliteTracker.start(plugin);
   }
 
