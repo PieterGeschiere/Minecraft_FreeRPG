@@ -52,6 +52,10 @@ server's `plugins` folder.
 * **Aeronautics**, a new skill that levels by gliding with an elytra (see below).
 * **Elite mobs and the Blood Moon**: hostile mobs now and then spawn as elites with random affixes,
   and some nights turn into a Blood Moon (see below).
+* **World events**: eleven server-wide events such as Bountiful Harvest, Gold Rush, Eclipse, Titan Night
+  and Mutator Night, with a title, sound and boss bar for each (see below).
+* **Skill shortcut commands**: `/mining`, `/farming`, `/mace` and so on open that skill's tree.
+* **Feedback effects**: more sounds, particles and messages across skills, quests and events.
 * **Parties** with bonus XP sharing, an XP buff for nearby members, shared party quests, a party
   leaderboard, teleporting and more (see below).
 * **Dutch** added as a language, and every language now has a text for everything (see Language Support).
@@ -63,6 +67,8 @@ server's `plugins` folder.
   every time their stats were saved, a player standing exactly on a level's exp threshold being
   counted one level too low, `/frpg top playTime` and `/frpg setTokens` failing from the console,
   and `/frpg skillTreeGUI` ignoring skill names typed with capitals (`Smelting`, `Global`).
+
+See the [changelog](CHANGELOG.md) for the full list.
 
 ## Weapon Skills
 
