@@ -46,14 +46,324 @@ effects:
 #   pool:             optional, same format as "quests" above, to give them quests of their own
 weekly:
   enabled: true
-  quests: 4
-  targetScale: 5
-  rewardMultiplier: 3
+  quests: 5
+  targetScale: 10
+  rewardMultiplier: 4
+  pool:
+    mineBlocks:
+      type: BREAK_BLOCKS
+      filter: ANY
+      min: 1500
+      max: 3000
+      weight: 2
+      name: "Break {target} blocks"
+    mineOres:
+      type: BREAK_BLOCKS
+      filter: ORES
+      min: 250
+      max: 500
+      weight: 2
+      name: "Mine {target} ores"
+    mineDiamonds:
+      type: BREAK_BLOCKS
+      filter: DIAMOND_ORE
+      min: 15
+      max: 35
+      weight: 1
+      name: "Mine {target} diamond ore"
+    mineDeepDiamonds:
+      type: BREAK_BLOCKS
+      filter: DEEPSLATE_DIAMOND_ORE
+      min: 15
+      max: 35
+      weight: 1
+      name: "Mine {target} deepslate diamond ore"
+    mineDebris:
+      type: BREAK_BLOCKS
+      filter: ANCIENT_DEBRIS
+      min: 8
+      max: 20
+      weight: 1
+      name: "Mine {target} ancient debris"
+    chopLogs:
+      type: BREAK_BLOCKS
+      filter: LOGS
+      min: 500
+      max: 1000
+      weight: 2
+      name: "Chop {target} logs"
+    harvestCrops:
+      type: BREAK_BLOCKS
+      filter: RIPE_CROPS
+      min: 600
+      max: 1200
+      weight: 2
+      name: "Harvest {target} fully grown crops"
+    killHostile:
+      type: KILL_MOBS
+      filter: HOSTILE
+      min: 200
+      max: 350
+      weight: 2
+      name: "Kill {target} hostile mobs"
+    killCreepers:
+      type: KILL_MOBS
+      filter: CREEPER
+      min: 50
+      max: 90
+      weight: 1
+      name: "Kill {target} creepers"
+    killEndermen:
+      type: KILL_MOBS
+      filter: ENDERMAN
+      min: 30
+      max: 60
+      weight: 1
+      name: "Kill {target} endermen"
+    killBlazes:
+      type: KILL_MOBS
+      filter: BLAZE
+      min: 40
+      max: 80
+      weight: 1
+      name: "Kill {target} blazes"
+    killWitherSkeletons:
+      type: KILL_MOBS
+      filter: WITHER_SKELETON
+      min: 25
+      max: 50
+      weight: 1
+      name: "Kill {target} wither skeletons"
+    killWitches:
+      type: KILL_MOBS
+      filter: WITCH
+      min: 15
+      max: 30
+      weight: 1
+      name: "Kill {target} witches"
+    catchFish:
+      type: CATCH_FISH
+      filter: ANY
+      min: 80
+      max: 160
+      weight: 2
+      name: "Catch {target} fish"
+    craftItems:
+      type: CRAFT_ITEMS
+      filter: ANY
+      min: 400
+      max: 900
+      weight: 1
+      name: "Craft {target} items"
+    smeltItems:
+      type: SMELT_ITEMS
+      filter: ANY
+      min: 300
+      max: 700
+      weight: 1
+      name: "Take {target} items out of furnaces"
+    enchantItems:
+      type: ENCHANT_ITEMS
+      filter: ANY
+      min: 15
+      max: 30
+      weight: 1
+      name: "Enchant {target} items"
+    tradeVillagers:
+      type: TRADE_VILLAGERS
+      filter: ANY
+      min: 50
+      max: 120
+      weight: 1
+      name: "Trade with villagers {target} times"
+    breedAnimals:
+      type: BREED_ANIMALS
+      filter: ANY
+      min: 40
+      max: 90
+      weight: 1
+      name: "Breed {target} animals"
+    tameAnimals:
+      type: TAME_ANIMALS
+      filter: ANY
+      min: 6
+      max: 15
+      weight: 1
+      name: "Tame {target} animals"
+    shearSheep:
+      type: SHEAR_SHEEP
+      filter: ANY
+      min: 40
+      max: 100
+      weight: 1
+      name: "Shear {target} sheep"
+    placeBlocks:
+      type: PLACE_BLOCKS
+      filter: ANY
+      min: 1500
+      max: 3500
+      weight: 1
+      name: "Place {target} blocks"
+    earnExp:
+      type: EARN_SKILL_EXP
+      filter: ANY
+      min: 8000
+      max: 16000
+      weight: 2
+      name: "Earn {target} skill exp"
+    earnMiningExp:
+      type: EARN_SKILL_EXP
+      filter: MINING
+      min: 5000
+      max: 10000
+      weight: 1
+      name: "Earn {target} Mining exp"
+    earnFishingExp:
+      type: EARN_SKILL_EXP
+      filter: FISHING
+      min: 4000
+      max: 8000
+      weight: 1
+      name: "Earn {target} Fishing exp"
 seasonal:
   enabled: true
-  quests: 3
-  targetScale: 20
-  rewardMultiplier: 8
+  quests: 4
+  targetScale: 50
+  rewardMultiplier: 12
+  pool:
+    mineBlocks:
+      type: BREAK_BLOCKS
+      filter: ANY
+      min: 15000
+      max: 30000
+      weight: 2
+      name: "Break {target} blocks"
+    mineOres:
+      type: BREAK_BLOCKS
+      filter: ORES
+      min: 2500
+      max: 5000
+      weight: 2
+      name: "Mine {target} ores"
+    mineDiamonds:
+      type: BREAK_BLOCKS
+      filter: DIAMOND_ORE
+      min: 150
+      max: 300
+      weight: 1
+      name: "Mine {target} diamond ore"
+    mineDebris:
+      type: BREAK_BLOCKS
+      filter: ANCIENT_DEBRIS
+      min: 80
+      max: 160
+      weight: 1
+      name: "Mine {target} ancient debris"
+    chopLogs:
+      type: BREAK_BLOCKS
+      filter: LOGS
+      min: 5000
+      max: 10000
+      weight: 2
+      name: "Chop {target} logs"
+    harvestCrops:
+      type: BREAK_BLOCKS
+      filter: RIPE_CROPS
+      min: 6000
+      max: 12000
+      weight: 2
+      name: "Harvest {target} fully grown crops"
+    killHostile:
+      type: KILL_MOBS
+      filter: HOSTILE
+      min: 2000
+      max: 3500
+      weight: 2
+      name: "Kill {target} hostile mobs"
+    killWitherSkeletons:
+      type: KILL_MOBS
+      filter: WITHER_SKELETON
+      min: 300
+      max: 600
+      weight: 1
+      name: "Kill {target} wither skeletons"
+    killEndermen:
+      type: KILL_MOBS
+      filter: ENDERMAN
+      min: 400
+      max: 800
+      weight: 1
+      name: "Kill {target} endermen"
+    killBlazes:
+      type: KILL_MOBS
+      filter: BLAZE
+      min: 400
+      max: 800
+      weight: 1
+      name: "Kill {target} blazes"
+    catchFish:
+      type: CATCH_FISH
+      filter: ANY
+      min: 800
+      max: 1600
+      weight: 2
+      name: "Catch {target} fish"
+    craftItems:
+      type: CRAFT_ITEMS
+      filter: ANY
+      min: 5000
+      max: 10000
+      weight: 1
+      name: "Craft {target} items"
+    smeltItems:
+      type: SMELT_ITEMS
+      filter: ANY
+      min: 4000
+      max: 8000
+      weight: 1
+      name: "Take {target} items out of furnaces"
+    enchantItems:
+      type: ENCHANT_ITEMS
+      filter: ANY
+      min: 150
+      max: 300
+      weight: 1
+      name: "Enchant {target} items"
+    tradeVillagers:
+      type: TRADE_VILLAGERS
+      filter: ANY
+      min: 600
+      max: 1200
+      weight: 1
+      name: "Trade with villagers {target} times"
+    breedAnimals:
+      type: BREED_ANIMALS
+      filter: ANY
+      min: 400
+      max: 900
+      weight: 1
+      name: "Breed {target} animals"
+    placeBlocks:
+      type: PLACE_BLOCKS
+      filter: ANY
+      min: 15000
+      max: 30000
+      weight: 1
+      name: "Place {target} blocks"
+    earnExp:
+      type: EARN_SKILL_EXP
+      filter: ANY
+      min: 100000
+      max: 200000
+      weight: 2
+      name: "Earn {target} skill exp"
+    earnMiningExp:
+      type: EARN_SKILL_EXP
+      filter: MINING
+      min: 60000
+      max: 120000
+      weight: 1
+      name: "Earn {target} Mining exp"
 
 # Party quests: every party gets its own daily quests, and the progress of all members adds up
 # (see /party quests). When the party finishes all of them, every member who is online gets a prize
@@ -65,8 +375,10 @@ party:
   targetScale: 4
   rewardMultiplier: 2
 # The quest pool. Each player gets questsPerDay random quests from here every day.
-#   type:   BREAK_BLOCKS, KILL_MOBS, CATCH_FISH, CRAFT_ITEMS, BREED_ANIMALS or EARN_SKILL_EXP
-#   filter: ANY, ORES, LOGS, RIPE_CROPS (blocks), HOSTILE or a mob name like ZOMBIE (mobs),
+#   type:   BREAK_BLOCKS, PLACE_BLOCKS, KILL_MOBS, CATCH_FISH, CRAFT_ITEMS, SMELT_ITEMS,
+#           ENCHANT_ITEMS, TRADE_VILLAGERS, BREED_ANIMALS, TAME_ANIMALS, SHEAR_SHEEP, EARN_SKILL_EXP
+#   filter: ANY, ORES, LOGS, RIPE_CROPS or an exact block like DIAMOND_ORE (blocks),
+#           HOSTILE or a mob name like BLAZE (mobs), an item name like IRON_INGOT (smelting),
 #           ANY or a skill name like MINING (exp)
 #   min/max: the amount a player is asked for is picked between these
 #   weight: higher means dealt more often, 0 turns the quest off
@@ -156,3 +468,101 @@ quests:
     max: 1200
     weight: 1
     name: "Earn {target} Mining exp"
+  mineDiamonds:
+    type: BREAK_BLOCKS
+    filter: DIAMOND_ORE
+    min: 2
+    max: 6
+    weight: 1
+    name: "Mine {target} diamond ore"
+  mineStone:
+    type: BREAK_BLOCKS
+    filter: STONE
+    min: 150
+    max: 400
+    weight: 1
+    name: "Mine {target} stone"
+  killCreepers:
+    type: KILL_MOBS
+    filter: CREEPER
+    min: 6
+    max: 15
+    weight: 1
+    name: "Kill {target} creepers"
+  killSpiders:
+    type: KILL_MOBS
+    filter: SPIDER
+    min: 8
+    max: 20
+    weight: 1
+    name: "Kill {target} spiders"
+  killEndermen:
+    type: KILL_MOBS
+    filter: ENDERMAN
+    min: 4
+    max: 10
+    weight: 1
+    name: "Kill {target} endermen"
+  smeltItems:
+    type: SMELT_ITEMS
+    filter: ANY
+    min: 20
+    max: 70
+    weight: 1
+    name: "Take {target} items out of furnaces"
+  smeltIron:
+    type: SMELT_ITEMS
+    filter: IRON_INGOT
+    min: 16
+    max: 48
+    weight: 1
+    name: "Smelt {target} iron ingots"
+  enchantItems:
+    type: ENCHANT_ITEMS
+    filter: ANY
+    min: 1
+    max: 3
+    weight: 1
+    name: "Enchant {target} items"
+  tradeVillagers:
+    type: TRADE_VILLAGERS
+    filter: ANY
+    min: 5
+    max: 15
+    weight: 1
+    name: "Trade with villagers {target} times"
+  tameAnimals:
+    type: TAME_ANIMALS
+    filter: ANY
+    min: 1
+    max: 2
+    weight: 1
+    name: "Tame {target} animals"
+  shearSheep:
+    type: SHEAR_SHEEP
+    filter: ANY
+    min: 5
+    max: 12
+    weight: 1
+    name: "Shear {target} sheep"
+  placeBlocks:
+    type: PLACE_BLOCKS
+    filter: ANY
+    min: 100
+    max: 300
+    weight: 1
+    name: "Place {target} blocks"
+  earnFishingExp:
+    type: EARN_SKILL_EXP
+    filter: FISHING
+    min: 300
+    max: 1000
+    weight: 1
+    name: "Earn {target} Fishing exp"
+  earnFarmingExp:
+    type: EARN_SKILL_EXP
+    filter: FARMING
+    min: 300
+    max: 1000
+    weight: 1
+    name: "Earn {target} Farming exp"

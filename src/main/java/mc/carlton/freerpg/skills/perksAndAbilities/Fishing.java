@@ -42,6 +42,10 @@ public class Fishing extends Skill {
   static Map<Player, Integer> fishPersonMap = new HashMap<>();
   static Map<Player, Integer> fishPersonCounters = new HashMap<>();
   static HashSet<UUID> superBaitBlock = new HashSet<>();
+  /** The hooks that are stuck in the ground, waiting for the player to left click. */
+  static final Map<UUID, FishHook> grappleAnchors = new HashMap<>();
+  /** Where the player ends up for each stuck hook (the hit point, moved off the block). */
+  static final Map<UUID, Location> grappleTargets = new HashMap<>();
   Random rand = new Random(); //Random class Import
   private String skillName = "fishing";
   private boolean runMethods;
@@ -170,7 +174,14 @@ public class Fishing extends Skill {
 
      */
 
+  /** Called when the hook sticks to a block (landing on it or hitting any side of it). */
   public void grapplingHook(FishHook fishhook, World world) {
+    grapplingHook(fishhook, world, fishhook.getLocation(), org.bukkit.block.BlockFace.UP);
+  }
+
+  /** Same, with the exact point where the hook hit and the side of the block it hit. */
+  public void grapplingHook(FishHook fishhook, World world, Location hit,
+      org.bukkit.block.BlockFace face) {
     if (!runMethods) {
       return;
     }
@@ -183,16 +194,124 @@ public class Fishing extends Skill {
     if (grappleToggle < 1) {
       return;
     }
-    Location location = fishhook.getLocation();
-    double dx = location.getX() - p.getLocation().getX();
-    double dy = location.getY() - p.getLocation().getY();
-    double dz = location.getZ() - p.getLocation().getZ();
-    double distance = Math.sqrt((dx * dx) + (dy * dy) + (dz * dz));
-    double multiplier = 0.200;
-    Vector velocity = new Vector(dx * multiplier,
-        (dy * multiplier) + (double) Math.sqrt(distance) * 0.10, dz * multiplier);
-    p.setVelocity(velocity);
+    if (grappleAnchors.get(p.getUniqueId()) == fishhook) {
+      return; // already stuck, do not announce twice
+    }
+    mc.carlton.freerpg.events.misc.GrappleClick.debug(p, "hook stuck at " + fishhook.getLocation());
+    grappleAnchors.put(p.getUniqueId(), fishhook);
+    // Where the player should end up: on top of the block, or just outside the side it hit
+    Location target = hit.clone();
+    if (face == org.bukkit.block.BlockFace.UP) {
+      target.add(0, 0.2, 0);
+    } else if (face == org.bukkit.block.BlockFace.DOWN) {
+      target.add(0, -2.2, 0);
+    } else {
+      target.add(face.getModX() * 0.8, -0.4, face.getModZ() * 0.8);
+    }
+    grappleTargets.put(p.getUniqueId(), target);
+    // Keep the bobber where it hit, it would otherwise keep falling down the tree
+    fishhook.setVelocity(new Vector(0, 0, 0));
+    fishhook.setGravity(false);
+    p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR,
+        new net.md_5.bungee.api.chat.TextComponent(ChatColor.GOLD + "" + ChatColor.BOLD
+            + "Hook stuck! " + ChatColor.YELLOW + "Left click to fly there"));
+    world.playSound(fishhook.getLocation(), org.bukkit.Sound.BLOCK_CHAIN_PLACE, 1f, 1.4f);
+    world.spawnParticle(org.bukkit.Particle.CRIT, fishhook.getLocation(), 10, 0.15, 0.15, 0.15,
+        0.1);
+  }
+
+  /** Forgets the stuck hook of this player (new cast, reeled in, or after the pull). */
+  public static void clearGrapple(UUID id) {
+    grappleAnchors.remove(id);
+    grappleTargets.remove(id);
+  }
+
+  /**
+   * Left click while the hook is stuck: pulls the player to the hook. Returns true when it did.
+   */
+  public boolean grappleLaunch() {
+    FishHook hook = grappleAnchors.get(p.getUniqueId());
+    if (hook == null) {
+      return false;
+    }
+    mc.carlton.freerpg.events.misc.GrappleClick.debug(p, "launching, hook valid=" + hook.isValid());
+    if (!hook.isValid() || hook.isDead() || !hook.getWorld().equals(p.getWorld())) {
+      grappleAnchors.remove(p.getUniqueId());
+      return false;
+    }
+    Location location = hook.getLocation();
+    Location target = grappleTargets.getOrDefault(p.getUniqueId(), location);
+    if (p.getLocation().distance(target) < 1.5) {
+      mc.carlton.freerpg.events.misc.GrappleClick.debug(p, "too close to the hook");
+      return false;
+    }
+    startPull(target);
+    grappleAnchors.remove(p.getUniqueId());
+    grappleTargets.remove(p.getUniqueId());
+    hook.remove();
     mc.carlton.freerpg.utils.game.PerkEffects.grapple(p, location);
+    return true;
+  }
+
+  /**
+   * Pulls the player in a straight line to the target, every tick, at a steady speed: this does
+   * not depend on drag, sprinting or the starting speed. It stops at the target, after 2.5
+   * seconds, or when the player is stuck behind something.
+   */
+  private void startPull(Location target) {
+    protectFromFall(p);
+    new BukkitRunnable() {
+      int tick = 0;
+      int stuckTicks = 0;
+      double lastDistance = Double.MAX_VALUE;
+
+      @Override
+      public void run() {
+        if (!p.isOnline() || p.isDead() || !p.getWorld().equals(target.getWorld())) {
+          cancel();
+          return;
+        }
+        Location now = p.getLocation().add(0, 0.2, 0);
+        Vector toTarget = target.toVector().subtract(now.toVector());
+        double distance = toTarget.length();
+        if (distance < 1.2 || tick++ > 50) {
+          // arrived: keep a little of the speed, but do not shoot past the target
+          p.setVelocity(p.getVelocity().multiply(0.3));
+          cancel();
+          return;
+        }
+        stuckTicks = distance > lastDistance - 0.05 ? stuckTicks + 1 : 0;
+        lastDistance = distance;
+        if (stuckTicks > 6) { // blocked by a tree or a wall
+          mc.carlton.freerpg.events.misc.GrappleClick.debug(p, "pull blocked at " + distance);
+          cancel();
+          return;
+        }
+        double speed = Math.min(1.5, 0.5 + distance * 0.08);
+        p.setVelocity(toTarget.normalize().multiply(speed));
+        p.setFallDistance(0f);
+      }
+    }.runTaskTimer(mc.carlton.freerpg.FreeRPG.getPlugin(mc.carlton.freerpg.FreeRPG.class), 0L, 1L);
+  }
+
+  /** The pull never hurts: no fall damage until the player has landed (at most 6 seconds). */
+  private void protectFromFall(Player player) {
+    new org.bukkit.scheduler.BukkitRunnable() {
+      int ticksLeft = 120;
+
+      @Override
+      public void run() {
+        if (!player.isOnline() || ticksLeft-- <= 0) {
+          cancel();
+          return;
+        }
+        player.setFallDistance(0f);
+        if (ticksLeft < 110 && player.isOnGround()) {
+          cancel();
+        }
+      }
+    }.runTaskTimer(mc.carlton.freerpg.FreeRPG.getPlugin(mc.carlton.freerpg.FreeRPG.class), 1L,
+        1L);
   }
 
   public void superBait(FishHook fishhook, Entity hookedEntity, World world) {

@@ -6,7 +6,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityBreedEvent;
+import org.bukkit.event.entity.EntityTameEvent;
+import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
+import org.bukkit.inventory.MerchantInventory;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -77,5 +84,46 @@ public final class QuestListener implements Listener {
     if (e.getBreeder() instanceof Player p) {
       Quests.record(p, QuestType.BREED_ANIMALS, Set.of("ANY"), 1);
     }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onSmelt(FurnaceExtractEvent e) {
+    if (e.getItemAmount() > 0) {
+      Quests.record(e.getPlayer(), QuestType.SMELT_ITEMS,
+          Set.of("ANY", e.getItemType().name()), e.getItemAmount());
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onEnchant(EnchantItemEvent e) {
+    Quests.record(e.getEnchanter(), QuestType.ENCHANT_ITEMS, Set.of("ANY"), 1);
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onTrade(InventoryClickEvent e) {
+    if (e.getInventory() instanceof MerchantInventory && e.getSlot() == 2
+        && e.getClickedInventory() == e.getInventory()
+        && e.getCurrentItem() != null && !e.getCurrentItem().getType().isAir()
+        && e.getWhoClicked() instanceof Player p) {
+      Quests.record(p, QuestType.TRADE_VILLAGERS, Set.of("ANY"), 1);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onTame(EntityTameEvent e) {
+    if (e.getOwner() instanceof Player p) {
+      Quests.record(p, QuestType.TAME_ANIMALS, Set.of("ANY"), 1);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onShear(PlayerShearEntityEvent e) {
+    Quests.record(e.getPlayer(), QuestType.SHEAR_SHEEP, Set.of("ANY"), 1);
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onPlace(BlockPlaceEvent e) {
+    Quests.record(e.getPlayer(), QuestType.PLACE_BLOCKS,
+        Set.of("ANY", e.getBlockPlaced().getType().name()), 1);
   }
 }

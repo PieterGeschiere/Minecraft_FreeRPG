@@ -55,6 +55,18 @@ public class YMLManager {
     f1.delete();
   }
 
+  /** Loads a file so that its comments survive a later save(). */
+  private static FileConfiguration loadKeepingComments(File file) {
+    YamlConfiguration yaml = new YamlConfiguration();
+    yaml.options().parseComments(true);
+    try {
+      yaml.load(file);
+    } catch (IOException | org.bukkit.configuration.InvalidConfigurationException e) {
+      FreeRPG.log(Level.ERROR, e.getMessage());
+    }
+    return yaml;
+  }
+
   public void storeOldFile(String fileName) {
     Plugin plugin = FreeRPG.getPlugin(FreeRPG.class);
     File f = new File(plugin.getDataFolder(), fileName);
@@ -113,7 +125,7 @@ public class YMLManager {
     File f3 = new File(plugin.getDataFolder(), "TEMP_" + fileName);
     f3.setReadable(true, false);
     f3.setWritable(true, false);
-    FileConfiguration newYAML = YamlConfiguration.loadConfiguration(f3);
+    FileConfiguration newYAML = loadKeepingComments(f3);
     boolean needToSave = false;
     boolean addedLines = false;
     boolean overWroteData = false;
@@ -160,7 +172,7 @@ public class YMLManager {
 
     if (needToSave) {
       try {
-        newYAML.save(f); //Changes file (comments are lost)
+        newYAML.save(f); //Changes file (comments are kept)
         if (addedLines) {
           FreeRPG.log(Level.INFO, "[FreeRPG] " + fileName + " updated to include new keys.");
         } else {
@@ -201,7 +213,7 @@ public class YMLManager {
     File f3 = new File(plugin.getDataFolder(), "TEMP_" + fileName);
     f3.setReadable(true, false);
     f3.setWritable(true, false);
-    FileConfiguration newYAML = YamlConfiguration.loadConfiguration(f3);
+    FileConfiguration newYAML = loadKeepingComments(f3);
     boolean changeMade = false;
     ArrayList<String> lastLevelKeys = getAllLastLevelKeys(newYAML);
     for (String key : lastLevelKeys) {
@@ -220,7 +232,7 @@ public class YMLManager {
 
     if (changeMade) {
       try {
-        newYAML.save(f); //Changes file (comments are lost)
+        newYAML.save(f); //Changes file (comments are kept)
         FreeRPG.log(Level.INFO, "[FreeRPG] " + fileName + " updated to include new keys.");
       } catch (IOException e) {
         FreeRPG.log(Level.ERROR, e.getMessage());

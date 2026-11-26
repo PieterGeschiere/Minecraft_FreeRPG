@@ -14,7 +14,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
-/** Turns a mob into an elite: the stats, name, glow and affixes. */
+/** Turns a mob into an elite: the stats, name and affixes. */
 public final class EliteManager {
 
   private static final Random RANDOM = new Random();
@@ -59,7 +59,6 @@ public final class EliteManager {
     }
     mob.setCustomName(ChatColor.RED + "Elite " + displayName(mob.getType()));
     mob.setCustomNameVisible(true);
-    mob.setGlowing(true);
     for (String id : affixIds) {
       Affix affix = AffixRegistry.get(id);
       if (affix != null) {

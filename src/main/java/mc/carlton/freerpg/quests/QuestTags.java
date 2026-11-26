@@ -14,6 +14,7 @@ public final class QuestTags {
     String name = materialName.toUpperCase(Locale.ROOT);
     Set<String> tags = new HashSet<>();
     tags.add("ANY");
+    tags.add(name); // a filter can also be one exact block, like DIAMOND_ORE
     if (name.endsWith("_ORE") || name.equals("ANCIENT_DEBRIS")) {
       tags.add("ORES");
     }

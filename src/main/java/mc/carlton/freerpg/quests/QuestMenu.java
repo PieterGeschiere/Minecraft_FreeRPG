@@ -181,6 +181,12 @@ public final class QuestMenu implements Listener {
       case CRAFT_ITEMS -> Material.CRAFTING_TABLE;
       case BREED_ANIMALS -> Material.WHEAT;
       case EARN_SKILL_EXP -> Material.EXPERIENCE_BOTTLE;
+      case SMELT_ITEMS -> Material.FURNACE;
+      case ENCHANT_ITEMS -> Material.ENCHANTING_TABLE;
+      case TRADE_VILLAGERS -> Material.EMERALD;
+      case TAME_ANIMALS -> Material.BONE;
+      case SHEAR_SHEEP -> Material.SHEARS;
+      case PLACE_BLOCKS -> Material.BRICKS;
     };
   }
 

@@ -272,6 +272,16 @@ public class ChangeStats {
             actionMessage.sendMessage(
                 ChatColor.YELLOW + skillTitle + " " + lang.getString("increasedBy") + " "
                     + Integer.toString(levelChange) + ". (" + level + ")");
+            LevelCelebration.blip(p);
+          }
+        }
+        if (!isSilent) {
+          boolean quiet = (int) pGlobalStats.get(21) <= 0;
+          if (LevelCelebration.crossedMilestone(oldLevel, level)) {
+            LevelCelebration.skillMilestone(p, skillTitle, level, quiet);
+          }
+          if (LevelCelebration.crossedMilestone(oldGlobalLevel, globalLevel)) {
+            LevelCelebration.globalMilestone(p, globalLevel, quiet);
           }
         }
         pStats.set(0, level); //Level change

@@ -31,6 +31,10 @@ public class PlayerFish implements Listener {
     AbilityTracker abilities = new AbilityTracker(p);
     Integer[] pAbilities = abilities.getPlayerAbilities();
 
+    if (e.getState() == PlayerFishEvent.State.FISHING
+        || e.getState() == PlayerFishEvent.State.REEL_IN) {
+      Fishing.clearGrapple(p.getUniqueId()); // a new cast or reeling in loses the stuck hook
+    }
     if (e.getState() == PlayerFishEvent.State.FISHING) {
       if (pAbilities[4] > -1) {
         Fishing fishingClass = new Fishing(p);

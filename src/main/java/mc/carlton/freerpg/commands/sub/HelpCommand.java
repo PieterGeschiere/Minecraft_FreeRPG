@@ -21,10 +21,13 @@ public class HelpCommand implements SubCommand {
     final String IMPROPER_ARGUMENTS_MESSSAGE = " /frpg help [::page::]";
     CommandHelper commandHelper = new CommandHelper(sender, args, 1, 2,
         IMPROPER_ARGUMENTS_MESSSAGE);
-    commandHelper.setPlayerOnlyCommand(true);
     commandHelper.setPermissionName("help");
     if (!commandHelper.isProperCommand()) {
       return true; //Command Restricted or Improper
+    }
+    if (!(sender instanceof Player)) {
+      sendConsoleHelp(sender);
+      return true;
     }
     int page = 1;
     if (args.length == 2) {
@@ -36,6 +39,22 @@ public class HelpCommand implements SubCommand {
     }
     messagePlayerHelpScreen(sender, page); //Sends player the corresponding help screen
     return true;
+  }
+
+  /** Plain-text overview for the console and command blocks (no per-player language). */
+  private void sendConsoleHelp(CommandSender sender) {
+    sender.sendMessage("FreeRPG admin commands (tab-complete /frpg for the full list):");
+    sender.sendMessage("  /frpg giveEXP <player> <skill> <amount>");
+    sender.sendMessage("  /frpg setLevel <player> <skill> <level>");
+    sender.sendMessage("  /frpg setTokens <player> <skill|global> [skill|passive] <amount>");
+    sender.sendMessage("  /frpg setSouls <player> <amount>");
+    sender.sendMessage("  /frpg setMultiplier <player> <amount>");
+    sender.sendMessage("  /frpg statReset <player> [skill]");
+    sender.sendMessage("  /frpg statLookup <player>");
+    sender.sendMessage("  /frpg statLeaders [skill] [page]");
+    sender.sendMessage("  /frpg resetCooldown <player> <skill>");
+    sender.sendMessage("  /frpg saveStats [player]");
+    sender.sendMessage("  /frpg reloadWeapons, /frpg info");
   }
 
   private void messagePlayerHelpScreen(CommandSender sender, int page) {

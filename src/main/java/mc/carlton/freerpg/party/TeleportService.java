@@ -152,6 +152,10 @@ public final class TeleportService {
     active.put(mover.getUniqueId(), a);
     a.task = Bukkit.getScheduler().runTaskTimer(Parties.plugin(), () -> tick(a), 0L,
         TICKS_PER_CHECK);
+    if (PartyConfig.effectsEnabled()) {
+      mover.getWorld().playSound(mover.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 0.7f, 1.6f);
+      mover.getWorld().playSound(mover.getLocation(), Sound.BLOCK_PORTAL_TRIGGER, 0.35f, 1.4f);
+    }
   }
 
   private static String[] slice(String[] reason) {
@@ -196,10 +200,22 @@ public final class TeleportService {
       a.shownSeconds = seconds;
       mover.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
           PartyMessages.text(mover, "partyTpCountdown", "seconds", String.valueOf(seconds))));
+      if (PartyConfig.effectsEnabled()) {
+        float rise = 0.8f + 1.2f * progress(a, now);
+        mover.getWorld().playSound(mover.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 0.8f,
+            Math.min(2.0f, rise));
+        mover.getWorld().playSound(mover.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.6f,
+            Math.min(2.0f, rise));
+      }
     }
     if (PartyConfig.effectsEnabled()) {
-      spiral(mover.getLocation(), now - a.startMillis);
+      spiral(mover.getLocation(), now - a.startMillis, progress(a, now));
     }
+  }
+
+  private static float progress(Active a, long now) {
+    long total = Math.max(1L, PartyConfig.tpaWarmupSeconds() * 1000L);
+    return Math.max(0f, Math.min(1f, (now - a.startMillis) / (float) total));
   }
 
   private static void complete(Active a) {
@@ -217,9 +233,9 @@ public final class TeleportService {
     }
     stop(a);
     Location origin = mover.getLocation();
-    burst(origin);
+    burst(origin, false);
     mover.teleport(destination);
-    burst(destination);
+    burst(destination, true);
     Parties.teleports().markUsed(mover.getUniqueId(), System.currentTimeMillis());
     PartyMessages.send(mover, "partyTpDone");
     if (a.target != null) {
@@ -263,6 +279,7 @@ public final class TeleportService {
 
   private static void cancelWith(Active a, String key, String... kv) {
     stop(a);
+    fizzle(a.mover);
     if (a.mover.isOnline()) {
       PartyMessages.send(a.mover, key, kv);
     }
@@ -300,29 +317,86 @@ public final class TeleportService {
     }
   }
 
-  /** Two particle trails spiralling up around the player while they wait. */
-  private static void spiral(Location base, long elapsedMillis) {
+  /**
+   * A double helix that climbs the player and tightens while the timer runs, with a glowing
+   * ring on the ground that shrinks and enchant runes drifting in toward the player.
+   */
+  private static void spiral(Location base, long elapsedMillis, float progress) {
     World world = base.getWorld();
-    Particle particle = particle(PartyConfig.effectParticle(), Particle.PORTAL);
-    double angle = elapsedMillis / 150.0;
-    double height = (elapsedMillis % 1500) / 1500.0 * 2.0;
-    for (int i = 0; i < 2; i++) {
-      double a = angle + i * Math.PI;
-      world.spawnParticle(particle, base.getX() + Math.cos(a) * 0.9, base.getY() + height,
-          base.getZ() + Math.sin(a) * 0.9, 3, 0.05, 0.05, 0.05, 0.0);
+    if (world == null) {
+      return;
+    }
+    Particle main = particle(PartyConfig.effectParticle(), Particle.PORTAL);
+    double radius = 1.2 - 0.6 * progress;
+    double angle = elapsedMillis / 140.0;
+    double height = (elapsedMillis % 1200) / 1200.0 * 2.2;
+    for (int i = 0; i < 3; i++) {
+      double a = angle + i * (2 * Math.PI / 3);
+      double x = base.getX() + Math.cos(a) * radius;
+      double z = base.getZ() + Math.sin(a) * radius;
+      world.spawnParticle(main, x, base.getY() + height, z, 3, 0.03, 0.03, 0.03, 0.0);
+      world.spawnParticle(Particle.END_ROD, x, base.getY() + 2.2 - height, z, 1, 0, 0, 0, 0.0);
+    }
+    // Ground ring that shrinks toward the player
+    double ringRadius = 1.6 * (1.0 - progress) + 0.3;
+    for (int i = 0; i < 12; i++) {
+      double a = i * (Math.PI / 6) - angle * 0.5;
+      world.spawnParticle(Particle.ENCHANT, base.getX() + Math.cos(a) * ringRadius,
+          base.getY() + 0.1, base.getZ() + Math.sin(a) * ringRadius, 1, 0.0, 0.0, 0.0, 0.0);
+    }
+    if (progress > 0.6) {
+      world.spawnParticle(Particle.ELECTRIC_SPARK, base.getX(), base.getY() + 1.0, base.getZ(),
+          2 + (int) (progress * 6), 0.4, 0.8, 0.4, 0.05);
     }
   }
 
-  /** The burst and the teleport sound at one end of the teleport. */
-  private static void burst(Location at) {
+  /** The sound of a teleport that did not happen. */
+  private static void fizzle(Player mover) {
+    if (!PartyConfig.effectsEnabled() || !mover.isOnline()) {
+      return;
+    }
+    Location at = mover.getLocation();
+    World world = at.getWorld();
+    world.playSound(at, Sound.BLOCK_BEACON_DEACTIVATE, 0.8f, 1.2f);
+    world.playSound(at, Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 0.6f, 0.7f);
+    world.spawnParticle(Particle.SMOKE, at.getX(), at.getY() + 1.0, at.getZ(), 25, 0.35, 0.7,
+        0.35, 0.02);
+  }
+
+  /**
+   * The effect at one end of the teleport: a light column, an expanding ring, a particle burst
+   * and a layered sound. {@code arrival} makes it brighter and uses the reverse portal burst.
+   */
+  private static void burst(Location at, boolean arrival) {
     World world = at.getWorld();
     if (world == null) {
       return;
     }
     if (PartyConfig.effectsEnabled()) {
-      world.spawnParticle(particle(PartyConfig.effectBurstParticle(), Particle.REVERSE_PORTAL),
-          at.getX(), at.getY() + 1.0, at.getZ(), 60, 0.4, 0.8, 0.4, 0.15);
+      Particle burst = particle(PartyConfig.effectBurstParticle(), Particle.REVERSE_PORTAL);
+      Particle first = arrival ? burst : Particle.PORTAL;
+      world.spawnParticle(first, at.getX(), at.getY() + 1.0, at.getZ(), 90, 0.4, 0.9, 0.4, 0.25);
+      // Column of light
+      for (int i = 0; i < 16; i++) {
+        world.spawnParticle(Particle.END_ROD, at.getX(), at.getY() + i * 0.25, at.getZ(), 2, 0.1,
+            0.0, 0.1, 0.02);
+      }
+      // Ring that shoots outward
+      for (int i = 0; i < 36; i++) {
+        double a = i * (Math.PI / 18);
+        world.spawnParticle(Particle.FIREWORK, at.getX(), at.getY() + 0.15, at.getZ(), 0,
+            Math.cos(a), 0.02, Math.sin(a), 0.35);
+      }
+      if (arrival) {
+        world.spawnParticle(Particle.ELECTRIC_SPARK, at.getX(), at.getY() + 1.0, at.getZ(), 40,
+            0.5, 0.9, 0.5, 0.3);
+      }
     }
-    world.playSound(at, sound(PartyConfig.effectSound()), 1.0f, 1.0f);
+    world.playSound(at, sound(PartyConfig.effectSound()), 1.0f, arrival ? 1.2f : 0.8f);
+    if (PartyConfig.effectsEnabled()) {
+      world.playSound(at, Sound.BLOCK_AMETHYST_CLUSTER_BREAK, 1.0f, arrival ? 1.6f : 1.0f);
+      world.playSound(at, arrival ? Sound.ENTITY_FIREWORK_ROCKET_LAUNCH
+          : Sound.ENTITY_ENDER_EYE_DEATH, 0.8f, arrival ? 1.3f : 0.9f);
+    }
   }
 }
