@@ -10,6 +10,7 @@ import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.core.info.server.MinecraftVersion;
 import mc.carlton.freerpg.utils.game.EntityPickedUpItemStorage;
 import mc.carlton.freerpg.utils.game.ExpFarmTracker;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -283,6 +284,7 @@ public class Defense extends Skill {
     if (chance > rand.nextDouble()) {
       double multiplier = Math.max((1 - .33 - .06666 * hardHeadedLevel), 0);
       increaseStats.changeEXP(skillName, expMap.get("hardBodyActivate"));
+      PerkEffects.hardBody(p);
       return multiplier;
     }
     return 1;
@@ -307,6 +309,7 @@ public class Defense extends Skill {
         p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 1));
       }
       increaseStats.changeEXP(skillName, expMap.get("reactionsLevel2Activate"));
+      PerkEffects.reactions(p, true);
 
     } else if (reactionsLevel_I * 0.02 > rand.nextDouble()) {
       boolean[] resistanceChecks = buffCheckerResistance(0, 100);
@@ -317,6 +320,7 @@ public class Defense extends Skill {
         p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 0));
       }
       increaseStats.changeEXP(skillName, expMap.get("reactionsLevel1Activate"));
+      PerkEffects.reactions(p, false);
     }
   }
 
@@ -344,12 +348,14 @@ public class Defense extends Skill {
       if (heartyToggle > 0) { //Hearty was somehow on
         ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).setBaseValue(HP - 4.0);
         changeStats.setStat("global", 30, 0);
+        PerkEffects.hearty(p, false);
       }
       //Otherwise, hearty was off and we do nothing
     } else { //Hearty level is high enough to be active
       if (heartyToggle < 1) { //Hearty was off
         ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).setBaseValue(HP + 4.0);
         changeStats.setStat("global", 30, 1);
+        PerkEffects.hearty(p, true);
       }
       //Otherwise, hearty was on so we do nothing
     }
@@ -372,6 +378,7 @@ public class Defense extends Skill {
             dropItemNaturally(entity.getLocation().add(0, 0.5, 0), drop);
           }
         }
+        PerkEffects.bonusDrop(p, entity);
       }
     }
 
@@ -396,12 +403,14 @@ public class Defense extends Skill {
     }
     increaseStats.changeEXP(skillName, expMap.get("healerRegenActivate"));
     if (healerLevel < 4) {
+      PerkEffects.healer(p, false);
       return;
     }
     double maxHP = ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).getValue();
     int HP_to_add = (healerLevel - 3);
     p.setHealth(Math.min(maxHP, p.getHealth() + HP_to_add));
     increaseStats.changeEXP(skillName, expMap.get("healerHealActivate"));
+    PerkEffects.healer(p, true);
   }
 
   public void giveHitEXP(double damage, Entity entity) {

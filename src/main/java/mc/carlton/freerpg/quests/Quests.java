@@ -184,6 +184,7 @@ public final class Quests {
         if (QuestConfig.effectsEnabled()) {
           p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
         }
+        QuestEffects.allDone(p, QuestPeriod.DAILY);
       }
     }
   }
@@ -251,6 +252,7 @@ public final class Quests {
         Long last = lastActionBar.get(p.getUniqueId());
         if (last == null || now - last >= ACTION_BAR_GAP_MILLIS) {
           lastActionBar.put(p.getUniqueId(), now);
+          QuestEffects.progress(p, quest.progress(), quest.target());
           p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
               QuestMessages.text(p, "questActionBar", "quest", quest.name(), "progress",
                   String.valueOf(quest.progress()), "target", String.valueOf(quest.target()))));
@@ -261,6 +263,7 @@ public final class Quests {
         if (QuestConfig.effectsEnabled()) {
           p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.8f, 1.2f);
         }
+        QuestEffects.questDone(p);
       }
       case ALL_DONE -> {
         String key = switch (period) {
@@ -275,6 +278,7 @@ public final class Quests {
         if (QuestConfig.effectsEnabled()) {
           p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
         }
+        QuestEffects.allDone(p, period);
       }
     }
   }

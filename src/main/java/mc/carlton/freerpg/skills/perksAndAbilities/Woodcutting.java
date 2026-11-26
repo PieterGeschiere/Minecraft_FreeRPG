@@ -16,6 +16,7 @@ import mc.carlton.freerpg.core.info.server.PlacedBlocksManager;
 import mc.carlton.freerpg.core.info.server.WorldGuardChecks;
 import mc.carlton.freerpg.utils.game.ActionBarMessages;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.ExpMaps;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Bukkit;
@@ -204,6 +205,7 @@ public class Woodcutting extends Skill {
       }
     }
     damageTool(numLogs, configLoad.getDurabilityModifiers().get("timber"));
+    PerkEffects.timber(p, timberLogs);
     for (Block block : timberLogs) {
       Location blockLoc = block.getLocation();
       //Checks if any of the blocks weren't natural
@@ -223,6 +225,7 @@ public class Woodcutting extends Skill {
         double randomNum = rand.nextDouble();
         double doubleDropChance = doubleDropsLevel * 0.00025;
         if (doubleDropChance > randomNum) {
+          PerkEffects.bonusDrop(p, blockLoc);
           for (ItemStack drop : drops) {
             dropItemNaturally(blockLoc, drop);
           }
@@ -272,6 +275,7 @@ public class Woodcutting extends Skill {
     double chance = 0.0005 * doubleDropLevel;
     double randomNum = rand.nextDouble();
     if (chance > randomNum) {
+      PerkEffects.bonusDrop(p, block.getLocation());
       for (ItemStack stack : block.getDrops(itemInHand)) {
         dropItemNaturally(block.getLocation(), stack);
       }

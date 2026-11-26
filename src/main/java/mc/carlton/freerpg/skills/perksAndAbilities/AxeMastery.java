@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.utils.game.ExpFarmTracker;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Bukkit;
@@ -130,6 +131,7 @@ public class AxeMastery extends Skill {
       }
 
       Location location = entity.getLocation();
+      PerkEffects.axeSlam(location, radius);
       Block blockAboveGround = location.getBlock().getRelative(BlockFace.DOWN).getRelative(0, 1, 0);
       Collection<Entity> entities = world.getNearbyEntities(location, radius, 2, radius);
       for (Entity mob : entities) {
@@ -198,6 +200,7 @@ public class AxeMastery extends Skill {
       return multiplier;
     }
     multiplier = 1.25 + 0.35 * betterCritsLevel;
+    PerkEffects.divineCritical(p);
     return multiplier;
   }
 
@@ -210,6 +213,7 @@ public class AxeMastery extends Skill {
     if (revitalizedLevel * 0.01 > rand.nextDouble()) {
       double maxHP = ((Attributable) p).getAttribute(Attribute.MAX_HEALTH).getBaseValue();
       p.setHealth(maxHP);
+      PerkEffects.revitalized(p);
       increaseStats.changeEXP(skillName, expMap.get("revitalizedActivateEXP"));
     }
   }
@@ -230,6 +234,7 @@ public class AxeMastery extends Skill {
         p.removePotionEffect(PotionEffectType.STRENGTH);
       }
       p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, (int) duration, 0));
+      PerkEffects.warriorBlood(p);
     }
   }
 
@@ -248,6 +253,7 @@ public class AxeMastery extends Skill {
       int holyAxeLevel = (int) pStat.get(skillName).get(8);
       if (holyAxeLevel * 0.02 > rand.nextDouble()) {
         world.strikeLightning(entity.getLocation());
+        PerkEffects.holyAxe(entity);
         increaseStats.changeEXP(skillName, expMap.get("holyAxeActivateEXP"));
       }
     }

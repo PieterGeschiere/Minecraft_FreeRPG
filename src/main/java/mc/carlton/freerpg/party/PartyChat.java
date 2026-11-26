@@ -16,11 +16,13 @@ public final class PartyChat {
   public static void sendInvite(Player target, String inviter, String party) {
     PartyMessages.send(target, "partyInviteReceived", "player", inviter, "party", party);
     target.spigot().sendMessage(buttons(target, "/party accept " + party, "/party deny " + party));
+    PartyEffects.invited(target);
   }
 
   public static void sendTpaRequest(Player target, String requester) {
     PartyMessages.send(target, "partyTpaReceived", "player", requester);
     target.spigot().sendMessage(buttons(target, "/party tpaccept", "/party tpdeny"));
+    PartyEffects.requested(target);
   }
 
   private static BaseComponent buttons(Player p, String acceptCommand, String denyCommand) {

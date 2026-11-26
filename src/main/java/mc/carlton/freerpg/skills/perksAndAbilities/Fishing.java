@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.UUID;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.MinecraftVersion;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.game.PsuedoEnchanting;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
@@ -417,6 +418,7 @@ public class Fishing extends Skill {
                       }
                       p.addPotionEffect(
                           new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 15 * 20, 0));
+                      PerkEffects.fishPerson(p);
                     }
 
                     boolean addEffect2 = true;
@@ -1181,6 +1183,7 @@ public class Fishing extends Skill {
       }
       increaseStats.changeEXP(skillName,
           (int) Math.round(expMultiplier * expMap.get("catchTier2")));
+      PerkEffects.fishCatch(p, 2);
     } else if (roll < rollBrackets[4]) { //Rare Tier (3)
       double roll2 = rand.nextDouble();
       if (roll2 < 0.2) {
@@ -1220,6 +1223,7 @@ public class Fishing extends Skill {
       }
       increaseStats.changeEXP(skillName,
           (int) Math.round(expMultiplier * expMap.get("catchTier3")));
+      PerkEffects.fishCatch(p, 3);
     } else if (roll < rollBrackets[5]) { //Very Rare Tier (4)
       double roll2 = rand.nextDouble();
       if (roll2 < 0.233) {
@@ -1262,6 +1266,7 @@ public class Fishing extends Skill {
       }
       increaseStats.changeEXP(skillName,
           (int) Math.round(expMultiplier * expMap.get("catchTier4")));
+      PerkEffects.fishCatch(p, 4);
     } else if (roll < rollBrackets[6]) { //Legendary Tier (5)
       double roll2 = rand.nextDouble();
       if (roll2 < 0.1) {
@@ -1301,6 +1306,7 @@ public class Fishing extends Skill {
       }
       increaseStats.changeEXP(skillName,
           (int) Math.round(expMultiplier * expMap.get("catchTier5")));
+      PerkEffects.fishCatch(p, 5);
     } else { //fish roll
       double roll2 = rand.nextDouble();
       if (roll2 < .6) {

@@ -52,6 +52,10 @@ public class LogoutProcedure {
     //Ensures no items stay permanently altered from abilities
     preventLogoutTheft(disablePlugin);
 
+    //Forgets the cooldowns of the sound and particle effects of the player
+    mc.carlton.freerpg.utils.game.PerkEffects.forget(p.getUniqueId());
+    mc.carlton.freerpg.worldevents.WorldEventEffects.forget(p.getUniqueId());
+
     //Ends all tasks that track players' buffs gained from some skills
     Farming farmingClass = new Farming(p);
     farmingClass.oneWithNatureEnd();

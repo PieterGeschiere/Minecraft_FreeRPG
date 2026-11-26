@@ -3,6 +3,7 @@ package mc.carlton.freerpg.elites.affix;
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
 import mc.carlton.freerpg.elites.EliteData;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
@@ -46,6 +47,9 @@ public class Summoner implements Affix {
     }
     int count = minionsToSpawn(alive, (int) EliteConfig.affixDouble(id(), "minions", 2),
         (int) EliteConfig.affixDouble(id(), "maxAlive", 6));
+    if (count > 0) {
+      EliteEffects.summon(mob);
+    }
     for (int i = 0; i < count; i++) {
       Location where = mob.getLocation().add(Math.cos(i * 2.1) * 1.5, 0, Math.sin(i * 2.1) * 1.5);
       LivingEntity minion = AffixSupport.spawnMinion(mob, where);

@@ -1,6 +1,5 @@
 package mc.carlton.freerpg.core.info.player;
 
-import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.leaveAndJoin.LogoutProcedure;
 import mc.carlton.freerpg.events.gui.MaxPassiveLevels;
+import mc.carlton.freerpg.skills.SkillRegistry;
 import mc.carlton.freerpg.skills.perksAndAbilities.Agility;
 import mc.carlton.freerpg.skills.perksAndAbilities.Defense;
 import mc.carlton.freerpg.skills.perksAndAbilities.Farming;
@@ -226,7 +226,7 @@ public class ChangeStats {
         }
         if ((int) pGlobalStats.get(21) > 0 && !isSilent) { //Level Up Message Toggle Conditional
           if (gainedGlobalToken) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+            LevelCelebration.globalTokenCue(p);
             if (newTokens_G > 0 && extraGlobalTokens <= 0) {
               p.sendTitle(ChatColor.DARK_PURPLE + lang.getString("globalPassiveTitle0") + " " + "+"
                       + newTokens_G,
@@ -242,7 +242,7 @@ public class ChangeStats {
             }
           }
           if (newTokens_S > 0 || oldLevel < 3) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1, 1);
+            LevelCelebration.tokenCue(p);
             p.sendMessage(bars);
             p.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + sbSpace + levelUpMessage);
             if (newTokens_P > 0) {

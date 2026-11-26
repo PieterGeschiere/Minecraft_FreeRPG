@@ -8,6 +8,7 @@ import mc.carlton.freerpg.customContainers.collections.OldCustomRecipe;
 import mc.carlton.freerpg.events.newEvents.FrpgPlayerCraftItemEvent;
 import mc.carlton.freerpg.skills.perksAndAbilities.Defense;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.CraftingRecipes;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -71,6 +72,26 @@ public class PlayerCraft implements Listener {
 
   @EventHandler(priority = EventPriority.HIGH)
   void onPlayerCraft(CraftItemEvent e) {
+    boolean wasCancelled = e.isCancelled();
+    handleCraft(e);
+    if (wasCancelled || !(e.getWhoClicked() instanceof Player)) {
+      return;
+    }
+    Player crafter = (Player) e.getWhoClicked();
+    if (e.isCancelled()) {
+      PerkEffects.craftDenied(crafter);
+      return;
+    }
+    // eggs, enchanted books and potions cannot be crafted in vanilla: these are our recipes
+    ItemStack result = e.getRecipe().getResult();
+    String type = result.getType().name();
+    if (type.endsWith("_SPAWN_EGG") || result.getType() == Material.ENCHANTED_BOOK
+        || result.getType() == Material.POTION) {
+      PerkEffects.customCrafted(crafter);
+    }
+  }
+
+  private void handleCraft(CraftItemEvent e) {
     Player p = (Player) e.getWhoClicked();
     PlayerStats pStatClass = new PlayerStats(p);
     Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();

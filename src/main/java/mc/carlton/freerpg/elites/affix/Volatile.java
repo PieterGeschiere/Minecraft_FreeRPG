@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -33,6 +34,7 @@ public class Volatile implements Affix {
     }
     where.getWorld().spawnParticle(Particle.EXPLOSION, where, 1);
     where.getWorld().playSound(where, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
+    EliteEffects.volatileBlast(where, radius);
     for (Player player : where.getWorld().getPlayers()) {
       if (player.getLocation().distanceSquared(where) <= radius * radius) {
         player.damage(damage, mob);

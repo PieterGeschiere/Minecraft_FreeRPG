@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.PlacedBlocksManager;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Bukkit;
@@ -262,6 +263,7 @@ public class Farming extends Skill {
             block.setType(blockType);
             ((Ageable) block_data).setAge(randomAge);
             block.setBlockData(block_data);
+            PerkEffects.cropRegrow(block);
           }
         }.runTaskLater(plugin, 5);
       } else if (block_data instanceof Cocoa) {
@@ -319,6 +321,7 @@ public class Farming extends Skill {
         }
         dropItemNaturally(entity.getLocation().add(0, 0.25, 0), drop);
       }
+      PerkEffects.bonusDrop(p, entity);
     }
   }
 
@@ -340,6 +343,7 @@ public class Farming extends Skill {
       for (ItemStack drop : drops) {
         dropItemNaturally(block.getLocation(), drop);
       }
+      PerkEffects.bonusDrop(p, block.getLocation());
     }
   }
 
@@ -375,12 +379,14 @@ public class Farming extends Skill {
         totalNatural += 1;
         double randomNum = rand.nextDouble();
         if (doubleDropChance > randomNum) {
+          PerkEffects.bonusDrop(p, b.getLocation());
           for (ItemStack item : b.getDrops(itemInHand)) {
             dropItemNaturally(b.getLocation(), item);
           }
         }
       }
     }
+    PerkEffects.tallCrops(p, tallCropBlocks);
     switch (block.getType()) {
       case CACTUS:
         increaseStats.changeEXP(skillName, expMap.get("breakCactus"));
@@ -475,6 +481,7 @@ public class Farming extends Skill {
           double refundChance = betterFertilizerLevel * 0.1;
           if (refundChance > rand.nextDouble()) {
             itemInHand.setAmount(itemInHand.getAmount() + 1);
+            PerkEffects.fertilizerSaved(p, block);
           }
         }
       }
@@ -491,6 +498,7 @@ public class Farming extends Skill {
       int maxLevel = ((Levelled) data).getMaximumLevel();
       if (level == maxLevel) {
         increaseStats.changeEXP(skillName, expMap.get("useComposter"));
+        PerkEffects.composterFull(block);
       } else {
         new BukkitRunnable() {
           @Override
@@ -551,6 +559,7 @@ public class Farming extends Skill {
                         p.removePotionEffect(PotionEffectType.REGENERATION);
                       }
                       p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3 * 20, 0));
+                      PerkEffects.oneWithNature(p);
                     }
                   }
                 }
@@ -645,6 +654,7 @@ public class Farming extends Skill {
     int dropMultiplier = 1;
     if (doubleDropChance > rand.nextDouble()) {
       dropMultiplier = 2;
+      PerkEffects.bonusDrop(p, entity);
     }
     wool.setAmount(dropMultiplier);
     double woolRoll = rand.nextDouble();

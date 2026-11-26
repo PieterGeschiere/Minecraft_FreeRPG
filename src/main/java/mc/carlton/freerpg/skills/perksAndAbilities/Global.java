@@ -1,6 +1,5 @@
 package mc.carlton.freerpg.skills.perksAndAbilities;
 
-import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +9,8 @@ import java.util.Random;
 import java.util.UUID;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
+import mc.carlton.freerpg.skills.SkillRegistry;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Material;
@@ -136,6 +137,7 @@ public class Global extends Skill {
         pStatAll.get("global").set(20, souls + amountGained);
         statAll.put(uuid, pStatAll);
         pStatClass.setData(statAll);
+        PerkEffects.soulGained(p, entity, amountGained);
       }
     }
   }
@@ -152,6 +154,9 @@ public class Global extends Skill {
     pStatAll.get("global").set(20, souls - amountLost);
     statAll.put(uuid, pStatAll);
     pStatClass.setData(statAll);
+    if (amountLost > 0 && p.isOnline()) {
+      PerkEffects.soulsLost(p);
+    }
   }
 
   /** Gives souls. Unlike {@link #gainSoul}, this needs neither the Soul Harvest perk nor a kill. */
@@ -211,6 +216,9 @@ public class Global extends Skill {
       for (ItemStack savedDrop : savedDrops) {
         p.getInventory().addItem(savedDrop);
       }
+      if (!savedDrops.isEmpty()) {
+        PerkEffects.resurrection(p);
+      }
       playerSavedDrops.remove(p.getUniqueId());
     }
   }
@@ -232,6 +240,7 @@ public class Global extends Skill {
     for (PotionEffectType effect : positiveEffects) {
       p.addPotionEffect(new PotionEffect(effect, 10 * 20, 0));
     }
+    PerkEffects.avatar(p);
   }
 
 

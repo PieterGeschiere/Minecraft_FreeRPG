@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.utils.PotionTypes;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -70,6 +71,7 @@ public class Alchemy extends Skill {
 
         if (timer == 0) //Finished brewing item changes
         {
+          PerkEffects.brewDone(stand.getLocation());
           originalContents[3].setAmount(originalContents[3].getAmount() - 1);
           stand.getSnapshotInventory().setItem(3, originalContents[3]);
           PotionMeta outputMeta = (PotionMeta) output.getItemMeta();
@@ -211,6 +213,7 @@ public class Alchemy extends Skill {
 
         if (timer == 0) //Finished brewing item changes
         {
+          PerkEffects.brewDone(stand.getLocation());
           originalContents[3].setAmount(originalContents[3].getAmount() - 1);
           stand.getSnapshotInventory().setItem(3, originalContents[3]);
           for (int i = 0; i < 3; i++) {
@@ -357,12 +360,16 @@ public class Alchemy extends Skill {
               (int) Math.round(effect.getDuration() * durationMultiplier),
               effect.getAmplifier() + potionMasterLevel));
         }
+        PerkEffects.customPotion(p);
       } else {
         PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
         PotionType potionType = potionMeta.getBasePotionType();
         PotionEffect pEffect = potionToEffect(potionType);
         if (!pEffect.getType().equals(PotionEffectType.BAD_OMEN)) {
           p.addPotionEffect(pEffect);
+          if (potionMasterLevel > 0) {
+            PerkEffects.potionMaster(p);
+          }
         }
         if (PotionTypes.getBase(potionType) == PotionType.TURTLE_MASTER) {
           // Turtle Master gives Slowness alongside Resistance

@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -21,5 +22,6 @@ public class Armored implements Affix {
   @Override
   public void onDamaged(LivingEntity mob, EntityDamageEvent event) {
     event.setDamage(reduce(event.getDamage(), EliteConfig.affixDouble(id(), "reduction", 0.3)));
+    EliteEffects.armored(mob);
   }
 }

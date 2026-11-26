@@ -28,8 +28,8 @@ effects:
   # read here so that all effect switches are in one place.
   skillAbilitySounds: true     # Sounds when a main skill ability (Big Dig, Timber, ...) starts and ends
   skillAbilityParticles: true  # Burst, aura and puff of the main skill abilities
-  perkSounds: true             # Sounds of Grappling Hook, Super Bait, Rob, Vein Miner, Leaf Blower, Growth Hormones, Roll and Dodge
-  perkParticles: true          # Particles of those same perks
+  perkSounds: true             # Sounds of the perks (Grappling Hook, Vein Miner, Timber, treasure and double drops, Defense, Swordsmanship, Axe Mastery, Farming, Soul Harvest, ...) and of elite mobs
+  perkParticles: true          # Particles of those same perks and of elite mobs
 
 mace:
   skillAllowed: true           # Set to false to disable Mace Mastery completely

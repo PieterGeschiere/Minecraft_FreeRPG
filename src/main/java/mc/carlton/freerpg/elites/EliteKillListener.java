@@ -33,6 +33,12 @@ public class EliteKillListener implements Listener {
     }
   }
 
+  /** Every elite that dies gets a send off, whoever killed it. */
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  void onEliteDeathEffects(EntityDeathEvent e) {
+    EliteEffects.death(e.getEntity());
+  }
+
   @EventHandler(priority = EventPriority.HIGH)
   void onEliteDeath(EntityDeathEvent e) {
     LivingEntity mob = e.getEntity();
@@ -57,6 +63,7 @@ public class EliteKillListener implements Listener {
       e.getDrops().add(new ItemStack(drop.getKey(), drop.getValue()));
     }
     giveBonusExp(killer);
+    EliteEffects.rewarded(killer, mob);
   }
 
   private static void giveBonusExp(Player killer) {

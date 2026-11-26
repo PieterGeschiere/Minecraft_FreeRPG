@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
@@ -40,6 +41,7 @@ public class Swift implements Affix {
       Vector lunge = SwiftMath.lunge(mob.getLocation().toVector(),
           target.getLocation().toVector());
       mob.setVelocity(mob.getVelocity().add(lunge));
+      EliteEffects.swiftLunge(mob);
     }
   }
 }

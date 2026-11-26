@@ -27,9 +27,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public final class QuestMenu implements Listener {
 
   private static final int INFO_SLOT = 4;
-  private static final int WHEEL_SLOT = 22;
+  private static final int WHEEL_SLOT = 26;
   private static final int BACK_SLOT = BackButton.SLOT_SMALL;
-  private static final int[] TAB_SLOTS = {24, 25, 26};
   private static final int BAR_LENGTH = 10;
 
   /** Marks an inventory as the quest menu and remembers what each slot does. */
@@ -54,6 +53,15 @@ public final class QuestMenu implements Listener {
       case 5 -> new int[] {11, 12, 13, 14, 15};
       case 6 -> new int[] {10, 11, 12, 14, 15, 16};
       default -> new int[] {10, 11, 12, 13, 14, 15, 16};
+    };
+  }
+
+  /** The bottom row slots of the period tabs, centred between the back button and the wheel. */
+  static int[] tabSlotsFor(int count) {
+    return switch (count) {
+      case 0, 1 -> new int[] {22};
+      case 2 -> new int[] {21, 23};
+      default -> new int[] {21, 22, 23};
     };
   }
 
@@ -109,17 +117,24 @@ public final class QuestMenu implements Listener {
   /** One button per period that is turned on; the one being shown glows. */
   private static void addTabs(Player p, MenuHolder holder, QuestPeriod shown) {
     int tab = 0;
+    int enabled = 0;
     for (QuestPeriod period : QuestPeriod.values()) {
-      if (!QuestConfig.periodEnabled(period) || tab >= TAB_SLOTS.length) {
+      if (QuestConfig.periodEnabled(period)) {
+        enabled++;
+      }
+    }
+    int[] tabSlots = tabSlotsFor(enabled);
+    for (QuestPeriod period : QuestPeriod.values()) {
+      if (!QuestConfig.periodEnabled(period) || tab >= tabSlots.length) {
         continue;
       }
       boolean selected = period == shown;
-      holder.inventory.setItem(TAB_SLOTS[tab], item(tabIcon(period),
+      holder.inventory.setItem(tabSlots[tab], item(tabIcon(period),
           (selected ? "§a" : "§e") + QuestMessages.text(p, titleKey(period)),
           List.of(QuestMessages.text(p, selected ? "questTabSelected" : "questTabLore")),
           selected));
       if (!selected) {
-        holder.actions.put(TAB_SLOTS[tab], pl -> open(pl, period));
+        holder.actions.put(tabSlots[tab], pl -> open(pl, period));
       }
       tab++;
     }
@@ -162,7 +177,9 @@ public final class QuestMenu implements Listener {
   }
 
   private static String bar(ActiveQuest quest) {
-    int filled = (int) Math.round((double) quest.progress() / quest.target() * BAR_LENGTH);
+    // rounded down, so a quest that is not finished never shows a full bar
+    int filled = quest.done() ? BAR_LENGTH
+        : (int) Math.floor((double) quest.progress() / quest.target() * BAR_LENGTH);
     StringBuilder bar = new StringBuilder("§a");
     for (int i = 0; i < BAR_LENGTH; i++) {
       if (i == filled) {

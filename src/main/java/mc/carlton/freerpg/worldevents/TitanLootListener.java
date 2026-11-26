@@ -58,6 +58,7 @@ public final class TitanLootListener implements Listener {
     }
     e.getDrops().addAll(extra);
     giveBonusExp(killer);
+    WorldEventEffects.titanKill(killer, mob);
   }
 
   private static void giveBonusExp(Player killer) {

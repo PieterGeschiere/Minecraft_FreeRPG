@@ -1,6 +1,5 @@
 package mc.carlton.freerpg.quests;
 
-import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +7,7 @@ import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.ChangeStats;
 import mc.carlton.freerpg.party.XpShareGuard;
+import mc.carlton.freerpg.skills.SkillRegistry;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
 import mc.carlton.freerpg.weaponskills.WeaponSkill;
 import mc.carlton.freerpg.weaponskills.WeaponSkillConfig;
@@ -82,6 +82,7 @@ public final class PrizeGiver {
 
   /** Hands the prize to the player. A full inventory drops the book at their feet. */
   public static void give(Player p, WheelPrize prize) {
+    QuestEffects.prize(p, prize);
     switch (prize.kind()) {
       case BOOK -> {
         ItemStack book = book(prize);

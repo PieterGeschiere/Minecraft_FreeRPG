@@ -118,10 +118,12 @@ public final class GoldRushNoiseListener implements Listener {
         continue;
       }
       world.spawnEntity(spot, types.get(RANDOM.nextInt(types.size())));
+      WorldEventEffects.goldRushMob(spot);
       spawned++;
     }
     if (spawned > 0) {
       lastNoise.put(p.getUniqueId(), now);
+      WorldEventEffects.goldRushNoise(p);
     }
   }
 

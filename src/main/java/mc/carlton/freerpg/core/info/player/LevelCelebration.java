@@ -6,11 +6,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.entity.Firework;
-import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,6 +47,34 @@ public final class LevelCelebration {
   /** The very short sound of any level up. */
   public static void blip(Player p) {
     p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.6f, 1.4f);
+  }
+
+  /** A level up that earned a skill or passive token: a bright two note chime and a small ring. */
+  public static void tokenCue(Player p) {
+    Location at = p.getLocation();
+    p.playSound(at, Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
+    p.playSound(at, Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.8f, 1.5f);
+    ring(p, Particle.HAPPY_VILLAGER, 12);
+  }
+
+  /** A level up that earned a global token: a grander version of {@link #tokenCue}. */
+  public static void globalTokenCue(Player p) {
+    Location at = p.getLocation();
+    p.playSound(at, Sound.ENTITY_PLAYER_LEVELUP, 0.9f, 0.9f);
+    p.playSound(at, Sound.BLOCK_NOTE_BLOCK_CHIME, 0.9f, 1.4f);
+    p.playSound(at, Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.6f);
+    ring(p, Particle.WITCH, 16);
+  }
+
+  /** A short ring of particles around the player's feet that rises to the shoulders. */
+  private static void ring(Player p, Particle particle, int points) {
+    Location base = p.getLocation();
+    World world = p.getWorld();
+    for (int i = 0; i < points; i++) {
+      double angle = i * Math.PI * 2 / points;
+      world.spawnParticle(particle, base.getX() + Math.cos(angle) * 0.8,
+          base.getY() + 0.1 + (i % 4) * 0.4, base.getZ() + Math.sin(angle) * 0.8, 1, 0, 0, 0, 0);
+    }
   }
 
   /**

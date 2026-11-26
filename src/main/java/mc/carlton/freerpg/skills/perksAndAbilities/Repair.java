@@ -6,6 +6,7 @@ import java.util.Random;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.MinecraftVersion;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -109,6 +110,7 @@ public class Repair extends Skill {
             increaseStats.changeEXP(skillName,
                 enchantEXP + expToGive + (expRepairMultiplier * expDamage));
             p.getWorld().playEffect(p.getLocation(), Effect.ANVIL_USE, 1);
+            PerkEffects.repaired(p);
           }
         }
       }
@@ -151,6 +153,7 @@ public class Repair extends Skill {
     Map<Material, Integer> repairItemsAmount = itemGroups.getRepairItemsAmount();
     if (repairItemsAmount.containsKey(itemInHand.getType())) {
       p.getWorld().playEffect(p.getLocation(), Effect.ANVIL_USE, 1);
+      PerkEffects.salvaged(p);
       ItemMeta itemInHandMeta = itemInHand.getItemMeta();
       Material itemType = itemInHand.getType();
       int amount = repairItemsAmount.get(itemType);
@@ -413,6 +416,7 @@ public class Repair extends Skill {
     }
     if (sucessChance < rand.nextDouble()) {
       actionMessage.sendMessage(ChatColor.RED + lang.getString("repairFail2"));
+      PerkEffects.repairFailed(p);
       Map<Enchantment, Integer> enchantments = itemInHand.getEnchantments();
       for (Enchantment enchantment : enchantments.keySet()) {
         int level = enchantments.get(enchantment);
@@ -422,6 +426,7 @@ public class Repair extends Skill {
         }
       }
     } else {
+      PerkEffects.magicRepair(p);
       return 1000;
     }
     return 0;

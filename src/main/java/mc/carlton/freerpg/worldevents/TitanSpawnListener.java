@@ -109,5 +109,6 @@ public final class TitanSpawnListener implements Listener {
       mob.setHealth(health.getValue());
     }
     mob.setMetadata(TITAN_TAG, new FixedMetadataValue(FreeRPG.getPlugin(FreeRPG.class), size));
+    WorldEventEffects.titanSpawn(mob);
   }
 }

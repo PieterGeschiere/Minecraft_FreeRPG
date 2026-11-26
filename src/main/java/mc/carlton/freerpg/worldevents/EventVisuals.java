@@ -47,11 +47,21 @@ public final class EventVisuals {
         }
         updateBar(player, event, logic);
         logic.decorate(player, event);
+        if (WorldEventConfig.effect(event.type(), "sound", true)) {
+          WorldEventEffects.countdown(player, WorldEventManager.ticksLeft(event) / 20);
+        }
       }
     }
+    boolean eventRunning = current.isPresent();
     for (UUID id : new ArrayList<>(SHOWN.keySet())) {
       if (!keep.contains(id)) {
-        clear(id, SHOWN.remove(id));
+        WorldEventType shown = SHOWN.remove(id);
+        Player leaving = Bukkit.getPlayer(id);
+        if (!eventRunning && leaving != null && shown != null
+            && WorldEventConfig.effect(shown, "sound", true)) {
+          WorldEventEffects.ended(leaving);
+        }
+        clear(id, shown);
       }
     }
   }

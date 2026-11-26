@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.LivingEntity;
@@ -29,5 +30,8 @@ public class Vampiric implements Affix {
     double fraction = EliteConfig.affixDouble(id(), "healFraction", 0.5);
     double heal = healAmount(event.getFinalDamage(), fraction, max.getValue() - mob.getHealth());
     mob.setHealth(Math.min(max.getValue(), mob.getHealth() + heal));
+    if (heal > 0.0) {
+      EliteEffects.vampiric(mob, victim);
+    }
   }
 }

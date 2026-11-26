@@ -111,11 +111,13 @@ public class ConfirmationGUIClick implements Listener {
 
             //Refund the skill tree
             refundStat.refundSkillTree(skillName);
+            GuiSounds.refund(p);
 
             //Remove the souls
             Global globalClass = new Global(p);
             globalClass.loseSouls(refundCost);
           } else {
+            GuiSounds.deny(p);
             LanguageSelector langManager = new LanguageSelector(p);
             String refundCostString = Integer.toString(refundCost);
             p.sendMessage(
@@ -125,6 +127,7 @@ public class ConfirmationGUIClick implements Listener {
           p.performCommand("frpg skillTreeGUI " + skillName);
         } else if (e.getCurrentItem().getType() == Material.RED_TERRACOTTA
             || e.getCurrentItem().getType() == Material.ARROW) {
+          GuiSounds.cancel(p);
           p.performCommand("frpg skillTreeGUI " + skillName);
         }
       }

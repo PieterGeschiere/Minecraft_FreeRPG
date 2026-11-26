@@ -80,6 +80,7 @@ public final class BonusDropListener implements Listener {
     for (Item item : e.getItems()) {
       if (EventRules.rollStart(chance, RANDOM)) {
         e.getBlock().getWorld().dropItemNaturally(at, item.getItemStack().clone());
+        mc.carlton.freerpg.utils.game.PerkEffects.bonusDrop(e.getPlayer(), e.getBlock().getLocation());
       }
     }
   }

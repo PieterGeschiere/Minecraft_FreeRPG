@@ -54,6 +54,7 @@ public final class FestivalListener implements Listener {
     }
     FestivalScores scores = event.state();
     scores.add(p.getUniqueId(), points);
+    WorldEventEffects.festivalCatch(p, points);
     p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
         WorldEventMessages.text(p, "worldEventFestivalCatch", "points", String.valueOf(points),
             "score", String.valueOf(scores.score(p.getUniqueId())))));

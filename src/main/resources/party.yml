@@ -4,6 +4,9 @@
 # Maximum number of members in one party
 maxSize: 5
 
+# Small sounds for invites, requests, joins, leaves, promotions and a party ending
+notificationSounds: true
+
 # Seconds an invite stays valid
 inviteExpirySeconds: 60
 

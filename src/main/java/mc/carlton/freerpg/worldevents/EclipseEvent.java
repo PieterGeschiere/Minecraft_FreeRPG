@@ -24,6 +24,11 @@ public final class EclipseEvent implements WorldEvent {
   }
 
   @Override
+  public void decorate(org.bukkit.entity.Player player, ActiveEvent event) {
+    WorldEventEffects.eclipseAmbience(player);
+  }
+
+  @Override
   public Sound announceSound() {
     return Sound.ENTITY_ENDERMAN_STARE;
   }

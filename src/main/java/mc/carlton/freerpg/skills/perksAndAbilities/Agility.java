@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import org.apache.logging.log4j.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -81,6 +82,7 @@ public class Agility extends Skill {
     if (gracefulFeetLevel > 0 && gracefulFeetToggle > 0) {
       if (p.getPotionEffect(PotionEffectType.SPEED) == null) {
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 20, 0));
+        PerkEffects.gracefulFeet(p, true);
       }
       int natureID = new BukkitRunnable() {
         @Override
@@ -116,6 +118,7 @@ public class Agility extends Skill {
           if (p.hasPotionEffect(PotionEffectType.SPEED)) {
             if (p.getPotionEffect(PotionEffectType.SPEED).getAmplifier() < 1) {
               p.removePotionEffect(PotionEffectType.SPEED);
+              PerkEffects.gracefulFeet(p, false);
             }
           }
         }

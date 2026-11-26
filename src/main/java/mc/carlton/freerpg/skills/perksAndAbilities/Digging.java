@@ -9,6 +9,7 @@ import java.util.Random;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.WorldGuardChecks;
 import mc.carlton.freerpg.utils.game.BlockFaceTracker;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.game.TrackItem;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Bukkit;
@@ -157,6 +158,7 @@ public class Digging extends Skill {
     BlockFace blockFace = blockFaceTracker.getBlockface(p);
     Vector normalVector = blockFace.getDirection();
     ConfigLoad configLoad = new ConfigLoad();
+    int dugBlocks = 0;
     for (int x = -1; x <= 1; x++) {
       for (int y = -1; y <= 1; y++) {
         for (int z = -1; z <= 1; z++) {
@@ -181,11 +183,16 @@ public class Digging extends Skill {
                 dropItemNaturally(blockLocation, stack);
               }
               diggingTreasureDrop(world, blockLocation, blockType);
+              PerkEffects.megaDigBlock(planeBlock);
+              dugBlocks++;
               planeBlock.setType(Material.AIR);
             }
           }
         }
       }
+    }
+    if (dugBlocks > 0) {
+      PerkEffects.megaDigDone(p);
     }
   }
 
@@ -317,6 +324,9 @@ public class Digging extends Skill {
       boolean doubleDrop = false;
       if (doubleTreasureChance > randomNum2) {
         doubleDrop = true;
+      }
+      if (i == 0) {
+        PerkEffects.treasure(p, loc, randomNum >= rateSums[8] + 1e-9 && rateSums[8] < 0.999);
       }
 
       if (randomNum < rateSums[0]) {

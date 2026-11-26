@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
@@ -28,6 +29,7 @@ public class Splitting implements Affix {
 
   @Override
   public void onDeath(LivingEntity mob, EntityDeathEvent event) {
+    EliteEffects.splitting(mob);
     int copies = childCount((int) EliteConfig.affixDouble(id(), "copies", 2));
     double fraction = Math.max(0.05, EliteConfig.affixDouble(id(), "healthFraction", 0.25));
     for (int i = 0; i < copies; i++) {

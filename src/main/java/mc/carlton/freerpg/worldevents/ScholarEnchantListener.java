@@ -35,6 +35,7 @@ public final class ScholarEnchantListener implements Listener {
         return;
       }
       player.giveExpLevels(refund);
+      WorldEventEffects.scholarRefund(player);
       player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
           WorldEventMessages.text(player, "worldEventScholarRefund", "levels",
               String.valueOf(refund))));

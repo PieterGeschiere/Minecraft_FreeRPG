@@ -73,6 +73,7 @@ public final class MutatorNightEvent implements WorldEvent {
       if (!event.appliesTo(player.getWorld())) {
         continue;
       }
+      WorldEventEffects.mutatorReveal(player, state.all());
       player.sendMessage(WorldEventMessages.text(player, "worldEventMutatorList"));
       for (Mutator mutator : state.all()) {
         player.sendMessage(WorldEventMessages.text(player, "worldEventMutatorEntry", "name",

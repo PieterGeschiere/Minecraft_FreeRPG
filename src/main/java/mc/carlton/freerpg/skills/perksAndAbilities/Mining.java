@@ -12,6 +12,7 @@ import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.server.MinecraftVersion;
 import mc.carlton.freerpg.core.info.server.PlacedBlocksManager;
 import mc.carlton.freerpg.core.info.server.WorldGuardChecks;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.game.TrackItem;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.bukkit.Bukkit;
@@ -143,6 +144,7 @@ public class Mining extends Skill {
     double power0 = 4 + blastRadiusLevel * 0.5;
     float power = (float) power0;
     tnt.setFuseTicks(41);
+    PerkEffects.tntLit(tnt.getLocation());
     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
       @Override
       public void run() {
@@ -181,6 +183,7 @@ public class Mining extends Skill {
             }
           }
           tnt.getWorld().createExplosion(tntLoc, power, false, true);
+          PerkEffects.tntBlast(tntLoc);
           tnt.remove();
           //Check blocks around the tnt, see if they even will explode
           Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
@@ -216,6 +219,7 @@ public class Mining extends Skill {
     double randomNum = rand.nextDouble();
     if (treasureChance > randomNum) {
       double randomNum2 = rand.nextDouble();
+      PerkEffects.treasure(p, loc.getBlock().getLocation(), randomNum2 >= 0.85);
       if (randomNum2 < 0.5) {
         world.dropItemNaturally(loc, new ItemStack(Material.COAL, 1));
         increaseStats.changeEXP(skillName, expMap.get("breakCoal_Ore"));
@@ -322,6 +326,7 @@ public class Mining extends Skill {
     double chance = 0.0005 * doubleDropLevel;
     double randomNum = rand.nextDouble();
     if (chance > randomNum) {
+      PerkEffects.bonusDrop(p, block.getLocation());
       for (ItemStack stack : block.getDrops(itemInHand)) {
         dropItemNaturally(block.getLocation(), stack);
         if ((int) pStat.get(skillName).get(13) > 0) {

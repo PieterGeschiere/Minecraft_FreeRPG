@@ -86,6 +86,11 @@ public final class PartyConfig {
     return config.getBoolean("tpa.effects.enabled", true);
   }
 
+  /** Sounds for invites, requests, joins, leaves and promotions. */
+  public static boolean notificationSounds() {
+    return config.getBoolean("notificationSounds", true);
+  }
+
   public static String effectParticle() {
     return config.getString("tpa.effects.particle", "PORTAL");
   }

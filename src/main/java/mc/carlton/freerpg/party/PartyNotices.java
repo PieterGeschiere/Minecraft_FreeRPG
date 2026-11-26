@@ -71,6 +71,7 @@ public final class PartyNotices {
   }
 
   public static void handle(PartyEvent e) {
+    PartyEffects.event(e);
     Party party = e.party();
     String partyName = party.name();
     String actor = nameOf(e.actor(), party);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import mc.carlton.freerpg.config.ConfigLoad;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.game.PsuedoEnchanting;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -74,6 +75,7 @@ public class Enchanting extends Skill {
     int level0 = originalOffers[buttonClicked].getEnchantmentLevel();
     int cost0 = originalOffers[buttonClicked].getCost();
     increaseStats.changeEXP(skillName, expMap.get("enchantItem_EXPperLevelOfCost") * cost0);
+    PerkEffects.enchanted(p);
     new BukkitRunnable() {
       @Override
       public void run() {

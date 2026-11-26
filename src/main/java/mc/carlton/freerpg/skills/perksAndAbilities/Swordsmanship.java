@@ -13,6 +13,7 @@ import mc.carlton.freerpg.core.info.player.PlayerStats;
 import mc.carlton.freerpg.utils.game.ActionBarMessages;
 import mc.carlton.freerpg.utils.game.ExpFarmTracker;
 import mc.carlton.freerpg.utils.game.LanguageSelector;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.game.TrackItem;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
@@ -196,6 +197,7 @@ public class Swordsmanship extends Skill {
     p.setFoodLevel(Math.min(foodLevel + 2, 20));
     p.setSaturation(Math.min(saturation + 2, p.getFoodLevel()));
     increaseStats.changeEXP(skillName, expMap.get("thirstForBloodActivate"));
+    PerkEffects.thirstForBlood(p);
   }
 
   public void doubleHit(Entity entity, double damage) {
@@ -233,6 +235,7 @@ public class Swordsmanship extends Skill {
             }
             aliveEntity.setVelocity(knockback.multiply(multiplier));
             aliveEntity.setNoDamageTicks(20);
+            PerkEffects.doubleHit(aliveEntity);
 
           }
         }
@@ -273,6 +276,7 @@ public class Swordsmanship extends Skill {
 
     applyKillBuff(PotionEffectType.SPEED, totalSpeedTime, speedIItime, speedItime);
     applyKillBuff(PotionEffectType.STRENGTH, totalStrengthtime, strengthIItime, strengthItime);
+    PerkEffects.killBuff(p);
   }
 
   /**

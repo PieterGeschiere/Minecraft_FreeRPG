@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -49,5 +50,6 @@ public class Teleporter implements Affix {
     mob.getWorld().spawnParticle(Particle.CLOUD, from.clone().add(0, 1, 0), 12, 0.3, 0.5, 0.3, 0.02);
     mob.teleport(spot);
     mob.getWorld().playSound(spot, Sound.ENTITY_ENDERMAN_TELEPORT, 0.8f, 1.2f);
+    EliteEffects.blinkArrival(spot);
   }
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 import mc.carlton.freerpg.FreeRPG;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.utils.game.FurnaceUserTracker;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.ExpMaps;
 import mc.carlton.freerpg.utils.globalVariables.ItemGroups;
 import org.apache.logging.log4j.Level;
@@ -87,6 +88,7 @@ public class Smelting extends Skill {
             if (finalDoubleSmelt) {
               int resultAmount = result.getAmount();
               result.setAmount(Math.min(64, resultAmount + 1));
+              PerkEffects.doubleSmelt(furnaceLoc);
             }
             furnaceInventory.setResult(result);
           }
@@ -186,7 +188,7 @@ public class Smelting extends Skill {
     if (chanceDoubleSmelt > rand.nextDouble()) {
       dropAmount *= 2;
     }
-    world.spawnParticle(Particle.FLAME, block.getLocation(), 5);
+    PerkEffects.flamePick(block, dropAmount > 1);
     block.setType(Material.AIR);
     ConfigLoad configLoad = new ConfigLoad();
     damageTool(configLoad.getDurabilityModifiers().get("flamePick"));

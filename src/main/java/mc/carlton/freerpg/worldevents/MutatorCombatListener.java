@@ -90,6 +90,7 @@ public final class MutatorCombatListener implements Listener {
       // no fire and no block damage: it only hurts whoever stands too close
       mob.getWorld().createExplosion(at, (float) Mutator.EXPLODING_LOOT.number("power", 1.5),
           false, false);
+      WorldEventEffects.explodingLoot(mob);
     }
   }
 

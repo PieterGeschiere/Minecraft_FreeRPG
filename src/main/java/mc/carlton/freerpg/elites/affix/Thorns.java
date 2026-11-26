@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -27,6 +28,7 @@ public class Thorns implements Affix {
       double back = reflected(event.getDamage(), EliteConfig.affixDouble(id(), "reflect", 0.25));
       if (back > 0.0) {
         attacker.damage(back, mob);
+        EliteEffects.thorns(mob, attacker);
       }
     }
   }

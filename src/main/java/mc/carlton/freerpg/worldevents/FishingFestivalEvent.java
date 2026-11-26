@@ -82,6 +82,7 @@ public final class FishingFestivalEvent implements WorldEvent {
   private static void pay(Player player, FestivalRewards.Payout payout) {
     new Global(player).addSouls(payout.souls());
     player.giveExp(payout.minecraftExp());
+    WorldEventEffects.festivalPayout(player, payout.bonusSpins() > 0);
     XpShareGuard.share(() -> new ChangeStats(player).changeEXP("fishing", payout.fishingExp()));
     if (payout.bonusSpins() > 0 && Quests.bonusSpins() != null) {
       Quests.bonusSpins().add(payout.player(), payout.bonusSpins());

@@ -2,6 +2,7 @@ package mc.carlton.freerpg.elites.affix;
 
 import mc.carlton.freerpg.elites.Affix;
 import mc.carlton.freerpg.elites.EliteConfig;
+import mc.carlton.freerpg.elites.EliteEffects;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
@@ -19,5 +20,6 @@ public class Frostbound implements Affix {
   public void onHit(LivingEntity mob, LivingEntity victim, EntityDamageByEntityEvent event) {
     int ticks = (int) (EliteConfig.affixDouble(id(), "seconds", 3) * 20);
     victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, ticks, 1));
+    EliteEffects.frostbound(victim);
   }
 }

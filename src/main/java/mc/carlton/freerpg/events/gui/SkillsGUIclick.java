@@ -1,6 +1,5 @@
 package mc.carlton.freerpg.events.gui;
 
-import mc.carlton.freerpg.skills.SkillRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.core.info.player.PlayerStats;
+import mc.carlton.freerpg.skills.SkillRegistry;
 import mc.carlton.freerpg.skills.perksAndAbilities.Agility;
 import mc.carlton.freerpg.skills.perksAndAbilities.Defense;
 import mc.carlton.freerpg.skills.perksAndAbilities.Farming;
@@ -78,9 +78,11 @@ public class SkillsGUIclick implements Listener {
                 ConfigLoad loadConfig = new ConfigLoad();
                 ArrayList<Integer> soulsInfo = loadConfig.getSoulsInfo();
                 String refundCost = Integer.toString(soulsInfo.get(1));
+                GuiSounds.deny(p);
                 p.sendMessage(
                     ChatColor.RED + refundCost + " " + langManager.getString("refundSkill"));
               } else {
+                GuiSounds.deny(p);
                 p.sendMessage(
                     ChatColor.RED + langManager.getString("needToUnlock") + " " + ChatColor.BOLD
                         + langManager.getString("globalPerkTitle7") + ChatColor.RESET
@@ -91,8 +93,10 @@ public class SkillsGUIclick implements Listener {
           case RED_TERRACOTTA:
             if (e.getSlot() == 13 || e.getSlot() == 31 || e.getSlot() == 7 || e.getSlot() == 43
                 || e.getSlot() == 20 || e.getSlot() == 23) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("perkRequirement"));
             } else if (e.getSlot() == 26) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("perkRequirementM"));
             }
             break;
@@ -100,6 +104,7 @@ public class SkillsGUIclick implements Listener {
           case YELLOW_TERRACOTTA:
             if (pStats.get(3).intValue() > 0) {
               pStats.set(3, pStats.get(3).intValue() - 1);
+              GuiSounds.upgrade(p);
               switch (e.getSlot()) {
                 case 20:
                 case 11:
@@ -154,12 +159,14 @@ public class SkillsGUIclick implements Listener {
               statAll.put(uuid, pStatAll);
               pStatClass.setData(statAll);
             } else {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("noSkillTokens"));
             }
             p.performCommand("frpg skillTreeGUI " + skillName);
             break;
 
           case GREEN_TERRACOTTA:
+            GuiSounds.deny(p);
             p.sendMessage(ChatColor.RED + langManager.getString("maxedOutPerk"));
             break;
           case RED_DYE:
@@ -169,6 +176,7 @@ public class SkillsGUIclick implements Listener {
               statAll.put(uuid, pStatAll);
               pStatClass.setData(statAll);
             } else {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("noPassiveTokens"));
             }
 
@@ -178,6 +186,7 @@ public class SkillsGUIclick implements Listener {
             int maxLevel2 = passiveMax.findMaxLevel(skillName, 2);
             int currentLevel2 = pStats.get(5).intValue();
             if (currentLevel2 >= maxLevel2) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("maxedOutPerk"));
             } else {
               if (passiveTokens > 0) {
@@ -186,6 +195,7 @@ public class SkillsGUIclick implements Listener {
                 statAll.put(uuid, pStatAll);
                 pStatClass.setData(statAll);
               } else {
+                GuiSounds.deny(p);
                 p.sendMessage(ChatColor.RED + langManager.getString("noPassiveTokens"));
               }
             }
@@ -195,6 +205,7 @@ public class SkillsGUIclick implements Listener {
             int maxLevel3 = passiveMax.findMaxLevel(skillName, 3);
             int currentLevel3 = pStats.get(6).intValue();
             if (currentLevel3 >= maxLevel3) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("maxedOutPerk"));
             } else {
               if (passiveTokens > 0) {
@@ -203,6 +214,7 @@ public class SkillsGUIclick implements Listener {
                 statAll.put(uuid, pStatAll);
                 pStatClass.setData(statAll);
               } else {
+                GuiSounds.deny(p);
                 p.sendMessage(ChatColor.RED + langManager.getString("noPassiveTokens"));
               }
             }
@@ -317,21 +329,26 @@ public class SkillsGUIclick implements Listener {
             break;
           case RED_TERRACOTTA:
             if (e.getSlot() == 3 || e.getSlot() == 21 || e.getSlot() == 39) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("requiredGlobalPerks0"));
             } else if (e.getSlot() == 24) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("globalPerkTitle3") + ", "
                   + langManager.getString("globalPerkTitle4") + ", " + langManager.getString(
                   "globalPerkTitle5") + " " + langManager.getString("requiredGlobalPerks1"));
             } else if (e.getSlot() == 6 || e.getSlot() == 42) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("globalPerkTitle7") + " "
                   + langManager.getString("requiredGlobalPerks2"));
             } else if (e.getSlot() == 26) {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("requiredGlobalPerks3"));
             }
             break;
           case PINK_TERRACOTTA:
             if (pStats.get(1).intValue() > 0) {
               pStats.set(1, pStats.get(1).intValue() - 1);
+              GuiSounds.upgrade(p);
               switch (e.getSlot()) {
                 case 1:
                   pStats.set(2, pStats.get(2).intValue() + 1);
@@ -380,12 +397,14 @@ public class SkillsGUIclick implements Listener {
               statAll.put(p.getUniqueId(), pStatAll);
               pStatClass.setData(statAll);
             } else {
+              GuiSounds.deny(p);
               p.sendMessage(ChatColor.RED + langManager.getString("noSkillTokens"));
             }
             p.performCommand("frpg skillTreeGUI " + skillName);
             break;
 
           case GREEN_TERRACOTTA:
+            GuiSounds.deny(p);
             p.sendMessage(ChatColor.RED + langManager.getString("maxedOutPerk"));
             break;
 
@@ -419,6 +438,9 @@ public class SkillsGUIclick implements Listener {
       investment = maxPassiveLevel - currentPassiveSkillLevel;
     }
     pStats.set(2, passiveTokens - investment);
+    if (investment > 0) {
+      GuiSounds.upgrade((Player) e.getWhoClicked());
+    }
     pStats.set(passiveSkillIndex, pStats.get(passiveSkillIndex).intValue() + investment);
   }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import mc.carlton.freerpg.config.ConfigLoad;
 import mc.carlton.freerpg.utils.game.ExpFarmTracker;
 import mc.carlton.freerpg.utils.game.HorseRiding;
+import mc.carlton.freerpg.utils.game.PerkEffects;
 import mc.carlton.freerpg.utils.globalVariables.EntityGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -157,6 +158,7 @@ public class BeastMastery extends Skill {
       Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
       int identifyLevel = (int) pStat.get(skillName).get(12);
       if (identifyLevel > 0) {
+        PerkEffects.inspect(p, entity);
         double maxHealth = ((Attributable) animal).getAttribute(Attribute.MAX_HEALTH)
             .getBaseValue();
         double speed = ((Attributable) animal).getAttribute(Attribute.MOVEMENT_SPEED)
@@ -218,6 +220,7 @@ public class BeastMastery extends Skill {
     } else if (entity.getType() == EntityType.WOLF) {
       Tameable dog = (Tameable) entity;
       if (dog.isTamed()) {
+        PerkEffects.inspect(p, entity);
         Map<String, ArrayList<Number>> pStat = pStatClass.getPlayerData();
         int sharpTeethLevel = (int) pStat.get(skillName).get(8);
         double damageBoost = sharpTeethLevel * 2 / 10.0d + 2.0;
@@ -255,6 +258,7 @@ public class BeastMastery extends Skill {
     if (!runMethods) {
       return;
     }
+    PerkEffects.tamed(p, entity);
     if (entity.getType() == EntityType.HORSE || entity.getType() == EntityType.DONKEY
         || entity.getType() == EntityType.MULE || entity.getType() == EntityType.LLAMA) {
       increaseStats.changeEXP(skillName, expMap.get("tameHorse"));
@@ -307,6 +311,7 @@ public class BeastMastery extends Skill {
                       && waterCheck2.getType() != Material.WATER) { //Prevents water afk machines
                     increaseStats.changeEXP(skillName,
                         expMap.get("horseRiding_EXPperSecondMoving") * 5);
+                    PerkEffects.riding(entity);
                   }
                 }
               }
@@ -337,7 +342,7 @@ public class BeastMastery extends Skill {
     }
     EntityGroups entityGroups = new EntityGroups();
     entityGroups.killEntity(entity, skillName, expMap, increaseStats);
-
+    PerkEffects.dogKill(p, entity);
   }
 
   public void giveHitEXP(double finalDamage, Entity entity) {
