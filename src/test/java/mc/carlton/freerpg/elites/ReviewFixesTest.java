@@ -26,23 +26,8 @@ class ReviewFixesTest {
     assertFalse(AffixListener.canAct(false, true, 0.0));
   }
 
-  // Finding 3: a Blood Moon must end when time jumps back, or after a day of server time
-  @Test
-  void bloodMoonEndsAtItsEndTime() {
-    assertFalse(BloodMoonManager.shouldEnd(14000, 13000, 23000, 10));
-    assertTrue(BloodMoonManager.shouldEnd(23000, 13000, 23000, 10));
-  }
-
-  @Test
-  void bloodMoonEndsWhenTimeGoesBackwards() {
-    assertTrue(BloodMoonManager.shouldEnd(1000, 500000, 510000, 10));
-  }
-
-  @Test
-  void bloodMoonEndsAfterADayOfServerTimeEvenWhenTimeIsFrozen() {
-    assertFalse(BloodMoonManager.shouldEnd(13000, 13000, 23000, 2399));
-    assertTrue(BloodMoonManager.shouldEnd(13000, 13000, 23000, 2400));
-  }
+  // Finding 3 (a Blood Moon ends when time jumps back or after a day of server time) is now
+  // covered for every world event by worldevents.EventRulesTest.
 
   // Finding 4: the red edge must not be a wall the player can see or reach
   @Test

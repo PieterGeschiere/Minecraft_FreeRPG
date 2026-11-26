@@ -140,7 +140,7 @@ public class CustomPotion extends CustomItem {
     stringValue += "Static Enchantments: {";
     int counter = 0;
     for (Enchantment enchantment : enchantments.keySet()) {
-      stringValue += enchantment.getKeyOrThrow().getKey() + "-" + enchantments.get(enchantment).toString();
+      stringValue += ((org.bukkit.Keyed) enchantment).getKey().getKey() + "-" + enchantments.get(enchantment).toString();
       counter += 1;
       if (counter < enchantments.size()) {
         stringValue += ", ";

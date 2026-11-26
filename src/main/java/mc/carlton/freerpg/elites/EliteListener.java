@@ -19,7 +19,7 @@ public class EliteListener implements Listener {
     boolean eligible = EliteRoller.eligible(e.getSpawnReason(), mob instanceof Monster,
         mob.getType(), mob.hasMetadata("frpgSpawnerMob"), EliteConfig.excludedTypes());
     if (eligible && !EliteData.isMinion(mob)) {
-      EliteManager.tryMakeElite(mob, BloodMoonManager.isActive(mob.getWorld()));
+      EliteManager.tryMakeElite(mob, mc.carlton.freerpg.worldevents.WorldEvents.isActive(mc.carlton.freerpg.worldevents.WorldEventType.BLOOD_MOON, mob.getWorld()));
     }
   }
 

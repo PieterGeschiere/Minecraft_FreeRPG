@@ -21,7 +21,7 @@ public class BloodMoonListener implements Listener {
   @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
   void onSpawn(CreatureSpawnEvent e) {
     LivingEntity mob = e.getEntity();
-    if (!(mob instanceof Monster) || !BloodMoonManager.isActive(mob.getWorld())
+    if (!(mob instanceof Monster) || !mc.carlton.freerpg.worldevents.WorldEvents.isActive(mc.carlton.freerpg.worldevents.WorldEventType.BLOOD_MOON, mob.getWorld())
         || !EliteRoller.eligible(e.getSpawnReason(), true, mob.getType(),
             mob.hasMetadata("frpgSpawnerMob"), EliteConfig.excludedTypes())) {
       return;

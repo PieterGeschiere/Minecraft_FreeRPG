@@ -238,7 +238,7 @@ public class PsuedoEnchanting {
 
   public void printInfo() {
     for (Enchantment enchant : enchantmentWeightMap.keySet()) {
-      FreeRPG.log(Level.INFO, String.valueOf(enchant.getKeyOrThrow()));
+      FreeRPG.log(Level.INFO, String.valueOf(((org.bukkit.Keyed) enchant).getKey()));
     }
   }
 

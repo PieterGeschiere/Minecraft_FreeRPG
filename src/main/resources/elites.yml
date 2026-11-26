@@ -17,6 +17,11 @@ damageMultiplier: 1.5
 # How much bigger an elite looks (1.25 = a quarter bigger, 1.0 = normal size, at most 2.0)
 sizeScale: 1.25
 
+# Bigger mobs (elites and Titans) with a bow aim straight at you and miss by about this many
+# degrees (a normal skeleton misses by about 10 on easy, 6 on normal and 2 on hard).
+# -1 switches this off.
+bigShooterAim: 2.0
+
 # The most elites in one chunk. At the limit no new elites spawn there.
 chunkCap: 20
 

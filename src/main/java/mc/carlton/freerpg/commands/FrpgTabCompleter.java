@@ -87,12 +87,29 @@ public class FrpgTabCompleter implements TabCompleter {
         allowed.add("elites"); // elite mob administration
         allowed.add("bloodmoon");
       }
+      if (sender.hasPermission("freerpg.events.admin")) {
+        allowed.add("event"); // world event administration
+      }
       return filter(allowed, args[0]);
     }
 
     String sub = args[0].toLowerCase(Locale.ROOT);
     String last = args[args.length - 1];
     switch (sub) {
+      case "event":
+        if (!sender.hasPermission("freerpg.events.admin")) {
+          return new ArrayList<>();
+        }
+        if (args.length == 2) {
+          return filter(java.util.List.of("start", "stop", "status", "list"), last);
+        }
+        if (args.length == 3 && args[1].equalsIgnoreCase("start")) {
+          return filter(mc.carlton.freerpg.worldevents.WorldEventCommands.typeNames(), last);
+        }
+        if (args.length == 4 && args[1].equalsIgnoreCase("start")) {
+          return filter(mc.carlton.freerpg.worldevents.WorldEventCommands.worldNames(), last);
+        }
+        return new ArrayList<>();
       case "bloodmoon":
         if (!sender.hasPermission("freerpg.elites.admin")) {
           return new ArrayList<>();

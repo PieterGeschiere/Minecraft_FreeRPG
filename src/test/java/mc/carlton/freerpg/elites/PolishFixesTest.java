@@ -21,9 +21,9 @@ class PolishFixesTest {
   // 2. only clear weather the Blood Moon itself made
   @Test
   void weatherIsOnlyClearedWhenTheBloodMoonMadeIt() {
-    assertTrue(BloodMoonManager.shouldClearWeather(true, false));
-    assertFalse(BloodMoonManager.shouldClearWeather(true, true), "it was already storming");
-    assertFalse(BloodMoonManager.shouldClearWeather(false, false), "thunder effect is off");
+    assertTrue(BloodMoonEvent.shouldClearWeather(true, false));
+    assertFalse(BloodMoonEvent.shouldClearWeather(true, true), "it was already storming");
+    assertFalse(BloodMoonEvent.shouldClearWeather(false, false), "thunder effect is off");
   }
 
   // 4. a dying elite's death blast is not an attack that applies Burning or Frostbound

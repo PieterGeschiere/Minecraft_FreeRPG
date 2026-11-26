@@ -94,6 +94,9 @@ public class Leaderboards {
       String skillName) {
     PlayerLeaderboardStat player = new PlayerLeaderboardStat(playerUUID, playerName, experience);
     ArrayList<PlayerLeaderboardStat> leaderboard = leaderboards.get(skillName);
+    if (leaderboard == null) {
+      return; // a skill that no longer exists, left over in an old leaderboards.yml
+    }
     leaderboard.add(player);
     leaderboards.put(skillName, leaderboard);
     addPlayerLeaderboardProfilePointer(playerUUID, playerName, skillName, player);

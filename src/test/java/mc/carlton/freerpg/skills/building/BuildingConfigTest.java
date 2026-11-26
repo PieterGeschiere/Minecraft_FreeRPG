@@ -60,7 +60,7 @@ class BuildingConfigTest {
     assertEquals(40, BuildingConfig.xpPerMaterialPerMinute(advanced));
     assertEquals(2_000_000, BuildingConfig.trackerMaxBlocks(advanced));
     Map<String, Integer> exp = ConfigLoad.readExpDrops(advanced, "building");
-    assertEquals(Map.of("basicBlock", 2, "decorativeBlock", 5), exp);
+    assertEquals(Map.of("basicBlock", 15, "decorativeBlock", 40), exp);
   }
 
   @Test
@@ -96,7 +96,7 @@ class BuildingConfigTest {
     assertEquals(30_000L, BuildingConfig.xpGraceMillis(old));
     assertEquals(40, BuildingConfig.xpPerMaterialPerMinute(old));
     assertEquals(2_000_000, BuildingConfig.trackerMaxBlocks(old));
-    assertEquals(Map.of("basicBlock", 2, "decorativeBlock", 5),
+    assertEquals(Map.of("basicBlock", 15, "decorativeBlock", 40),
         ConfigLoad.readExpDrops(old, "building"));
     assertTrue(ConfigLoad.expDropsEnabled(old, "building"));
   }

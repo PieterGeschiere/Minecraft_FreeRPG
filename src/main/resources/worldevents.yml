@@ -1,0 +1,240 @@
+# FreeRPG world events: Bountiful Harvest, Gold Rush, Eclipse and the Fishing Festival.
+# (The Blood Moon is also a world event, but its settings stay in elites.yml.)
+# Every value has a default, so you can delete any line you do not need.
+# Reload with /frpg elites reload
+#
+# Only one event runs at a time on the whole server. Every Minecraft day each event rolls once
+# for its chance, inside its time window. Admins can start one with /frpg event start <type>.
+
+# false = none of the events below start by themselves
+enabled: true
+
+# After any event ends, no event starts by itself for this many Minecraft days (admins ignore it)
+minGapDays: 2
+
+events:
+  # Farming, fishing and woodcutting give more exp, ripe crops, logs and fish sometimes drop more
+  bountifulHarvest:
+    enabled: true
+    # The chance (0.05 = 5%) that it happens on a day
+    chance: 0.05
+    worlds: [world]
+    # Time of day (ticks) at which it starts, and at which it ends (0 = sunrise, 12000 = dusk)
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    # Skills that get the multiplier
+    skills: [farming, fishing, woodcutting]
+    # The chance that a drop from the blocks below (or a caught fish) comes twice
+    dropChance: 0.25
+    dropBlocks: [WHEAT, CARROTS, POTATOES, BEETROOTS, NETHER_WART, MELON, PUMPKIN,
+      SWEET_BERRY_BUSH, COCOA, OAK_LOG, BIRCH_LOG, SPRUCE_LOG, JUNGLE_LOG,
+      ACACIA_LOG, DARK_OAK_LOG, CHERRY_LOG, MANGROVE_LOG]
+
+  # Mining gives more exp and ore sometimes drops twice, but mining is loud: it can draw mobs
+  goldRush:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    # It starts at a random time of day between startTick and endTick, and lasts durationSeconds
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    xpMultiplier: 1.5
+    skills: [mining]
+    dropChance: 0.25
+    dropBlocks: [COAL_ORE, DEEPSLATE_COAL_ORE, IRON_ORE, DEEPSLATE_IRON_ORE, COPPER_ORE,
+      DEEPSLATE_COPPER_ORE, GOLD_ORE, DEEPSLATE_GOLD_ORE, REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE,
+      LAPIS_ORE, DEEPSLATE_LAPIS_ORE, DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, EMERALD_ORE,
+      DEEPSLATE_EMERALD_ORE, NETHER_GOLD_ORE, NETHER_QUARTZ_ORE, ANCIENT_DEBRIS]
+    # Breaking a natural ore can spawn mobs close to the miner
+    noise:
+      chance: 0.15
+      minMobs: 1
+      maxMobs: 3
+      # A player causes noise at most once per this many seconds (vein miner cannot flood the area)
+      cooldownSeconds: 5
+      mobTypes: [ZOMBIE, SKELETON, SPIDER, CAVE_SPIDER, CREEPER]
+
+  # A quiet night: part of the natural hostile spawns is cancelled (elites and spawners are kept)
+  eclipse:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    # 0.6 = 60% of the natural hostile spawns do not happen
+    spawnReduction: 0.6
+
+  # Everyone fishes for points. Needs minPlayers online to start by itself. Everyone who scored
+  # gets souls and exp, the top 3 get more and a free spin of the quest wheel.
+  fishingFestival:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    minPlayers: 2
+    # Points per caught item. Anything not listed gives no points.
+    points:
+      COD: 1
+      SALMON: 2
+      TROPICAL_FISH: 3
+      PUFFERFISH: 3
+      ENCHANTED_BOOK: 6
+      NAME_TAG: 6
+      SADDLE: 6
+      NAUTILUS_SHELL: 6
+    # Players who scored nothing get nothing. Players who are offline at the end get nothing.
+    rewards:
+      participationSouls: 3
+      participationMcExp: 50
+      # Fishing exp = points x this
+      fishingExpPerPoint: 20
+      # Extra for place 1, 2 and 3
+      topSouls: [10, 6, 3]
+      topMcExp: [300, 200, 100]
+      topBonusSpins: [1, 1, 1]
+
+  # Woodcutting and axe mastery give more exp, and logs sometimes drop twice
+  lumberjacksDay:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    skills: [woodcutting, axeMastery]
+    dropChance: 0.25
+    dropBlocks: [OAK_LOG, SPRUCE_LOG, BIRCH_LOG, JUNGLE_LOG, ACACIA_LOG, DARK_OAK_LOG, CHERRY_LOG,
+      MANGROVE_LOG, PALE_OAK_LOG, CRIMSON_STEM, WARPED_STEM]
+
+  # Smelting and repair give more exp, and flame pick smelts a double drop more often
+  # (only for players who have the flame pick perk)
+  forgeFever:
+    enabled: true
+    chance: 0.04
+    worlds: [world]
+    startTick: 0
+    endTick: 23000
+    randomStart: true
+    durationSeconds: 600
+    xpMultiplier: 1.5
+    skills: [smelting, repair]
+    # Added to the flame pick's chance of a double drop (0.25 = 25 percentage points)
+    flamePickBonus: 0.25
+
+  # A night for the indoor skills: enchanting and alchemy give more exp, and enchanting costs
+  # fewer levels (the levels are given back right after the enchant)
+  scholarsMoon:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    xpMultiplier: 1.5
+    skills: [enchanting, alchemy]
+    # The share of the levels that is still paid. 0.5 = half, rounded down: the 1 level
+    # button is free, 2 levels cost 1, 3 levels cost 1. 1.0 = no discount, 0.0 = all free.
+    levelCostMultiplier: 0.5
+
+  # For explorers: agility and aeronautics give more exp, everyone is a little faster and
+  # gliding players get a small push (up to a speed limit)
+  adventurersWind:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 0
+    endTick: 12000
+    xpMultiplier: 1.5
+    skills: [agility, aeronautics]
+    # The speed effect: 0 = Speed I, 1 = Speed II, up to 4. Never replaces a stronger effect.
+    speedAmplifier: 0
+    # The push per half second for a gliding player (blocks per tick), and the glide speed
+    # above which the push stops
+    glideBoost: 0.12
+    maxGlideSpeed: 1.6
+
+  # Natural hostile mobs spawn bigger, and bigger means tougher. They give more exp and drops.
+  titanNight:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    # Each mob gets a random size between these (1.0 = normal size)
+    minScale: 1.4
+    maxScale: 2.2
+    # Health and damage grow with the size: factor = 1 + (size - 1) x this
+    healthPerScale: 2.0
+    damagePerScale: 0.5
+    # Killing a Titan mob gives this times the normal kill exp (in the skill of your weapon), and
+    # each piece of its loot has this chance to drop twice. Mobs from spawners and exp farms get
+    # no bonus, and items a mob picked up are never copied.
+    xpMultiplier: 1.5
+    dropChance: 0.25
+    # A chunk gives the bonus at most once per this many seconds (stops mob farms)
+    chunkCooldownSeconds: 120
+    # These mobs never grow
+    excludedTypes: [SLIME, MAGMA_CUBE, WARDEN, ENDER_DRAGON, WITHER, ELDER_GUARDIAN, GIANT]
+
+  # The night gets random rule twists. Each night picks `count` different twists from the pool.
+  mutatorNight:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    count: 2
+    # Each twist can be switched off, and has a weight (a higher weight is picked more often)
+    mutators:
+      lowGravity:
+        enabled: true
+        weight: 1
+        # Players jump higher and fall slower (these are added to the player's attributes)
+        gravity: -0.5
+        jump: 0.3
+        safeFall: 6.0
+      glassCannon:
+        enabled: true
+        weight: 1
+        # Players deal and take this many times the damage when fighting mobs (not other players)
+        multiplier: 2.0
+      explodingLoot:
+        enabled: true
+        weight: 1
+        # Mobs killed by a player drop an extra copy of each drop with this chance...
+        dropChance: 0.5
+        # ...and explode with this chance (no block damage, no fire)
+        explodeChance: 0.3
+        power: 1.5
+        # A chunk pays the extra loot at most once per this many seconds (stops mob farms)
+        chunkCooldownSeconds: 60
+      hungryNight:
+        enabled: true
+        weight: 1
+        # Extra exhaustion every half second (0.05 is about a food point every 80 seconds), only
+        # while you have more than minFood food (so it never starves you), and the multiplier
+        # for the food you eat
+        exhaustionPerBeat: 0.05
+        minFood: 6
+        foodMultiplier: 1.5
+      swiftMobs:
+        enabled: true
+        weight: 1
+        speedBonus: 0.3
+      doubleTrouble:
+        enabled: true
+        weight: 1
+        # No twins in a chunk that already has this many hostile mobs
+        maxPerChunk: 30
+      soulStorm:
+        enabled: true
+        weight: 1
+        multiplier: 2.0
+      glowingMobs:
+        enabled: true
+        weight: 1

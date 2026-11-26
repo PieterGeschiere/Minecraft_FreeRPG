@@ -367,7 +367,8 @@ public class ChangeStats {
     List<String> labels_arr = Arrays.asList(labels_0);
     return ((double) pGlobalStats.get(23) * multipliers.get(0)) * (multipliers.get(
         labels_arr.indexOf(skillName) + 1)) * (globalClass.expBoost(skillName))
-        * mc.carlton.freerpg.party.PartyBuffs.xpMultiplier(p);
+        * mc.carlton.freerpg.party.PartyBuffs.xpMultiplier(p)
+        * mc.carlton.freerpg.worldevents.WorldEvents.xpMultiplier(p, skillName);
   }
 
   public void checkPlayerLevelEXPCurveConsistency() {

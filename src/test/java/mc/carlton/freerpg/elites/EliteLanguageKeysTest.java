@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 class EliteLanguageKeysTest {
 
   private static final Pattern KEY =
-      Pattern.compile("\"@?((?:elite|bloodMoon)[A-Z][A-Za-z]*)\"");
+      Pattern.compile("\"@?((?:elite|bloodMoon|worldEvent)[A-Z][A-Za-z]*)\"");
 
   private static ConfigurationSection english() throws Exception {
     try (InputStream stream = EliteLanguageKeysTest.class.getClassLoader()
@@ -69,7 +69,7 @@ class EliteLanguageKeysTest {
     String code = allCode();
     Set<String> unused = new TreeSet<>();
     for (String key : english.getKeys(false)) {
-      if ((key.startsWith("elite") || key.startsWith("bloodMoon"))
+      if ((key.startsWith("elite") || key.startsWith("bloodMoon") || key.startsWith("worldEvent"))
           && !code.contains("\"" + key + "\"")) {
         unused.add(key);
       }
