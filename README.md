@@ -12,6 +12,12 @@ This is a fork of [FreeRPG 1.16 by AdvancedWipe](https://github.com/AdvancedWipe
 which is itself a fork of the original FreeRPG by Jack Carlton. Both are credited in the licence and
 in `plugin.yml`. This project is not affiliated with or endorsed by them.
 
+> **FreeRPG Reborn is not the original FreeRPG.** It is a separate, continued fork with its own
+> releases, for Minecraft 26.3 only. If you run Minecraft 1.15 to 1.21 you want the original
+> [FreeRPG](https://modrinth.com/plugin/freerpg) instead. The plugin is still called `FreeRPG`
+> inside the server (`plugin.yml`, the `/frpg` command and the `plugins/FreeRPG` folder), so do not
+> run both at the same time.
+
 ## Requirements
 
 * Minecraft Java Edition **26.3** (Paper or Spigot)

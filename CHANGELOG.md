@@ -5,6 +5,10 @@
 FreeRPG Reborn is a fork of [FreeRPG 1.16 by AdvancedWipe](https://github.com/AdvancedWipe/Minecraft_FreeRPG_1.16),
 which is itself a fork of the original FreeRPG by Jack Carlton. This is the first release of the Reborn fork.
 
+**This is not the original FreeRPG.** It is a separate fork for Minecraft 26.3 only. For Minecraft 1.15 to 1.21
+use the original [FreeRPG](https://modrinth.com/plugin/freerpg). Inside the server the plugin is still named
+`FreeRPG`, so do not run both at once.
+
 > **Upgrading from an older FreeRPG version?** Back up your `plugins/FreeRPG` folder first. Old config
 > files are not updated automatically, so new settings fall back to built-in defaults.
 > `perkConfig.yml` is copied to your plugin folder the first time the plugin starts (an existing file is
