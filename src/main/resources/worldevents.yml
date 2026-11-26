@@ -157,3 +157,84 @@ events:
     # above which the push stops
     glideBoost: 0.12
     maxGlideSpeed: 1.6
+
+  # Natural hostile mobs spawn bigger, and bigger means tougher. They give more exp and drops.
+  titanNight:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    # Each mob gets a random size between these (1.0 = normal size)
+    minScale: 1.4
+    maxScale: 2.2
+    # Health and damage grow with the size: factor = 1 + (size - 1) x this
+    healthPerScale: 2.0
+    damagePerScale: 0.5
+    # Killing a Titan mob gives this times the normal kill exp (in the skill of your weapon), and
+    # each piece of its loot has this chance to drop twice. Mobs from spawners and exp farms get
+    # no bonus, and items a mob picked up are never copied.
+    xpMultiplier: 1.5
+    dropChance: 0.25
+    # A chunk gives the bonus at most once per this many seconds (stops mob farms)
+    chunkCooldownSeconds: 120
+    # These mobs never grow
+    excludedTypes: [SLIME, MAGMA_CUBE, WARDEN, ENDER_DRAGON, WITHER, ELDER_GUARDIAN, GIANT]
+
+  # The night gets random rule twists. Each night picks `count` different twists from the pool.
+  mutatorNight:
+    enabled: true
+    chance: 0.05
+    worlds: [world]
+    startTick: 13000
+    endTick: 23000
+    count: 2
+    # Each twist can be switched off, and has a weight (a higher weight is picked more often)
+    mutators:
+      lowGravity:
+        enabled: true
+        weight: 1
+        # Players jump higher and fall slower (these are added to the player's attributes)
+        gravity: -0.5
+        jump: 0.3
+        safeFall: 6.0
+      glassCannon:
+        enabled: true
+        weight: 1
+        # Players deal and take this many times the damage when fighting mobs (not other players)
+        multiplier: 2.0
+      explodingLoot:
+        enabled: true
+        weight: 1
+        # Mobs killed by a player drop an extra copy of each drop with this chance...
+        dropChance: 0.5
+        # ...and explode with this chance (no block damage, no fire)
+        explodeChance: 0.3
+        power: 1.5
+        # A chunk pays the extra loot at most once per this many seconds (stops mob farms)
+        chunkCooldownSeconds: 60
+      hungryNight:
+        enabled: true
+        weight: 1
+        # Extra exhaustion every half second (0.05 is about a food point every 80 seconds), only
+        # while you have more than minFood food (so it never starves you), and the multiplier
+        # for the food you eat
+        exhaustionPerBeat: 0.05
+        minFood: 6
+        foodMultiplier: 1.5
+      swiftMobs:
+        enabled: true
+        weight: 1
+        speedBonus: 0.3
+      doubleTrouble:
+        enabled: true
+        weight: 1
+        # No twins in a chunk that already has this many hostile mobs
+        maxPerChunk: 30
+      soulStorm:
+        enabled: true
+        weight: 1
+        multiplier: 2.0
+      glowingMobs:
+        enabled: true
+        weight: 1

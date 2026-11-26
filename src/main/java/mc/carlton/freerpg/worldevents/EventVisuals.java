@@ -59,8 +59,9 @@ public final class EventVisuals {
   private static void announce(Player player, ActiveEvent event, WorldEvent logic) {
     WorldEventType type = event.type();
     if (WorldEventConfig.effect(type, "title", true)) {
-      player.sendTitle(WorldEventMessages.text(player, type.titleKey()),
-          WorldEventMessages.text(player, type.subtitleKey()), 10, 80, 30);
+      String[] pairs = logic.announcePlaceholders(event);
+      player.sendTitle(WorldEventMessages.text(player, type.titleKey(), pairs),
+          WorldEventMessages.text(player, type.subtitleKey(), pairs), 10, 80, 30);
     }
     if (WorldEventConfig.effect(type, "sound", true)) {
       player.playSound(player.getLocation(), logic.announceSound(), 0.6f, 0.6f);

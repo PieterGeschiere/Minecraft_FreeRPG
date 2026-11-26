@@ -124,6 +124,8 @@ public class Global extends Skill {
         default:
           break;
       }
+      amountGained = Math.max(1, (int) Math.round(
+          amountGained * mc.carlton.freerpg.worldevents.WorldEvents.soulMultiplier(p)));
       UUID uuid = p.getUniqueId();
       PlayerStats pStatClass = new PlayerStats(p);
       Map<UUID, Map<String, ArrayList<Number>>> statAll = pStatClass.getData();

@@ -154,14 +154,15 @@ public final class WorldEventConfig {
   private static double defaultChance(WorldEventType type) {
     return switch (type) {
       case BLOOD_MOON -> 0.0625;
-      case BOUNTIFUL_HARVEST, ECLIPSE, LUMBERJACKS_DAY, SCHOLARS_MOON, ADVENTURERS_WIND -> 0.05;
+      case BOUNTIFUL_HARVEST, ECLIPSE, LUMBERJACKS_DAY, SCHOLARS_MOON, ADVENTURERS_WIND, TITAN_NIGHT,
+          MUTATOR_NIGHT -> 0.05;
       case GOLD_RUSH, FISHING_FESTIVAL, FORGE_FEVER -> 0.04;
     };
   }
 
   private static int defaultStart(WorldEventType type) {
     return switch (type) {
-      case BLOOD_MOON, ECLIPSE, SCHOLARS_MOON -> 13000;
+      case BLOOD_MOON, ECLIPSE, SCHOLARS_MOON, TITAN_NIGHT, MUTATOR_NIGHT -> 13000;
       case BOUNTIFUL_HARVEST, GOLD_RUSH, FISHING_FESTIVAL, LUMBERJACKS_DAY, FORGE_FEVER,
           ADVENTURERS_WIND -> 0;
     };

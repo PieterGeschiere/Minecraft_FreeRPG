@@ -23,7 +23,7 @@ class WorldEventCommandsTest {
 
   @Test
   void theTypeNamesAreTheCommandNames() {
-    assertEquals(9, WorldEventCommands.typeNames().size());
+    assertEquals(11, WorldEventCommands.typeNames().size());
     assertTrue(WorldEventCommands.typeNames().contains("blood_moon"));
     assertTrue(WorldEventCommands.typeNames().contains("fishing_festival"));
   }

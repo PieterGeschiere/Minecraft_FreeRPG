@@ -21,7 +21,7 @@ class SkillEventsTest {
 
   @Test
   void theFourNewTypesExistAfterTheOldOnesInRollOrder() {
-    assertEquals(9, WorldEventType.values().length);
+    assertEquals(11, WorldEventType.values().length);
     assertEquals(WorldEventType.LUMBERJACKS_DAY, WorldEventType.fromCommandName("lumberjacks_day").orElseThrow());
     assertEquals(WorldEventType.FORGE_FEVER, WorldEventType.fromCommandName("forge_fever").orElseThrow());
     assertEquals(WorldEventType.SCHOLARS_MOON, WorldEventType.fromCommandName("scholars_moon").orElseThrow());

@@ -34,6 +34,16 @@ public interface WorldEvent {
     return 0.0;
   }
 
+  /** How much the souls from kills are multiplied while the event runs. */
+  default double soulMultiplier() {
+    return 1.0;
+  }
+
+  /** Extra {name, value, ...} pairs for the title and subtitle texts. */
+  default String[] announcePlaceholders(ActiveEvent event) {
+    return new String[0];
+  }
+
   default Sound announceSound() {
     return Sound.UI_TOAST_CHALLENGE_COMPLETE;
   }

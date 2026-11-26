@@ -34,7 +34,13 @@ public enum WorldEventType {
       "worldEventScholarEnded"),
   ADVENTURERS_WIND("adventurersWind", "adventurers_wind", Scope.WORLD, BarColor.BLUE,
       "worldEventWindTitle", "worldEventWindSubtitle", "worldEventWindBossBar",
-      "worldEventWindEnded");
+      "worldEventWindEnded"),
+  TITAN_NIGHT("titanNight", "titan_night", Scope.WORLD, BarColor.YELLOW,
+      "worldEventTitanTitle", "worldEventTitanSubtitle", "worldEventTitanBossBar",
+      "worldEventTitanEnded"),
+  MUTATOR_NIGHT("mutatorNight", "mutator_night", Scope.WORLD, BarColor.PINK,
+      "worldEventMutatorTitle", "worldEventMutatorSubtitle", "worldEventMutatorBossBar",
+      "worldEventMutatorEnded");
 
   /** Whether an event happens in one world or everywhere on the server. */
   public enum Scope { WORLD, SERVER }

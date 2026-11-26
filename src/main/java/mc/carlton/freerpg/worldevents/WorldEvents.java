@@ -28,6 +28,13 @@ public final class WorldEvents {
     WorldEventManager.register(new ScholarsMoonEvent());
     Bukkit.getPluginManager().registerEvents(new ScholarEnchantListener(), plugin);
     WorldEventManager.register(new AdventurersWindEvent());
+    WorldEventManager.register(new TitanNightEvent());
+    Bukkit.getPluginManager().registerEvents(new TitanSpawnListener(), plugin);
+    Bukkit.getPluginManager().registerEvents(new TitanLootListener(), plugin);
+    WorldEventManager.register(new MutatorNightEvent());
+    Bukkit.getPluginManager().registerEvents(new MutatorMobListener(), plugin);
+    Bukkit.getPluginManager().registerEvents(new MutatorCombatListener(), plugin);
+    Bukkit.getPluginManager().registerEvents(new MutatorPlayerListener(), plugin);
     WorldEventManager.begin(plugin);
   }
 
@@ -42,6 +49,19 @@ public final class WorldEvents {
 
   public static boolean isActive(WorldEventType type, World world) {
     return WorldEventManager.isActive(type, world);
+  }
+
+  /** Whether this mob is a Double Trouble twin (twins give no exp, souls or loot). */
+  public static boolean isTwin(org.bukkit.entity.Entity entity) {
+    return EntityTags.has(entity, MutatorMobListener.TWIN_TAG);
+  }
+
+  /** How much the souls from kills are multiplied by the running event (1.0 when none). */
+  public static double soulMultiplier(Player p) {
+    return WorldEventManager.current()
+        .filter(event -> event.appliesTo(p.getWorld()))
+        .map(event -> WorldEventManager.eventOf(event.type()).soulMultiplier())
+        .orElse(1.0);
   }
 
   /** The extra double-smelt chance flame pick gets from the running event (0 when none). */

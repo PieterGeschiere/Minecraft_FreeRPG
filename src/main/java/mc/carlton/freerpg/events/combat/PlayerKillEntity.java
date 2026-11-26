@@ -29,6 +29,9 @@ public class PlayerKillEntity implements Listener {
       if (p.getGameMode() == GameMode.CREATIVE) {
         return;
       }
+      if (mc.carlton.freerpg.worldevents.WorldEvents.isTwin(entity)) {
+        return; // a Double Trouble twin gives no skill exp and no souls
+      }
       ItemGroups itemGroups = new ItemGroups();
       World world = p.getWorld();
       List<ItemStack> drops = e.getDrops();
